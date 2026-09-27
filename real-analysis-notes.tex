@@ -1879,7 +1879,7 @@ exist. \emph{Check.} Every $x\in B$ satisfies $x<4$, yet no number below $4$ bou
 \end{wex}
 
 \begin{wex}{The supremum of $\set{n/(n+1)}$}
-Let $S=\set{\dfrac{n}{n+1}\st n\in\N}=\set{\tfrac12,\tfrac23,\tfrac34,\dots}$. Show
+Let $S=\bigset{\dfrac{n}{n+1}\st n\in\N}=\set{\tfrac12,\tfrac23,\tfrac34,\dots}$. Show
 $\sup S=1$ and $\inf S=\tfrac12=\min S$.
 \wrec ``Sup of an increasing sequence set'': bound by $1$, then approach via the
 Archimedean property (Method, two-condition test).
@@ -10579,7 +10579,7 @@ $1-\tfrac12=0.5\le\ln2=0.693\le1$. Equality at $x=0$ throughout. \checkmark
 \item Let $g(x)=\abs{x^3}$ for $x\in\R$. Find $g'(x)$ and $g''(x)$ for all $x$, and $g'''(x)$
   for $x\neq0$. Show $g'''(0)$ does not exist.
 \item Use induction to prove Leibniz's rule for the $n$-th derivative of a product:
-  $(fg)^{(n)}(x)=\sum_{k=0}^n\binom nk f^{(n-k)}(x)g^{(k)}(x)$.
+  \[(fg)^{(n)}(x)=\sum_{k=0}^n\binom nk f^{(n-k)}(x)g^{(k)}(x).\]
 \item Show that if $x>0$, then $1+\tfrac12x-\tfrac18x^2\le\sqrt{1+x}\le1+\tfrac12x$.
 \item Use the preceding exercise to approximate $\sqrt{1.2}$ and $\sqrt2$. What accuracy can
   you guarantee?
@@ -11359,7 +11359,7 @@ this $P$ does not help at all on $[\tfrac12,1]$ where one fat rectangle remains.
 \item Compute $\int_0^1 x^3\dx$ directly from upper/lower sums using $x_i=i/n$ and
   $\sum_{k=1}^m k^3=\bigl(\tfrac{m(m+1)}2\bigr)^2$.
 \item (Refinement.) Let $f(x)=x$ on $[0,1]$ and $P=\set{0,1}$, $P^*=\set{0,\tfrac12,1}$.
-  Compute $L(f,P),U(f,P),L(f,P^*),U(f,P^*)$ and verify the refinement lemma's chain of
+  Compute $L(f,P),\allowbreak U(f,P),\allowbreak L(f,P^*),\allowbreak U(f,P^*)$ and verify the refinement lemma's chain of
   inequalities numerically.
 \item Show that if $f\in\mathcal R[a,b]$ and we change $f$ at finitely many points, the new
   function is still in $\mathcal R[a,b]$ with the same integral.
@@ -19992,7 +19992,7 @@ key algebraic fact $\partial^2=0$ mirrors $d^2=0$ on the geometric side.
 An \emph{affine $k$-simplex} $\sigma=[p_0,p_1,\dots,p_k]$ with vertices $p_0,\dots,p_k\in\Rn$
 is the affine map of the standard simplex
 \[
-  Q^k=\set{(u_1,\dots,u_k)\st u_i\ge0,\ \textstyle\sum u_i\le1}\subseteq\Rk
+  Q^k=\bigset{(u_1,\dots,u_k)\st u_i\ge0,\ \textstyle\sum u_i\le1}\subseteq\Rk
 \]
 into $\Rn$ given by
 \[
@@ -29984,7 +29984,8 @@ and interchange (justified by absolute convergence):
 \int_0^\infty\hat f(\xi)e^{2\pi i x\xi}\,\dd\xi
 &=\int_{-\infty}^\infty f(u-ib)\int_0^\infty e^{-2\pi i(u-ib-x)\xi}\,\dd\xi\,\dd u\\
 &=\int_{-\infty}^\infty f(u-ib)\,\frac{1}{2\pi b+2\pi i(u-x)}\,\dd u
-  &&\text{(Lemma~\ref{l:expint@c17}, $A=2\pi b,\ B=2\pi(u-x)$)}\\
+  &&\text{(Lemma~\ref{l:expint@c17},}\\
+& &&\text{$A=2\pi b,\ B=2\pi(u-x)$)}\\
 &=\frac{1}{2\pi i}\int_{-\infty}^\infty\frac{f(u-ib)}{u-ib-x}\,\dd u
   =\frac{1}{2\pi i}\int_{L_1}\frac{f(\zeta)}{\zeta-x}\,\dd\zeta,
 \end{aligned}
@@ -32483,9 +32484,8 @@ For $\Re(\alpha)>0$, $\Re(\beta)>0$ the \emph{Beta function} is
 \end{definition}
 
 \begin{theorem}[Beta--Gamma identity]\label{t:beta@c19}
-$\displaystyle B(\alpha,\beta)=\frac{\Gamma(\alpha)\Gamma(\beta)}{\Gamma(\alpha+\beta)}$,
-and equivalently $\displaystyle B(\alpha,\beta)=\int_0^\infty
-\frac{u^{\alpha-1}}{(1+u)^{\alpha+\beta}}\,\dd u$.
+\[B(\alpha,\beta)=\frac{\Gamma(\alpha)\Gamma(\beta)}{\Gamma(\alpha+\beta)},\qquad\text{and equivalently}\qquad B(\alpha,\beta)=\int_0^\infty
+\frac{u^{\alpha-1}}{(1+u)^{\alpha+\beta}}\,\dd u.\]
 \end{theorem}
 
 \begin{proof}
@@ -39035,7 +39035,7 @@ unless $n$ is pentagonal.
 
 \begin{definition}\label{d:pentagonal@c23}
 The \emph{pentagonal numbers} are $n=\tfrac{k(3k+1)}{2}$ for $k\in\Z$. The first few are
-$1,2,5,7,12,15,22,26,\dots$. (Triangular numbers are $\tfrac{k(k-1)}2$, squares are $k^2$.)
+$1,\allowbreak 2,\allowbreak 5,\allowbreak 7,\allowbreak 12,\allowbreak 15,\allowbreak 22,\allowbreak 26,\allowbreak\dots$. (Triangular numbers are $\tfrac{k(k-1)}2$, squares are $k^2$.)
 \end{definition}
 
 \begin{center}
@@ -39312,7 +39312,7 @@ correction)?
 Which integers are sums of two squares? Of four? Define
 \[
   r_2(n)=\#\set{(x,y)\in\Z^2\st x^2+y^2=n},\qquad
-  r_4(n)=\#\set{(x_1,\dots,x_4)\in\Z^4\st \textstyle\sum x_j^2=n},
+  r_4(n)=\#\bigset{(x_1,\dots,x_4)\in\Z^4\st \textstyle\sum x_j^2=n},
 \]
 counting signs and orderings. For instance $r_2(3)=0$, while $r_2(5)=8$ (from
 $5=(\pm2)^2+(\pm1)^2=(\pm1)^2+(\pm2)^2$). No integer $\equiv3\pmod4$ is a sum of two squares,
@@ -44237,8 +44237,9 @@ but $F'$ is not integrable on $[-1,1]$.
 continuous.
 
 \item (Measurability issues in differentiation.)
-(a) If $F$ is continuous on $[a,b]$, show $D^+F(x)=\limsup_{h\to0^+}\frac{F(x+h)-F(x)}{h}$ is
-measurable.
+(a) If $F$ is continuous on $[a,b]$, show
+\[D^+F(x)=\limsup_{h\to0^+}\frac{F(x+h)-F(x)}{h}\]
+is measurable.
 (b) If $J(x)=\sum_n\alpha_n j_n(x)$ is a jump function as in Section~3.3, show
 $\limsup_{h\to0}\frac{J(x+h)-J(x)}{h}$ is measurable. [Hint: for (a), continuity lets one
 restrict the limsup to countably many $h$; for (b), use the partial sums $J_N$ and let
@@ -45028,7 +45029,7 @@ Standard examples:
 \begin{itemize}
 \item $\Ltwo(E)$ for measurable $E\subseteq\Rd$ with $\Leb(E)>0$.
 \item $\C^N$ with $\inner a b=\sum_{k=1}^N a_k\conj{b_k}$, the finite-dimensional model.
-\item $\ell^2(\Z)=\set{(a_n)_{n\in\Z}\st\sum\abs{a_n}^2<\infty}$ with
+\item $\ell^2(\Z)=\bigset{(a_n)_{n\in\Z}\st\sum\abs{a_n}^2<\infty}$ with
   $\inner a b=\sum_k a_k\conj{b_k}$, and its one-sided variant $\ell^2(\N)$. Every
   infinite-dimensional separable Hilbert space turns out to be $\ell^2(\Z)$ in disguise.
 \end{itemize}
@@ -45563,7 +45564,7 @@ consistent. \checkmark
 $\inner F G=\frac1{2\pi}\int_{-\pi}^\pi F(e^{i\theta})\conj{G(e^{i\theta})}\,d\theta$, and
 $H_2=\Ltwo(\R)$. Using $x\mapsto\frac{i-x}{i+x}$: (a) show $U:F\mapsto f$ with
 $f(x)=\frac1{\pi^{1/2}(i+x)}F\bigl(\frac{i-x}{i+x}\bigr)$ is a unitary map $H_1\to H_2$;
-(b) deduce that $\set{\frac1{\pi^{1/2}}\bigl(\frac{i-x}{i+x}\bigr)^n\frac1{i+x}}_{n\in\Z}$ is
+(b) deduce that $\bigset{\frac1{\pi^{1/2}}\bigl(\frac{i-x}{i+x}\bigr)^n\frac1{i+x}}_{n\in\Z}$ is
 an orthonormal basis of $\Ltwo(\R)$.
 \item Let $F_0(z)=1/(1-z)^i$. (a) Verify $\abs{F_0(z)}\le e^{\pi/2}$ in the unit disc but
 $\lim_{r\to1}F_0(r)$ does not exist [Hint: $\abs{F_0(r)}=1$ and $F_0(r)$ oscillates between
@@ -45974,11 +45975,12 @@ $T$ is \emph{diagonalized} by the orthonormal basis $\set{\varphi_k}$ if
 $T\varphi_k=\lambda_k\varphi_k$; the $\lambda_k$ are \emph{eigenvalues}, the $\set{\lambda_k}$
 the \emph{multiplier sequence}. Then $f\sim\sum a_k\varphi_k$ gives $Tf\sim\sum
 a_k\lambda_k\varphi_k$, and:
-\[
+\begin{gather*}
   \norm T=\sup_k\abs{\lambda_k},\quad T^*\leftrightarrow\set{\conj{\lambda_k}},\quad
-  T=T^*\iff\lambda_k\in\R,\quad T\text{ unitary}\iff\abs{\lambda_k}=1,\quad
+  T=T^*\iff\lambda_k\in\R,\\
+  T\text{ unitary}\iff\abs{\lambda_k}=1,\quad
   T\text{ projection}\iff\lambda_k\in\set{0,1}.
-\]
+\end{gather*}
 \end{definition}
 
 \begin{center}
@@ -46938,7 +46940,7 @@ $R\to\infty$ by the $O(1/(1+x^2))$ decay.}
   harmonic with $f=\lim_{y\to0}u$, $Hf=\lim_{y\to0}v$; (b) $F(z)=\frac1{\pi i}\int_\R\frac{f(t)}{t-z}\dt$;
   (c) $v=f*Q_y$, $Q_y(x)=\frac1\pi\frac{x}{x^2+y^2}$ the conjugate Poisson kernel.
   [Use $\frac1{\pi z}=P_y(x)+iQ_y(x)$.]
-\item Show that $\set{\frac1{\pi^{1/2}(i+z)}\bigl(\frac{i-z}{i+z}\bigr)^n}_{n\ge0}$ is an
+\item Show that $\bigset{\frac1{\pi^{1/2}(i+z)}\bigl(\frac{i-z}{i+z}\bigr)^n}_{n\ge0}$ is an
   orthonormal basis of $H^2(\R^2_+)$. (Recall the corresponding boundary system is an
   orthonormal basis of $\Ltwo(\R)$.) [It suffices to show that $F\in H^2$ with
   $\int_\R F(x)\frac{(x+i)^n}{(x-i)^{n+1}}\dx=0$ for all $n\ge0$ forces $F=0$; by the Cauchy
@@ -47150,8 +47152,9 @@ Choose $\Omega\subset[-M,M]$. With $\eta=\sin\theta$ and a translation by $\cos\
   \le e^{4\pi M}\int_\R\abs{L^{*}\psi}^2 .
 \]
 Apply Lemma~\ref{l:blaschke@c28} with $F(z)=\hat\psi(\xi+z)$ and $Q(\xi+z)$ in place of $P$:
-$\abs{\hat\psi(\xi)}^2\le\frac1{2\pi}\int_0^{2\pi}
-\abs{Q(\xi+e^{i\theta})\hat\psi(\xi+e^{i\theta})}^2\,\dd\theta$. Integrate in $\xi$,
+\[\abs{\hat\psi(\xi)}^2\le\frac1{2\pi}\int_0^{2\pi}
+\abs{Q(\xi+e^{i\theta})\hat\psi(\xi+e^{i\theta})}^2\,\dd\theta.\]
+Integrate in $\xi$,
 interchange the $\xi,\theta$ integrations, translate, and use the displayed bound:
 $\norm{\hat\psi}_{\Ltwo(\R)}^2\le e^{4\pi M}\int_\R\abs{L^{*}\psi}^2$, which by Plancherel
 is the claim. The $d$-dimensional case rotates coordinates so that
@@ -47198,9 +47201,13 @@ weak$=$absolutely-continuous principle.
 \begin{wex}{The mean-value inequality $\abs{F(0)}^2\le$ average}
 Prove the $P\equiv1$ case of Lemma~\ref{l:blaschke@c28} for $F(z)=\sum_{k\ge0}c_k z^k$.
 \wrec Recognition: expand and use orthogonality of $e^{ik\theta}$ on the circle.
-\wsol $\frac1{2\pi}\int_0^{2\pi}\abs{F(e^{i\theta})}^2\,\dd\theta
-=\frac1{2\pi}\int_0^{2\pi}\sum_{j,k}c_j\bar c_k e^{i(j-k)\theta}\,\dd\theta
-=\sum_k\abs{c_k}^2\ge\abs{c_0}^2=\abs{F(0)}^2$, using
+\wsol
+\begin{align*}
+\frac1{2\pi}\int_0^{2\pi}\abs{F(e^{i\theta})}^2\,\dd\theta
+&=\frac1{2\pi}\int_0^{2\pi}\sum_{j,k}c_j\bar c_k e^{i(j-k)\theta}\,\dd\theta\\
+&=\sum_k\abs{c_k}^2\ge\abs{c_0}^2=\abs{F(0)}^2,
+\end{align*}
+using
 $\frac1{2\pi}\int_0^{2\pi}e^{i(j-k)\theta}\,\dd\theta=\delta_{jk}$. \emph{Check.} Equality
 holds iff $c_k=0$ for $k\ge1$, i.e.\ $F$ constant --- the harmonic mean-value property at
 its tightest.
@@ -47678,8 +47685,10 @@ extension is $u(r,\theta)=\sum_{n\ge0}r^{2^n}2^{-n\alpha}e^{i2^n\theta}$. Show $
 for $\alpha\le1/2$.
 \wrec Recognition: compute $D(u)$ in polar coordinates via Parseval on each Fourier mode.
 \wsol In polar form $\abs{\nabla u}^2=\abs{u_r}^2+r^{-2}\abs{u_\theta}^2$. Parseval on
-the $\theta$-integral leaves $D_\rho=\int_0^\rho\sum_n 2^{2n+1}2^{-2n\alpha}r^{2^{n+1}-1}\dd r
-=\sum_n\rho^{2^{n+1}}2^n 2^{-2n\alpha}$ over the disc of radius $\rho$. As $\rho\to1$ the
+the $\theta$-integral leaves
+\[D_\rho=\int_0^\rho\sum_n 2^{2n+1}2^{-2n\alpha}r^{2^{n+1}-1}\dd r
+=\sum_n\rho^{2^{n+1}}2^n 2^{-2n\alpha}\]
+over the disc of radius $\rho$. As $\rho\to1$ the
 $n$-th term tends to $2^{n(1-2\alpha)}$, whose sum diverges when $1-2\alpha\ge0$, i.e.\
 $\alpha\le1/2$. \emph{Check.} For $\alpha\le1/2$ the energy is infinite even though the
 Poisson integral $u$ solves the problem --- exactly Hadamard's point that competitors may
@@ -48354,7 +48363,7 @@ verbatim. We state them and turn to the integral.
 \begin{definition}\label{d:integral@c29}
 The integral $\int_X f\dmu$ is built in four steps: on simple $\varphi\ge0$,
 $\int\varphi\dmu=\sum_k a_k\mu(E_k)$; on $f\ge0$,
-$\int f\dmu=\sup\set{\int\varphi\dmu\st 0\le\varphi\le f,\ \varphi\text{ simple}}$; on real
+$\int f\dmu=\sup\bigset{\int\varphi\dmu\st 0\le\varphi\le f,\ \varphi\text{ simple}}$; on real
 $f$, $\int f=\int f^{+}-\int f^{-}$ when not $\infty-\infty$; $f$ is \emph{integrable} if
 $\int_X\abs{f}\dmu<\infty$. Linearity and monotonicity hold as on $\Rd$.
 \end{definition}
@@ -52869,11 +52878,11 @@ $S_N(f)=f*D_N$, where $D_N(x)=\sum_{n=-N}^N e^{inx}$ is the Dirichlet kernel.
 \end{theorem}
 
 \begin{proof}
-\[
-  S_N(f)(x)=\sum_{n=-N}^N\hat f(n)e^{inx}
-  =\sum_{n=-N}^N\Bigl(\frac1{2\pi}\int_{-\pi}^\pi f(y)e^{-iny}\,\mathrm{d}y\Bigr)e^{inx}
-  =\frac1{2\pi}\int_{-\pi}^\pi f(y)\sum_{n=-N}^N e^{in(x-y)}\,\mathrm{d}y=(f*D_N)(x).
-\]
+\begin{align*}
+  S_N(f)(x)&=\sum_{n=-N}^N\hat f(n)e^{inx}
+  =\sum_{n=-N}^N\Bigl(\frac1{2\pi}\int_{-\pi}^\pi f(y)e^{-iny}\,\mathrm{d}y\Bigr)e^{inx}\\
+  &=\frac1{2\pi}\int_{-\pi}^\pi f(y)\sum_{n=-N}^N e^{in(x-y)}\,\mathrm{d}y=(f*D_N)(x).
+\end{align*}
 Interchanging the finite sum and integral is legitimate. So understanding $S_N(f)$ is
 exactly understanding $f*D_N$.
 \end{proof}
@@ -52912,11 +52921,11 @@ take $F(y)=f(y)g(x-y)$. (iv): interchange the two integral signs and change vari
 (v): write $(f*g)(x_1)-(f*g)(x_2)=\frac1{2\pi}\int f(y)[g(x_1-y)-g(x_2-y)]\,\mathrm{d}y$; $g$ is
 uniformly continuous (continuous and periodic), so for $|x_1-x_2|<\delta$ the bracket is
 $<\eps$, giving $|(f*g)(x_1)-(f*g)(x_2)|\le\frac{\eps}{2\pi}\int|f|\le \eps B$. (vi):
-\[
-  \widehat{f*g}(n)=\frac1{2\pi}\int\!\Bigl(\frac1{2\pi}\int f(y)g(x-y)\,\mathrm{d}y\Bigr)e^{-inx}\dx
-  =\frac1{2\pi}\int f(y)e^{-iny}\Bigl(\frac1{2\pi}\int g(x-y)e^{-in(x-y)}\dx\Bigr)\,\mathrm{d}y
+\begin{align*}
+  \widehat{f*g}(n)&=\frac1{2\pi}\int\!\Bigl(\frac1{2\pi}\int f(y)g(x-y)\,\mathrm{d}y\Bigr)e^{-inx}\dx\\
+  &=\frac1{2\pi}\int f(y)e^{-iny}\Bigl(\frac1{2\pi}\int g(x-y)e^{-in(x-y)}\dx\Bigr)\,\mathrm{d}y
   =\hat f(n)\hat g(n).
-\]
+\end{align*}
 For general integrable $f,g$, apply the approximation Lemma~\ref{l:approx@c32}: take
 continuous $f_k\to f$, $g_k\to g$ in the integral norm with uniform bounds. Then
 $f*g-f_k*g_k=(f-f_k)*g+f_k*(g-g_k)$, and
@@ -55546,7 +55555,7 @@ divided by $N\to0$. \emph{Check.} Agrees with the integral. \checkmark
 \end{wex}
 
 \begin{wex}{Example 1 of Stein is equidistributed}
-Show the sequence $0,\tfrac12,0,\tfrac13,\tfrac23,0,\tfrac14,\tfrac24,\tfrac34,0,\dots$ is
+Show the sequence $0,\allowbreak\tfrac12,\allowbreak 0,\allowbreak\tfrac13,\allowbreak\tfrac23,\allowbreak 0,\allowbreak\tfrac14,\allowbreak\tfrac24,\allowbreak\tfrac34,\allowbreak 0,\allowbreak\dots$ is
 equidistributed.
 \wrec Direct counting using the block structure (denominators $q=1,2,3,\dots$).
 \wsol After the block with denominator $q$, the partial sequence contains, for each
@@ -55623,8 +55632,9 @@ not go to $0$. \checkmark
 
 \begin{exers}{Problems (Stein, Ch.4) -- equidistribution.}
 \item (Weyl's estimate.) Let $S_N=\sum_{n=1}^N e^{2\pi i f(n)}$. (a) Show that for $H\le N$,
-  $\abs{S_N}^2\le c\,\dfrac{N}{H}\sum_{h=0}^{H}\Bigl|\sum_{n=1}^{N-h}e^{2\pi i(f(n+h)-f(n))}
-  \Bigr|$ for a constant $c>0$ independent of $N,H,f$. (b) Use this to show
+  \[\abs{S_N}^2\le c\,\dfrac{N}{H}\sum_{h=0}^{H}\Bigl|\sum_{n=1}^{N-h}e^{2\pi i(f(n+h)-f(n))}
+  \Bigr|\]
+  for a constant $c>0$ independent of $N,H,f$. (b) Use this to show
   $\langle n^2\gamma\rangle$ is equidistributed in $[0,1)$ whenever $\gamma$ is irrational.
   (c) More generally, if $\{\xi_n\}$ is such that $\langle\xi_{n+h}-\xi_n\rangle$ is
   equidistributed for all positive integers $h$, then $\langle\xi_n\rangle$ is
@@ -56786,8 +56796,12 @@ $h_k$ realize all four eigenvalues $i^{-k}$. \checkmark
 \begin{wex}{Why convolution with a polynomial-kernel is a polynomial}
 Explain why $(g*R)(x)=\int_{-M}^M g(t)R(x-t)\dt$ is a polynomial in $x$ when $R$ is.
 \wrec Expand $R(x-t)$ by the binomial theorem and pull $x$-powers out of the integral.
-\wsol Write $R(x-t)=\sum_{n}c_n(x-t)^n=\sum_n c_n\sum_{k}\binom nk x^k(-t)^{n-k}
-=\sum_k x^k\Bigl[\sum_n c_n\binom nk(-1)^{n-k}\int_{-M}^M g(t)t^{n-k}\dt\Bigr]$. The bracket
+\wsol Write
+\begin{align*}
+R(x-t)&=\sum_{n}c_n(x-t)^n=\sum_n c_n\sum_{k}\binom nk x^k(-t)^{n-k}\\
+&=\sum_k x^k\Bigl[\sum_n c_n\binom nk(-1)^{n-k}\int_{-M}^M g(t)t^{n-k}\dt\Bigr].
+\end{align*}
+The bracket
 is a constant (a finite combination of moments of $g$), so $g*R=\sum_k a_k x^k$ is a
 polynomial. \emph{Check.} The degree of $g*R$ equals the degree of $R$. \checkmark
 \end{wex}
@@ -58665,7 +58679,7 @@ notes, the fast Fourier transform), not on a finite exact inversion. \checkmark
 
 \begin{exers}{Exercises (Stein, Ch.6 --- the Radon and X-ray transforms).}
 \item (Duality of the dual transform.) Establish the identity
-$\int_\R\int_{S^2}R(f)(t,\gamma)F(t,\gamma)\,d\sigma(\gamma)\,dt=\int_{\R^3}f(x)R^{*}(F)(x)\,dx$
+\[\int_\R\int_{S^2}R(f)(t,\gamma)F(t,\gamma)\,d\sigma(\gamma)\,dt=\int_{\R^3}f(x)R^{*}(F)(x)\,dx\]
 for $f\in\mathcal S(\R^3)$, $F\in\mathcal S(\R\times S^2)$, where $R(f)=\int_{P_{t,\gamma}}f$ and
 $R^{*}(F)(x)=\int_{S^2}F(x\cdot\gamma,\gamma)d\sigma(\gamma)$. (Consider
 $\int\int\int f(t\gamma+u_1e_1+u_2e_2)F(t,\gamma)\,dt\,d\sigma\,du$: integrating in $u$ first gives the
@@ -60809,8 +60823,9 @@ the outer sum over all Dirichlet characters mod $q$. Splitting off the trivial c
 \begin{proof}
 Using $\delta_\ell(p)=\frac1{\varphi(q)}\sum_\chi\conj{\chi(\ell)}\chi(p)$
 (Proposition~\ref{p:dirprops@c38}(4)),
-$\sum_{p\equiv\ell}p^{-s}=\sum_p\delta_\ell(p)p^{-s}=\frac1{\varphi(q)}\sum_\chi
-\conj{\chi(\ell)}\sum_p\chi(p)p^{-s}$. The $\chi=\chi_0$ term is
+\[\sum_{p\equiv\ell}p^{-s}=\sum_p\delta_\ell(p)p^{-s}=\frac1{\varphi(q)}\sum_\chi
+\conj{\chi(\ell)}\sum_p\chi(p)p^{-s}.\]
+The $\chi=\chi_0$ term is
 $\frac1{\varphi(q)}\sum_{p\nmid q}p^{-s}$ since $\conj{\chi_0(\ell)}=1$ and
 $\chi_0(p)=\ind{p\nmid q}$.
 \end{proof}
@@ -61733,8 +61748,9 @@ L^q \arrow[r, hook, "g\,\mapsto\,\ell_g"] & (L^p)^*
 \begin{lemma}[Converse of Holder]\label{l:holder-conv@c39}
 Let $1\le p,q\le\infty$ be conjugate. (i) If $g\in L^q$ then
 $\norm g_{L^q}=\sup_{\norm f_{L^p}\le1}\abs{\int fg}$. (ii) If $g$ is integrable on every
-set of finite measure and $M:=\sup\set{\abs{\int fg}\st\norm f_{L^p}\le1,\ f\text{ simple}}
-<\infty$, then $g\in L^q$ with $\norm g_{L^q}=M$.
+set of finite measure and
+\[M:=\sup\bigset{\abs{\int fg}\st\norm f_{L^p}\le1,\ f\text{ simple}}<\infty,\]
+then $g\in L^q$ with $\norm g_{L^q}=M$.
 \end{lemma}
 
 \begin{proof}
@@ -61896,7 +61912,7 @@ extreme from the disjoint-support case.
   $b=\varphi(a)$.
 \item Orlicz spaces. Let $\Phi$ be continuous, convex, increasing on $[0,\infty)$ with
   $\Phi(0)=0$. Set $L^\Phi=\set{f\st\int_X\Phi(\abs f/M)\,d\mu<\infty\text{ for some }M>0}$
-  and $\norm f_\Phi=\inf\set{M>0\st\int\Phi(\abs f/M)\,d\mu\le1}$. Prove (a) $L^\Phi$ is a
+  and $\norm f_\Phi=\inf\bigset{M>0\st\int\Phi(\abs f/M)\,d\mu\le1}$. Prove (a) $L^\Phi$ is a
   vector space, (b) $\norm{\cdot}_\Phi$ is a norm, (c) $L^\Phi$ is complete. Note
   $\Phi(t)=t^p$ gives $L^\Phi=L^p$.
 \item Let $1\le p_0<p_1<\infty$. (a) With $\Phi(t)=t^{p_0}$ for $0\le t\le1$ and
@@ -63923,7 +63939,7 @@ interpolated pair $L^{p}\to L^{q}$ (dashed) with $M\le M_0^{1-t}M_1^{t}$.}
 \end{center}
 
 \begin{proof}
-By the duality $\norm{Tf}_{L^{q}}=\sup\set{\abs{\int(Tf)g\,d\nu}:g\text{ simple},
+By the duality $\norm{Tf}_{L^{q}}=\sup\bigset{\abs{\int(Tf)g\,d\nu}:g\text{ simple},
 \norm g_{L^{q'}}\le1}$ it suffices to bound $\abs{\int(Tf)g}$ for simple $f$ with
 $\norm f_{L^{p}}=1$ and simple $g$ with $\norm g_{L^{q'}}=1$ (assume $p<\infty$, $q>1$; the edge
 cases $q=1$ or $p=\infty$ are handled separately below). Introduce analytic families
@@ -65226,7 +65242,7 @@ $\partial_x^\alpha\delta$ is homogeneous of degree $-d-\abs\alpha$. Reconcile th
 Proposition~\ref{p:homogFT@c41} using $\widehat\delta=1$.
 
 \item ($L^p$ duality.) For $1\le p<\infty$ and $f\in L^p(\Rd)$, show
-$\norm f_{L^p}=\sup\set{\abs{\int fg}:g\in\mathcal{S},\ \norm g_{L^q}\le1}$ with $1/p+1/q=1$.
+$\norm f_{L^p}=\sup\bigset{\abs{\int fg}:g\in\mathcal{S},\ \norm g_{L^q}\le1}$ with $1/p+1/q=1$.
 Where does the case $p=\infty$ differ?
 
 \item (Interpolation.) Suppose a linear operator $T$ satisfies $\norm{Tf}_{L^{p_0}}\le
@@ -66350,8 +66366,9 @@ differentiable.)
 \item (Nowhere monotone functions.) In $X=C([0,1])$ over $\R$ with sup-norm, let $M$ be the
 functions monotone on no subinterval $[a,b]$. Prove $M$ is generic. [Hint: $M_{[a,b]}$, the
 functions not monotone on $[a,b]$, is dense with closed complement.]
-\item (Liouville numbers; Problem~2.) For $n\ge2$ let $\Lambda_n=\set{x\in\R\st\abs{x-p/q}\le
-q^{-n}\text{ for infinitely many fractions }p/q}$. Show (a) $\Lambda_n$ is generic in $\R$;
+\item (Liouville numbers; Problem~2.) For $n\ge2$ let
+\[\Lambda_n=\set{x\in\R\st\abs{x-p/q}\le q^{-n}\text{ for infinitely many fractions }p/q}.\]
+Show (a) $\Lambda_n$ is generic in $\R$;
 (b) its Hausdorff dimension is $2/n$; (c) hence $m(\Lambda_n)=0$ for $n>2$. The intersection
 $\Lambda=\bigcap_{n\ge2}\Lambda_n$ is the set of Liouville numbers (all transcendental).
 \end{exers}
@@ -68423,7 +68440,7 @@ the Gaussian is (up to scaling) its own Fourier transform. \checkmark
 \begin{theorem}[De Moivre--Laplace]\label{t:demoivre@c43}
 For fair coin flips and each $a<b$,
 \[
-  m\Bigl(\set{x\st a<\frac{S_N(x)}{N^{1/2}}<b}\Bigr)\To\frac{1}{\sqrt{2\pi}}\int_a^b e^{-t^2/2}\,dt
+  m\Bigl(\bigset{x\st a<\frac{S_N(x)}{N^{1/2}}<b}\Bigr)\To\frac{1}{\sqrt{2\pi}}\int_a^b e^{-t^2/2}\,dt
   \qquad(N\to\infty).
 \]
 \end{theorem}
@@ -68485,7 +68502,7 @@ $N=100$. \checkmark
 Let $f_1,f_2,\dots$ be mutually independent, identically distributed, square integrable,
 with mean $m_0$ and variance $\sigma^2$, and $S_N=\sum_{n=1}^N f_n$. Then for each $a<b$,
 \[
-  m\Bigl(\set{x\st a<\frac{S_N-Nm_0}{N^{1/2}}<b}\Bigr)\To\frac{1}{\sigma\sqrt{2\pi}}\int_a^b e^{-t^2/(2\sigma^2)}\,dt.
+  m\Bigl(\bigset{x\st a<\frac{S_N-Nm_0}{N^{1/2}}<b}\Bigr)\To\frac{1}{\sigma\sqrt{2\pi}}\int_a^b e^{-t^2/(2\sigma^2)}\,dt.
 \]
 \end{theorem}
 
@@ -68564,7 +68581,7 @@ probabilities. (Schematic.)}
 For Bernoulli trials with bias $p$ ($\sigma^2=4pq$), state the limiting law of
 $(S_N-N(p-q))/N^{1/2}$.
 \wrec Apply Theorem~\ref{t:clt@c43} with $m_0=p-q$ and $\sigma^2=1-(p-q)^2=4pq$.
-\wsol $m(\set{a<\frac{S_N-N(p-q)}{N^{1/2}}<b})\to\frac{1}{\sigma\sqrt{2\pi}}\int_a^b
+\wsol $m(\bigset{a<\frac{S_N-N(p-q)}{N^{1/2}}<b})\to\frac{1}{\sigma\sqrt{2\pi}}\int_a^b
 e^{-t^2/(2\sigma^2)}\,dt$ with $\sigma^2=4pq$. \emph{Check.} At $p=q=\tfrac12$,
 $m_0=0$ and $\sigma^2=1$, recovering De Moivre--Laplace
 (Theorem~\ref{t:demoivre@c43}). \checkmark
@@ -69104,7 +69121,7 @@ Setting $\alpha=\lambda n^{1/2}$ and using $\norm{s_n}_{L^2}=n^{1/2}$ yields
 \emph{Tightness.} Fix $0<a<1/2$ and $\eps>0$, and work first with $T=1$. We claim that
 for a sufficiently large $c_1$,
 \begin{equation}\label{e:holdermass@c44}
-  m\Bigl(\set{x\st\sup_{\substack{0\le t\le1\\0\le h\le\delta}}
+  m\Bigl(\bigset{x\st\sup_{\substack{0\le t\le1\\0\le h\le\delta}}
     \abs{S^{(N)}_{t+h}-S^{(N)}_t}>c_1\delta^a\ \text{for some }\delta\le1}\Bigr)\le\eps .
 \end{equation}
 Granting \eqref{e:holdermass@c44}, set
@@ -69246,7 +69263,7 @@ $\mu(\partial O)=0$. The set $\set0$ is its own boundary, of mass $1$.
   finite subcover of $K$.] (This is the converse to Lemma~\ref{l:compact@c44}.)
 \item Suppose $\mu_N\to\mu$ weakly. Show: (a) $\liminf_N\mu_N(O)\ge\mu(O)$ for open $O$;
   (b) $\lim_N\mu_N(O)=\mu(O)$ if $\mu(\closure O\setminus O)=0$. [Hint: $\mu(O)=\sup_f
-  \set{\int f\,d\mu\st 0\le f\le1,\ \supp f\subseteq O}$.]
+  \bigset{\int f\,d\mu\st 0\le f\le1,\ \supp f\subseteq O}$.]
 \item Given Wiener measure $W$ on $\mathcal P$ we have a realization of Brownian motion
   with $B_t(\omega)=p(t)$, $\Omega=\mathcal P$, $P=W$. Conversely, starting from
   $\set{B_t}$ satisfying B-1, B-2, B-3, define $W^o(C)=P(\set{\omega\st(B_{t_1}(\omega),
@@ -69416,9 +69433,11 @@ every $p\in K^{(T)}$ has the bounded difference quotient in (a). Letting $\eps\t
 the conclusion a.e.
 
 (b) Fix $a>1/2$ and an integer $k$ with $dk(a-\tfrac12)>1$. If some $t_0\in[0,1]$ has
-$\sup_{0<h\le(k+1)/n}\abs{p(t_0+h)-p(t_0)}/h^a\le\lambda$, then there is $j_0$ with
-$\max_{1\le\ell\le k}\abs{p(\tfrac{j_0+\ell+1}{n})-p(\tfrac{j_0+\ell}{n})}\le
-C_k\lambda n^{-a}$; absorb $C_k$ into $\lambda$. Let $E_n^\lambda$ be the set of such
+\[\sup_{0<h\le(k+1)/n}\abs{p(t_0+h)-p(t_0)}/h^a\le\lambda,\]
+then there is $j_0$ with
+\[\max_{1\le\ell\le k}\abs{p(\tfrac{j_0+\ell+1}{n})-p(\tfrac{j_0+\ell}{n})}\le
+C_k\lambda n^{-a};\]
+absorb $C_k$ into $\lambda$. Let $E_n^\lambda$ be the set of such
 paths; then $E_n^\lambda\subseteq\widetilde E_n^\lambda=\bigcup_{j_0=0}^{n-1}
 \set{p\st\max_\ell\abs{p(\tfrac{j_0+\ell+1}{n})-p(\tfrac{j_0+\ell}{n})}\le\lambda n^{-a}}$.
 The $k$ increments are independent and identically distributed, so
@@ -69675,10 +69694,14 @@ Brownian motion among all such processes.
 
 \begin{exers}{Problems (Stein, Ch.6).}
 \item (Law of the iterated logarithm.) For an $\R$-valued Brownian motion, for almost all
-  $\omega$, $\limsup_{t\to\infty}\frac{B_t(\omega)}{\sqrt{2t\log\log t}}=1$ and
-  $\liminf_{t\to\infty}\frac{B_t(\omega)}{\sqrt{2t\log\log t}}=-1$. By time inversion
-  (Exercise~13), for almost all $\omega$, $\limsup_{t\to0}\frac{B_t(\omega)}{\sqrt{2t\log
-  \log(1/t)}}=1$ and $\liminf_{t\to0}\frac{B_t(\omega)}{\sqrt{2t\log\log(1/t)}}=-1$. This
+  $\omega$,
+  \[\limsup_{t\to\infty}\frac{B_t(\omega)}{\sqrt{2t\log\log t}}=1\quad\text{and}\quad
+  \liminf_{t\to\infty}\frac{B_t(\omega)}{\sqrt{2t\log\log t}}=-1.\]
+  By time inversion
+  (Exercise~13), for almost all $\omega$,
+  \[\limsup_{t\to0}\frac{B_t(\omega)}{\sqrt{2t\log\log(1/t)}}=1\quad\text{and}\quad
+  \liminf_{t\to0}\frac{B_t(\omega)}{\sqrt{2t\log\log(1/t)}}=-1.\]
+  This
   describes the precise amplitude of the oscillations as $t\to\infty$ and $t\to0$.
 \end{exers}
 
