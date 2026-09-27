@@ -1,0 +1,151 @@
+% ===== preamble =====
+\providecommand{\chapternum}{1}
+
+\usepackage[T1]{fontenc}\usepackage{lmodern}
+\usepackage[margin=0.9in]{geometry}
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{mathrsfs}
+\usepackage{enumitem}
+\usepackage{microtype}
+\usepackage{tikz}
+\usetikzlibrary{positioning,arrows.meta,calc,intersections,through,angles,quotes,fit,
+  decorations.pathreplacing,decorations.markings,decorations.pathmorphing,
+  patterns,patterns.meta,backgrounds,shapes.misc,shapes.geometric,fadings,math,3d}
+% smooth closed contours: use tikz's built-in  plot[smooth cycle] coordinates {...}
+\usepackage{tikz-cd}
+\usepackage{tikz-3dplot}           % Riemann sphere / 3D
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\usepgfplotslibrary{fillbetween,polar,colormaps,patchplots,groupplots}
+\usepackage[hidelinks]{hyperref}
+\usepackage{caption}
+\captionsetup{font=small,labelfont=bf,labelsep=period,skip=5pt,justification=centering}
+\numberwithin{figure}{chapter}
+
+% (per-chapter \thesection override removed -- the book class numbers sections as
+%  chapter.section natively; \chapternum is replaced by the literal chapter number at
+%  assembly time by build_combined.py.)
+\setlength{\parindent}{0pt}\setlength{\parskip}{3pt}
+\makeatletter
+\renewcommand*\l@section{\@dottedtocline{1}{0pt}{2.8em}}
+\makeatother
+
+% ---- theorem environments (results numbered N.x.y) ----
+\theoremstyle{plain}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+% ---- worked example / method / caution / exercises ----
+\newenvironment{wex}[1]{%
+  \par\addvspace{\medskipamount}\refstepcounter{theorem}%
+  \noindent\textbf{Worked Example~\thetheorem.}\enspace\textit{#1.}\par\nobreak\smallskip}%
+  {\par\addvspace{\medskipamount}}
+\newcommand{\wrec}{\par\smallskip\noindent\textit{Recognition.}\enspace\ignorespaces}
+\newcommand{\wsol}{\par\smallskip\noindent\textit{Solution.}\enspace\ignorespaces}
+\newenvironment{method}[1]{%
+  \par\addvspace{\medskipamount}\noindent\rule{\linewidth}{0.4pt}\par\nobreak\vskip2pt
+  \noindent\textbf{Method.}\enspace\textit{#1}\par\nobreak\smallskip}%
+  {\par\nobreak\vskip2pt\noindent\rule{\linewidth}{0.4pt}\par\addvspace{\medskipamount}}
+\newenvironment{pitfall}{%
+  \par\addvspace{\smallskipamount}\noindent\textbf{\textit{Caution.}}\enspace\ignorespaces}%
+  {\par\addvspace{\smallskipamount}}
+\newenvironment{exers}[1]{\par\medskip\noindent\textbf{#1}\par\nopagebreak
+  \begin{enumerate}[leftmargin=*,labelsep=0.6em,itemsep=2pt,topsep=2pt]}
+  {\end{enumerate}}
+
+% ---- number systems / common sets ----
+\newcommand{\R}{\mathbb{R}}\newcommand{\Q}{\mathbb{Q}}\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}\newcommand{\C}{\mathbb{C}}\newcommand{\F}{\mathbb{F}}
+\newcommand{\Rn}{\mathbb{R}^n}\newcommand{\Rk}{\mathbb{R}^k}\providecommand{\Rm}{\mathbb{R}^m}
+\newcommand{\Rd}{\mathbb{R}^d}\newcommand{\Cd}{\mathbb{C}^d}
+\newcommand{\Rext}{\overline{\mathbb{R}}}
+\newcommand{\es}{\varnothing}
+\newcommand{\T}{\mathbb{T}}                      % torus / circle group
+
+% ---- analysis operators / shortcuts ----
+\newcommand{\eps}{\varepsilon}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\seq}[1]{(#1)}
+\newcommand{\To}{\to}
+\newcommand{\inv}{^{-1}}
+\newcommand{\closure}[1]{\overline{#1}}
+\newcommand{\interior}[1]{#1^{\circ}}
+\DeclareMathOperator*{\esssup}{ess\,sup}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\DeclarePairedDelimiter{\floor}{\lfloor}{\rfloor}
+\providecommand{\dd}{\mathrm{d}}
+\newcommand{\dx}{\,\dd x}\newcommand{\dt}{\,\dd t}\newcommand{\du}{\,\dd u}
+\newcommand{\dz}{\,\dd z}\newcommand{\dw}{\,\dd w}\newcommand{\dtheta}{\,\dd\theta}
+\newcommand{\dydx}[2]{\dfrac{\dd #1}{\dd #2}}
+\DeclareMathOperator{\diam}{diam}\DeclareMathOperator{\dist}{dist}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\rank}{rank}\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\supp}{supp}\DeclareMathOperator{\osc}{osc}
+\renewcommand{\Re}{\operatorname{Re}}\renewcommand{\Im}{\operatorname{Im}}
+\DeclareMathOperator{\arccot}{arccot}
+\newcommand{\imp}{\implies}\newcommand{\eqv}{\iff}
+\providecommand{\id}{\operatorname{id}}
+\renewcommand{\checkmark}{\ensuremath{\blacksquare}}  % "Check" marker: black box, not a tick
+\newcommand{\st}{\,:\,}
+\newcommand{\xto}[1]{\xrightarrow{\,#1\,}}
+\newcommand{\dotcup}{\mathbin{\dot{\cup}}}
+
+% ---- complex analysis ----
+\DeclareMathOperator*{\Res}{Res}
+\DeclareMathOperator{\Log}{Log}\DeclareMathOperator{\Arg}{Arg}
+\DeclareMathOperator{\Aut}{Aut}\DeclareMathOperator{\ord}{ord}
+\newcommand{\conj}[1]{\overline{#1}}
+\newcommand{\Disc}{\mathbb{D}}                   % open unit disc
+\newcommand{\UHP}{\mathbb{H}}                    % upper half plane
+\newcommand{\HH}{\mathbb{H}}
+\newcommand{\ci}{\oint}                          % contour integral
+\providecommand{\weier}{\wp}                     % Weierstrass P-function (amssymb \wp)
+\DeclareMathOperator{\Hol}{Hol}\DeclareMathOperator{\windn}{n}
+
+% ---- measure theory / functional analysis (Parts III-V) ----
+\newcommand{\sA}{\mathscr{A}}\newcommand{\sB}{\mathscr{B}}\newcommand{\sF}{\mathscr{F}}
+\newcommand{\sM}{\mathscr{M}}\newcommand{\sP}{\mathscr{P}}
+\newcommand{\Leb}{m}                              % Lebesgue measure
+\newcommand{\ind}[1]{\mathbf{1}_{#1}}             % indicator function
+\newcommand{\aev}{\text{ a.e.}}                   % almost everywhere (\ae is the ligature)
+\newcommand{\inner}[2]{\left\langle #1,#2\right\rangle}
+\newcommand{\Lp}[1]{L^{#1}}\newcommand{\Lone}{L^1}\newcommand{\Ltwo}{L^2}
+\newcommand{\weakto}{\rightharpoonup}
+\newcommand{\dmu}{\,\dd\mu}\newcommand{\dnu}{\,\dd\nu}
+
+% ---- macros defined locally in some chapter main.tex files (folded in for the combined book) ----
+\providecommand{\dy}{\,\dd y}\providecommand{\dm}{\,\dd m}
+\providecommand{\Var}{\operatorname{Var}}
+\providecommand{\sn}{\operatorname{sn}}
+\providecommand{\sC}{\mathscr{C}}
+
+% ---- styles for analysis diagrams (number lines, bands) ----
+\tikzset{
+  numln/.style={-{Stealth[length=2mm]},line width=0.7pt},
+  tick/.style={line width=0.7pt},
+  pt/.style={circle,fill=black,inner sep=1.3pt},
+  opt/.style={circle,draw=black,fill=white,inner sep=1.1pt,line width=0.6pt},
+  band/.style={fill=black!8},
+  curve/.style={line width=1pt},
+  dgrid/.style={help lines,line width=0.3pt,black!30},
+  brc/.style={decorate,decoration={brace,amplitude=4pt},line width=0.6pt},
+  lblnode/.style={font=\footnotesize,fill=white,inner sep=1.5pt},
+  % ---- complex-analysis diagram styles ----
+  cxaxis/.style={-{Stealth[length=2mm]},line width=0.6pt,black!70},
+  contour/.style={line width=1pt,
+    postaction={decorate},decoration={markings,
+      mark=at position 0.55 with {\arrow{Stealth[length=2.4mm]}}}},  % oriented contour
+  ccut/.style={line width=1pt,decorate,decoration={zigzag,amplitude=1.2pt,segment length=4pt}}, % branch cut
+  pole/.style={cross out,draw,minimum size=4pt,inner sep=0pt,line width=0.7pt}, % pole x
+  zero/.style={circle,draw,minimum size=4pt,inner sep=0pt,line width=0.7pt},    % zero o
+  conff/.style={line width=0.5pt,black!55},      % conformal grid line
+}
