@@ -1,8 +1,6 @@
-% ===== preamble =====
-\providecommand{\chapternum}{1}
-
+% ===== Real Analysis Notes: preamble =====
 \usepackage[T1]{fontenc}\usepackage{lmodern}
-\usepackage[margin=0.9in]{geometry}
+\usepackage[letterpaper,margin=1in]{geometry}
 \usepackage{amsmath,amssymb,amsthm,mathtools}
 \usepackage{mathrsfs}
 \usepackage{enumitem}
@@ -22,15 +20,15 @@
 \captionsetup{font=small,labelfont=bf,labelsep=period,skip=5pt,justification=centering}
 \numberwithin{figure}{chapter}
 
-% (per-chapter \thesection override removed -- the book class numbers sections as
-%  chapter.section natively; \chapternum is replaced by the literal chapter number at
-%  assembly time by build_combined.py.)
-\setlength{\parindent}{0pt}\setlength{\parskip}{3pt}
+% ---- page layout: page number centered in the footer, no running heads ----
+\pagestyle{plain}
+\setlength{\emergencystretch}{2em}
+\raggedbottom
 \makeatletter
 \renewcommand*\l@section{\@dottedtocline{1}{0pt}{2.8em}}
 \makeatother
 
-% ---- theorem environments (results numbered N.x.y) ----
+% ---- theorem environments (results numbered chapter.section.n) ----
 \theoremstyle{plain}
 \newtheorem{theorem}{Theorem}[section]
 \newtheorem{proposition}[theorem]{Proposition}
@@ -39,26 +37,27 @@
 \theoremstyle{definition}
 \newtheorem{definition}[theorem]{Definition}
 \newtheorem{example}[theorem]{Example}
+\newtheorem{wexthm}[theorem]{Worked Example}
+\newtheorem*{methodthm}{Method}
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark}
+\newtheorem*{pitfall}{Caution}
 
-% ---- worked example / method / caution / exercises ----
-\newenvironment{wex}[1]{%
-  \par\addvspace{\medskipamount}\refstepcounter{theorem}%
-  \noindent\textbf{Worked Example~\thetheorem.}\enspace\textit{#1.}\par\nobreak\smallskip}%
-  {\par\addvspace{\medskipamount}}
+% ---- worked example: \begin{wex}{title} ... \end{wex}, shares the result counter ----
+\newenvironment{wex}[1]{\begin{wexthm}[{#1}]}{\end{wexthm}}
 \newcommand{\wrec}{\par\smallskip\noindent\textit{Recognition.}\enspace\ignorespaces}
 \newcommand{\wsol}{\par\smallskip\noindent\textit{Solution.}\enspace\ignorespaces}
-\newenvironment{method}[1]{%
-  \par\addvspace{\medskipamount}\noindent\rule{\linewidth}{0.4pt}\par\nobreak\vskip2pt
-  \noindent\textbf{Method.}\enspace\textit{#1}\par\nobreak\smallskip}%
-  {\par\nobreak\vskip2pt\noindent\rule{\linewidth}{0.4pt}\par\addvspace{\medskipamount}}
-\newenvironment{pitfall}{%
-  \par\addvspace{\smallskipamount}\noindent\textbf{\textit{Caution.}}\enspace\ignorespaces}%
-  {\par\addvspace{\smallskipamount}}
-\newenvironment{exers}[1]{\par\medskip\noindent\textbf{#1}\par\nopagebreak
+
+% ---- method block: \begin{method}{title} ... \end{method} ----
+\newenvironment{method}[1]{\begin{methodthm}[{#1}]\leavevmode\ignorespaces}{\end{methodthm}}
+
+% ---- exercise list: \begin{exers}{heading} \item ... \end{exers} ----
+\newenvironment{exers}[1]{\par\medskip\noindent\ifx\relax#1\relax\else\textbf{#1}\par\nopagebreak\fi
   \begin{enumerate}[leftmargin=*,labelsep=0.6em,itemsep=2pt,topsep=2pt]}
   {\end{enumerate}}
+
+% ---- sanity-check marker: a filled black box ----
+\renewcommand{\checkmark}{\ensuremath{\blacksquare}}
 
 % ---- number systems / common sets ----
 \newcommand{\R}{\mathbb{R}}\newcommand{\Q}{\mathbb{Q}}\newcommand{\Z}{\mathbb{Z}}
@@ -94,7 +93,6 @@
 \DeclareMathOperator{\arccot}{arccot}
 \newcommand{\imp}{\implies}\newcommand{\eqv}{\iff}
 \providecommand{\id}{\operatorname{id}}
-\renewcommand{\checkmark}{\ensuremath{\blacksquare}}  % "Check" marker: black box, not a tick
 \newcommand{\st}{\,:\,}
 \newcommand{\xto}[1]{\xrightarrow{\,#1\,}}
 \newcommand{\dotcup}{\mathbin{\dot{\cup}}}
