@@ -53,7 +53,7 @@
 
 % ---- exercise list: \begin{exers}{heading} \item ... \end{exers} ----
 \newenvironment{exers}[1]{\par\medskip\noindent\ifx\relax#1\relax\else\textbf{#1}\par\nopagebreak\fi
-  \begin{enumerate}[leftmargin=*,labelsep=0.6em,itemsep=2pt,topsep=2pt]}
+  \begin{enumerate}[leftmargin=*,labelsep=0.6em,itemsep=2pt,topsep=2pt,beginpenalty=10000]}
   {\end{enumerate}}
 
 % ---- sanity-check marker: a filled black box ----
@@ -70,9 +70,10 @@
 
 % ---- analysis operators / shortcuts ----
 \newcommand{\eps}{\varepsilon}
-\newcommand{\abs}[1]{\left|#1\right|}
-\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
-\newcommand{\set}[1]{\{#1\}}
+% \abs{x}, \norm{x} size themselves; \abs[\Big]{x}, \norm[\big]{x}, \set[\Big]{x} use a fixed size
+\NewDocumentCommand{\abs}{o m}{\IfNoValueTF{#1}{\left|#2\right|}{\mathopen{#1|}#2\mathclose{#1|}}}
+\NewDocumentCommand{\norm}{o m}{\IfNoValueTF{#1}{\left\lVert#2\right\rVert}{\mathopen{#1\lVert}#2\mathclose{#1\rVert}}}
+\NewDocumentCommand{\set}{o m}{\IfNoValueTF{#1}{\{#2\}}{\mathopen{#1\{}#2\mathclose{#1\}}}}
 \newcommand{\bigset}[1]{\left\{#1\right\}}
 \newcommand{\seq}[1]{(#1)}
 \newcommand{\To}{\to}
