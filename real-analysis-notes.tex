@@ -24857,7 +24857,7 @@ $\conj{z}=x-iy$, the reflection of $z$ across the real axis.
 \end{definition}
 
 \begin{proposition}\label{p:conjid@c14}
-For all $z,w\in\C$:
+For all $z\in\C$:
 \[
   \Re(z)=\frac{z+\conj z}{2},\quad \Im(z)=\frac{z-\conj z}{2i},\quad
   \abs{z}^2=z\conj z,\quad \frac1z=\frac{\conj z}{\abs z^2}\ (z\neq0).
@@ -24935,7 +24935,7 @@ counterclockwise), unique up to adding multiples of $2\pi$. Here
 \[
   e^{i\theta}=\cos\theta+i\sin\theta
 \]
-is \emph{Euler's formula}; since $\abs{e^{i\theta}}=\cos^2\theta+\sin^2\theta=1$, we have
+is \emph{Euler's formula}; since $\abs{e^{i\theta}}^2=\cos^2\theta+\sin^2\theta=1$, we have
 $r=\abs z$.
 \end{definition}
 
@@ -24972,19 +24972,24 @@ Since $i=e^{i\pi/2}$, multiplying by $i$ adds $\pi/2$ to the argument.
 \end{proof}
 
 \begin{center}
-\begin{tikzpicture}[scale=1.0]
-  \begin{scope}
-    \foreach \x in {0.4,0.8,1.2,1.6}{ \draw[conff] (\x,0.4)--(\x,1.6); }
-    \foreach \y in {0.4,0.8,1.2,1.6}{ \draw[conff] (0.4,\y)--(1.6,\y); }
-    \node[pt] at (1.0,1.0) {}; \node[font=\footnotesize,below] at (1.0,0.35) {$z$};
-  \end{scope}
-  \draw[-{Stealth[length=2mm]}] (2.2,1.0)--(3.4,1.0)
-    node[midway,above,font=\footnotesize]{$\times i$};
-  \begin{scope}[shift={(4.0,0)}]
-    \foreach \x in {0.4,0.8,1.2,1.6}{ \draw[conff] (-\x+2,0.4)--(-\x+2,1.6); }
-    \foreach \y in {0.4,0.8,1.2,1.6}{ \draw[conff] (0.4,-\y+2)--(1.6,-\y+2); }
-    \node[font=\footnotesize] at (1.0,1.9) {rotated $90^\circ$};
-  \end{scope}
+\begin{tikzpicture}[scale=1.1]
+  \draw[cxaxis] (-1.9,0)--(2.7,0) node[right]{$\Re$};
+  \draw[cxaxis] (0,-0.4)--(0,2.6) node[above]{$\Im$};
+  % a patch around z and its image under w -> iw, i.e. (x,y) -> (-y,x)
+  \fill[black!15] (1.6,0.2) rectangle (2.2,0.8);
+  \fill[black!15] (-0.8,1.6) rectangle (-0.2,2.2);
+  \foreach \t in {0,0.6,1.2}{
+    \draw[conff] (1.0+\t,0.2)--(1.0+\t,1.4);
+    \draw[conff] (1.0,0.2+\t)--(2.2,0.2+\t);
+    \draw[conff] (-1.4,1.0+\t)--(-0.2,1.0+\t);
+    \draw[conff] (-0.2-\t,1.0)--(-0.2-\t,2.2);
+  }
+  \draw[dashed,black!50] (0,0)--(1.6,0.8);
+  \draw[dashed,black!50] (0,0)--(-0.8,1.6);
+  \node[pt] at (1.6,0.8) {}; \node[font=\footnotesize,above left] at (1.6,0.8) {$z$};
+  \node[pt] at (-0.8,1.6) {}; \node[font=\footnotesize,below left] at (-0.8,1.6) {$iz$};
+  \draw[-{Stealth[length=2mm]}] (26.57:0.75) arc (26.57:116.57:0.75);
+  \node[font=\footnotesize] at (71.57:1.0) {$\times i$};
 \end{tikzpicture}
 \captionof{figure}{Multiplication by $i$ rotates the plane a quarter turn
 counterclockwise.}
@@ -25006,14 +25011,14 @@ indeed $1+(-\tfrac12+\tfrac{\sqrt3}2i)+(-\tfrac12-\tfrac{\sqrt3}2i)=0$. \checkma
 
 \begin{center}
 \begin{tikzpicture}[scale=1.2]
-  \draw[cxaxis] (-1.6,0)--(1.6,0) node[right]{$\Re$};
+  \draw[cxaxis] (-1.6,0)--(1.9,0) node[right]{$\Re$};
   \draw[cxaxis] (0,-1.6)--(0,1.6) node[above]{$\Im$};
   \draw[dgrid] (0,0) circle (1);
   \foreach \a in {0,120,240}{
     \node[pt] at (\a:1) {};
     \draw[black!50] (0,0)--(\a:1);
   }
-  \node[font=\footnotesize,right] at (0:1) {$z_0=1$};
+  \node[font=\footnotesize,above right] at (0:1) {$z_0=1$};
   \node[font=\footnotesize,above left] at (120:1) {$z_1$};
   \node[font=\footnotesize,below left] at (240:1) {$z_2$};
 \end{tikzpicture}
@@ -25081,13 +25086,14 @@ closed and bounded.
 \begin{center}
 \begin{tikzpicture}[scale=1.0]
   \draw[fill=black!7,draw=black,line width=0.8pt] (0,0) circle (1.4);
-  \node[font=\footnotesize] at (0,0) {$D_r(z_0)$};
+  \node[font=\footnotesize] at (-0.55,0.6) {$D_r(z_0)$};
   \node[pt] at (0,0) {}; \node[font=\footnotesize,below=2pt] at (0,0) {$z_0$};
   \draw[-{Stealth[length=1.8mm]}] (0,0)--(35:1.4);
-  \node[font=\footnotesize] at (20:0.8) {$r$};
-  \node[pt] at (0.6,0.5) {};
-  \draw[dashed,black!50] (0.6,0.5) circle (0.35);
-  \node[font=\footnotesize,above right] at (0.65,0.55) {interior pt};
+  \node[font=\footnotesize,above left=-1pt] at (35:0.8) {$r$};
+  \node[pt] at (0.55,-0.55) {};
+  \draw[dashed,black!50] (0.55,-0.55) circle (0.35);
+  \draw[black!60,line width=0.4pt] (0.6,-0.6)--(1.5,-1.25)
+    node[right,font=\footnotesize,inner sep=1pt,text=black] {interior pt};
 \end{tikzpicture}
 \captionof{figure}{An open disc; every point is interior (a small disc fits inside).}
 \end{center}
@@ -25233,7 +25239,7 @@ by transporting the argument once around the origin.
 $t\in[0,2\pi]$. Then $\theta(e^{it})-t$ is a continuous integer multiple of $2\pi$, hence
 constant; so $\theta(e^{it})=t+c$. But $z(0)=z(2\pi)=1$ while $\theta$ jumps from $c$ to
 $2\pi+c$, contradicting single-valuedness.
-\emph{Check.} This is the same obstruction as $\oint_{\abs z=1}dz/z=2\pi i\neq0$ met in the
+\emph{Check.} This is the same obstruction as $\oint_{\abs z=1}dz/z=2\pi i\neq0$ met later in the
 integration section; a global continuous argument (equivalently a global $\log$) cannot
 exist on the punctured plane. \checkmark
 \end{wex}
@@ -25272,9 +25278,9 @@ exist on the punctured plane. \checkmark
   of $w\in\Omega$ joinable to $z$ by a curve in $\Omega$. (a) Show $C_z$ is open and
   connected, and that $w\in C_z$ is an equivalence relation. (b) Show $\Omega$ has at most
   countably many distinct components. (c) Prove that if $\Omega$ is the complement of a
-  compact set, then $\Omega$ has exactly one unbounded component. [Hints: for (b), distinct
-  components would give uncountably many disjoint open balls, each containing a rational
-  point; for (c), the complement of a large disc containing the compact set is connected.]
+  compact set, then $\Omega$ has exactly one unbounded component. [Hints: for (b), uncountably
+  many distinct components would give uncountably many disjoint open balls, each containing a
+  rational point; for (c), the complement of a large disc containing the compact set is connected.]
 \item (Blaschke factors.) (a) For $z,w\in\C$ with $\conj wz\neq1$, prove
   $\bigl|\tfrac{w-z}{1-\conj wz}\bigr|<1$ if $\abs z<1$ and $\abs w<1$, and
   $\bigl|\tfrac{w-z}{1-\conj wz}\bigr|=1$ if $\abs z=1$ or $\abs w=1$. [Hint: reduce to $z$
@@ -25292,7 +25298,7 @@ exist on the punctured plane. \checkmark
 \item Prove the \emph{parallelogram law} $\abs{z+w}^2+\abs{z-w}^2=2(\abs z^2+\abs w^2)$ for
   all $z,w\in\C$, and interpret it geometrically in the plane.
 \item Find all $z$ with $z^4=-16$, and plot them; verify their sum is $0$ and their product
-  is $-16$.
+  is $16$.
 \item Show that the map $z\mapsto\conj z$ preserves $\abs{\cdot}$ and reverses orientation
   (it is a reflection), while $z\mapsto e^{i\alpha}z$ is a rotation by $\alpha$. Deduce that
   $z\mapsto e^{i\alpha}\conj z$ is a reflection across some line through the origin; which
@@ -25303,15 +25309,16 @@ exist on the punctured plane. \checkmark
   is a region (connected open set). Justify, and if it is not, exhibit the disjoint open
   sets witnessing disconnectedness.
 \item (Diagram problem.) On a single copy of the complex plane, shade the annulus
-  $\set{1\le\abs{z-i}\le2}$ and mark its boundary circles, center, and the points where it
-  meets the imaginary axis. State $\diam(\Omega)$ for this set.
+  $\Omega=\set{1\le\abs{z-i}\le2}$ and mark its boundary circles, center, and the points where
+  these circles meet the imaginary axis. State $\diam(\Omega)$ for this set.
 \item Prove that a closed disc $\overline D_r(z_0)$ is compact directly from
   Theorem~\ref{t:compact@c14}(ii): given a sequence inside it, extract a convergent subsequence
   and show its limit lies in the disc.
 \item Let $\Omega_n=\overline D_{1/n}(0)$. Verify the hypotheses of
   Proposition~\ref{p:nested@c14} and identify the unique common point. Then give an example of
-  nested nonempty \emph{closed} (but unbounded) sets with empty intersection, showing
-  compactness cannot be dropped.
+  nested nonempty \emph{closed} (but unbounded) sets with empty intersection, showing that
+  compactness cannot be weakened to closedness once the hypothesis $\diam(\Omega_n)\to0$ is
+  dropped.
 \end{exers}
 
 
@@ -25360,13 +25367,12 @@ differentiable}.)
 
 \begin{center}
 \begin{tikzpicture}[scale=1.1]
-  \node[pt] at (0,0) {}; \node[font=\footnotesize,below left] at (0,0) {$z_0$};
+  \node[pt] at (0,0) {}; \node[font=\footnotesize] at (247.5:0.62) {$z_0$};
   \foreach \a in {0,45,90,135,180,225,270,315}{
     \draw[-{Stealth[length=1.6mm]},black!55] (0,0)--(\a:0.95);
   }
   \draw[dashed,black!40] (0,0) circle (0.95);
-  \node[font=\footnotesize] at (1.7,0.0) {$h\to0$ from};
-  \node[font=\footnotesize] at (1.7,-0.32) {every direction};
+  \node[font=\footnotesize,align=left,anchor=west] at (1.05,0) {$h\to0$ from\\every direction};
 \end{tikzpicture}
 \captionof{figure}{Complex differentiability demands the \emph{same} limit as $h\to0$
 along all directions. (Schematic.)}
@@ -25477,21 +25483,23 @@ It is convenient to package this with the \emph{Wirtinger operators}
 \]
 
 \begin{proposition}[Wirtinger form]\label{p:wirtinger@c14}
-$f$ holomorphic at $z_0$ iff $\partial f/\partial\conj z(z_0)=0$ (this single complex
-equation \emph{is} the Cauchy--Riemann pair). Then $f'(z_0)=\partial f/\partial z(z_0)
+If $f$ is holomorphic at $z_0$, then $\partial f/\partial\conj z(z_0)=0$ (this single complex
+equation \emph{is} the Cauchy--Riemann pair). Moreover $f'(z_0)=\partial f/\partial z(z_0)
 =2\,\partial u/\partial z(z_0)$, and writing $F(x,y)=f(z)$ one has $\det J_F(x_0,y_0)
 =\abs{f'(z_0)}^2$.
 \end{proposition}
 
 \begin{proof}
 Separating real and imaginary parts shows $\partial f/\partial\conj z=0$ is equivalent to
-$u_x=v_y$, $u_y=-v_x$. The Jacobian determinant is $u_xv_y-u_yv_x=u_x^2+u_y^2$ (using CR)
+$u_x=v_y$, $u_y=-v_x$, which hold at $z_0$ by Theorem~\ref{t:CR@c14}. The Jacobian
+determinant is $u_xv_y-u_yv_x=u_x^2+u_y^2$ (using CR)
 $=\abs{f'(z_0)}^2$ since $f'(z_0)=u_x+iv_x=u_x-iu_y$.
 \end{proof}
 
 The geometric reading of $\det J_F=\abs{f'}^2\ge0$ is that a holomorphic map with
-$f'(z_0)\neq0$ is locally an \emph{orientation-preserving} similarity: it rotates by
-$\arg f'(z_0)$ and scales by $\abs{f'(z_0)}$, hence is \emph{conformal} (angle-preserving).
+$f'(z_0)\neq0$ is, to first order at $z_0$, an \emph{orientation-preserving} similarity: it
+rotates by $\arg f'(z_0)$ and scales by $\abs{f'(z_0)}$, hence is \emph{conformal}
+(angle-preserving).
 
 \begin{center}
 \begin{tikzpicture}[scale=0.95]
@@ -25507,16 +25515,16 @@ $\arg f'(z_0)$ and scales by $\abs{f'(z_0)}$, hence is \emph{conformal} (angle-p
     node[midway,above,font=\footnotesize]{$f(z)=z^2$};
   % w-plane: images are two orthogonal families of confocal parabolas
   % vertical x=c -> (c^2 - t^2, 2 c t); horizontal y=d -> (t^2 - d^2, 2 t d)
-  \begin{scope}[shift={(4.4,-1.1)},scale=0.6]
-    \draw[cxaxis] (-2.6,0)--(4.9,0) node[right]{\footnotesize$u$};
-    \draw[cxaxis] (0,-0.2)--(0,4.9) node[above]{\footnotesize$v$};
+  \begin{scope}[shift={(5.75,0)},scale=0.3]
+    \draw[cxaxis] (-5.3,0)--(5.6,0) node[right]{\footnotesize$u$};
+    \draw[cxaxis] (0,-0.6)--(0,10.3) node[above]{\footnotesize$v$};
     \foreach \c in {0.5,1,1.5,2}{
       \draw[conff,samples=40,domain=0:2.2,variable=\t]
         plot ({\c*\c - \t*\t},{2*\c*\t});}
     \foreach \d in {0.5,1,1.5,2}{
       \draw[conff,samples=40,domain=0:2.2,variable=\t]
         plot ({\t*\t - \d*\d},{2*\t*\d});}
-    \node[font=\footnotesize] at (1.8,-0.7){$w$-plane};
+    \node[font=\footnotesize] at (0,-1.5){$w$-plane};
   \end{scope}
 \end{tikzpicture}
 \captionof{figure}{A conformal map ($f'\neq0$) carries an orthogonal grid to an
@@ -25548,7 +25556,7 @@ Is $f(z)=z^2$ holomorphic? Is $g(z)=\abs z^2$?
 $u_y=-2y=-v_x$. CR holds everywhere with $u,v\in C^1$; $z^2$ is entire and $f'=u_x+iv_x
 =2x+2iy=2z$. For $g=\abs z^2=x^2+y^2$: $u=x^2+y^2$, $v=0$, so $u_x=2x$, $v_y=0$. CR demands
 $2x=0$ and $2y=0$, i.e.\ only at $z=0$; $\abs z^2$ is (complex) differentiable only at the
-origin and holomorphic \emph{nowhere}. \emph{Check.} $g'(0)$ would be
+origin and holomorphic on \emph{no} open set. \emph{Check.} $g'(0)$ would be
 $\lim_{h\to0}\abs h^2/h=\lim\conj h=0$, consistent with differentiability at $0$ alone.
 \checkmark
 \end{wex}
@@ -25595,8 +25603,8 @@ diverges.
   \draw[cxaxis] (-2.2,0)--(2.4,0) node[right]{$\Re$};
   \draw[cxaxis] (0,-2.0)--(0,2.2) node[above]{$\Im$};
   \draw[fill=black!7,draw=black,line width=0.8pt] (0,0) circle (1.6);
-  \node[font=\footnotesize] at (0,0.0) {converges};
-  \node[font=\footnotesize] at (0,-0.4) {$\abs z<R$};
+  \node[font=\footnotesize] at (0,-0.35) {converges};
+  \node[font=\footnotesize] at (0,-0.75) {$\abs z<R$};
   \node[font=\footnotesize] at (1.9,1.7) {diverges};
   \node[font=\footnotesize] at (1.9,1.35) {$\abs z>R$};
   \draw[-{Stealth[length=1.8mm]}] (0,0)--(60:1.6);
@@ -25678,13 +25686,11 @@ of the next chapter gives the converse, so the two words are synonymous.
   \begin{axis}[width=10.5cm,height=6.6cm,view={120}{22},
     xlabel={\footnotesize$x$},ylabel={\footnotesize$y$},
     zlabel={\footnotesize$\abs{e^z}$},
-    xtick={-2,0,2},ytick={-3,0,3},ztick={1,7},zticklabels={$1$,$e^x$},
+    xtick={-2,0,2},ytick={-3,0,3},ztick={1,7.389},zticklabels={$1$,$e^2$},
     tick label style={font=\scriptsize},
     enlargelimits=false,colormap/blackwhite,
-    every axis x label/.style={at={(0.5,-0.06)},anchor=north},
-    every axis y label/.style={at={(0.97,0.18)},anchor=west},
     every axis z label/.style={at={(0,0.95)},anchor=south}]
-    % |e^z| = e^x : independent of y, so the surface is a ridge that grows
+    % |e^z| = e^x : independent of y, so the surface grows
     % exponentially in x and is constant (translation-invariant) along y.
     \addplot3[surf,faceted color=black!55,fill opacity=0.78,
       domain=-2:2,y domain=-3:3,samples=22,samples y=14,z buffer=sort]
@@ -25692,7 +25698,8 @@ of the next chapter gives the converse, so the two words are synonymous.
   \end{axis}
 \end{tikzpicture}
 \captionof{figure}{Modulus surface $\abs{e^z}=e^x$: the height depends only on
-$x$ (exponential growth), and is constant along $y$ -- a translation-invariant ridge.}
+$x$ (exponential growth), and is constant along $y$ --- the surface is invariant under
+translation in $y$.}
 \end{center}
 
 \subsection*{Further worked examples}
@@ -25730,8 +25737,9 @@ $\partial_{\conj z}=\tfrac12(\partial_x+i\partial_y)$,
   =\partial_x^2+\partial_y^2=\Delta,
 \]
 the mixed terms cancelling by equality of mixed partials. If $f$ is holomorphic then
-$\partial_{\conj z}f=0$, so $\Delta f=4\partial_z(\partial_{\conj z}f)=0$; taking real and
-imaginary parts, $\Delta u=\Delta v=0$.
+$\partial_{\conj z}f=0$, so (since $f$ is $C^2$, indeed $C^\infty$, as the next chapter shows)
+$\Delta f=4\partial_z(\partial_{\conj z}f)=0$; taking real and imaginary parts,
+$\Delta u=\Delta v=0$.
 \emph{Check.} For $f=z^2$, $u=x^2-y^2$ has $u_{xx}+u_{yy}=2-2=0$, harmonic as predicted.
 \checkmark
 \end{wex}
@@ -25756,13 +25764,14 @@ $\sum_{n\ge1}nz^{n-1}=1/(1-z)^2$. Reindexing $m=n-1$,
 \[
   \frac1{(1-z)^2}=\sum_{m\ge0}(m+1)z^m,\qquad a_m=m+1,\ \abs z<1.
 \]
-\emph{Check.} The asymptotic $a_m\sim m^{m-1}/(m-1)!$ for $(1-z)^{-m}$ at $m=2$ gives
-$a_n\sim n$, matching $a_n=n+1$ to leading order. \checkmark
+\emph{Check.} The asymptotic $a_n\sim n^{k-1}/(k-1)!$ for the coefficients of $(1-z)^{-k}$ at
+$k=2$ gives $a_n\sim n$, matching $a_n=n+1$ to leading order. \checkmark
 \end{wex}
 
 \begin{wex}{Radius of convergence by the ratio test: a Bessel series}
 Find the radius of convergence of $\displaystyle\sum_{n\ge0}\frac{(-1)^n}{n!\,(n+r)!}
-\Bigl(\frac z2\Bigr)^{2n}$ (the Bessel function $J_r$, $r$ a fixed positive integer).
+\Bigl(\frac z2\Bigr)^{2n}$ (times $(z/2)^r$ it is the Bessel function $J_r$, $r$ a fixed positive
+integer).
 \wrec Stein's Bessel exercise. The series is in $w=(z/2)^2$; apply the ratio test to the
 coefficients $b_n=(-1)^n/(n!(n+r)!4^n)$.
 \wsol The general term is $b_n z^{2n}$ with $\abs{b_n}=\tfrac1{n!(n+r)!4^n}$. Then
@@ -25773,7 +25782,7 @@ coefficients $b_n=(-1)^n/(n!(n+r)!4^n)$.
 So in the variable $z^2$ the radius is $\infty$, hence the series converges for every $z$:
 $R=\infty$.
 \emph{Check.} $J_r$ is built from the entire exponential-type data $1/n!$, and indeed
-Bessel functions are entire. \checkmark
+Bessel functions of integer order are entire. \checkmark
 \end{wex}
 
 \begin{wex}{Boundary behavior of three look-alike series}
@@ -25793,8 +25802,8 @@ is identical while only the circle distinguishes them. \checkmark
 
 \begin{wex}{A non-example: real-differentiable but nowhere holomorphic}
 Show $f(z)=\Re(z)=x$ is infinitely real-differentiable yet holomorphic nowhere.
-\wrec Apply the Wirtinger criterion (Proposition~\ref{p:wirtinger@c14}): holomorphy is exactly
-$\partial f/\partial\conj z=0$.
+\wrec Apply the Wirtinger criterion (Proposition~\ref{p:wirtinger@c14}): holomorphy at a point
+forces $\partial f/\partial\conj z=0$ there.
 \wsol Here $u=x$, $v=0$, so $u_x=1\neq0=v_y$: the CR equation $u_x=v_y$ fails at every point.
 Equivalently $\partial_{\conj z}x=\tfrac12(\partial_x+i\partial_y)x=\tfrac12\neq0$
 everywhere. So $\Re z$ is nowhere holomorphic, although as a map $\R^2\to\R^2$ it is linear,
@@ -25826,7 +25835,7 @@ contradicting $\Re z$ being non-constant. \checkmark
   $\Omega$, then $\Re f$ and $\Im f$ are harmonic (their Laplacian is zero).
 \item Consider $f(x+iy)=\sqrt{\abs x\,\abs y}$ for $x,y\in\R$. Show that $f$ satisfies the
   Cauchy--Riemann equations at the origin yet is not holomorphic at $0$.
-\item Suppose $f$ is holomorphic on an open set $\Omega$. Prove that in each of the cases
+\item Suppose $f$ is holomorphic on a region $\Omega$. Prove that in each of the cases
   (a) $\Re(f)$ constant; (b) $\Im(f)$ constant; (c) $\abs f$ constant, the function $f$ is
   constant.
 \item (Summation by parts.) Let $\set{a_n}_{n=1}^N$, $\set{b_n}_{n=1}^N$ be finite
@@ -25933,11 +25942,15 @@ via $z(t)=z_0+re^{-it}$. We write $C$ for a generic positively oriented circle.
 
 \begin{center}
 \begin{tikzpicture}[scale=1.0]
-  \draw[contour] plot[smooth cycle,tension=0.85]
-    coordinates {(0,1) (1.6,0.8) (2.2,-0.4) (1.2,-1.5) (-0.6,-1.2) (-1.2,-0.1) (-0.7,0.9)};
-  \node[font=\footnotesize] at (1.7,1.1) {$\gamma$};
+  % open smooth plot starting and ending at the corner (-0.6,-1.2): the two end tangents
+  % differ, so the closed curve has a genuine corner there; point order is counterclockwise
+  \draw[contour] plot[smooth,tension=0.8]
+    coordinates {(-0.6,-1.2) (1.2,-1.45) (2.15,-0.3) (1.5,0.9) (0.1,1.15) (-0.95,0.65)
+      (-1.25,-0.3) (-0.6,-1.2)};
+  \node[font=\footnotesize] at (1.95,0.95) {$\gamma$};
   \node[pt] at (-0.6,-1.2) {};
-  \node[font=\footnotesize,below] at (-0.6,-1.35) {corner (piecewise-smooth)};
+  \node[font=\footnotesize,align=center,anchor=north east] at (-0.7,-1.25)
+    {corner\\(piecewise-smooth)};
 \end{tikzpicture}
 \captionof{figure}{A closed piecewise-smooth curve, positively oriented; the corner is
 allowed. (Schematic.)}
@@ -26025,7 +26038,7 @@ case $n=-1$.
   =ir^{n+1}\int_0^{2\pi}e^{i(n+1)t}\,dt.
 \]
 If $n\neq-1$, $\int_0^{2\pi}e^{i(n+1)t}\,dt=0$ (a full period), so the integral is $0$.
-If $n=-1$, the integrand is $i\int_0^{2\pi}dt=2\pi i$. Hence
+If $n=-1$, the integral is $i\int_0^{2\pi}dt=2\pi i$. Hence
 \[
   \oint_C z^n\dz=\begin{cases}2\pi i,&n=-1,\\ 0,&n\neq-1.\end{cases}
 \]
@@ -26105,15 +26118,18 @@ $\displaystyle\oint_\gamma\frac{dz}{(z-a)(z-b)}=\frac{2\pi i}{a-b}$.
 \wrec Decompose into simple fractions $1/(z-a)$ and $1/(z-b)$, then use the basic
 computation: $\oint dz/(z-c)=2\pi i$ if $c$ is inside, $0$ if outside.
 \wsol Partial fractions: $\dfrac1{(z-a)(z-b)}=\dfrac1{a-b}\Bigl(\dfrac1{z-a}-\dfrac1{z-b}\Bigr)$.
-Since $\abs a<r$, the point $a$ lies inside $\gamma$ and $\oint dz/(z-a)=2\pi i$; since
+Since $\abs a<r$, the point $a$ lies inside $\gamma$ and $\oint dz/(z-a)=2\pi i$ (on $\gamma$,
+$1/(z-a)=\sum_{n\ge0}a^nz^{-n-1}$ converges uniformly because $\abs{a/z}=\abs a/r<1$;
+integrating termwise with the fundamental computation, only $n=0$ survives); since
 $\abs b>r$, the point $b$ lies outside and $1/(z-b)$ has a primitive near $\gamma$, so
 $\oint dz/(z-b)=0$. Therefore
 \[
   \oint_\gamma\frac{dz}{(z-a)(z-b)}=\frac1{a-b}\bigl(2\pi i-0\bigr)=\frac{2\pi i}{a-b}.
 \]
 \emph{Check.} The ML-bound gives $\bigl|\oint\bigr|\le\frac{2\pi r}{(r-\abs a)(\abs b-r)}$,
-a finite quantity, consistent with the clean answer; and the result is antisymmetric in
-$a,b$, as the integrand is. \checkmark
+a finite quantity, consistent with the clean answer; and the integrand is symmetric in
+$a,b$, so with the roles exchanged ($b$ inside, $a$ outside) the same computation gives
+$(0-2\pi i)/(a-b)=2\pi i/(b-a)$, the same formula with $a,b$ swapped. \checkmark
 \end{wex}
 
 \begin{center}
@@ -26122,7 +26138,7 @@ $a,b$, as the integrand is. \checkmark
   \draw[cxaxis] (0,-1.8)--(0,2.0) node[above]{$\Im$};
   \draw[contour] (0,0) circle (1.3);
   \node[font=\footnotesize] at (1.05,1.05) {$\gamma$};
-  \node[pole,label={[font=\footnotesize]below:$a$}] at (0.5,0.3) {};
+  \node[pole,label={[font=\footnotesize]right:$a$}] at (0.5,0.3) {};
   \node[pole,label={[font=\footnotesize]right:$b$}] at (2.0,0.6) {};
 \end{tikzpicture}
 \captionof{figure}{Only the enclosed pole $a$ contributes; $b$ lies outside $\gamma$.
@@ -26140,8 +26156,8 @@ Thus $M\le e^R/(R^2-1)$ and
 \[
   \Bigl|\oint_{C_R}\frac{e^{iz}}{z^2+1}\dz\Bigr|\le 2\pi R\cdot\frac{e^R}{R^2-1}.
 \]
-\emph{Check.} The dimensionless ratio behaves like $2\pi e^R/R$ for large $R$; the bound is
-finite for each $R$, which is all the ML-inequality promises. (A sharper directional bound
+\emph{Check.} The bound behaves like $2\pi e^R/R$ for large $R$; it is finite for each $R$,
+which is all the ML-inequality promises. (A sharper directional bound
 on $\abs{e^{iz}}$ over a semicircle is the basis of Jordan's lemma in the next chapter.)
 \checkmark
 \end{wex}
@@ -26201,11 +26217,11 @@ diameter and arc contributions cancel exactly. \checkmark
   \draw[cxaxis] (-2.3,0)--(2.3,0) node[right]{$\Re$};
   \draw[cxaxis] (0,-0.5)--(0,2.1) node[above]{$\Im$};
   \draw[contour] (-1.7,0) -- (1.7,0) arc(0:180:1.7) -- cycle;
-  \node[font=\footnotesize] at (1.25,1.25) {$\gamma_R$};
+  \node[font=\footnotesize] at (1.55,1.5) {$\gamma_R$};
   \node[font=\footnotesize,below] at (1.7,0) {$R$};
   \node[font=\footnotesize,below] at (-1.7,0) {$-R$};
   \node[font=\footnotesize] at (1.0,0.18) {$D$};
-  \node[font=\footnotesize] at (1.45,0.95) {$A$};
+  \node[font=\footnotesize] at (-1.42,1.42) {$A$};
 \end{tikzpicture}
 \captionof{figure}{The upper half-disc contour $\gamma_R$ = diameter $D$ plus semicircular
 arc $A$.}
@@ -26216,10 +26232,11 @@ For the positively oriented circle $\abs z=2$ evaluate $\displaystyle\oint\frac{
 for (a) $z_0=1$ and (b) $z_0=3$.
 \wrec The basic computation $\oint dz/(z-z_0)=2\pi i$ when $z_0$ is enclosed, $0$ when
 outside; verify by reducing to the centered case.
-\wsol (a) $z_0=1$ lies inside $\abs z=2$. Parametrize is cleaner via translation invariance,
-but directly: writing $w=z-1$, the image of $\abs z=2$ winds once around $w=0$, so
-$\oint dw/w=2\pi i$. (b) $z_0=3$ lies outside; $1/(z-3)$ is holomorphic on and inside the
-circle with primitive $\log(z-3)$ available on a neighborhood, so the integral is $0$.
+\wsol (a) $z_0=1$ lies inside $\abs z=2$. On $\abs z=2$ we have $\abs{1/z}=\tfrac12$, so
+$1/(z-1)=\sum_{n\ge0}z^{-n-1}$ converges uniformly there; integrating termwise with the
+fundamental computation, only the $n=0$ term survives: $\oint dz/(z-1)=\oint dz/z=2\pi i$.
+(b) $z_0=3$ lies outside; $1/(z-3)$ is holomorphic on and inside the circle with primitive
+$\log(3-z)$ on $\C\setminus[3,\infty)$, a neighborhood of the circle, so the integral is $0$.
 \emph{Check.} The winding number of $\abs z=2$ about an interior point is $1$ (value
 $2\pi i$) and about an exterior point is $0$ -- exactly the two answers. \checkmark
 \end{wex}
@@ -26274,7 +26291,7 @@ $\int_0^\alpha Re^{i\theta}\,iRe^{i\theta}\,d\theta=iR^2\int_0^\alpha e^{2i\thet
   \draw[cxaxis] (0,-0.4)--(0,2.3) node[above]{$\Im$};
   \draw[contour] (0,0) -- (2,0) arc(0:55:2) -- cycle;
   \node[font=\footnotesize,below] at (2,0) {$R$};
-  \node[font=\footnotesize] at (0.55,0.32) {$\alpha$};
+  \node[font=\footnotesize] at (0.45,0.24) {$\alpha$};
   \draw (0.7,0) arc(0:55:0.7);
 \end{tikzpicture}
 \captionof{figure}{A sector contour: two radii and the arc of opening angle $\alpha$.}
@@ -26332,8 +26349,8 @@ $1/z$) has no global primitive. \checkmark
   continuous --- consistent with $\conj z$ having no primitive (it is nowhere holomorphic).
 \item (Non-example.) Exhibit a closed curve $\gamma$ and a continuous function $f$ with
   $\oint_\gamma f\dz\neq0$, and a different continuous $f$ with $\oint_\gamma f\dz=0$ on the
-  \emph{same} $\gamma$, showing that vanishing of the closed integral is a property of $f$
-  (having a primitive), not of $\gamma$.
+  \emph{same} $\gamma$, showing that vanishing of the closed integral depends on $f$
+  (e.g.\ on whether $f$ has a primitive), not on $\gamma$ alone.
 \item (Diagram problem.) Draw a positively oriented keyhole-type contour: the unit circle
   $C_1(0)$ together with a small clockwise circle $C_\eps(0)$ around the origin joined by
   two segments. Mark the orientation arrows and state which region the contour bounds.
