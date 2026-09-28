@@ -48591,15 +48591,15 @@ through $T$ to its lower side, hence meet $\partial\Omega$ inside $R$. (Schemati
 The whole of Lebesgue's theory on $\Rd$ rests on two ingredients: a supply of
 ``measurable'' sets stable under the countable set operations, and a way to assign a
 size to each that adds over disjoint countable unions. Abstracting these two ingredients
-from $\Rd$ gives the general notion of a measure space, in which every theorem of the
-Lebesgue theory (convergence theorems, Fubini, differentiation) finds its natural home.
+from $\Rd$ gives the general notion of a measure space, in which the main theorems of the
+Lebesgue theory (convergence theorems, Fubini, differentiation) find their natural home.
 
 \begin{definition}\label{d:sigalg@c29}
 A \emph{$\sigma$-algebra} of subsets of a set $X$ is a non-empty collection $\sM$ of
 subsets of $X$ that is closed under complements and countable unions (hence, by De~Morgan,
 under countable intersections). A \emph{measure} on $\sM$ is a function
-$\mu:\sM\to[0,\infty]$ that is \emph{countably additive}: for any countable family
-$\set{E_n}$ of pairwise disjoint sets in $\sM$,
+$\mu:\sM\to[0,\infty]$, not identically $\infty$, that is \emph{countably additive}: for
+any countable family $\set{E_n}$ of pairwise disjoint sets in $\sM$,
 \[
   \mu\Bigl(\bigcup_{n=1}^{\infty}E_n\Bigr)=\sum_{n=1}^{\infty}\mu(E_n).
 \]
@@ -48622,8 +48622,8 @@ from below ($E_n\uparrow E\imp\mu(E_n)\to\mu(E)$) and from above
 \end{proposition}
 
 \begin{proof}
-Pick $E$ with $\mu(E)<\infty$ (if none exists every set has infinite measure and the
-claims are trivial); additivity on $E=E\cup\es\cup\es\cup\cdots$ forces $\mu(\es)=0$.
+Pick $E$ with $\mu(E)<\infty$ (one exists, as $\mu$ is not identically $\infty$);
+additivity on $E=E\cup\es\cup\es\cup\cdots$ forces $\mu(\es)=0$.
 Monotonicity: $F=E\cup(F\setminus E)$ disjointly, so $\mu(F)=\mu(E)+\mu(F\setminus
 E)\ge\mu(E)$. Subadditivity: disjointify by $F_n=E_n\setminus\bigcup_{k<n}E_k$, then
 $\mu(\bigcup E_n)=\sum\mu(F_n)\le\sum\mu(E_n)$. Continuity from below: write
@@ -48678,7 +48678,7 @@ generic source (premeasures, below); the Hausdorff measures of the next chapter 
   \node at (1.15,0.5) {$E$};
   \node[font=\footnotesize] at (2.05,1.45) {$Q_j$};
 \end{tikzpicture}
-\captionof{figure}{$\mu^{*}(E)=\inf\sum_j|Q_j|$ over countable cube covers
+\captionof{figure}{$\Leb^{*}(E)=\inf\sum_j|Q_j|$ over countable cube covers
 $E\subseteq\bigcup_j Q_j$: the prototype of an exterior measure. (Schematic.)}
 \end{center}
 
@@ -48696,14 +48696,14 @@ A set $E\subseteq X$ is \emph{Caratheodory measurable} if
 
 \begin{center}
 \begin{tikzpicture}[scale=1.0]
-  \draw[line width=0.9pt] (0,0) rectangle (5,2.6);
-  \node at (4.6,2.3) {$A$};
-  \draw[line width=0.9pt,dashed] (2.5,-0.3)--(2.5,2.9);
-  \node[above] at (2.5,2.9) {$\partial E$};
   \begin{scope}
     \clip (0,0) rectangle (5,2.6);
     \fill[band] (-0.5,-0.5) rectangle (2.5,3.2);
   \end{scope}
+  \draw[line width=0.9pt] (0,0) rectangle (5,2.6);
+  \node at (4.6,2.3) {$A$};
+  \draw[line width=0.9pt,dashed] (2.5,-0.3)--(2.5,2.9);
+  \node[above] at (2.5,2.9) {$\partial E$};
   \node at (1.25,1.3) {$E\cap A$};
   \node at (3.75,1.3) {$E^{c}\cap A$};
 \end{tikzpicture}
@@ -48820,7 +48820,7 @@ checks $d(B_{n+1},A_n)\ge \tfrac1{n(n+1)}>0$ (if $x\in B_{n+1}$ and $d(x,y)<\tfr
 then $d(y,F)<1/n$, so $y\notin A_n$). The metric property then gives
 $\mu^{*}(A_{2k+1})\ge\sum_{j\le k}\mu^{*}(B_{2j})$ and similarly for odd indices; since
 $\mu^{*}(A)<\infty$ both series $\sum\mu^{*}(B_j)$ converge. As
-$\mu^{*}(A_n)\le\mu^{*}(F^{c}\cap A)\le\mu^{*}(A_n)+\sum_{j>n}\mu^{*}(B_j)$, the claim
+$\mu^{*}(A_n)\le\mu^{*}(F^{c}\cap A)\le\mu^{*}(A_n)+\sum_{j\ge n}\mu^{*}(B_j)$, the claim
 follows. Letting $n\to\infty$ in \eqref{eq:metric1@c29} gives
 $\mu^{*}(A)\ge\mu^{*}(F\cap A)+\mu^{*}(F^{c}\cap A)$, so $F$ is measurable.
 \end{proof}
@@ -48835,11 +48835,12 @@ $\mu(O\setminus E)<\eps$ and a closed $F\subseteq E$ with $\mu(E\setminus F)<\ep
 
 \begin{proof}[Proof sketch]
 Let $\mathscr{C}$ be the collection of sets satisfying both approximation properties.
-By complementation $\mathscr{C}$ is closed under complements; a $\sigma/2^k$-budget argument
+By complementation $\mathscr{C}$ is closed under complements; an $\eps/2^k$-budget argument
 shows it is closed under countable unions (the open over-sets union to an open over-set
 within $\sum\eps/2^k$; the closed under-sets union to an $F_\sigma$ which is trimmed to a
 genuine closed set using finiteness of $\mu$ on balls). Every open set lies in $\mathscr{C}$:
-$O=\bigcup_k\set{x\in B_k\st d(x,O^{c})\ge 1/k}$ is an increasing union of closed sets.
+$O=\bigcup_k\set{x\in B_k\st d(x,O^{c})\ge 1/k}$ ($B_k$ the closed ball of radius $k$ about
+a fixed point) is an increasing union of closed sets.
 Thus $\mathscr{C}$ is a $\sigma$-algebra containing the open sets, hence all Borel sets.
 \end{proof}
 
@@ -48872,8 +48873,8 @@ $\mu_0(\bigcup_k E_k)=\sum_k\mu_0(E_k)$.
 \begin{center}
 \begin{tikzcd}[column sep=2.4em,row sep=1.4em]
 \text{premeasure }\mu_0\text{ on }\sA \arrow[r,"\text{cover}"] &
-\text{exterior }\mu^{*} \arrow[r,"\text{Caratheodory}"] &
-\text{measure on }\sM\supseteq\sB \\
+\text{exterior }\mu^{*} \arrow[r,"\text{Caratheodory}"] &[3em]
+\text{measure on }\sM\supseteq\sA \\
 & & \text{restrict to }\langle\sA\rangle=\sM_0 \arrow[u,hook']
 \end{tikzcd}
 \captionof{figure}{The extension pipeline: a primitive premeasure flows to a complete
@@ -48928,15 +48929,20 @@ This regularity-from-the-algebra (proof left to the reader, as in Stein) is the 
 for the Fubini slicing argument of \S29.3.
 
 \begin{wex}{Counting measure as an extension; non-uniqueness without $\sigma$-finiteness}
-On $X=\Q$ let $\sA$ be the algebra of finite-or-cofinite sets, with $\mu_0(E)=0$ if $E$
-finite, $\mu_0(E)=\infty$ if $E$ cofinite. Show extensions to $\sB$ are not unique.
+On $X=\Q$ let $\sA$ be the algebra of finite disjoint unions of sets $(a,b]\cap\Q$
+($-\infty\le a<b\le\infty$), with $\mu_0(\es)=0$ and $\mu_0(E)=\infty$ for $E\ne\es$. Show
+that extensions of $\mu_0$ to $\langle\sA\rangle$ are not unique.
 \wrec Trigger: test the necessity of $\sigma$-finiteness in Theorem~\ref{t:extend@c29}.
-\wsol Counting measure $\#$ and $2\cdot\#$ (and counting measure itself versus the measure
-$\mu$ giving every infinite set $\infty$ and matching $\mu_0$ on $\sA$) all restrict to
-$\mu_0$ on $\sA$, since on $\sA$ the only values are $0$ and $\infty$. But $\#(\set{q})=1$
-while another extension could assign $2$ to a singleton; both agree on $\sA$. Uniqueness
-fails because $X=\Q$ is \emph{not} $\sigma$-finite for any of these (no countable cover by
-finite-$\mu_0$ sets exhausts $\Q$ with finite measure under the $\infty$-valued one).
+\wsol $\mu_0$ is a premeasure: if a non-empty $E\in\sA$ is a countable disjoint union of
+$\sA$-sets, one of them is non-empty, so both sides are $\infty$. Each singleton
+$\set{q}=\bigcap_n(q-\frac1n,q]\cap\Q$ lies in $\langle\sA\rangle$, so
+$\langle\sA\rangle=\sP(\Q)$. Every non-empty set of $\sA$ is infinite, so counting measure
+$\#$, $2\cdot\#$, and the measure $\mu$ giving every non-empty set the value $\infty$ all
+restrict to $\mu_0$ on $\sA$. But $\#(\set{q})=1$, $2\cdot\#(\set{q})=2$ and
+$\mu(\set{q})=\infty$: three extensions that agree on $\sA$. Uniqueness fails because
+$\mu_0$ is \emph{not} $\sigma$-finite: every non-empty set of $\sA$ has infinite measure, so
+the extension $\mu=\mu^{*}$ built in Theorem~\ref{t:extend@c29} is not $\sigma$-finite
+(although $\#$ is).
 \emph{Check.} Lebesgue measure on $\R$, by contrast, \emph{is} $\sigma$-finite
 ($\R=\bigcup_n[-n,n]$), so its extension from the algebra of finite unions of intervals is
 unique -- the classical fact.
@@ -48950,8 +48956,8 @@ above and its finiteness caveat.
 \wsol $\bigcap_n[n,\infty)=\es$ since no real exceeds every $n$, so $E_n\downarrow\es$. But
 $\Leb(E_n)=\infty$ for all $n$, so $\Leb(E_n)\to\infty\ne0=\Leb(\es)$. The hypothesis
 $\mu(E_1)<\infty$ of continuity from above is violated ($\Leb(E_1)=\infty$).
-\emph{Check.} Truncating to $E_n\cap[0,10]=[n,10]$ (finite measure $E_1$) restores it:
-$\Leb([n,10])=10-n\to0$ as $n\to10$, matching $\Leb(\es)$.
+\emph{Check.} Truncating to $E_n\cap[0,10]$ (now $\Leb(E_1\cap[0,10])=9<\infty$) restores it:
+$\Leb(E_n\cap[0,10])=\max(10-n,0)\to0$, matching $\Leb(\es)$.
 \end{wex}
 
 \begin{wex}{A non-measurable set: the criterion can fail}
@@ -48971,18 +48977,21 @@ just on $\sM$.
 \end{wex}
 
 \begin{pitfall}
-The Caratheodory $\sigma$-algebra $\sM$ can be strictly larger than the generated algebra
-$\sM_0=\langle\sA\rangle$ (e.g.\ Lebesgue $\supsetneq$ Borel): $\mu^{*}$ produces a
-\emph{complete} measure, but the extension theorem only promises a measure on $\sM_0$,
-which need not be complete. Uniqueness is asserted on $\sM_0$ and requires
+The Caratheodory $\sigma$-algebra $\sM$ can be strictly larger than the generated
+$\sigma$-algebra $\sM_0=\langle\sA\rangle$ (e.g.\ Lebesgue $\supsetneq$ Borel): $\mu^{*}$
+produces a \emph{complete} measure, but the extension theorem only promises a measure on
+$\sM_0$, which need not be complete. Uniqueness is asserted on $\sM_0$ and requires
 $\sigma$-finiteness; on the bigger $\sM$ there is generally nothing to compare against.
 \end{pitfall}
 
 \begin{exers}{Exercises (Stein, Ch.6).}
 \item Let $X$ be a set and $\sM$ a non-empty collection of subsets of $X$. Prove that if
-$\sM$ is closed under complements and countable unions of \emph{disjoint} sets, then $\sM$
-is a $\sigma$-algebra. [Hint: any countable union can be written as a countable union of
-disjoint sets.]
+$\sM$ is closed under complements, finite intersections, and countable unions of
+\emph{disjoint} sets, then $\sM$ is a $\sigma$-algebra. [Hint: any countable union
+$\bigcup_n E_n$ is the disjoint union of the sets $E_n\cap E_1^{c}\cap\dots\cap E_{n-1}^{c}$.
+Finite intersections cannot be dropped:
+$\set{\es,X,\set{1,2},\set{3,4},\set{1,3},\set{2,4}}$ on $X=\set{1,2,3,4}$ satisfies the
+other two conditions but is not a $\sigma$-algebra.]
 
 \item (Completion of a measure space.) Given $(X,\sM,\mu)$, let $\overline{\sM}$ be the
 sets of the form $E\cup Z$ with $E\in\sM$ and $Z\subseteq F$ for some $F\in\sM$ with
@@ -48990,13 +48999,14 @@ $\mu(F)=0$; set $\overline\mu(E\cup Z)=\mu(E)$. Show: (a) $\overline{\sM}$ is th
 $\sigma$-algebra containing $\sM$ and all subsets of $\sM$-null sets; (b) $\overline\mu$ is
 a complete measure on $\overline{\sM}$. [Hint: it suffices that $E_1\in\overline{\sM}\imp
 E_1^{c}\in\overline{\sM}$; write $E_1=E\cup Z$, $Z\subseteq F$, then
-$E_1^{c}=(E\cup F)^{c}\cup(F\setminus Z)$.]
+$E_1^{c}=(E\cup F)^{c}\cup\bigl(E^{c}\cap(F\setminus Z)\bigr)$.]
 
-\item Consider the exterior Lebesgue measure $\Leb^{*}$ on $\Rd$ of Chapter~1. Prove that
-$E\subseteq\Rd$ is Caratheodory measurable if and only if $E$ is Lebesgue measurable in the
-sense of Chapter~1. [Hint: if $E$ is Lebesgue measurable and $A$ arbitrary, choose a
-$G_\delta$ set $G\supseteq A$ with $\Leb^{*}(A)=\Leb(G)$; conversely if $E$ is Caratheodory
-measurable with $\Leb^{*}(E)<\infty$, choose a $G_\delta$ set $G\supseteq E$ with
+\item Consider the exterior Lebesgue measure $\Leb^{*}$ on $\Rd$
+(Definition~\ref{d:ext@c24}). Prove that $E\subseteq\Rd$ is Caratheodory measurable if and
+only if $E$ is Lebesgue measurable in the sense of Definition~\ref{d:meas@c24}. [Hint: if
+$E$ is Lebesgue measurable and $A$ arbitrary, choose a $G_\delta$ set $G\supseteq A$ with
+$\Leb^{*}(A)=\Leb(G)$; conversely if $E$ is Caratheodory measurable with
+$\Leb^{*}(E)<\infty$, choose a $G_\delta$ set $G\supseteq E$ with
 $\Leb^{*}(E)=\Leb^{*}(G)$, so $G\setminus E$ has exterior measure $0$.]
 
 \item (Translation invariance characterizes Lebesgue measure.) If $\mu$ is a
@@ -49009,9 +49019,14 @@ $Q_{1/n}$.]
 \end{exers}
 
 \begin{exers}{Additional exercises.}
-\item Let $\mu^{*}$ be an exterior measure on $X$ and $E$ a set with
+\item Let $\mu^{*}$ be the exterior measure induced by a premeasure on an algebra $\sA$ of
+subsets of $X$ (Lemma~\ref{l:premeas-outer@c29}) and $E$ a set with
 $\mu^{*}(E)+\mu^{*}(E^{c})=\mu^{*}(X)<\infty$. Show $E$ is Caratheodory measurable.
-[This is the ``one test set'' shortcut when $X$ has finite outer measure.]
+[This is the ``one test set'' shortcut when $X$ has finite outer measure. Hint: take
+$H\supseteq E$ and $K\supseteq E^{c}$ in $\sA_{\sigma\delta}$ as in
+Proposition~\ref{p:Asigdel@c29}; then $\mu^{*}(H\cap K)=0$. For a general exterior measure
+the shortcut fails: on $X=\set{1,2,3}$ let $\mu^{*}(S)=0,1,1,2$ according as $S$ has
+$0,1,2,3$ points, and test $E=\set{1}$ against $A=\set{1,2}$.]
 
 \item Show that a finite intersection and a finite union of Caratheodory measurable sets are
 measurable directly from the criterion, without invoking Theorem~\ref{t:cara@c29}.
@@ -49032,11 +49047,12 @@ $\mu^{*}(\es)=0$.]
 every test set $A$, $\mu^{*}(A\cap\bigcup_n E_n)=\sum_n\mu^{*}(A\cap E_n)$ (countable
 additivity holds even ``through'' an arbitrary $A$).
 
-\item Let $\sA$ be the algebra of finite unions of half-open intervals $(a,b]$ in $\R$ and
-$\mu_0((a,b])=b-a$. Verify $\mu_0$ is a premeasure (the only nontrivial point is countable
-additivity within $\sA$), so the extension theorem reproduces Lebesgue measure.
+\item Let $\sA$ be the algebra of finite unions of half-open intervals $(a,b]$ in $\R$
+($-\infty\le a<b\le\infty$, reading $(a,\infty]$ as $(a,\infty)$) and $\mu_0((a,b])=b-a$.
+Verify $\mu_0$ is a premeasure (the only nontrivial point is countable additivity within
+$\sA$), so the extension theorem reproduces Lebesgue measure.
 
-\item (Diagram.) Draw a set $E\subseteq\R^2$ and a finite cover by squares achieving
+\item (Diagram.) Draw a compact set $E\subseteq\R^2$ and a finite cover by squares achieving
 $\sum\abs{Q_j}\le\Leb^{*}(E)+\eps$; mark which squares are wasted (overlap or stick out) and
 explain how refining the grid reduces the waste toward $\Leb^{*}(E)$.
 \end{exers}
@@ -49054,7 +49070,7 @@ needs care, with worked computations.
 An extended-real-valued $f$ on $X$ is \emph{measurable} if
 $\set{x\st f(x)<a}=f\inv([-\infty,a))\in\sM$ for all $a\in\R$. A \emph{simple function} is
 $\varphi=\sum_{k=1}^{N}a_k\ind{E_k}$ with $E_k\in\sM$ of finite measure and $a_k\in\R$.
-Almost-everywhere ($\aev$) is relative to $\mu$: $f=g\aev$ means
+Almost-everywhere (a.e.) is relative to $\mu$: $f=g\aev$ means
 $\mu(\set{f\ne g})=0$.
 \end{definition}
 
@@ -49103,7 +49119,7 @@ indicator blocks over disjoint measurable sets $E_k$. (Schematic.)}
 \begin{theorem}[Approximation and Egorov]\label{t:approx@c29}
 \textnormal{(i)} If $f\ge0$ is measurable there exist simple $\varphi_k$ with
 $0\le\varphi_k\le\varphi_{k+1}\uparrow f$ pointwise; for general measurable $f$ one can take
-$\abs{\varphi_k}\le\abs{\varphi_{k+1}}\to f$. \textnormal{(ii) (Egorov)} If
+$\abs{\varphi_k}\le\abs{\varphi_{k+1}}$ and $\varphi_k\to f$. \textnormal{(ii) (Egorov)} If
 $f_k\to f\aev$ on a set $E$ with $\mu(E)<\infty$, then for each $\eps>0$ there is
 $A_\eps\subseteq E$ with $\mu(E\setminus A_\eps)\le\eps$ and $f_k\to f$ \emph{uniformly} on
 $A_\eps$.
@@ -49141,7 +49157,7 @@ MCT: monotonicity gives $\lim\int f_n\le\int f$; for the reverse, fix simple
 $0\le\varphi\le f$ and $c<1$, let $E_n=\set{f_n\ge c\varphi}\uparrow X$, then
 $\int f_n\ge c\int_{E_n}\varphi\to c\int\varphi$ by continuity from below of
 $E\mapsto\int_E\varphi$; sup over $\varphi$ and let $c\to1$. Fatou follows by applying MCT
-to $g_n=\inf_{k\ge n}f_k\uparrow\liminf f_n$. DCT: apply Fatou to $g\pm f_n\ge0$.
+to $g_n=\inf_{k\ge n}f_k\uparrow\liminf f_n$. DCT: apply Fatou to $2g-\abs{f_n-f}\ge0$.
 \end{proof}
 
 \begin{center}
@@ -49159,11 +49175,16 @@ to $g_n=\inf_{k\ge n}f_k\uparrow\liminf f_n$. DCT: apply Fatou to $g\pm f_n\ge0$
   \begin{scope}[shift={(5,0)}]
     \draw[numln] (0,0)--(3.2,0) node[right]{\footnotesize$x$};
     \draw[numln] (0,0)--(0,2.6) node[above]{\footnotesize$y$};
+    % horizontal slices = level sets {f>y}: clip to the region under the graph
+    \begin{scope}
+      \clip (0.1,0)--plot[domain=0.1:3,samples=40]({\x},{0.4+1.6*(1-exp(-\x))})
+        --(3,0)--cycle;
+      \fill[band] (0,1.0) rectangle (3,1.3);
+      \foreach \y in {0.4,0.7,...,1.9}{
+        \draw[dgrid,line width=0.4pt] (0,\y)--(3,\y);}
+    \end{scope}
     \draw[line width=1pt,domain=0.1:3,samples=40]
       plot({\x},{0.4+1.6*(1-exp(-\x))});
-    \foreach \y in {0.4,0.7,...,1.9}{
-      \draw[dgrid,line width=0.4pt] (0,\y)--(3,\y);}
-    \fill[band,opacity=0.6] (0,1.0) rectangle (3,1.3);
     \node[font=\footnotesize] at (1.6,-0.45){Lebesgue: horizontal};
   \end{scope}
 \end{tikzpicture}
@@ -49187,7 +49208,7 @@ harmonic-type series $\sum\frac1{n+1}$.
 \begin{wex}{Fatou can be strict: escaping bumps}
 On $(\R,\Leb)$ let $f_n=\ind{[n,n+1]}$. Compare $\int\liminf f_n$ with $\liminf\int f_n$.
 \wrec Trigger: a moving-bump sequence; test sharpness of Fatou and failure of MCT/DCT.
-\wsol Pointwise $f_n(x)\to0$ for every $x$ (each $x$ is covered by at most one bump), so
+\wsol Pointwise $f_n(x)\to0$ for every $x$ (each $x$ is covered by at most two bumps), so
 $\liminf f_n=0$ and $\int\liminf f_n=0$. But $\int f_n=1$ for all $n$, so $\liminf\int
 f_n=1$. Thus $0\le1$ -- Fatou holds with \emph{strict} inequality. \emph{Check.} No
 integrable dominating $g$ exists ($\sup_n f_n=\ind{[1,\infty)}$ is non-integrable), so DCT
@@ -49223,7 +49244,7 @@ $a_{m,n}=2^{-m-n}$, all three equal $(\sum 2^{-m})(\sum 2^{-n})=1\cdot1=1$.
 \subsection*{The spaces $L^{1}$ and $L^{2}$}
 
 \begin{definition}\label{d:Lp@c29}
-$\Lone(X,\mu)$ is the space of (equivalence classes mod $\aev$) integrable functions with
+$\Lone(X,\mu)$ is the space of (equivalence classes mod a.e.) integrable functions with
 norm $\norm{f}_{\Lone}=\int_X\abs{f}\dmu$. $\Ltwo(X,\mu)$ is the class of measurable $f$
 with $\int_X\abs{f}^{2}\dmu<\infty$, normed by
 $\norm{f}_{\Ltwo}=\bigl(\int_X\abs{f}^{2}\dmu\bigr)^{1/2}$ and carrying the inner product
@@ -49290,13 +49311,13 @@ On $(\R,\Leb)$ let $f(x)=\frac{1}{1+\abs x}$. Decide membership in $\Lone$ and $
 \wsol $\int_\R\frac{dx}{1+\abs x}=2\int_0^\infty\frac{dx}{1+x}=\infty$, so $f\notin\Lone$.
 But $\int_\R\frac{dx}{(1+\abs x)^2}=2\int_0^\infty\frac{dx}{(1+x)^2}=2<\infty$, so
 $f\in\Ltwo$. \emph{Check.} On infinite-measure spaces neither inclusion
-$\Lone\subseteq\Ltwo$ nor $\Ltwo\subseteq\Lone$ holds; here the slow tail $1/x$ kills $L^1$
+$\Lone\subseteq\Ltwo$ nor $\Ltwo\subseteq\Lone$ need hold; here the slow tail $1/x$ kills $L^1$
 but the squared tail $1/x^2$ is summable, so $f\in\Ltwo\setminus\Lone$. (On a probability
-space the reverse inclusion $\Ltwo\subseteq\Lone$ would hold.)
+space, by contrast, $\Ltwo\subseteq\Lone$ holds.)
 \end{wex}
 
 \begin{pitfall}
-In $\Lp{p}$ the elements are equivalence classes mod $\aev$, not functions: ``$f(x_0)$''
+In $\Lp{p}$ the elements are equivalence classes mod a.e., not functions: ``$f(x_0)$''
 is meaningless and pointwise statements must be qualified by ``a.e.'' Also $\Ltwo(X,\mu)$
 need \emph{not} be separable when $\mu$ is not $\sigma$-finite or $X$ is exotic (e.g.\
 counting measure on an uncountable set) -- the Hilbert-space theory still applies, but one
@@ -49381,7 +49402,7 @@ rectangles, and a union of two rectangles splits into at most six disjoint ones.
   \draw[line width=1pt,dashed] (3.4,-0.1)--(3.4,3.0);
   \node[font=\footnotesize] at (3.4,-0.45){$x_1$};
 \end{tikzpicture}
-\captionof{figure}{A measurable rectangle $A\times B$ with $\mu_0=\mu_1(A)\mu_2(B)$;
+\captionof{figure}{A measurable rectangle $A\times B$ with $\mu_0(A\times B)=\mu_1(A)\mu_2(B)$;
 the dashed line is a slice $\set{x_1}\times X_2$ used by Fubini. (Schematic.)}
 \end{center}
 
@@ -49470,15 +49491,19 @@ Compute $\iint_{\R^2}e^{-(x^2+y^2)}\,dx\,dy$ by Tonelli, and deduce
 $\int_\R e^{-x^2}\dx=\sqrt\pi$.
 \wrec Trigger: a non-negative product integrand -- Tonelli factors it.
 \wsol Since $e^{-(x^2+y^2)}=e^{-x^2}e^{-y^2}\ge0$, Tonelli gives
-$\iint=\bigl(\int_\R e^{-x^2}\dx\bigr)\bigl(\int_\R e^{-y^2}\dy\bigr)=I^2$. In polar
+$\iint=\bigl(\int_\R e^{-x^2}\dx\bigr)\bigl(\int_\R e^{-y^2}\dy\bigr)=I^2$, where
+$I=\int_\R e^{-x^2}\dx$. In polar
 coordinates $\iint=\int_0^{2\pi}\int_0^\infty e^{-r^2}r\,dr\,d\theta=2\pi\cdot\tfrac12=\pi$.
 Hence $I^2=\pi$, $I=\sqrt\pi$. \emph{Check.} The polar slicing is itself the polar-coordinate
 case of the product theory (Theorem~\ref{t:polar@c29} below); both routes give $\pi$.
 \end{wex}
 
 \begin{wex}{Fubini fails without integrability}
-Show $\int_0^1\!\int_0^1\frac{x^2-y^2}{(x^2+y^2)^2}\,dy\,dx\ne\int_0^1\!\int_0^1
-\frac{x^2-y^2}{(x^2+y^2)^2}\,dx\,dy$.
+Show that
+\[
+  \int_0^1\!\int_0^1\frac{x^2-y^2}{(x^2+y^2)^2}\,dy\,dx\ne\int_0^1\!\int_0^1
+  \frac{x^2-y^2}{(x^2+y^2)^2}\,dx\,dy.
+\]
 \wrec Trigger: a sign-changing kernel; suspect $\iint\abs f=\infty$ and test both orders.
 \wsol Note $\frac{x^2-y^2}{(x^2+y^2)^2}=\partial_x\!\bigl(\frac{-x}{x^2+y^2}\bigr)$, so the
 inner $x$-integral is $\bigl[\frac{-x}{x^2+y^2}\bigr]_0^1=\frac{-1}{1+y^2}$, giving outer
@@ -49496,7 +49521,7 @@ counting measure.
 \wsol The integrand $g(n,x)=2^{-n}x^n\ge0$ on $(\N,\#)\times([0,1],\Leb)$. Tonelli equates
 the two iterations: $\int_0^1\sum_n g\dx=\sum_n\int_0^1 g\dx=\sum_n
 2^{-n}\frac1{n+1}$. \emph{Check.} Numerically $\sum_{n\ge1}\frac1{2^n(n+1)}
-=\tfrac1{4}+\tfrac1{24}+\cdots\approx0.386$, and the closed form is
+=\tfrac1{4}+\tfrac1{12}+\cdots\approx0.386$, and the closed form is
 $\sum_{n\ge1}\frac1{2^n(n+1)}=2\ln2-1\approx0.386$. Consistent.
 \end{wex}
 
@@ -49536,21 +49561,29 @@ carries the product measure $r^{d-1}dr\,d\sigma$ to Lebesgue measure on the punc
 \begin{tikzpicture}[scale=1.35]
   \draw[cxaxis] (-0.3,0)--(2.7,0) node[right]{\footnotesize$x_1$};
   \draw[cxaxis] (0,-0.3)--(0,2.6) node[above]{\footnotesize$x_2$};
-  % highlighted volume element: the annular sector between r=1.2..1.5 and gamma=40..58
-  \fill[band] (0,0) -- ({1.2*cos(40)},{1.2*sin(40)}) arc(40:58:1.2)
-    -- ({1.5*cos(58)},{1.5*sin(58)}) arc(58:40:1.5) -- cycle;
-  \foreach \r in {0.6,1.2,1.8}{ \draw[conff] (\r,0) arc(0:90:\r); }
+  % volume element: the polar cell 1.5<=|x|<=2, 40<=angle<=65 (degrees), i.e. the
+  % radial interval [r,r+dr] (r=1.5) times the patch d sigma of directions
+  \fill[band] ({1.5*cos(40)},{1.5*sin(40)}) arc(40:65:1.5)
+    -- ({2*cos(65)},{2*sin(65)}) arc(65:40:2) -- cycle;
+  \foreach \r in {0.5,1.5,2}{ \draw[conff] (\r,0) arc(0:90:\r); }
   \foreach \a in {15,40,65}{
-    \draw[conff] (0,0)--({2.1*cos(\a)},{2.1*sin(\a)}); }
-  % the unit-direction ray gamma with its tip on S^{d-1}
-  \draw[-{Stealth[length=2mm]},line width=1pt] (0,0)--({1.95*cos(49)},{1.95*sin(49)});
-  \node[font=\footnotesize,fill=white,inner sep=0.5pt]
-    at ({0.95*cos(49)+0.12},{0.95*sin(49)+0.16}){$r$};
-  \node[pt] at ({1.95*cos(49)},{1.95*sin(49)}){};
-  \node[font=\footnotesize] at ({2.18*cos(49)},{2.18*sin(49)+0.05}){$\gamma$};
-  % element labels
-  \node[font=\footnotesize] at (1.62,0.78){$dr$};
-  \node[font=\footnotesize] at (0.62,1.42){$d\sigma$};
+    \draw[conff] (0,0)--({2.2*cos(\a)},{2.2*sin(\a)}); }
+  \draw[line width=0.6pt] ({1.5*cos(40)},{1.5*sin(40)}) arc(40:65:1.5)
+    -- ({2*cos(65)},{2*sin(65)}) arc(65:40:2) -- cycle;
+  % the unit sphere S^{d-1} (radius 1) and the patch d sigma on it
+  \draw[line width=0.8pt] (1,0) arc(0:90:1);
+  \draw[line width=2pt] ({cos(40)},{sin(40)}) arc(40:65:1);
+  \node[font=\footnotesize,anchor=east,inner sep=1pt] at (-0.04,1){$S^{d-1}$};
+  \node[font=\footnotesize] at ({0.74*cos(56)},{0.74*sin(56)}){$d\sigma$};
+  % x = r gamma: the point at distance r in the direction gamma of S^{d-1}
+  \draw[-{Stealth[length=2mm]},line width=1pt] (0,0)--({1.5*cos(40)},{1.5*sin(40)});
+  \node[pt] at ({cos(40)},{sin(40)}){};
+  \node[pt] at ({1.5*cos(40)},{1.5*sin(40)}){};
+  \node[font=\footnotesize,fill=white,inner sep=0.5pt] at ({0.6*cos(31)},{0.6*sin(31)}){$r$};
+  \node[font=\footnotesize] at ({1.14*cos(31)},{1.14*sin(31)}){$\gamma$};
+  \node[font=\footnotesize,anchor=north west,fill=white,inner sep=0.5pt]
+    at ({1.5*cos(40)+0.05},{1.5*sin(40)-0.04}){$x=r\gamma$};
+  \node[font=\footnotesize] at ({1.75*cos(71)},{1.75*sin(71)}){$dr$};
 \end{tikzpicture}
 \captionof{figure}{Polar slicing $x=r\gamma$: the volume element factors as
 $r^{d-1}\,dr\,d\sigma(\gamma)$ over $(0,\infty)\times S^{d-1}$.}
@@ -49573,7 +49606,7 @@ $\pi^{3/2}/\Gamma(5/2)=\pi^{3/2}/(\tfrac34\sqrt\pi)=\tfrac43\pi$, the classical 
 If $F$ is increasing and \emph{normalized} (right-continuous), there is a unique Borel
 measure $\mu=dF$ on $\R$ with $\mu((a,b])=F(b)-F(a)$. Conversely, a Borel measure finite on
 bounded intervals arises this way from $F(x)=\mu((0,x])$ ($x>0$), $F(0)=0$,
-$F(x)=-\mu((-x,0])$ ($x<0$).
+$F(x)=-\mu((x,0])$ ($x<0$).
 \end{theorem}
 
 \begin{proof}[Proof idea]
@@ -49610,8 +49643,11 @@ $1$ gives $\int_0^4 1\,dF=F(4^-)-F(0)=3$, the total mass, matching the three uni
 
 \begin{pitfall}
 The product measure $\mu_1\times\mu_2$ from the extension theorem is generally \emph{not}
-complete, even when both factors are: e.g.\ $\Leb_1\times\Leb_1$ is Borel-on-$\R^2$, which
-is strictly smaller than Lebesgue on $\R^2$; the latter is its \emph{completion}. Fubini
+complete, even when both factors are: e.g.\ for a non-measurable $N\subseteq\R$ the set
+$\set0\times N$ lies in the $\Leb_1\times\Leb_1$-null set $\set0\times\R$ but not in
+$\langle\sA\rangle$ (every set of $\langle\sA\rangle$ has all its slices measurable, and
+this one has the slice $N$ at $0$), so $\Leb_1\times\Leb_1$ is strictly smaller than
+Lebesgue measure on $\R^2$; the latter is its \emph{completion}. Fubini
 as stated still holds after completing. Also Fubini's a.e.\ integrability of slices can
 fail on a genuine null set of $x_2$ -- ``a.e.'' is not ``every.''
 \end{pitfall}
@@ -49627,13 +49663,15 @@ $\bigl(\int_0^\infty e^{-\pi r^2}r^{d-1}\,dr\bigr)\sigma(S^{d-1})=1$, so
 $\sigma(S^{d-1})=2\pi^{d/2}/\Gamma(d/2)$; (c) the unit ball $B$ has volume
 $v_d=\pi^{d/2}/\Gamma(d/2+1)$, since $v_d=\bigl(\int_0^1 r^{d-1}\,dr\bigr)\sigma(S^{d-1})$.
 
-\item (Green's formula on the unit ball $B\subseteq\Rd$.) For $u,v\in C^2(B)$,
+\item (Green's formula on the unit ball $B\subseteq\Rd$.) For $u,v$ of class $C^2$ near
+$\closure B$,
 \[
   \int_B(v\,\Delta u-u\,\Delta v)\,dx=\int_{S^{d-1}}\Bigl(v\,\tfrac{\partial u}{\partial n}
   -u\,\tfrac{\partial v}{\partial n}\Bigr)\,d\sigma,
 \]
-with $\partial/\partial n$ the inner normal derivative. Derive it from Lemma~4.5 of the
-previous chapter by taking $\eta=\eta_\eps^{+}$ and letting $\eps\to0$.
+with $\partial/\partial n$ the outward normal derivative. Derive it from
+Lemma~\ref{l:green@c28} by taking $\eta=\eta_\eps^{+}$ (a radial cutoff equal to $1$ for
+$\abs x\le1-\eps$ and vanishing near $\abs x=1$) and letting $\eps\to0$.
 
 \item (Spherical mean-value property.) If $u$ is harmonic in $\Omega$ and the closed ball
 of center $x_0$, radius $r$ lies in $\Omega$, then $u(x_0)=c\int_{S^{d-1}}u(x_0+ry)\,
@@ -49653,8 +49691,8 @@ $\set{r_j<r<r_k'}\times\set{\gamma\in S^{d-1}\st\abs{\gamma-\gamma_\ell}<1/n}$ w
 $r_j,r_k'$ positive rationals and $\set{\gamma_\ell}$ dense in $S^{d-1}$.]
 
 \item Let $m_j$ be Lebesgue measure on $\R^{d_j}$, $j=1,2$, and $m$ Lebesgue measure on
-$\Rd$, $d=d_1+d_2$. Show $m$ is the completion (Exercise~2) of the product measure
-$m_1\times m_2$.
+$\Rd$, $d=d_1+d_2$. Show $m$ is the completion (Exercise~2 of Section~29.1) of the
+product measure $m_1\times m_2$.
 
 \item For a finite family $(X_j,\sM_j,\mu_j)$, $1\le j\le k$, construct the product measure
 $\mu_1\times\cdots\times\mu_k$ on $X=X_1\times\cdots\times X_k$: define
@@ -49809,7 +49847,7 @@ measures and the stated identities are immediate from $\nu\le\abs\nu$ and $-\nu\
     plot({\x},{1.3*sin(deg(1.6*\x))*exp(-0.15*\x)});
   \node[font=\footnotesize] at (1.0,0.5){$\nu^{+}$};
   \node[font=\footnotesize] at (2.9,-0.45){$\nu^{-}$};
-  \node[font=\footnotesize] at (4.5,0.32){$\nu^{+}$};
+  \node[font=\footnotesize] at (4.55,0.22){$\nu^{+}$};
   \node[font=\footnotesize] at (3.6,1.5){$d\nu=f\,d\mu$};
 \end{tikzpicture}
 \captionof{figure}{A signed measure $d\nu=f\,d\mu$: $\nu^{+}$ lives where $f>0$,
@@ -49853,7 +49891,7 @@ $\mu(\cdot)=\mu(\cdot\cap B)$ (they live on disjoint sets).
     \draw[line width=0.9pt] (0,0) rectangle (3,1.6);
     \fill[band] (0,0) rectangle (3,1.6);
     \node at (1.5,0.8){$\nu\ll\mu$};
-    \node[font=\footnotesize] at (1.5,-0.4){same null sets};
+    \node[font=\footnotesize] at (1.5,-0.4){$\mu$-null $\Rightarrow$ $\nu$-null};
   \end{scope}
 \end{tikzpicture}
 \captionof{figure}{Two extremes: $\nu\perp\mu$ live on disjoint carriers; $\nu\ll\mu$
@@ -49885,14 +49923,14 @@ $\mu$-integrable $f$ (the \emph{Radon--Nikodym derivative} $f=d\nu_a/d\mu$).
 \end{theorem}
 
 The absolutely continuous part is realized through a density: the map $f\mapsto f\,d\mu$
-sends $\Lone(\mu)$ onto the measures $\ll\mu$, and $\nu_a$ is the image of the
-Radon--Nikodym derivative under it.
+sends $\Lone(\mu)$ onto the \emph{finite} signed measures $\ll\mu$, and for finite $\nu$
+the part $\nu_a$ is the image of the Radon--Nikodym derivative under it.
 
 \[
 \begin{tikzcd}[row sep=large, column sep=large]
 & \Lone(X,\mu) \arrow[d, "f\,\mapsto\,f\,d\mu", "\sim"'] \\
 \nu \arrow[r, "\nu\,\mapsto\,\nu_a"'] \arrow[ur, dashrightarrow, "d\nu_a/d\mu"] &
-  \set{\lambda:\lambda\ll\mu}
+  \set{\lambda:\lambda\ll\mu,\ \abs\lambda(X)<\infty}
 \end{tikzcd}
 \]
 
@@ -49998,9 +50036,9 @@ a contradiction.
     -- (0.96296,0.875)   % gap (25/27,26/27)
     -- (1,1);            % retained [26/27,1]: rise to 1
 \end{tikzpicture}
-\captionof{figure}{The Cantor function (devil's staircase): continuous, increasing,
-$F'=0$ a.e.\ (constant on every deleted middle third), yet $F(1)-F(0)=1$. Its
-Stieltjes measure is singular to $\Leb$.}
+\captionof{figure}{The Cantor function (devil's staircase; drawn to three stages of the
+construction): continuous, increasing, $F'=0$ a.e.\ (constant on every deleted middle
+third), yet $F(1)-F(0)=1$. Its Stieltjes measure is singular to $\Leb$.}
 \end{center}
 
 \begin{wex}{Chain rule for Radon--Nikodym derivatives}
@@ -50020,7 +50058,8 @@ indeed $d\lambda/d\mu=x^2$. Consistent.
 Absolute continuity of \emph{measures} ($\nu\ll\mu$) and of \emph{functions} ($F$ absolutely
 continuous) are linked but distinct: $dF\ll\Leb$ iff $F$ is absolutely continuous, and then
 $d(dF)/d\Leb=F'$. A continuous, even strictly increasing, $F$ can still give a singular
-measure (Cantor function) -- continuity of $F$ is far weaker than absolute continuity. The
+measure (the Cantor function; Minkowski's question-mark function is a strictly increasing
+example) -- continuity of $F$ is far weaker than absolute continuity. The
 $\eps$--$\delta$ form of $\nu\ll\mu$ requires $\abs\nu$ \emph{finite}; for infinite $\nu$
 the bare null-set implication can hold while no uniform $\delta$ exists.
 \end{pitfall}
@@ -50084,31 +50123,38 @@ isomorphism}. The averages of $f$ along the orbit are
 Measure-preservation gives the change-of-variables identity $\int_X f(\tau(x))\dmu=\int_X
 f\dmu$, first for $f=\ind{E}$ (since $\ind{E}\circ\tau=\ind{\tau\inv(E)}$), then for simple,
 non-negative, and integrable $f$. Equivalently, the \emph{Koopman operator}
-$Tf=f\circ\tau$ on $\Ltwo(X,\mu)$ commutes the integral away: the square below commutes,
+$Tf=f\circ\tau$ on $\Lone(X,\mu)$ commutes the integral away: the square below commutes,
 and measure-preservation is exactly the statement that the bottom map is the identity.
 
 \[
 \begin{tikzcd}[row sep=large, column sep=large]
-\Ltwo(X,\mu) \arrow[r, "T=\,\cdot\,\circ\tau"] \arrow[d, "\int_X\,\cdot\,d\mu"'] &
-  \Ltwo(X,\mu) \arrow[d, "\int_X\,\cdot\,d\mu"] \\
+\Lone(X,\mu) \arrow[r, "T=\,\cdot\,\circ\tau"] \arrow[d, "\int_X\,\cdot\,d\mu"'] &
+  \Lone(X,\mu) \arrow[d, "\int_X\,\cdot\,d\mu"] \\
 \C \arrow[r, equal] & \C
 \end{tikzcd}
 \]
 
 \begin{center}
 \begin{tikzpicture}[scale=1.0]
-  \draw[numln] (-0.2,0)--(4.4,0) node[right]{$x$};
-  \draw[line width=1pt] (0,0)--(4,0);
-  % doubling map preimages
-  \fill[band] (1.6,-0.08) rectangle (2.4,0.08);
-  \node[font=\footnotesize] at (2.0,0.32){$E$};
-  \fill[band] (0.8,-0.55) rectangle (1.2,-0.42);
-  \fill[band] (2.8,-0.55) rectangle (3.2,-0.42);
-  \node[font=\footnotesize] at (1.0,-0.78){$E_1$};
-  \node[font=\footnotesize] at (3.0,-0.78){$E_2$};
-  \draw[-{Stealth[length=2mm]}] (1.0,-0.4)--(1.8,-0.05);
-  \draw[-{Stealth[length=2mm]}] (3.0,-0.4)--(2.2,-0.05);
-  \node[font=\footnotesize] at (2.0,-1.1){$\tau\inv(E)=E_1\cup E_2$, each of measure
+  % two copies of (0,1], drawn with length 4: tau maps the lower copy onto the upper one.
+  % E=[0.4,0.6] (at [1.6,2.4]) has the preimages E_1=[0.2,0.3] and E_2=[0.7,0.8]
+  % (at [0.8,1.2] and [2.8,3.2]).
+  \foreach \y in {0,-1}{
+    \draw[line width=0.8pt] (0,\y)--(4,\y);
+    \draw[tick] (0,\y-0.08)--(0,\y+0.08);
+    \draw[tick] (4,\y-0.08)--(4,\y+0.08);
+    \node[font=\scriptsize,left] at (-0.05,\y){$0$};
+    \node[font=\scriptsize,right] at (4.05,\y){$1$};}
+  \draw[line width=3.2pt,black!45] (1.6,0)--(2.4,0);
+  \draw[line width=3.2pt,black!45] (0.8,-1)--(1.2,-1);
+  \draw[line width=3.2pt,black!45] (2.8,-1)--(3.2,-1);
+  \node[font=\footnotesize] at (2.0,0.3){$E$};
+  \node[font=\footnotesize] at (1.0,-1.3){$E_1$};
+  \node[font=\footnotesize] at (3.0,-1.3){$E_2$};
+  \draw[-{Stealth[length=2mm]}] (1.05,-0.88)--(1.85,-0.12);
+  \draw[-{Stealth[length=2mm]}] (2.95,-0.88)--(2.15,-0.12);
+  \node[font=\footnotesize] at (2.0,-0.6){$\tau$};
+  \node[font=\footnotesize] at (2.0,-1.75){$\tau\inv(E)=E_1\cup E_2$, each of measure
     $\mu(E)/2$};
 \end{tikzpicture}
 \captionof{figure}{The doubling map $\tau(x)=2x\bmod1$: each $E$ has two preimages of
@@ -50228,9 +50274,9 @@ and there is a universal $A$ (one may take $A=1$) with
 \begin{proof}[Proof idea]
 First do $X=\Z$, $\tau:n\mapsto n+1$: extend $f$ on $\Z$ to a step function $\widetilde f$
 on $\R$ and compare $f^{*}(n)\le2(\widetilde f)^{*}(x)$ for $x\in[n,n+1)$ with the
-Hardy--Littlewood maximal function of Chapter~3, whose weak-type $(1,1)$ bound (constant
-$3$) transfers the inequality with $A=6$. The general space is reduced to the integer case
-by a transference (``sleight of hand'') over long $\tau$-orbits.
+Hardy--Littlewood maximal function (Theorem~\ref{t:hl@c26}), whose weak-type $(1,1)$ bound
+(constant $3$) transfers the inequality with $A=6$. The general space is reduced to the
+integer case by a transference (``sleight of hand'') over long $\tau$-orbits.
 \end{proof}
 
 \begin{center}
@@ -50241,21 +50287,20 @@ by a transference (``sleight of hand'') over long $\tau$-orbits.
   \fill[band] (2.2,0) rectangle (2.7,2.0);
   \draw[line width=1pt] (0,0.2)--(2.2,0.2)--(2.2,2.0)--(2.7,2.0)--(2.7,0.2)--(5.4,0.2);
   \node[font=\footnotesize] at (2.45,2.18){$f$};
-  % f*: Hardy-Littlewood maximal function. Spike of height H=2 over baseline c=0.2 on
-  % a base of width w=0.5 (edges 2.2 and 2.7). Outside the spike the best average over an
-  % interval reaching the spike gives M(x)=c+(H-c)*w/(w+dist), continuous (=H at the edge,
-  % ->c far away) and monotonically decreasing -- no overshoot above the spike height.
+  % f*: the ergodic maximal average uses forward averages only; orbits run to the right
+  % (as for tau(n)=n+1). Spike of height H=2 over baseline c=0.2 on a base of width w=0.5
+  % (edges 2.2 and 2.7). At distance d to the left of the spike the best forward average
+  % runs from x to the far edge of the spike: f*(x)=c+(H-c)*w/(w+d) (=H at the edge, ->c
+  % far away); on the spike f*=H; to the right the orbit never meets the spike, f*=f=c.
   \draw[line width=0.9pt,dashed,domain=0.15:2.2,samples=80,variable=\x]
     plot({\x},{0.2 + 1.8*0.5/(0.5 + (2.2-\x))});
   \draw[line width=0.9pt,dashed] (2.2,2.0)--(2.7,2.0);
-  \draw[line width=0.9pt,dashed,domain=2.7:5.35,samples=80,variable=\x]
-    plot({\x},{0.2 + 1.8*0.5/(0.5 + (\x-2.7))});
-  \node[font=\footnotesize] at (4.1,0.78){$f^{*}$};
+  \node[font=\footnotesize] at (0.9,0.98){$f^{*}$};
   \draw[brc] (2.2,-0.18)--(2.7,-0.18) node[midway,below=2pt]{\footnotesize spike};
 \end{tikzpicture}
-\captionof{figure}{The maximal average $f^{*}$ spreads a spike of $f$ over the orbit;
-the weak-type bound $\mu(f^{*}>\alpha)\le A\norm f_1/\alpha$ controls its tails.
-(Schematic.)}
+\captionof{figure}{The maximal average $f^{*}$ (orbits running to the right, as for
+$\tau(n)=n+1$) spreads a spike of $f$ back over the points whose orbits reach it; the
+weak-type bound $\mu(f^{*}>\alpha)\le A\norm f_1/\alpha$ controls its tail. (Schematic.)}
 \end{center}
 
 \begin{theorem}[Pointwise (Birkhoff) ergodic theorem]\label{t:birkhoff@c29}
@@ -50290,8 +50335,8 @@ frequencies $\tfrac12+\tfrac12=1$, as they must.
 \begin{wex}{Weyl equidistribution from the ergodic average}
 For the irrational rotation $\tau(x)=x+\alpha$ and continuous periodic $f$, show
 $\frac1m\sum_{k=0}^{m-1}f(x+k\alpha)\to\int_0^1 f$ for \emph{every} $x$ (unique ergodicity).
-\wrec Trigger: ergodic + continuity $\Rightarrow$ averages converge \emph{everywhere}, not
-just a.e.
+\wrec Trigger: unique ergodicity + continuity $\Rightarrow$ averages converge
+\emph{everywhere}, not just a.e.
 \wsol By linearity and uniform approximation it suffices to check $f=e_n$. For $n=0$,
 $A_m=1=\int e_0$. For $n\ne0$, $A_m(e_n)(x)=\frac{e_n(x)}{m}\sum_{k=0}^{m-1}e^{2\pi i
 nk\alpha}=\frac{e_n(x)}{m}\cdot\frac{e^{2\pi i nm\alpha}-1}{e^{2\pi i n\alpha}-1}$, whose
@@ -50338,24 +50383,25 @@ by a null set. [Hint: $E'=\limsup_n\tau^{-n}(E)=\bigcap_{n}\bigcup_{k\ge n}\tau^
 if and only if: whenever $\nu\ll\mu$ is invariant ($\nu(\tau\inv E)=\nu(E)$ for all $E$),
 then $\nu=c\mu$ for a constant $c$.
 
-\item Let $\tau$ be measure-preserving on $(X,\mu)$. If $\mu(\tau^{-n}(E)\cap F)\to
-\mu(E)\mu(F)$ for all measurable $E,F$, then $(T^n f,g)\to(f,1)(1,g)$ whenever $f,g\in
-\Ltwo(X)$ with $(Tf)(x)=f(\tau(x))$; thus $\tau$ is mixing. [Hint: by linearity the
-hypothesis gives the conclusion for simple $f,g$.]
+\item Let $\tau$ be measure-preserving on $(X,\mu)$ with $\mu(X)=1$. If
+$\mu(\tau^{-n}(E)\cap F)\to\mu(E)\mu(F)$ for all measurable $E,F$ ($\tau$ is mixing), then
+$(T^n f,g)\to(f,1)(1,g)$ whenever $f,g\in\Ltwo(X)$ with $(Tf)(x)=f(\tau(x))$; thus mixing
+has an equivalent $\Ltwo$ formulation (the converse is the case $f=\ind{E}$, $g=\ind{F}$).
+[Hint: by linearity the hypothesis gives the conclusion for simple $f,g$.]
 
 \item Let $\T^d$ be the torus and $\tau:x\mapsto x+\alpha$. Then $\tau$ is ergodic iff
 $\alpha=(\alpha_1,\dots,\alpha_d)$ has $\alpha_1,\dots,\alpha_d,1$ linearly independent over
 $\Q$. Show: (a) $\frac1m\sum_{k=0}^{m-1}f(\tau^k(x))\to\int_{\T^d}f$ as $m\to\infty$ for
 every $x$, whenever $f$ is continuous periodic and $\alpha$ satisfies the hypothesis; (b)
-conclude $\tau$ is uniquely ergodic. [Hint: use Exercise~16(f).]
+conclude $\tau$ is uniquely ergodic. [Hint: use Exercise~10(f) of Section~29.3.]
 
 \item Let $X=\prod_{i=1}^{\infty}X_i$ with each $(X_i,\mu_i)$ identical to $(X_1,\mu_1)$,
 $\mu_1(X_1)=1$, and $\mu$ the product measure. Define the shift $\tau((x_1,x_2,\dots))=
 (x_2,x_3,\dots)$. (a) Verify $\tau$ is measure-preserving. (b) Prove $\tau$ is ergodic by
 showing it is mixing. (c) Note $\tau$ is in general not uniquely ergodic. [Hint: for (b),
-$\mu(\tau^{-n}(E\cap F))=\mu(E)\mu(F)$ for cylinder sets $E,F$ and $n$ large; for (c) the
-constant sequences give extra invariant sets.] The two-sided shift is a measure-preserving
-isomorphism.
+$\mu(\tau^{-n}(E)\cap F)=\mu(E)\mu(F)$ for cylinder sets $E,F$ and $n$ large; for (c) the
+constant sequences are fixed points, whose point masses are extra invariant measures.] The
+two-sided shift is a measure-preserving isomorphism.
 
 \item Let $X=\prod_{i=1}^{\infty}Z(2)$, $Z(2)=\set{0,1}$, $\mu_1(0)=\mu_1(1)=1/2$, $\mu$ the
 product measure. Consider $D(\set{a_j})=\sum_{j=1}^{\infty}a_j 2^{-j}$. Show there are
@@ -50365,7 +50411,7 @@ $\mu(E)=m(D(E))$; (c) the shift on $X$ becomes the doubling map.
 
 \item (Generalized doubling.) For an integer $m\ge2$ define $\tau_m(x)=mx\bmod1$ on $(0,1]$.
 (a) Verify $\tau_m$ is measure-preserving for Lebesgue measure. (b) Show $\tau_m$ is mixing,
-hence ergodic. (c) Conclude that almost every $x$ is normal to base $m$: in
+hence ergodic. (c) Conclude that almost every $x$ is simply normal to base $m$: in
 $x=\sum_j a_j m^{-j}$ ($0\le a_j\le m-1$), for each digit $k$,
 $\frac1N\#\set{j\le N\st a_j=k}\to\frac1m$ as $N\to\infty$.
 
@@ -50382,7 +50428,7 @@ the conclusion holds for every $f\in\Lone$, since $\Lone\cap\Ltwo$ is dense in $
 
 \item We saw that $\norm{f_n}_{\Ltwo}\le1$ implies $f_n(x)/n\to0$ a.e. Show the $\Lone$
 analogue fails: construct $f_n\in\Lone(X)$, $\norm{f_n}_{\Lone}\le1$, with
-$\limsup_n f_n(x)/n=\infty$ a.e. [Hint: take intervals $I_n\subseteq[0,1]$ with
+$\limsup_n f_n(x)/n=\infty$ a.e. [Hint: take intervals $I_n\subseteq[0,1]$ ($n\ge2$) with
 $m(I_n)=\frac1{n\log n}$ but $\limsup_n I_n=[0,1]$, and $f_n=n\log n\,\ind{I_n}$.]
 
 \item By the Borel--Cantelli lemma, if $\sum_n\mu(E_n)<\infty$ then
@@ -50397,13 +50443,13 @@ set.
 matrix with $\det A=\pm1$), $\tau(x)=A(x)$. (a) $\tau$ is a measure-preserving isomorphism.
 (b) $\tau$ is ergodic (in fact mixing) iff $A$ has no eigenvalue of the form $e^{2\pi i
 p/q}$. (c) $\tau$ is never uniquely ergodic. [Hint: (b) is equivalent to $(A^t)^q$ having no
-invariant vectors; note $f(\tau^k(x))=e^{2\pi i(A^t)^k(n)\cdot x}$ for $f=e^{2\pi i
-n\cdot x}$.]
+nonzero invariant vectors for any $q\ge1$; note $f(\tau^k(x))=e^{2\pi i(A^t)^k(n)\cdot x}$
+for $f=e^{2\pi i n\cdot x}$.]
 
 \item${}^{*}$ (Rising-sun maximal ergodic theorem.) For real $f$ let
 $f^{\#}(x)=\sup_m\frac1m\sum_{k=0}^{m-1}f(\tau^k(x))$ and $E_0=\set{f^{\#}>0}$. Then
-$\int_{E_0}f\,dx\ge0$. Deduce (applying to $f-\alpha$, for $f\ge0$) that
-$\mu\set{f^{*}>\alpha}\le\frac1\alpha\int_{\set{f^{*}>\alpha}}f\,dx$, so the constant in the
+$\int_{E_0}f\dmu\ge0$. Deduce (applying to $f-\alpha$, for $f\ge0$) that
+$\mu\set{f^{*}>\alpha}\le\frac1\alpha\int_{\set{f^{*}>\alpha}}f\dmu$, so the constant in the
 maximal ergodic theorem may be taken $A=1$.
 
 \item (Gauss map is measure-preserving.) Let $X=[0,1)$, $\tau(x)=\set{1/x}$ ($\tau(0)=0$),
@@ -50413,13 +50459,14 @@ $\sum_{k=1}^{\infty}\frac1{(x+k)(x+k+1)}=\frac1{1+x}$.]
 \item${}^{*}$ The Gauss map $\tau$ of the previous problem is ergodic.
 
 \item${}^{*}$ (Continued fractions.) A continued fraction $[a_0\,a_1\,a_2\cdots]$ with
-positive-integer $a_j$ is assigned to a positive real $x$ by alternately reducing mod $1$
-and inverting: $x=a_0+r_0$, $1/r_{n-1}=a_n+r_n$, $a_n=\floor{1/r_{n-1}}$. For $0\le x<1$,
-$a_k(x)=\floor{1/\tau^{k-1}(x)}$. Known facts: (a) the continued fraction terminates iff $x$
-is rational; (b) the truncations $x_N=[a_0\cdots a_N\,0\,0\cdots]\to x$ and give essentially
-optimal rational approximations; (c) it is eventually periodic iff $x$ is a quadratic
-irrational; (d) $\frac{a_1+\cdots+a_n}{n}\to\infty$ for a.e.\ $x$, so the set of $x$ with
-bounded partial quotients is null. [Hint for (d): apply the consequence of the pointwise
+integers $a_0\ge0$ and $a_j\ge1$ ($j\ge1$) is assigned to a positive real $x$ by
+alternately reducing mod $1$ and inverting: $x=a_0+r_0$, $1/r_{n-1}=a_n+r_n$,
+$a_n=\floor{1/r_{n-1}}$. For $0\le x<1$, $a_k(x)=\floor{1/\tau^{k-1}(x)}$. Known facts:
+(a) the continued fraction terminates iff $x$ is rational; (b) the truncations
+$x_N=[a_0\cdots a_N\,0\,0\cdots]\to x$ and give essentially optimal rational
+approximations; (c) it is eventually periodic iff $x$ is a quadratic irrational; (d)
+$\frac{a_1+\cdots+a_n}{n}\to\infty$ for a.e.\ $x$, so the set of $x$ with bounded partial
+quotients is null. [Hint for (d): apply the consequence of the pointwise
 ergodic theorem -- for ergodic $\tau$, $f\ge0$ with $\int f\,d\mu=\infty$ gives
 $\frac1m\sum_{k=0}^{m-1}f(\tau^k(x))\to\infty$ a.e.; take $f(x)=\floor{1/x}$.]
 \end{exers}
@@ -50442,9 +50489,9 @@ $S$, the projection $P$, and verify $A_n\to P$ for this $T$.
 \item Prove that mixing implies ergodic directly from the definition (no Hilbert space),
 and show the converse fails using the irrational rotation.
 
-\item (Birkhoff as a strong law.) For $\tau$ the doubling map and $f=\ind{[a,b)}\subseteq
-[0,1)$, identify $\lim_m A_m(f)(x)$ for a.e.\ $x$ and interpret it as a digit-block
-frequency.
+\item (Birkhoff as a strong law.) For $\tau$ the doubling map and $f=\ind{[a,b)}$ with
+$[a,b)\subseteq[0,1)$, identify $\lim_m A_m(f)(x)$ for a.e.\ $x$ and interpret it as a
+digit-block frequency.
 
 \item Show that for an ergodic $\tau$ with $\mu(X)=1$ and $f\in\Lone$, the time average
 equals the space average a.e.: $\lim_m\frac1m\sum_{k=0}^{m-1}f(\tau^k(x))=\int_X f\dmu$.
