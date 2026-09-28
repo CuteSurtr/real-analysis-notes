@@ -43785,16 +43785,16 @@ function.
 \begin{tikzpicture}[scale=1.1]
   \draw[numln] (-0.3,0)--(7.2,0) node[right]{$y$};
   \draw[->] (0,-0.2)--(0,2.8) node[above]{};
-  % f: a smooth positive bump, drawn so its average over I=[2.4,3.6] is ~1.25
+  % f: a smooth positive bump; its average over I=[2.4,3.6] is ~1.58
   \draw[curve,domain=0.1:6.6,smooth,samples=80,variable=\t]
     plot ({\t},{0.9+0.8*sin(deg(0.55*\t-0.6))});
-  \node[font=\footnotesize] at (6.85,2.15) {$f$};
-  % averaging interval I and its average-height band (top = mean of f over I)
-  \fill[band] (2.4,0) rectangle (3.6,1.56);
-  \draw[line width=0.5pt] (2.4,0)--(2.4,1.56) (3.6,0)--(3.6,1.56);
-  \draw[dashed] (2.4,1.56)--(3.6,1.56);
-  \node[pt] at (3.0,0) {};
-  \node[below,font=\footnotesize] at (3.0,0) {$x$};
+  \node[font=\footnotesize] at (6.85,1.0) {$f$};
+  % averaging interval I=(x,x+h) and its average-height band (top = mean of f over I)
+  \fill[band] (2.4,0) rectangle (3.6,1.58);
+  \draw[line width=0.5pt] (2.4,0)--(2.4,1.58) (3.6,0)--(3.6,1.58);
+  \draw[dashed] (2.4,1.58)--(3.6,1.58);
+  \node[pt] at (2.4,0) {};
+  \node[below,font=\footnotesize] at (2.4,0) {$x$};
   \draw[brc] (2.4,-0.5)--(3.6,-0.5) node[midway,below=3pt,font=\footnotesize]{$I=(x,x+h)$};
   \draw[-{Stealth[length=1.6mm]},line width=0.5pt] (4.7,1.95) to[out=180,in=-20] (3.62,1.6);
   \node[font=\footnotesize,align=left] at (5.85,2.05)
@@ -43836,8 +43836,9 @@ $L^1$ bound. By Tchebychev's inequality any integrable $g$ already satisfies
 $m(\set{\abs g>\alpha})\le\alpha^{-1}\norm g_{\Lone}$; the content of (iii) is that the
 \emph{maximal} operator -- a supremum over infinitely many averages -- obeys the same kind
 of bound with a dimensional constant. One cannot upgrade (iii) to $\norm{f^*}_{\Lone}\le
-C\norm f_{\Lone}$: $f^*$ need not be integrable (Exercises~4--5). The exact value $A=3^d$ is
-unimportant; what matters is independence of $\alpha$ and $f$.
+C\norm f_{\Lone}$: $f^*$ need not be integrable (Exercises~3--4 of the Stein exercises
+below). The exact value $A=3^d$ is unimportant; what matters is independence of $\alpha$ and
+$f$.
 
 \begin{proof}[Proof that $f^*$ is measurable]
 The set $E_\alpha=\set{x:f^*(x)>\alpha}$ is \emph{open}: if $x\in E_\alpha$ there is a ball
@@ -43910,36 +43911,36 @@ $m(E_\alpha)\le 3^d\alpha^{-1}\norm f_{\Lone}$.
 
 \begin{center}
 \begin{tikzpicture}[scale=0.95]
-  \foreach \c/\r in {{0,0}/0.8, {1.3,0.5}/0.55, {0.5,1.2}/0.5, {2.6,0.2}/0.7,
-                     {2.1,1.3}/0.45, {3.7,0.9}/0.6}{
+  % chosen balls (radii 0.8 > 0.7 > 0.6), pairwise disjoint; filled first
+  \fill[black!10] (0,0) circle (0.8) (2.6,0.2) circle (0.7) (3.85,0.95) circle (0.6);
+  % discarded balls: each meets a chosen ball of larger radius (greedy order checked)
+  \foreach \c/\r in {{1.0,0.35}/0.55, {0.35,0.95}/0.5, {2.15,0.95}/0.45}{
     \draw[black!45] (\c) circle (\r);
   }
-  \draw[line width=1pt,fill=black!10] (0,0) circle (0.8);
-  \draw[line width=1pt,fill=black!10] (2.6,0.2) circle (0.7);
-  \draw[line width=1pt,fill=black!10] (3.7,0.9) circle (0.6);
+  \draw[line width=1pt] (0,0) circle (0.8) (2.6,0.2) circle (0.7) (3.85,0.95) circle (0.6);
   \node[font=\footnotesize] at (0,0) {$B_{i_1}$};
   \node[font=\footnotesize] at (2.6,0.2) {$B_{i_2}$};
-  \node[font=\footnotesize] at (3.7,0.9) {$B_{i_3}$};
+  \node[font=\footnotesize] at (3.85,0.95) {$B_{i_3}$};
 \end{tikzpicture}
-\captionof{figure}{Vitali selection: from an overlapping cover (thin circles) a
-\emph{disjoint} sub-collection (shaded) is chosen greedily by radius; tripling each recovers
-a $3^d$-fraction of the total measure. (Schematic.)}
+\captionof{figure}{Vitali selection: from an overlapping cover a \emph{disjoint}
+sub-collection (shaded) is chosen greedily by radius; each discarded ball (thin) meets a
+chosen ball at least as large. Tripling the chosen balls covers the union, so they carry at
+least a $3^{-d}$-fraction of its measure. (Schematic.)}
 \end{center}
 
 \begin{wex}{The maximal function of an indicator}
 Let $f=\ind{[0,1]}$ on $\R$. Compute $f^*(x)$ for $x>1$ and verify the weak-type bound.
 \wrec ``Compute a one-dimensional maximal function.'' The best average over intervals
-containing $x$ is achieved by the smallest interval that still captures all of $[0,1]$.
-\wsol For $x>1$ the optimal interval containing $x$ and meeting $[0,1]$ is $(1-(x-1)\cdot0,\
-\cdot)$; concretely take $I=(2x_0,\dots)$ -- the cleanest choice is the interval from a point
-just left of $0$ out to $x$. The average $\frac1{\abs I}\int_I f=\frac{1}{\,\text{(length
-capturing }[0,1])\,}$ is maximized by the shortest such interval, $I=(2-x,x)$ when $x>1$ is
-balanced; more simply, for $x>1$ one finds $f^*(x)=\frac{1}{x}$ by taking $I=(0,x)$ giving
-average $1/x$, and no interval does better. Symmetrically $f^*(x)=\frac{1}{1-x}$ for $x<0$,
-and $f^*(x)=1$ on $[0,1]$. \emph{Check.} $\norm f_{\Lone}=1$, and $\set{f^*>\alpha}$ for small
-$\alpha$ is roughly $(-1/\alpha,1+1/\alpha)$ of measure $\approx 2/\alpha$, comfortably below
-$A/\alpha$ with $A=3$; also $f^*(x)\sim 1/\abs x$ at infinity, so $f^*\notin\Lone$ -- exactly
-the failure (iii) cannot avoid.
+containing $x$ is approached by the smallest interval that still captures all of $[0,1]$.
+\wsol Let $x>1$. An interval containing $x$ that meets $[0,1]$ in a set of length $\ell\le1$
+contains the stretch from $1-\ell$ (or further left) to $x$, so its length is $\ge x-1+\ell$
+and its average is $\le\frac{\ell}{x-1+\ell}\le\frac1x$ (the middle quantity increases with
+$\ell$). The intervals $I=(0,x+\eta)$ have average $\frac1{x+\eta}\to\frac1x$ as
+$\eta\downarrow0$, so $f^*(x)=\frac{1}{x}$ for $x>1$. Symmetrically $f^*(x)=\frac{1}{1-x}$ for
+$x<0$, and $f^*(x)=1$ on $[0,1]$. \emph{Check.} $\norm f_{\Lone}=1$, and for $0<\alpha<1$ the
+set $\set{f^*>\alpha}$ is exactly $(1-1/\alpha,1/\alpha)$, of measure $2/\alpha-1<2/\alpha$,
+comfortably below $A/\alpha$ with $A=3$; also $f^*(x)\sim 1/\abs x$ at infinity, so
+$f^*\notin\Lone$ -- exactly the failure (iii) cannot avoid.
 \end{wex}
 
 \begin{wex}{$f^*$ is never integrable for $f\not\equiv0$}
@@ -43948,10 +43949,10 @@ Show that if $f\in\Lone(\Rd)$ is not a.e.\ zero, then $f^*(x)\ge c\abs x^{-d}$ f
 \wrec ``Lower-bound $f^*$ at infinity.'' Use one fixed ball where $\int\abs f>0$ and let the
 test ball grow to reach far-away $x$.
 \wsol Since $f\not\equiv0$ there is a ball $B_0=B(0,r_0)$ with $\int_{B_0}\abs f=c_0>0$. For
-$\abs x\ge1$ take the ball $B$ centered on the segment from $0$ to $x$ that contains both
-$0$ and $x$; its radius is $\le\abs x+r_0\le 2\abs x$, so $m(B)\le v_d(2\abs x)^d$. Then
+$\abs x\ge1$ take the ball $B=B(x,\abs x+r_0)$, which contains both $x$ and $B_0$; its
+radius is $\abs x+r_0\le(1+r_0)\abs x$, so $m(B)\le v_d(1+r_0)^d\abs x^d$. Then
 \[
-  f^*(x)\ge\frac1{m(B)}\int_B\abs f\ge\frac{c_0}{v_d 2^d\abs x^d}=\frac{c}{\abs x^d}.
+  f^*(x)\ge\frac1{m(B)}\int_B\abs f\ge\frac{c_0}{v_d(1+r_0)^d\abs x^d}=\frac{c}{\abs x^d}.
 \]
 Since $\int_{\abs x\ge1}\abs x^{-d}\,dx=\infty$ in $\Rd$, $f^*\notin\Lone$. \emph{Check.}
 This confirms the maximal theorem is sharp -- (iii) is the best one can say; no
@@ -43963,10 +43964,12 @@ Let $f_\eps=\eps^{-1}\ind{[0,\eps]}$ on $\R$, so $\norm{f_\eps}_{\Lone}=1$. Find
 $m(\set{f_\eps^*>\alpha})$ for $\alpha>1$ and compare with $A/\alpha$.
 \wrec ``Test the weak-type inequality on a spike.'' Compute $f_\eps^*$ directly; the spike
 behaves like a unit mass at $0$ as $\eps\to0$.
-\wsol For $x>\eps$ the best interval is $(0,x)$ with average $\frac1x\cdot1=\frac1x$ (the
-whole mass $1$ spread over length $x$). So $f_\eps^*(x)\approx 1/\abs x$ for $\abs
-x>\eps$, and $f_\eps^*(x)\le 1/\eps$ inside. For $\alpha>1$, $\set{f_\eps^*>\alpha}\approx
-(-1/\alpha,1/\alpha)$, measure $\approx 2/\alpha$. \emph{Check.} $2/\alpha\le 3/\alpha=A/\alpha$
+\wsol Exactly as for $\ind{[0,1]}$ above, for $x>\eps$ the intervals $(0,x+\eta)$,
+$\eta\downarrow0$, are optimal, with averages $\to\frac1x$ (the whole mass $1$ spread over
+length $x$); so $f_\eps^*(x)=1/x$ for $x>\eps$, likewise $f_\eps^*(x)=1/(\eps+\abs x)$ for
+$x<0$, and $f_\eps^*=1/\eps$ on $[0,\eps]$. Hence for $1<\alpha<1/\eps$,
+$\set{f_\eps^*>\alpha}=(\eps-1/\alpha,1/\alpha)$, of measure $2/\alpha-\eps\approx 2/\alpha$
+(for $\alpha\ge1/\eps$ it is empty). \emph{Check.} $2/\alpha-\eps<3/\alpha=A/\alpha$
 in dimension $d=1$; the constant $A=3$ is not even tight here, but it must hold uniformly.
 \end{wex}
 
@@ -43975,11 +43978,11 @@ For $g(x)=\ind{[0,1]}(x)$ on $\R$, compare the Tchebychev estimate of
 $m(\set{g>\alpha})$ with the weak-type estimate of $m(\set{g^*>\alpha})$ for $0<\alpha<1$.
 \wrec ``Contrast a pointwise tail bound with a maximal tail bound.''
 \wsol Tchebychev: $m(\set{g>\alpha})\le\alpha^{-1}\norm g_{\Lone}=1/\alpha$; in fact
-$\set{g>\alpha}=[0,1]$ exactly, of measure $1\le1/\alpha$. Maximal: $g^*(x)\approx 1/\abs x$
-outside $[0,1]$, so $\set{g^*>\alpha}\approx(-1/\alpha,1+1/\alpha)$, measure $\approx
-1+2/\alpha\le 3/\alpha$ when $\alpha$ small. \emph{Check.} The maximal set is genuinely
-larger than $\set{g>\alpha}$ (the supremum sees mass from nearby), yet both obey a $C/\alpha$
-law -- the entire point of the weak-type theorem.
+$\set{g>\alpha}=[0,1]$ exactly, of measure $1\le1/\alpha$. Maximal: $g^*(x)=1/x$ for
+$x>1$ and $g^*(x)=1/(1-x)$ for $x<0$ (the indicator example above), so
+$\set{g^*>\alpha}=(1-1/\alpha,1/\alpha)$, of measure $2/\alpha-1\le 3/\alpha$. \emph{Check.}
+The maximal set is genuinely larger than $\set{g>\alpha}$ (the supremum sees mass from
+nearby), yet both obey a $C/\alpha$ law -- the entire point of the weak-type theorem.
 \end{wex}
 
 \begin{wex}{$f^*(x)\ge\abs{f(x)}$ a.e.}
@@ -43987,7 +43990,7 @@ Deduce from the differentiation theorem (proved in \S\ref{ss:lebdiff@c26}) that 
 \abs{f(x)}$ for a.e.\ $x$.
 \wrec ``Relate the maximal function to $\abs f$ pointwise.'' Apply Lebesgue differentiation
 to $\abs f$.
-\wsol By Theorem~\ref{t:hl@c26} applied to $\abs f$, for a.e.\ $x$ the averages
+\wsol By Theorem~\ref{t:lebdiff@c26} applied to $\abs f$, for a.e.\ $x$ the averages
 $\frac1{m(B)}\int_B\abs f\to\abs{f(x)}$ as $B\downarrow x$. Each such average is $\le
 f^*(x)$ by definition of the supremum, so passing to the limit gives $\abs{f(x)}\le f^*(x)$
 a.e. \emph{Check.} For $f=\ind{[0,1]}$ we have $\abs f=1$ on $[0,1]$ and indeed $f^*=1$
@@ -44003,20 +44006,24 @@ sub-intervals.
 $I_1=(0,2)$, deletes $I_2$ (overlaps), keeps $I_3=(2,4)$, deletes $I_4$, keeps $I_5=(4,6)$:
 disjoint sub-collection $\set{I_1,I_3,I_5}$ with total measure $6$. \emph{Check.}
 $m(\bigcup I_k)=6\le 3\cdot(2+2+2)=18=3^1\sum m(I_{i_j})$ -- the bound holds with enormous
-slack, since here the disjoint subfamily already covers everything.
+slack, since here the disjoint subfamily already covers all of $(0,6)$ except the two points
+$2$ and $4$.
 \end{wex}
 
 \begin{wex}{Maximal function of a two-bump function}
 Let $f=\ind{[0,1]}+\ind{[3,4]}$ on $\R$. Find $f^*$ on the gap $(1,3)$ and identify where the
 two bumps ``compete.''
 \wrec ``Maximal averages over a function with separated support.''
-\wsol At $x\in(1,3)$ an interval may capture one or both bumps. Capturing only the left bump:
-best interval $(0,x)$ giving average $\frac{1}{x}$ (mass $1$ over length $x$, for $x>1$).
-Capturing both: interval $(0,4)$ has average $2/4=1/2$ but longer intervals dilute; the
-optimum near the midpoint $x=2$ is to take $(1-\eps,4)$ roughly, giving $\approx 2/3$. So
-$f^*(2)=\max(\tfrac12, \tfrac{2}{3})=\tfrac23$ from the two-bump interval $(0,3)$: average
-$2/3$. \emph{Check.} $f^*\ge\abs f$ holds ($f=0$ on the gap, $f^*>0$), and $f^*(2)=2/3<1$,
-consistent with the supremum lying between the local and global averages.
+\wsol At $x\in(1,3)$ an interval may capture one or both bumps. Capturing only the left bump,
+the intervals $(0,x+\eta)$, $\eta\downarrow0$, are best (as for $\ind{[0,1]}$ above), with
+averages $\to\frac{1}{x}$ (mass $1$ over length $x$); capturing only the right bump,
+$(x-\eta,4)$ gives $\to\frac1{4-x}$. Capturing both forces the interval to contain the gap:
+$(1-s,3+t)$ with $0\le s,t\le1$ has average $\frac{s+t}{2+s+t}\le\frac12$, with equality for
+$(0,4)$, and longer intervals only dilute. Hence $f^*(x)=\max\bigl(\frac1x,\frac1{4-x},
+\frac12\bigr)=\frac1{\min(x,4-x)}$ on the gap: the left bump wins on $(1,2)$, the right bump on
+$(2,3)$, and they compete at the midpoint, where all three candidates tie: $f^*(2)=\tfrac12$.
+\emph{Check.} $f^*\ge\abs f$ holds ($f=0$ on the gap, $f^*>0$), and $f^*(x)\to1$ as $x\to1^+$
+or $x\to3^-$, matching $f^*=1$ on the bumps.
 \end{wex}
 
 \begin{pitfall}
@@ -44025,19 +44032,22 @@ C\norm f_{\Lone}$ is \emph{false} (Worked Example above). The correct strong bou
 $\norm{f^*}_{\Lp p}\le C_p\norm f_{\Lp p}$ for $1<p\le\infty$, obtained by interpolation;
 at $p=1$ only the weak-type estimate survives. Also: the family of \emph{all rectangles}
 (not balls or cubes) fails both the weak-type bound and the differentiation theorem
-(Problem~8) -- the geometry of the averaging family matters.
+(Problem~4 below) -- the geometry of the averaging family matters.
 \end{pitfall}
 
 \begin{exers}{Exercises (Stein, Ch.3) -- maximal function and covering.}
 \item Suppose $\varphi$ is integrable on $\Rd$ with $\int_{\Rd}\varphi=1$. Set
 $K_\delta(x)=\delta^{-d}\varphi(x/\delta)$, $\delta>0$.
-(a) Prove $\set{K_\delta}_{\delta>0}$ is a family of good kernels.
+(a) Prove $\set{K_\delta}_{\delta>0}$ is a family of good kernels
+(Definition~\ref{d:goodkernel@c25}).
 (b) If in addition $\varphi$ is bounded and supported in a bounded set, verify that
-$\set{K_\delta}$ is an approximation to the identity.
-(c) Show Theorem~2.3 (convergence in the $L^1$-norm) holds for good kernels as well.
+$\set{K_\delta}$ is an approximation to the identity (Definition~\ref{d:approxid@c26}).
+(c) Show that convergence in the $L^1$-norm, $\norm{f*K_\delta-f}_{\Lone}\to0$ for
+$f\in\Lone(\Rd)$ (Stein, Ch.3, Theorem~2.3, for approximations to the identity), holds for
+good kernels as well.
 
 \item Suppose $\set{K_\delta}$ satisfies (i) $\abs{K_\delta(x)}\le A\delta^{-d}$;
-(ii) $\abs{K_\delta(x)}\le A\delta/\abs x^{d+1}$; (iii) $\int_{\R}K_\delta(x)\,dx=0$ for all
+(ii) $\abs{K_\delta(x)}\le A\delta/\abs x^{d+1}$; (iii) $\int_{\Rd}K_\delta(x)\,dx=0$ for all
 $\delta>0$ (so the average is $0$ instead of $1$). Show that if $f$ is integrable on $\Rd$,
 then $(f*K_\delta)(x)\to0$ for a.e.\ $x$ as $\delta\to0$.
 
@@ -44049,7 +44059,7 @@ $\int\abs f=1$, then $m(\set{f^*>\alpha})\ge c'/\alpha$ for some $c'>0$ and all 
 $\alpha$. [Hint: $\int_B\abs f>0$ for some ball $B$.]
 
 \item Consider $f(x)=\dfrac{1}{\abs x(\log 1/\abs x)^2}$ for $\abs x\le1/2$, and $f(x)=0$
-otherwise.
+otherwise, on $\R$.
 (a) Verify that $f$ is integrable.
 (b) Establish $f^*(x)\ge\dfrac{c}{\abs x(\log 1/\abs x)}$ for some $c>0$ and all $\abs
 x\le1/2$, and conclude the maximal function $f^*$ is not locally integrable.
@@ -44061,8 +44071,9 @@ $m(E_\alpha^+)=\frac1\alpha\int_{E_\alpha^+}\abs{f(y)}\,dy$. [Hint: apply the ri
 to $F(x)=\int_0^x\abs f-\alpha x$; then $E_\alpha^+$ is a disjoint union of intervals
 $(a_k,b_k)$ with $\int_{a_k}^{b_k}\abs f=\alpha(b_k-a_k)$.]
 
-\item Using Corollary~1.5, prove that if a measurable $E\subseteq[0,1]$ satisfies $m(E\cap
-I)\ge\alpha\,m(I)$ for some $\alpha>0$ and all intervals $I\subseteq[0,1]$, then $m(E)=1$.
+\item Using Corollary~\ref{c:density@c26}, prove that if a measurable $E\subseteq[0,1]$
+satisfies $m(E\cap I)\ge\alpha\,m(I)$ for some $\alpha>0$ and all intervals $I\subseteq[0,1]$,
+then $m(E)=1$.
 
 \item Suppose $A$ is Lebesgue measurable in $\R$ with $m(A)>0$. Does there exist a sequence
 $\set{s_n}$ such that the complement of $\bigcup_n(A+s_n)$ has measure zero? [Hint: for each
@@ -44077,15 +44088,19 @@ density point of $F$.]
 
 \begin{exers}{Problems (Stein, Ch.3) -- covering lemmas and rectangles.}
 \item Prove the following variant of the Vitali covering lemma: if $E$ is covered in the
-Vitali sense by a family $\mathcal B$ of balls and $0<m^*(E)<\infty$, then for every $\eta>0$
-there is a disjoint collection $\set{B_j}$ in $\mathcal B$ with $m^*\bigl(E\setminus\bigcup_j
-B_j\bigr)=0$ and $\sum_j\abs{B_j}\le(1+\eta)m^*(E)$.
+Vitali sense (as in Lemma~\ref{l:vitali-rep@c26}) by a family $\mathcal B$ of balls and
+$0<m^*(E)<\infty$, then for every $\eta>0$ there is a disjoint collection $\set{B_j}$ in
+$\mathcal B$ with $m^*\bigl(E\setminus\bigcup_j B_j\bigr)=0$ and
+$\sum_j\abs{B_j}\le(1+\eta)m^*(E)$.
 
 \item (One-dimensional covering.) Given finitely many open intervals $I_1,\dots,I_N$ in $\R$,
 there are two sub-collections $I_1',\dots,I_K'$ and $I_1'',\dots,I_L''$, each consisting of
 mutually disjoint intervals, with $\bigcup_{j}I_j=\bigcup_k I_k'\cup\bigcup_\ell I_\ell''$.
-(Unlike Lemma~1.2, the full union is covered, not merely a fraction.) [Hint: greedily pick
-the leftmost-reaching interval, discard those it contains, and alternate.]
+(Unlike Lemma~\ref{l:vitali@c26}, the full union is covered, not merely a fraction.) [Hint:
+work in one component of the union at a time; start with an interval with the leftmost left
+endpoint, then repeatedly choose, among the intervals containing the right endpoint of the
+last chosen one, one reaching farthest to the right. Chosen intervals two steps apart are
+disjoint, so assign them alternately to the two sub-collections.]
 
 \item$^*$ There is no direct analogue of the previous problem in higher dimensions, but the
 \emph{Besicovitch covering lemma} provides a full covering: there is an integer $N=N(d)$ such
@@ -44102,7 +44117,8 @@ $m(\set{f_{\mathcal R}^*>\alpha})\le\frac A\alpha\norm f_{\Lone}$ for all $\alph
 (b) Deduce there is $f\in\Lone(\R^2)$ with $\limsup_{\diam R\to0}\frac1{m(R)}\int_R f(x-y)\,dy
 =\infty$ for a.e.\ $x$. [Hint: with $\varphi=\ind B/m(B)$ and $\varphi_\delta=\delta^{-2}
 \varphi(\cdot/\delta)$, $(\varphi_\delta)_{\mathcal R}^*(x)\to\frac1{\abs{x_1}\abs{x_2}}$,
-whose super-level sets have measure $\sim(\log\alpha)/\alpha$.]
+whose super-level sets $\set{\abs{x_1x_2}<1/\alpha}$ have infinite measure; already their parts
+in the unit square have measure $\sim(\log\alpha)/\alpha$.]
 \end{exers}
 
 \begin{exers}{Additional exercises.}
@@ -44113,7 +44129,8 @@ and sketch its graph. Verify that $f^*(x)\sim 2/\abs x$ as $\abs x\to\infty$.
 decay of $f^*$ at infinity. Conclude $f^*\notin\Lone(\R^2)$.
 
 \item Prove the simple lower bound $f^*(x)\ge\abs{f(x)}$ for every Lebesgue point $x$ of $f$
-directly from Definition~\ref{d:maximal@c26} and the Lebesgue differentiation theorem.
+directly from Definition~\ref{d:maximal@c26} and the definition of the Lebesgue set
+(Definition~\ref{d:lebset@c26}).
 
 \item (Sub-additivity.) Show that $(f+g)^*(x)\le f^*(x)+g^*(x)$ for all $x$, and use this with
 the weak-type bound to estimate $m(\set{(f+g)^*>\alpha})$.
@@ -44122,16 +44139,19 @@ the weak-type bound to estimate $m(\set{(f+g)^*>\alpha})$.
 pentagon of circumradius $1.5$. Apply the greedy step of Lemma~\ref{l:vitali@c26} and identify a
 disjoint sub-collection; verify the $3^d$ measure bound numerically.
 
-\item Show that the constant $A=3^d$ in the maximal theorem can be replaced by any $A>1$ in
-dimension $d=1$ if one uses the rising-sun (one-sided) lemma. Explain why the two-sided
-maximal function still needs a constant $>1$.
+\item Show that in dimension $d=1$ the constant $A=3^d$ in the maximal theorem can be replaced
+by $A=2$: write $f^*=\max(f_+^*,f_-^*)$ with $f_-^*(x)=\sup_{h>0}\frac1h\int_{x-h}^x\abs f$,
+and apply the one-sided (rising-sun) identity of Exercise~5 of the Stein exercises above to
+$f_+^*$ and, after the reflection $x\mapsto-x$, to $f_-^*$. Using the spikes
+$\eps^{-1}\ind{[0,\eps]}$, explain why the two-sided maximal function admits no constant
+$A<2$.
 
 \item (Non-example.) Exhibit an $f\in\Lone(\R)$ and a sequence of intervals $I_n\ni0$ with
 $m(I_n)\to0$ for which $\frac1{m(I_n)}\int_{I_n}f$ does \emph{not} converge, and reconcile
 this with Theorem~\ref{t:lebdiffloc@c26}. (Hint: $0$ must lie outside the full-measure good set.)
 
 \item Draw a Vitali covering of the interval $[0,1]$ by intervals of the form
-$(k\,2^{-n},(k+1)2^{-n})$ and illustrate the iterative selection in
+$(k\,2^{-n},(k+2)2^{-n})$, $k\in\Z$, $n\ge1$, and illustrate the iterative selection in
 Lemma~\ref{l:vitali-rep@c26} producing a disjoint subfamily of total length $\ge1-\delta$.
 \end{exers}
 
@@ -44156,10 +44176,11 @@ It suffices to show that for each $\alpha>0$ the set
   E_\alpha=\set[\Big]{x:\limsup_{\substack{m(B)\to0\\x\in B}}
     \abs[\Big]{\frac1{m(B)}\int_B f(y)\,dy-f(x)}>2\alpha}
 \]
-has measure zero, for then $\bigcup_n E_{1/n}$ is null. Fix $\alpha$. By density of
-continuous functions in $\Lone$ (Chapter~2), choose continuous $g$ with $\norm{f-g}_{\Lone}
-<\alpha$. For continuous $g$ the averages converge everywhere: $\frac1{m(B)}\int_B g\to
-g(x)$ as $B\downarrow x$, so $g$ contributes nothing to its own $E_\alpha$. Writing
+has measure zero, for then $\bigcup_n E_{1/n}$ is null. Fix $\alpha$ and let $\eps>0$. By
+density of continuous functions in $\Lone$ (Theorem~\ref{t:dense@c25}), choose continuous $g$
+with $\norm{f-g}_{\Lone}<\eps$. For continuous $g$ the averages converge everywhere:
+$\frac1{m(B)}\int_B g\to g(x)$ as $B\downarrow x$, so $g$ contributes nothing to its own
+$E_\alpha$. Writing
 $f=g+(f-g)$ and using $\frac1{m(B)}\int_B f-f(x)=\bigl(\frac1{m(B)}\int_B(f-g)\bigr)+\bigl
 (\frac1{m(B)}\int_B g-g(x)\bigr)+(g(x)-f(x))$, the limsup is bounded by $(f-g)^*(x)+0+
 \abs{(f-g)(x)}$. Hence
@@ -44169,10 +44190,9 @@ $f=g+(f-g)$ and using $\frac1{m(B)}\int_B f-f(x)=\bigl(\frac1{m(B)}\int_B(f-g)\b
 By the maximal theorem and Tchebychev,
 \[
   m(E_\alpha)\le\frac{3^d}{\alpha}\norm{f-g}_{\Lone}+\frac1\alpha\norm{f-g}_{\Lone}
-  \le\frac{3^d+1}{\alpha}\,\alpha=(3^d+1)\cdot\frac{\norm{f-g}_{\Lone}}{\alpha}.
+  <\frac{3^d+1}{\alpha}\,\eps.
 \]
-Since $\norm{f-g}_{\Lone}<\alpha$ can be made arbitrarily small with $\alpha$ fixed (choose
-$g$ better), the bound is $\le(3^d+1)\eps$ for every $\eps$; thus $m(E_\alpha)=0$.
+Since $\eps>0$ is arbitrary and $\alpha$ is fixed, $m(E_\alpha)=0$.
 \end{proof}
 
 The hypothesis can be localized: a measurable $f$ is \emph{locally integrable},
@@ -44260,7 +44280,8 @@ $m(U_\alpha)\ge c\,m(B)$.
 
 \begin{corollary}\label{c:regshrink@c26}
 If $f\in\Lone_{\mathrm{loc}}$ and $\set{U_\alpha}$ shrinks regularly to $x$, then
-$\frac1{m(U_\alpha)}\int_{U_\alpha}f\to f(x)$ at every Lebesgue point $x$ of $f$.
+$\frac1{m(U_\alpha)}\int_{U_\alpha}f\to f(x)$ as $m(U_\alpha)\to0$, at every Lebesgue point $x$
+of $f$.
 \end{corollary}
 
 \begin{proof}
@@ -44268,20 +44289,23 @@ With $U_\alpha\subseteq B$, $m(U_\alpha)\ge c\,m(B)$:
 $\frac1{m(U_\alpha)}\int_{U_\alpha}\abs{f-f(x)}\le\frac1{c\,m(B)}\int_B\abs{f-f(x)}\to0$.
 \end{proof}
 
-Cubes containing $x$ shrink regularly (ratio $c=v_d/(2\sqrt d)^d$); thin rectangles in
-$\Rd$, $d\ge2$, do \emph{not}, and the conclusion can fail for them (Problem~8).
+Cubes containing $x$ shrink regularly (a cube $Q$ lies in its circumscribed ball $B$, and
+$m(Q)/m(B)=2^d/(v_d\,d^{d/2})$); thin rectangles in $\Rd$, $d\ge2$, do \emph{not}, and the
+conclusion can fail for them (Problem~4 of the preceding section).
 
 \begin{center}
 \begin{tikzpicture}[scale=1.0]
-  \node[pt,label=below:$x$] at (0,0) {};
-  \draw[black!50] (0,0) circle (1.1);
+  % cube U = [-0.5,0.5]^2 containing x, and its circumscribed ball B (radius sqrt(2)/2)
+  \draw[black!50] (0,0) circle ({sqrt(2)/2});
   \draw[fill=black!12] (-0.5,-0.5) rectangle (0.5,0.5);
-  \node[font=\footnotesize] at (0.0,0.0) {$U$};
-  \node[font=\footnotesize] at (0.85,0.85) {$B$};
+  \node[font=\footnotesize] at (-0.2,0.2) {$U$};
+  \node[pt,label=right:$x$] at (-0.06,-0.2) {};
+  \node[font=\footnotesize] at (0.8,0.45) {$B$};
   \begin{scope}[shift={(4.2,0)}]
-    \node[pt,label=below:$x$] at (0,0) {};
-    \draw[black!50] (0,0) circle (1.3);
+    % thin rectangle R containing x, and its circumscribed ball (radius sqrt(1.2^2+0.12^2))
+    \draw[black!50] (0,0) circle ({sqrt(1.2*1.2+0.12*0.12)});
     \draw[fill=black!12] (-1.2,-0.12) rectangle (1.2,0.12);
+    \node[pt,label=below:$x$] at (0,0) {};
     \node[font=\footnotesize] at (1.8,0.5) {thin $R$};
     \node[font=\footnotesize,align=center] at (0,-1.9)
       {$m(R)\ll m(B)$:\\ not regular};
@@ -44302,7 +44326,10 @@ A family $\set{K_\delta}_{\delta>0}$ of integrable functions on $\Rd$ is an
   \text{(iii)}\ \abs{K_\delta(x)}\le A\,\delta/\abs x^{d+1}.
 \]
 The \emph{convolution} $(f*K_\delta)(x)=\int_{\Rd}f(x-y)K_\delta(y)\,dy$ averages $f$ against
-a mass-$1$ bump that concentrates at $0$ as $\delta\to0$.
+a mass-$1$ bump that concentrates at $0$ as $\delta\to0$. Conditions (ii)--(iii) give
+$\int\abs{K_\delta}\le C$ and $\int_{\abs x>\eta}\abs{K_\delta}\to0$ as $\delta\to0$ for each
+$\eta>0$, so such a family is in particular a family of good kernels in the sense of
+Definition~\ref{d:goodkernel@c25}; the pointwise conditions (ii)--(iii) are stronger.
 \end{definition}
 
 \begin{theorem}\label{t:approxid@c26}
@@ -44317,17 +44344,23 @@ $y$-integral into the ball $\abs y\le\delta$ and dyadic shells $2^k\delta<\abs y
 2^{k+1}\delta$. On the central ball, $\abs{K_\delta}\le A\delta^{-d}$ and the Lebesgue-point
 condition makes $\frac1{\delta^d}\int_{\abs y\le\delta}\abs{f(x-y)-f(x)}\to0$. On the $k$-th
 shell, the decay (iii) gives weight $\lesssim\delta(2^k\delta)^{-(d+1)}$ times an integral
-$\lesssim(2^k\delta)^d\cdot o(1)$, summable in $k$. Hence the total $\to0$.
+$\le(2^{k+1}\delta)^d\mathcal A(2^{k+1}\delta)$, where $\mathcal A(r)=r^{-d}\int_{\abs y\le r}
+\abs{f(x-y)-f(x)}\,dy$ is bounded in $r>0$ and tends to $0$ as $r\to0$. The shells thus
+contribute $\lesssim\sum_{k\ge0}2^{-k}\mathcal A(2^{k+1}\delta)$, which tends to $0$ as
+$\delta\to0$ by dominated convergence. Hence the total $\to0$.
 \end{proof}
 
 \begin{wex}{The averages are an approximation to the identity}
 Show $K_\delta=\frac{1}{m(B(0,\delta))}\ind{B(0,\delta)}$ gives $(f*K_\delta)(x)=
-\frac1{m(B(0,\delta))}\int_{B(x,\delta)}f$, recovering Theorem~\ref{t:lebdiffloc@c26}.
+\frac1{m(B(0,\delta))}\int_{B(x,\delta)}f$, recovering the centered-ball case of
+Theorem~\ref{t:lebdiff@c26}.
 \wrec ``Recognize ball-averaging as a convolution.''
 \wsol $(f*K_\delta)(x)=\int f(x-y)\frac{\ind{B(0,\delta)}(y)}{m(B(0,\delta))}\,dy=
 \frac1{m(B(0,\delta))}\int_{\abs y<\delta}f(x-y)\,dy=\frac1{m(B(x,\delta))}\int_{B(x,\delta)}f$.
-\emph{Check.} $\int K_\delta=1$ and $K_\delta\ge0$; this is the prototypical approximation to
-the identity, and Theorem~\ref{t:approxid@c26} reduces to Lebesgue differentiation over balls.
+\emph{Check.} $\int K_\delta=1$, $K_\delta\ge0$, $K_\delta\le\delta^{-d}/v_d$, and $K_\delta=0$
+for $\abs x\ge\delta$ (so (iii) holds with $A=1/v_d$); this is the prototypical approximation to
+the identity, and Theorem~\ref{t:approxid@c26} reduces to Lebesgue differentiation over
+centered balls.
 \end{wex}
 
 \begin{wex}{The Gauss--Weierstrass kernel}
@@ -44356,7 +44389,7 @@ identity for nonnegative $f$.
 
 \begin{wex}{A density computation}
 Let $E=\bigcup_{n\ge1}[2^{-n},2^{-n}+4^{-n}]$. Is $0$ a Lebesgue density point of $E$?
-\wrec ``Compute the density ratio along $B=(0,r)$ as $r\to0$.''
+\wrec ``Compute the density ratio along $B=(-r,r)$ as $r\to0$.''
 \wsol Take $B=(-2^{-N},2^{-N})$ of length $2^{1-N}$. Then $E\cap B\subseteq\bigcup_{n\ge N}
 [2^{-n},2^{-n}+4^{-n}]$ has measure $\le\sum_{n\ge N}4^{-n}=\frac{4^{-N}}{1-1/4}=\frac43
 4^{-N}$. So $\frac{m(E\cap B)}{m(B)}\le\frac{(4/3)4^{-N}}{2^{1-N}}=\frac{2}{3}2^{-N}\to0$.
@@ -44380,13 +44413,21 @@ Let $K_\delta$ be an approximation to the identity and $f\in\Lone$ bounded. Show
 is continuous, and that $(f*K_\delta)(x)\to f(x)$ at continuity points by dominated
 convergence.
 \wrec ``Use continuity of translation in $\Lone$ plus the concentration of $K_\delta$.''
-\wsol $(f*K_\delta)(x)-f(x)=\int(f(x-y)-f(x))K_\delta(y)\,dy$. At a continuity point $x$,
+\wsol By (ii),
+\[
+  \abs{(f*K_\delta)(x+h)-(f*K_\delta)(x)}\le A\delta^{-d}\int\abs{f(x+h-y)-f(x-y)}\,dy
+  =A\delta^{-d}\norm{f(\cdot+h)-f}_{\Lone}\to0
+\]
+as $h\to0$ (continuity of translation in $\Lone$), so $f*K_\delta$ is continuous. Next,
+$(f*K_\delta)(x)-f(x)=\int(f(x-y)-f(x))K_\delta(y)\,dy$. At a continuity point $x$,
 given $\eps$ there is $r$ with $\abs{f(x-y)-f(x)}<\eps$ for $\abs y<r$; split the integral.
 On $\abs y<r$ the integrand is $\le\eps\abs{K_\delta}$ with $\int\abs{K_\delta}\le C$; on
 $\abs y\ge r$, the tail bound (iii) gives $\int_{\abs y\ge r}\abs{K_\delta}\le A\delta\int_{\abs
 y\ge r}\abs y^{-(d+1)}\to0$ as $\delta\to0$, and $\abs{f}$ is bounded. So the whole thing is
-$\le C\eps+o(1)$. \emph{Check.} For $f$ continuous at $x$ the limit is $f(x)$ exactly; the
-dominating function $2\norm f_\infty\abs{K_\delta}$ is integrable, licensing DCT.
+$\le C\eps+o(1)$. \emph{Check.} For $f$ continuous at $x$ the limit is $f(x)$ exactly. In DCT
+form: after $y=\delta u$ the integrand $(f(x-\delta u)-f(x))\,\delta^dK_\delta(\delta u)$ tends to
+$0$ pointwise and, by (ii)--(iii), is dominated by $2\norm f_\infty A\min(1,\abs u^{-(d+1)})$,
+which is integrable and independent of $\delta$.
 \end{wex}
 
 \begin{pitfall}
@@ -44394,7 +44435,7 @@ The Lebesgue set depends on the chosen \emph{representative} of $f$ (changing $f
 point can add or remove that point), even though the set where the averages converge is
 representation-independent. Convergence ``a.e.'' is the most one can demand: there exist
 integrable $f$ for which the averages fail to converge on a prescribed null set, and indeed
-$\limsup=\infty$ there (Exercise~25).
+$\limsup=\infty$ there (Exercise~3 of the Stein exercises below).
 \end{pitfall}
 
 \begin{exers}{Exercises (Stein, Ch.3) -- density, Lebesgue set, kernels.}
@@ -44407,13 +44448,14 @@ following there is an infinite sequence $x_n\in E$ with $x_n\neq0$ and $x_n\to0$
 then $\sup_{\eps>0}\abs{(f*K_\eps)(x)}\le c\,f^*(x)$ for some $c>0$ and all integrable $f$.
 
 \item The following shows the necessity of general exceptional null sets in the
-differentiation Theorems~1.4, 3.4, and 3.11. Let $E$ be any set of measure zero in $\Rd$.
-Show:
+differentiation Theorems~\ref{t:lebdiffloc@c26}, \ref{t:bv-diff@c26}, and \ref{t:ftc@c26}. Let
+$E$ be any set of measure zero in $\Rd$. Show:
 (a) there is a nonnegative integrable $f$ on $\Rd$ with $\liminf_{\substack{m(B)\to0\\x\in B}}
 \frac1{m(B)}\int_B f=\infty$ for each $x\in E$;
 (b) when $d=1$ this gives an increasing absolutely continuous $F$ with
-$D^+F(x)=D^-F(x)=\infty$ for each $x\in E$. [Hint: find open $O_n\supseteq E$ with
-$m(O_n)<2^{-n}$ and put $f=\sum_n\ind{O_n}$.]
+$D^+F(x)=D^-F(x)=\infty$ for each $x\in E$ (the upper Dini derivatives from the right and
+from the left). [Hint: find open $O_n\supseteq E$ with $m(O_n)<2^{-n}$ and put
+$f=\sum_n\ind{O_n}$.]
 
 \item An alternative definition of exterior measure $m^*(E)$ replaces coverings by cubes with
 coverings by \emph{balls}: $m^*_B(E)=\inf\sum_j m(B_j)$ over all covers $E\subseteq\bigcup_j
@@ -44421,8 +44463,9 @@ B_j$ by open balls. Prove $m^*(E)=m^*_B(E)$. (This gives an alternate proof of r
 invariance of Lebesgue measure.) Clearly $m^*(E)\le m^*_B(E)$; prove the reverse by showing
 that for any $\eps>0$ there are balls with $E\subseteq\bigcup_j B_j$ and $\sum_j m(B_j)\le
 m^*(E)+\eps$, with all diameters $<\delta$ if desired. [Hint: reduce to $E$ measurable, take
-$O\supseteq E$ open with $m(O\setminus E)$ small, use Corollary~3.10 to find finitely many
-balls capturing most of $E$, and cover the residue by cubes replaced by enclosing balls.]
+$O\supseteq E$ open with $m(O\setminus E)$ small, apply Lemma~\ref{l:vitali-rep@c26} to the
+balls inside $O$ to find finitely many disjoint ones capturing most of $E$, and cover the
+residue by cubes replaced by enclosing balls.]
 \end{exers}
 
 \begin{exers}{Additional exercises.}
@@ -44433,9 +44476,9 @@ equals the elementary value.
 \item Show that every point of continuity of $f$ is a Lebesgue point of $f$, but not
 conversely: construct an $f$ with a Lebesgue point at $0$ where $f$ is discontinuous.
 
-\item Let $E=[0,1]\setminus\bigcup_n(r_n-2^{-n-2},r_n+2^{-n-2})$ where $\set{r_n}$ enumerates
-$\Q\cap[0,1]$. Show $m(E)\ge1/2$ and that every $x\in E$ which is a density point satisfies
-the density condition with explicit small balls.
+\item Let $E=[0,1]\setminus\bigcup_{n\ge1}(r_n-2^{-n-2},r_n+2^{-n-2})$ where
+$\set{r_n}_{n\ge1}$ enumerates $\Q\cap[0,1]$. Show $m(E)\ge1/2$ and that $E$ contains no
+interval, yet almost every point of $E$ is a density point of $E$.
 
 \item Verify directly that the Poisson kernel $P_\delta$ on $\R$ (suitably scaled) is an
 approximation to the identity, and state what $f*P_\delta\to f$ means for harmonic extension
@@ -44450,7 +44493,7 @@ shrinks regularly to $x$, computing the eccentricity constant $c$ explicitly; th
 thin rectangles do not.
 
 \item Let $f(x)=\abs x^{-1/2}\ind{\set{0<\abs x<1}}$ on $\R$. Show $f\in\Lone_{\mathrm{loc}}$,
-that $0$ is a Lebesgue point, and compute $\lim_{h\to0}\frac1{2h}\int_{-h}^h f$.
+that $0$ is \emph{not} a Lebesgue point, and compute $\lim_{h\to0}\frac1{2h}\int_{-h}^h f$.
 
 \item (Non-example / diagram.) Sketch a thin rectangle $R_n\ni0$ in $\R^2$ with
 $m(R_n)\to0$, and an $f\in\Lone$ for which the rectangle-averages of $f$ over $R_n$ fail to
@@ -44508,8 +44551,9 @@ finiteness is exactly bounded variation of the coordinate functions. (Schematic.
 \textbf{(1)} Monotonic bounded $F$ is BV: if $F$ increases, $\sum\abs{F(t_j)-F(t_{j-1})}=
 F(b)-F(a)$, so $T_F(a,b)=F(b)-F(a)$. \textbf{(2)} If $F$ is differentiable with $\abs{F'}\le
 M$, the mean value theorem gives $\abs{F(t_j)-F(t_{j-1})}\le M(t_j-t_{j-1})$, so $T_F\le
-M(b-a)$. \textbf{(3)} $F(x)=x^a\sin(x^{-b})$ ($F(0)=0$) is BV on $[0,1]$ iff $a>b$
-(Exercise~11); for $a\le b$ the oscillations accumulate unbounded length.
+M(b-a)$. \textbf{(3)} For $a,b>0$, $F(x)=x^a\sin(x^{-b})$ ($F(0)=0$) is BV on $[0,1]$ iff
+$a>b$ (Exercise~2 of the Stein exercises at the end of this section); for $a\le b$ the
+oscillations accumulate unbounded length.
 \end{example}
 
 \begin{center}
@@ -44562,8 +44606,9 @@ increasing.
 \begin{proof}
 ($\Leftarrow$) A difference of bounded monotone functions is BV (each is BV, and BV is a
 vector space). ($\Rightarrow$) Set $F_1(x)=P_F(a,x)+F(a)$ and $F_2(x)=N_F(a,x)$. Both are
-increasing (positive/negative variations grow with $x$) and bounded by $T_F(a,b)$, and by
-Lemma~\ref{l:pntv@c26}, $F_1(x)-F_2(x)=F(a)+(F(x)-F(a))=F(x)$.
+increasing (positive/negative variations grow with $x$) and bounded (as $0\le
+P_F(a,x),N_F(a,x)\le T_F(a,b)$), and by Lemma~\ref{l:pntv@c26},
+$F_1(x)-F_2(x)=F(a)+(F(x)-F(a))=F(x)$.
 \end{proof}
 
 \begin{theorem}\label{t:bv-diff@c26}
@@ -44596,7 +44641,7 @@ the uncovered measure exhausts $E$ up to $\delta$.
 \begin{example}\label{ex:cantor@c26}
 The \emph{Cantor--Lebesgue function} (devil's staircase) $F:[0,1]\to[0,1]$ is continuous and
 increasing with $F(0)=0$, $F(1)=1$, yet $F'(x)=0$ for a.e.\ $x$. It is built as the uniform
-limit of $F_n$, where $F_n$ is constant on the middle-thirds removed at stage $n$ and
+limit of $F_n$, where $F_n$ is constant on the middle-thirds removed up to stage $n$ and
 linear elsewhere. On the complement of the Cantor set $\mathcal C$ (full measure $1$), $F$
 is locally constant, so $F'=0$ a.e.; nevertheless $F$ climbs from $0$ to $1$, all of the
 rise occurring on the null set $\mathcal C$.
@@ -44626,7 +44671,7 @@ rise occurring on the null set $\mathcal C$.
     --(0.778,0.75)
     --(0.889,0.75)
     --(1,1);
-  \node[font=\scriptsize,fill=white,inner sep=1pt] at (0.5,0.40) {flat on removed thirds};
+  \node[font=\scriptsize,align=center] at (0.62,0.27) {flat on\\removed thirds};
 \end{tikzpicture}
 \captionof{figure}{The Cantor--Lebesgue function (level-2 stage): increasing, continuous,
 $F'=0$ a.e., yet $F(1)-F(0)=1$. All the increase happens on the measure-zero Cantor set.}
@@ -44692,7 +44737,9 @@ Conversely, if $f$ is integrable on $[a,b]$, then $F(x)=\int_a^x f$ is AC with $
 \end{theorem}
 
 \begin{proof}
-$F$ is AC hence BV, so $F'$ exists a.e.\ (Theorem~\ref{t:bv-diff@c26}) and is integrable. Put
+$F$ is AC hence BV, so $F'$ exists a.e.\ (Theorem~\ref{t:bv-diff@c26}) and is integrable (by
+Theorem~\ref{t:jordan@c26} it suffices to take $F$ real and increasing, and then Fatou's lemma
+applied to the difference quotients gives $\int_a^b F'\le F(b)-F(a)$). Put
 $G(x)=\int_a^x F'$. Then $G$ is AC (absolute continuity of the integral) and, by Lebesgue
 differentiation, $G'=F'$ a.e. So $F-G$ is AC with derivative $0$ a.e., hence constant by
 Theorem~\ref{t:ac-const@c26}; evaluating at $a$ gives $F-G\equiv F(a)$, i.e.\ $F(x)-F(a)=
@@ -44745,7 +44792,7 @@ singular parts. (Schematic.)}
 \subsection*{Jump functions}
 
 \begin{definition}\label{d:jump@c26}
-Given points $x_n$ and weights $\alpha_n>0$ with $\sum\alpha_n<\infty$, the \emph{jump
+Given distinct points $x_n$ and weights $\alpha_n>0$ with $\sum\alpha_n<\infty$, the \emph{jump
 function} is $J(x)=\sum_n\alpha_n j_n(x)$ where $j_n(x)=0$ for $x<x_n$, $\theta_n$ at
 $x=x_n$, and $1$ for $x>x_n$ (a fixed normalization $0\le\theta_n\le1$). $J$ is increasing
 with a jump of size $\alpha_n$ at each $x_n$.
@@ -44756,10 +44803,13 @@ For the jump function $J$ above, $J'(x)=0$ for almost every $x$.
 \end{theorem}
 
 \begin{proof}[Idea]
-$J$ is increasing, so $J'$ exists a.e.\ and $\int_a^b J'\le J(b)-J(a)$. One shows the
-integral of $J'$ is $0$ by a covering argument: for the truncation $J_N=\sum_{n\le N}
-\alpha_n j_n$, the difference quotient exceeds $\eps$ only on a set whose covering intervals
-have total $J_0$-increment $<\eta$; since the tail $\sum_{n>N}\alpha_n\to0$, the bad set is
+$J$ is increasing, so $J'$ exists a.e.\ and $\int_a^b J'\le J(b)-J(a)$. One shows that
+$J'\le\eps$ a.e.\ for every $\eps>0$ by a covering argument: the truncation
+$J_N=\sum_{n\le N}\alpha_n j_n$ is locally constant off $x_1,\dots,x_N$, so there the
+difference quotients of $J$ are those of the tail $J-J_N$, and the set where their $\limsup$
+exceeds $\eps$ is covered by intervals on which the tail increases by more than $\eps$ times
+their length; selecting disjoint ones (Lemma~\ref{l:vitali@c26}) bounds its measure by
+$3\eps^{-1}\sum_{n>N}\alpha_n$. Since the tail $\sum_{n>N}\alpha_n\to0$, the bad set is
 null. Hence $J'=0$ a.e.
 \end{proof}
 
@@ -44805,7 +44855,8 @@ non-absolute-continuity predicts (Theorem~\ref{t:ftc@c26}).
 \begin{wex}{Integration by parts for AC functions}
 If $F,G$ are AC on $[a,b]$, show $\int_a^b F'G=-\int_a^b FG'+[FG]_a^b$.
 \wrec ``Use that a product of AC functions is AC, then apply the FTC.''
-\wsol $FG$ is AC (Exercise~22), so by Theorem~\ref{t:ftc@c26}, $\int_a^b(FG)'=[FG]_a^b$. Where
+\wsol $FG$ is AC (Exercise~12 of the Stein exercises at the end of this section), so by
+Theorem~\ref{t:ftc@c26}, $\int_a^b(FG)'=[FG]_a^b$. Where
 both derivatives exist (a.e.) the product rule gives $(FG)'=F'G+FG'$, and both terms are
 integrable. Hence $[FG]_a^b=\int_a^b F'G+\int_a^b FG'$, which rearranges to the claim.
 \emph{Check.} With $F=G=x$ on $[0,1]$: $\int_0^1 x\,dx=1/2$, and $-\int_0^1 x\,dx+[x^2]_0^1
@@ -44834,14 +44885,14 @@ $g\notin$ BV.
 
 \begin{wex}{Fat Cantor set: AC with $F'=0$ on positive measure}
 Let $K\subseteq[0,1]$ be a fat Cantor set with $m(K)=1/2$ and $F(x)=\int_0^x\ind{K^c}$. Show
-$F$ is strictly increasing, AC, yet $F'=0$ on the positive-measure set $K$.
+$F$ is strictly increasing, AC, yet $F'=0$ a.e.\ on the positive-measure set $K$.
 \wrec ``Integral of an indicator is AC; its derivative is the integrand a.e.''
 \wsol $F(x)=\int_0^x\ind{K^c}=m(K^c\cap[0,x])$. Since $K^c$ is dense and open, every
 subinterval meets $K^c$, so $F$ is strictly increasing. $F$ is AC as an indefinite integral
-(Theorem~\ref{t:ftc@c26}), with $F'=\ind{K^c}$ a.e., hence $F'=0$ on $K$, $m(K)=1/2>0$.
+(Theorem~\ref{t:ftc@c26}), with $F'=\ind{K^c}$ a.e., hence $F'=0$ a.e.\ on $K$, $m(K)=1/2>0$.
 \emph{Check.} No contradiction with the FTC -- $F(1)-F(0)=m(K^c)=1/2=\int_0^1\ind{K^c}$;
-absolute continuity is intact, the a.e.-zero derivative just lives on a positive-measure set
-without forcing $F$ constant (it is $0$ only there, positive in measure off $K$).
+absolute continuity is intact, and a derivative vanishing on a positive-measure set does not
+force $F$ constant, because $F'=1$ a.e.\ on $K^c$, which also has positive measure.
 \end{wex}
 
 \begin{pitfall}
@@ -44871,7 +44922,7 @@ continuous.
 (a) If $F$ is continuous on $[a,b]$, show
 \[D^+F(x)=\limsup_{h\to0^+}\frac{F(x+h)-F(x)}{h}\]
 is measurable.
-(b) If $J(x)=\sum_n\alpha_n j_n(x)$ is a jump function as in Section~3.3, show
+(b) If $J(x)=\sum_n\alpha_n j_n(x)$ is a jump function as in Definition~\ref{d:jump@c26}, show
 $\limsup_{h\to0}\frac{J(x+h)-J(x)}{h}$ is measurable. [Hint: for (a), continuity lets one
 restrict the limsup to countably many $h$; for (b), use the partial sums $J_N$ and let
 $N\to\infty$, $k\to\infty$, $m\to\infty$ in $F_{k,m}^N=\sup_{1/k\le\abs h\le1/m}
@@ -44886,7 +44937,8 @@ F_2$ monotonic and continuous.
 formula $L=\int_a^b\abs{z'(t)}\,dt$ holds iff $z$ is absolutely continuous.)
 
 \item Verify the agreement between the two definitions of the Cantor--Lebesgue function (the
-one in Exercise~2, Chapter~1, and the one in Section~3.1 of this chapter).
+ternary one in Exercise~2 of the Stein exercises at the end of Section~24.1, and the one in
+Example~\ref{ex:cantor@c26}).
 
 \item Show that if $f:\R\to\R$ is absolutely continuous, then (a) $f$ maps measure-zero sets
 to measure-zero sets; (b) $f$ maps measurable sets to measurable sets.
@@ -44956,10 +45008,12 @@ convex.
 \item Suppose $F$ is continuous on $[a,b]$, $F'(x)$ exists for every $x\in(a,b)$, and $F'$ is
 integrable. Then $F$ is absolutely continuous and $F(b)-F(a)=\int_a^b F'(x)\,dx$. [Hint:
 assume $F'\ge0$ a.e.; with $E=\set{F'<0}$ of measure $0$ and $\Phi$ increasing AC with
-$D^+\Phi=\infty$ on $E$ (Exercise~25), apply Exercise~23(a) to $F+\delta\Phi$.]
+$D^+\Phi=\infty$ on $E$ (Exercise~3 of the Stein exercises at the end of
+Section~\ref{ss:lebdiff@c26}), apply Exercise~13(a) above to $F+\delta\Phi$.]
 
-\item$^*$ (Converse to Exercise~30.) If $F$ is bounded and measurable on $\R$ and satisfies
-(a) or (b) of Exercise~30, then $F$ can be modified on a null set to become BV on $\R$.
+\item$^*$ (Converse to Exercise~15 above.) If $F$ is bounded and measurable on $\R$ and
+satisfies (a) or (b) of Exercise~15, then $F$ can be modified on a null set to become BV on
+$\R$.
 Moreover on $\Rd$, for bounded measurable $F$ the conditions
 (a$'$) $\int_{\Rd}\abs{F(x+h)-F(x)}\,dx\le A\abs h$ for all $h\in\Rd$, and
 (b$'$) $\abs{\int_{\Rd}F(x)\frac{\partial\varphi}{\partial x_j}\,dx}\le A$ for all
@@ -44988,7 +45042,7 @@ with $F_1=P_F+F(0)$ and $F_2=N_F$, and sketch both.
 \item Show that a BV function has at most countably many discontinuities, all of jump type,
 and that the sum of the jump sizes is finite.
 
-\item (Cantor function.) Verify $F(1/3)=1/2$, $F(2/3)=1/2$, and $F(7/9)=5/8$ for the
+\item (Cantor function.) Verify $F(1/3)=1/2$, $F(2/3)=1/2$, and $F(7/9)=F(8/9)=3/4$ for the
 Cantor--Lebesgue function, and use these to argue $F'=0$ on the removed middle-thirds.
 
 \item Prove that if $F$ is AC on $[a,b]$ and $G$ is Lipschitz on the range of $F$, then $G\circ
@@ -45001,7 +45055,7 @@ differentiable everywhere but not AC.
 \item (Diagram.) Draw the stage-$n$ approximations $F_n$ of the Cantor function for $n=1,2,3$
 on the same axes and indicate the intervals on which each is constant.
 
-\item Let $F(x)=\int_0^x\ind K$ where $K\subseteq[0,1]$ is a fat Cantor set with $m(K)=1/2$.
+\item Let $F(x)=\int_0^x\ind{K^c}$ where $K\subseteq[0,1]$ is a fat Cantor set with $m(K)=1/2$.
 Show $F$ is strictly increasing and AC with $F'=0$ on a set of positive measure, and explain
 why this does not contradict the FTC.
 \end{exers}
@@ -45103,8 +45157,9 @@ the area of a thin tube around $K$, normalized by its width $2\delta$.
 \end{definition}
 
 \begin{theorem}\label{t:mink@c26}
-If $\Gamma=\set{z(t):a\le t\le b}$ is a quasi-simple curve, then $\mathcal M(\Gamma)$ exists
-iff $\Gamma$ is rectifiable, and then $\mathcal M(\Gamma)=L$, the length.
+If $\Gamma=\set{z(t):a\le t\le b}$ is a quasi-simple curve (the map $t\mapsto z(t)$ is
+injective off finitely many values of $t$), then $\mathcal M(\Gamma)$ exists iff $\Gamma$ is
+rectifiable, and then $\mathcal M(\Gamma)=L$, the length.
 \end{theorem}
 
 \begin{center}
@@ -45116,7 +45171,9 @@ iff $\Gamma$ is rectifiable, and then $\mathcal M(\Gamma)=L$, the length.
     -- plot[smooth,tension=0.8] coordinates
     {(3,0.78) (2,0.08) (1,0.58) (0,-0.22)} -- cycle;
   \draw[curve] plot[smooth,tension=0.8] coordinates {(0,0) (1,0.8) (2,0.3) (3,1.0)};
-  \draw[<->,line width=0.6pt] (1.5,0.55)--(1.5,1.05) node[midway,right,font=\footnotesize]{$\delta$};
+  % delta marker at the crest (1,0.8), where the band edge lies exactly 0.22 above the curve
+  \draw[{Stealth[length=0.9mm]}-{Stealth[length=0.9mm]},line width=0.5pt] (1,0.8)--(1,1.02)
+    node[above,font=\footnotesize]{$\delta$};
   \node[font=\footnotesize] at (1.5,-0.55) {$\Gamma^\delta$ (tube), $m(\Gamma^\delta)\approx 2\delta L$};
 \end{tikzpicture}
 \captionof{figure}{The $\delta$-tube about a rectifiable curve $\Gamma$ has area
@@ -45154,9 +45211,11 @@ Adding, with $m(\Gamma^\delta)=m(\Omega_+)-m(\Omega_-)$,
   m(\Gamma^\delta)\ge 2\pi^{1/2}\delta\bigl(m(\Omega)^{1/2}+m(\Omega_-(\delta))^{1/2}\bigr).
 \]
 Divide by $2\delta$ and let $\delta\to0$ (so $\Omega_-(\delta)\uparrow\Omega$):
-$\mathcal M_*(\Gamma)\ge 2\pi^{1/2}m(\Omega)^{1/2}$. By Theorem~\ref{t:mink@c26},
-$\ell(\Gamma)\ge\mathcal M_*(\Gamma)\ge 2\pi^{1/2}m(\Omega)^{1/2}$, i.e.\ $\ell(\Gamma)^2\ge
-4\pi\,m(\Omega)$.
+$\mathcal M_*(\Gamma)\ge 2\pi^{1/2}m(\Omega)^{1/2}$. Since $m(\Gamma^\delta)\le2\delta\,
+\ell(\Gamma)+\pi\delta^2$ for every rectifiable curve (check it for inscribed polygons, then
+pass to the limit), $\mathcal M^*(\Gamma)\le\ell(\Gamma)$ without any quasi-simplicity
+assumption (compare Theorem~\ref{t:mink@c26}); hence $\ell(\Gamma)\ge\mathcal M_*(\Gamma)\ge
+2\pi^{1/2}m(\Omega)^{1/2}$, i.e.\ $\ell(\Gamma)^2\ge 4\pi\,m(\Omega)$.
 \end{proof}
 
 \begin{center}
@@ -45204,8 +45263,8 @@ inequality.
 \wrec ``Check the isoperimetric inequality on a non-circular region.''
 \wsol $\frac{\ell^2}{4\pi m}=\frac{16}{4\pi}=\frac4\pi\approx1.273>1$. So $4\pi m=4\pi<16=
 \ell^2$, strictly. \emph{Check.} To enclose area $1$ a circle needs perimeter
-$2\sqrt{\pi}\approx3.545<4$; the square ``wastes'' about $13\%$ of its perimeter, exactly the
-isoperimetric deficit.
+$2\sqrt{\pi}\approx3.545<4$; the square uses $4/(2\sqrt\pi)=\sqrt{4/\pi}\approx1.128$ times
+as much, about $13\%$ more -- the square root of the isoperimetric ratio $4/\pi$ found above.
 \end{wex}
 
 \begin{wex}{Minkowski content of a segment}
@@ -45230,8 +45289,9 @@ $s$ satisfies $N r^s=1$, i.e.\ $2\cdot3^{-s}=1$, so $3^s=2$ and $s=\frac{\log2}{
 Explain why a continuous surjection $[0,1]\to[0,1]^2$ (Peano/Hilbert curve) cannot be
 rectifiable.
 \wrec ``Rectifiable $\Rightarrow$ image has measure zero; a space-filling image does not.''
-\wsol A rectifiable curve has finite length $L$, hence its image lies in a tube of area
-$\le 2\delta L\to0$, so the image is Lebesgue-null in $\R^2$. A space-filling curve has image
+\wsol A rectifiable curve has finite length $L$, hence its image $\Gamma$ lies in the tube
+$\Gamma^\delta$, of area $\le 2\delta L+\pi\delta^2\to0$, so the image is Lebesgue-null in
+$\R^2$. A space-filling curve has image
 $[0,1]^2$ of measure $1>0$, so it cannot be rectifiable -- its coordinate functions are
 continuous but \emph{not} of bounded variation. \emph{Check.} The Hilbert curve's
 $n$-th polygonal approximation has length $\sim2^n\to\infty$, confirming unbounded variation.
@@ -45241,13 +45301,14 @@ $n$-th polygonal approximation has length $\sim2^n\to\infty$, confirming unbound
 \begin{tikzpicture}[scale=0.95]
   % Hilbert curve, order 1 and order 2 (standard recursive polylines)
   \begin{scope}
-    \draw[black!20,line width=0.3pt] (0,0) grid (1.5,1.5);
-    % order 1: the cup, through the 4 cell centres of a 2x2 grid
-    \draw[line width=1pt] (0.375,0.375)--(0.375,1.125)--(1.125,1.125)--(1.125,0.375);
+    \draw[black!20,line width=0.3pt,step=0.75] (0,0) grid (1.5,1.5);
+    % order 1: through the 4 cell centres of a 2x2 grid, in the quadrant order
+    % (lower left, lower right, upper right, upper left) that stage 2 refines
+    \draw[line width=1pt] (0.375,0.375)--(1.125,0.375)--(1.125,1.125)--(0.375,1.125);
     \node[font=\footnotesize] at (0.75,-0.45) {stage 1};
   \end{scope}
   \begin{scope}[shift={(2.7,0)}]
-    \draw[black!20,line width=0.3pt] (0,0) grid (1.5,1.5);
+    \draw[black!20,line width=0.3pt,step=0.375] (0,0) grid (1.5,1.5);
     % order 2: 16 cell centres on a 4x4 grid, cell width 0.375, centres at 0.1875+0.375k
     \draw[line width=0.9pt]
       (0.1875,0.1875)--(0.1875,0.5625)--(0.5625,0.5625)--(0.5625,0.1875)
@@ -45280,11 +45341,12 @@ statement precise (and prove it).
 
 \item A curve in $\Rd$ is a continuous map $t\mapsto z(t)$ of $[a,b]$ into $\Rd$.
 (a) State and prove the analogues, for curves in $\Rd$, of the rectifiability/length results
-Theorems~3.1, 4.1, and 4.3.
+Theorems~\ref{t:rect-bv@c26}, \ref{t:length@c26}, and \ref{t:arclen@c26}.
 (b) Define the one-dimensional Minkowski content $\mathcal M(K)$ of a compact $K\subseteq\Rd$
 as the limit (if it exists) of $\dfrac{m(K^\delta)}{m_{d-1}(B(\delta))}$ as $\delta\to0$,
 where $m_{d-1}(B(\delta))$ is the $(d-1)$-measure of $B(\delta)=\set{x\in\R^{d-1}:\abs x<
-\delta}$. State and prove the analogues of Propositions~4.5 and 4.7 for curves in $\Rd$.
+\delta}$. State and prove the analogue of Theorem~\ref{t:mink@c26} for curves in $\Rd$
+(Stein, Ch.3, Propositions~4.5 and 4.7).
 
 \item Let $\Gamma=\set{z(t),a\le t\le b}$ be a curve satisfying a Lipschitz condition of
 exponent $\alpha$, $1/2\le\alpha\le1$: $\abs{z(t)-z(t')}\le A\abs{t-t'}^\alpha$ for all $t,
@@ -45309,11 +45371,12 @@ definition by finding $m(\Gamma^\delta)$ exactly (an annulus) and dividing by $2
 perimeter and area and confirm $4\pi m\le\ell^2$, with equality iff $a=b$.
 
 \item (Hausdorff dimension.) Compute the similarity dimension of the Sierpinski triangle
-($N=3$ copies, ratio $1/2$) and of the von Koch curve ($N=4$, ratio $1/3$); state which is
-rectifiable.
+($N=3$ copies, ratio $1/2$) and of the von Koch curve ($N=4$, ratio $1/3$); state whether
+either is rectifiable.
 
 \item Show that a curve satisfying a Lipschitz-$\alpha$ condition with $\alpha=1$ is
-rectifiable, while $\alpha<1$ need not be, connecting to Exercise~29.
+rectifiable, while $\alpha<1$ need not be, connecting to Exercise~3 of the Stein exercises
+above.
 
 \item (Non-example.) Explain why the graph of $\sin(1/x)$ on $(0,1]$ (with the point $(0,0)$
 adjoined) is connected but not a rectifiable curve, and compute that its coordinate function
