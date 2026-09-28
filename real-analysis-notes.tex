@@ -32570,7 +32570,7 @@ poles. \checkmark
 
 \chapter{The Gamma and Zeta Functions}
 
-\section{The Gamma Function}
+\section{The Gamma Function}\label{sec:gamma@c19}
 \subsection*{The integral definition and the strip estimate}
 
 The gamma function is the analytic interpolation of the factorial. It begins life
@@ -32595,20 +32595,21 @@ $e^{-t}$ crushes any power of $t$. Write $\sigma=\Re(s)$; then $\abs{e^{-t}t^{s-
 
 \begin{center}
 \begin{tikzpicture}[scale=1.0]
+  \fill[band] plot[domain=0:5,samples=80] (\x,{2.0*exp(-\x)*sqrt(\x)/0.43})
+    -- (5,0) -- (0,0) -- cycle;
   \draw[cxaxis] (-0.3,0)--(5.2,0) node[right]{$t$};
   \draw[cxaxis] (0,-0.3)--(0,2.6) node[above]{$e^{-t}t^{\sigma-1}$};
-  \draw[curve,domain=0.04:5,samples=120,smooth]
-    plot (\x,{2.0*exp(-\x)*pow(\x,0.5)/0.43});
-  \fill[band] plot[domain=0.04:5,samples=80] (\x,{2.0*exp(-\x)*pow(\x,0.5)/0.43})
-    -- (5,0) -- (0.04,0) -- cycle;
+  \draw[curve,domain=0:5,samples=120,smooth]
+    plot (\x,{2.0*exp(-\x)*sqrt(\x)/0.43});
   \node[font=\small] at (3.2,1.25) {area $=\Gamma(s)$};
   \draw[brc] (0,-0.18)--(0.6,-0.18) node[midway,below=4pt,font=\footnotesize]{$t^{\sigma-1}$};
   \draw[brc] (3.6,-0.18)--(5,-0.18) node[midway,below=4pt,font=\footnotesize]{$e^{-t}$};
 \end{tikzpicture}
-\captionof{figure}{The integrand $e^{-t}t^{\sigma-1}$ of $\Gamma(s)$, here at
-$\sigma=\Re(s)=\tfrac32$. Near $t=0$ the power $t^{\sigma-1}$ gives an integrable
-singularity (left brace); near $t=\infty$ the factor $e^{-t}$ forces decay (right brace);
-the shaded area is $\Gamma(s)$. (Schematic.)}
+\captionof{figure}{The integrand $e^{-t}t^{\sigma-1}$ of $\Gamma(s)$, here for real
+$s=\sigma=\tfrac32$. Near $t=0$ the power $t^{\sigma-1}$ governs the integrand and is
+integrable because $\sigma>0$ (left brace; it is a singularity only when $\sigma<1$); near
+$t=\infty$ the factor $e^{-t}$ forces decay (right brace); the shaded area is $\Gamma(s)$.
+(Schematic.)}
 \end{center}
 
 \begin{proposition}[holomorphy on a half-plane]\label{p:gamma-holo@c19}
@@ -32619,7 +32620,7 @@ by the integral of Definition~\ref{d:gamma@c19}.
 \begin{proof}
 It suffices to prove holomorphy in every vertical strip
 $S_{\delta,M}=\set{\delta<\Re(s)<M}$ with $0<\delta<M<\infty$, since these strips exhaust
-the open half-plane. For $\eps>0$ set the \emph{finite} integral
+the open half-plane. For $0<\eps<1$ set the \emph{finite} integral
 \[
   F_\eps(s)=\int_\eps^{1/\eps} e^{-t}\,t^{s-1}\,\dd t .
 \]
@@ -32740,13 +32741,13 @@ $s=0$ one reads $\Gamma(1)=\lim_{s\to0}s\Gamma(s)$, i.e.\ $\Res_{s=0}\Gamma=1$.
 
 \begin{center}
 \begin{tikzpicture}[scale=0.95]
+  \fill[band] (0,-1.8) rectangle (2.4,1.8);
   \draw[cxaxis] (-4.4,0)--(2.4,0) node[right]{$\Re s$};
   \draw[cxaxis] (0,-1.8)--(0,1.8) node[above]{$\Im s$};
   \foreach \x/\lab in {0/0,-1/{-1},-2/{-2},-3/{-3},-4/{-4}}{
     \node[pole] at (\x,0) {};
-    \node[font=\footnotesize,below=4pt] at (\x,0) {$\lab$};
+    \node[font=\footnotesize,below=4pt,fill=white,inner sep=1pt] at (\x,0) {$\lab$};
   }
-  \fill[band] (0,-1.8) rectangle (2.4,1.8);
   \node[font=\small,align=center] at (1.4,1.35) {$\Re s>0$};
 \end{tikzpicture}
 \captionof{figure}{The continued $\Gamma$ on the $s$-plane: holomorphic everywhere except
@@ -32784,8 +32785,9 @@ In particular $1/\Gamma$ is entire, with simple zeros exactly at $s=0,-1,-2,\dot
 Both sides are meromorphic on $\C$. By Lemma~\ref{l:gamma-rec@c19}, $G(s)=\Gamma(s)\Gamma(1-s)$
 satisfies $G(s+1)=-G(s)$ (since $\Gamma(s+1)=s\Gamma(s)$ and $\Gamma(-s)=\Gamma(1-s)/(-s)$),
 the same periodicity-with-sign as $\pi/\sin\pi s$; both have simple poles at every integer.
-Forming the ratio gives an entire, bounded, doubly-quasi-periodic function, hence constant
-by Liouville, and the constant is pinned to $1$ by evaluating at $s=\tfrac12$:
+Forming the ratio gives an entire function of period $1$, which Stirling's formula shows to
+be bounded on the period strip $0\le\Re s\le1$; hence it is constant by Liouville, and the
+constant is pinned to $1$ by evaluating at $s=\tfrac12$:
 $\Gamma(\tfrac12)^2=\pi=\pi/\sin(\pi/2)$. The product formula
 $\dfrac1{\Gamma(s)}=e^{\gamma s}s\prod_{n\ge1}\bigl(1+\tfrac sn\bigr)e^{-s/n}$ (Weierstrass,
 $\gamma$ the Euler constant) exhibits the simple zeros directly, and multiplying the
@@ -32818,29 +32820,44 @@ the wrong number $\pi/\sin(\pi/3)$ against $\Gamma(\tfrac13)^2\approx7.18$.
   \begin{axis}[width=12cm,height=7.4cm,
     xlabel={\footnotesize $s$},ylabel={\footnotesize $\Gamma(s)$},
     xlabel style={at={(ticklabel* cs:1.0)},anchor=west},
-    ylabel style={at={(ticklabel* cs:1.0)},anchor=south},
     xmin=-3.7,xmax=4.1,ymin=-6,ymax=6,axis lines=middle,
+    ylabel style={at={(axis cs:0,6)},anchor=south,yshift=3pt},
     xtick={-3,-2,-1,1,2,3},xticklabels={$-3$,$-2$,$-1$,$1$,$2$,$3$},
-    ytick={-4,-2,2,4},yticklabels={$-4$,$-2$,$2$,$4$},
+    ytick={2,4},yticklabels={$2$,$4$},
+    extra y ticks={-4,-2},extra y tick labels={$-4$,$-2$},
+    extra y tick style={yticklabel style={anchor=west,xshift=4pt}},
     tick label style={font=\scriptsize},
+    xticklabel style={fill=white,inner sep=1pt},
+    axis on top,
     clip=true]
     % dashed vertical asymptotes at the poles
     \foreach \p in {0,-1,-2,-3}{\addplot[dashed,black!55,line width=0.5pt] coordinates {(\p,-6) (\p,6)};}
     % s>0 branch (sampled values of Gamma)
     \addplot[curve,smooth] coordinates {
-      (0.2,4.59)(0.3,2.99)(0.4,2.22)(0.5,1.77)(0.7,1.30)(1.0,1.00)
-      (1.2,0.918)(1.4615,0.8856)(1.8,0.931)(2.0,1.00)(2.5,1.329)(3.0,2.00)
-      (3.3,2.683)(3.6,3.717)(3.9,5.299)};
-    % (-1,0) branch (negative)
+      (0.13,7.23)(0.15,6.22)(0.2,4.591)(0.25,3.626)(0.3,2.992)(0.4,2.218)(0.5,1.772)
+      (0.6,1.489)(0.8,1.164)(1.0,1.0)(1.2,0.9182)(1.4615,0.8856)(1.7,0.9086)(2.0,1.0)
+      (2.3,1.167)(2.6,1.43)(3.0,2.0)(3.3,2.683)(3.6,3.717)(3.9,5.299)(4.1,6.813)};
+    % (-1,0) branch (negative; local maximum -3.545 at -0.504)
     \addplot[curve,smooth] coordinates {
-      (-0.05,-19)(-0.1,-10.7)(-0.2,-5.82)(-0.3,-4.33)(-0.5,-3.54)
-      (-0.7,-4.27)(-0.85,-6.5)(-0.93,-13)};
-    % (-2,-1) branch (positive)
+      (-0.87,-8.311)(-0.85,-7.318)(-0.83,-6.568)(-0.8,-5.739)(-0.75,-4.834)(-0.7,-4.274)
+      (-0.6,-3.697)(-0.504,-3.545)(-0.4,-3.723)(-0.3,-4.327)(-0.25,-4.902)(-0.2,-5.821)
+      (-0.18,-6.347)(-0.16,-7.013)(-0.14,-7.879)};
+    % (-2,-1) branch (positive; local minimum 2.302 at -1.5735)
     \addplot[curve,smooth] coordinates {
-      (-1.07,13)(-1.15,6.5)(-1.3,3.7)(-1.5,3.54)(-1.7,4.3)(-1.85,7.0)(-1.93,14)};
-    % (-3,-2) branch (negative)
+      (-1.11,8.819)(-1.13,7.448)(-1.15,6.449)(-1.2,4.851)(-1.3,3.328)(-1.4,2.659)
+      (-1.5,2.363)(-1.5735,2.302)(-1.65,2.374)(-1.75,2.762)(-1.82,3.439)(-1.87,4.444)
+      (-1.9,5.563)(-1.91,6.108)(-1.93,7.674)(-1.94,8.854)};
+    % (-3,-2) branch (negative; local maximum -0.888 at -2.6107)
     \addplot[curve,smooth] coordinates {
-      (-2.07,-13)(-2.2,-5.0)(-2.5,-3.55)(-2.8,-5.0)(-2.93,-13)};
+      (-2.978,-7.794)(-2.975,-6.886)(-2.97,-5.777)(-2.965,-4.985)(-2.95,-3.563)
+      (-2.9,-1.918)(-2.85,-1.388)(-2.8,-1.139)(-2.7,-0.9311)(-2.6107,-0.8881)(-2.5,-0.9453)
+      (-2.4,-1.108)(-2.3,-1.447)(-2.2,-2.205)(-2.15,-3.0)(-2.1,-4.626)(-2.08,-5.859)
+      (-2.06,-7.926)(-2.05,-9.584)};
+    % part of the (-4,-3) branch inside the window (positive)
+    \addplot[curve,smooth] coordinates {
+      (-3.7,0.2516)(-3.635,0.2451)(-3.55,0.255)(-3.45,0.293)(-3.35,0.3723)(-3.25,0.5363)
+      (-3.18,0.7759)(-3.12,1.221)(-3.08,1.902)(-3.05,3.142)(-3.035,4.565)(-3.03,5.357)
+      (-3.025,6.467)(-3.02,8.131)};
     % mark the minimum on (0,infty)
     \addplot[only marks,mark=*,mark size=1.1pt] coordinates {(1.4615,0.8856)};
   \end{axis}
@@ -32880,7 +32897,7 @@ Substitute $t=u r$, $s=u(1-r)$ with $u>0$, $0<r<1$ (so $t+s=u$); the Jacobian is
 \]
 which is $\Gamma(\alpha+\beta)\,B(\beta,\alpha)=\Gamma(\alpha+\beta)B(\alpha,\beta)$ (the
 Beta function is symmetric). Dividing gives the identity. For the second form put
-$t=u/(1+u)$, $1-t=1/(1+u)$, $\dd t=\dd u/(1+u)^2$ in Definition~\ref{d:beta@c19}.
+$t=1/(1+u)$, $1-t=u/(1+u)$, $\dd t=-\dd u/(1+u)^2$ in Definition~\ref{d:beta@c19}.
 \end{proof}
 
 \begin{wex}{A trigonometric integral via Beta}
@@ -32917,7 +32934,8 @@ Gamma values; expand the ratio.
 $a_n(\alpha)=\binom{-\alpha}{n}(-1)^n=\dfrac{\alpha(\alpha+1)\cdots(\alpha+n-1)}{n!}
 =\dfrac{\Gamma(\alpha+n)}{\Gamma(\alpha)\,\Gamma(n+1)}$. Using
 $\Gamma(\alpha+n)/\Gamma(n+1)\sim n^{\alpha-1}$ (which follows from $\Gamma(n+a)/\Gamma(n+b)
-\sim n^{a-b}$, a consequence of the recurrence and monotonicity), we get
+\sim n^{a-b}$ for fixed complex $a,b$, a consequence of Gauss's limit formula for $\Gamma$ in
+Exercise~1 below), we get
 $a_n(\alpha)\sim n^{\alpha-1}/\Gamma(\alpha)$. \emph{Check.} For $\alpha=1$,
 $(1-z)^{-1}=\sum z^n$ so $a_n=1$, and $n^{0}/\Gamma(1)=1$. For $\alpha=2$,
 $(1-z)^{-2}=\sum(n+1)z^n$ so $a_n=n+1\sim n=n^{1}/\Gamma(2)$. Both match.
@@ -32931,9 +32949,9 @@ For which $s$ is $\Gamma$ literally a Mellin transform, and what does this viewp
 Recognize Definition~\ref{d:gamma@c19} as the case $f(t)=e^{-t}$.
 \wsol By definition $\mathcal M(e^{-t})(s)=\int_0^\infty e^{-t}t^{s-1}\dd t=\Gamma(s)$,
 valid for $\Re(s)>0$. The Mellin transform turns multiplicative scaling $t\mapsto\lambda t$
-into a multiplier: $\mathcal M\bigl(f(\lambda t)\bigr)(s)=\lambda^{-s}\mathcal M(f)(s)$.
-Applied to $f(t)=e^{-\lambda t}$ this gives $\int_0^\infty e^{-\lambda t}t^{s-1}\dd t
-=\lambda^{-s}\Gamma(s)$, the scaling identity that powers both the Beta computation and the
+($\lambda>0$) into a multiplier: $\mathcal M\bigl(f(\lambda t)\bigr)(s)=\lambda^{-s}\mathcal M(f)(s)$.
+Applied to $f(t)=e^{-t}$ this gives $\int_0^\infty e^{-\lambda t}t^{s-1}\dd t
+=\lambda^{-s}\Gamma(s)$, the scaling identity that powers the
 $\zeta$--$\Gamma$--$\vartheta$ bridge of the next section. \emph{Check.} At $\lambda=1$,
 $s=1$ this reads $\int_0^\infty e^{-t}\dd t=1=\Gamma(1)$. \checkmark
 \end{wex}
@@ -32944,15 +32962,15 @@ e^{-t} \arrow[r, "S_\lambda"] \arrow[d, "\mathcal M"'] & e^{-\lambda t} \arrow[d
 \end{tikzcd}\]
 \noindent Here $\mathcal M(f)(s)=\int_0^\infty f(t)t^{s-1}\dd t$ is the Mellin transform and
 $S_\lambda f(t)=f(\lambda t)$ is dilation; the square commutes because
-$\mathcal M(S_\lambda f)(s)=\lambda^{-s}\mathcal M(f)(s)$, and the top-left corner
+$\mathcal M(S_\lambda f)(s)=\lambda^{-s}\mathcal M(f)(s)$, and the left edge
 $\mathcal M(e^{-t})=\Gamma$ propagates to the scaling identity used throughout.
 
 \begin{wex}{$\mathcal M(\cos)(s)=\Gamma(s)\cos(\pi s/2)$ by rotating the contour}
 Show $\displaystyle\int_0^\infty\cos(t)\,t^{s-1}\dd t=\Gamma(s)\cos\!\tfrac{\pi s}{2}$ for
 $0<\Re(s)<1$.
 \wrec Trigger: a Mellin transform of an oscillatory function. Write $\cos t=\Re(e^{it})$ and
-rotate the ray of integration from the positive real axis to the positive imaginary axis,
-where $e^{-w}$ decays.
+rotate the ray of integration from the positive real axis, where $e^{-w}$ decays, to the
+positive imaginary axis.
 \wsol Consider $f(w)=e^{-w}w^{s-1}$ on the quarter-disc sector bounded by the segment
 $[\,\eps,R\,]$ on the real axis, the arc $w=Re^{i\varphi}$ ($0\le\varphi\le\pi/2$), and the
 return segment along the imaginary axis. Since $f$ is holomorphic in the open first
@@ -32964,12 +32982,16 @@ contribute $0$ in the limit, Cauchy's theorem gives
 \]
 The left side is $\Gamma(s)$; writing $i^{s}=e^{i\pi s/2}$ and taking real and imaginary
 parts of $e^{-iy}=\cos y-i\sin y$ gives
-$\Gamma(s)=e^{i\pi s/2}\bigl[\mathcal M(\cos)(s)-i\,\mathcal M(\sin)(s)\bigr]$. Multiplying
-by $e^{-i\pi s/2}$ and matching real parts yields
+$\Gamma(s)=e^{i\pi s/2}\bigl[\mathcal M(\cos)(s)-i\,\mathcal M(\sin)(s)\bigr]$. For real
+$s\in(0,1)$ both Mellin integrals and $\Gamma(s)$ are real, so multiplying by
+$e^{-i\pi s/2}$ and matching real parts yields
 $\mathcal M(\cos)(s)=\Gamma(s)\cos\tfrac{\pi s}{2}$ (and the imaginary part gives
-$\mathcal M(\sin)(s)=\Gamma(s)\sin\tfrac{\pi s}{2}$). \emph{Check.} As $s\to1^-$,
-$\cos(\pi s/2)\to0$, matching the (conditional) fact that $\int_0^\infty\cos t\,\dd t$ has no
-absolutely convergent value; and the companion $\mathcal M(\sin)$ at $s=\tfrac12$ gives
+$\mathcal M(\sin)(s)=\Gamma(s)\sin\tfrac{\pi s}{2}$); both sides are holomorphic in the strip
+$0<\Re(s)<1$, so the identities extend to it by analytic continuation. \emph{Check.} As
+$s\to1^-$, $\Gamma(s)\cos(\pi s/2)\to0$, the Abel value
+$\lim_{\eps\to0^+}\int_0^\infty e^{-\eps t}\cos t\,\dd t=\lim_{\eps\to0^+}\eps/(1+\eps^2)=0$
+of the divergent integral $\int_0^\infty\cos t\,\dd t$; and the companion $\mathcal M(\sin)$
+at $s=\tfrac12$ gives
 $\int_0^\infty x^{-1/2}\sin x\,\dd x=\Gamma(\tfrac12)\sin(\pi/4)=\sqrt{\pi}\cdot\tfrac{\sqrt2}2
 =\sqrt{\pi/2}$. \checkmark
 \end{wex}
@@ -32984,12 +33006,13 @@ $\int_0^\infty x^{-1/2}\sin x\,\dd x=\Gamma(\tfrac12)\sin(\pi/4)=\sqrt{\pi}\cdot
     -- (0,0.25)
     arc[start angle=90,end angle=0,radius=0.25];
   \node[font=\footnotesize] at (1.1,-0.18) {$[\eps,R]$};
-  \node[font=\footnotesize] at (1.75,1.65) {arc $Re^{i\varphi}$};
+  \node[font=\footnotesize,anchor=south west] at (1.72,1.44) {arc $Re^{i\varphi}$};
   \node[font=\footnotesize,rotate=90] at (-0.2,1.1) {imag.\ ray};
   \node[font=\footnotesize] at (0.55,0.55) {$\eps$-arc};
 \end{tikzpicture}
 \captionof{figure}{Quarter-disc sector for rotating $\int_0^\infty e^{-w}w^{s-1}\dd w$
 from the real axis onto the imaginary axis (Stein, Ch.6 Exercise 10). (Schematic.)}
+\label{fig:sector@c19}
 \end{center}
 
 \begin{wex}{$\int_0^\infty \frac{\sin x}{x}\dd x=\frac{\pi}{2}$ from the Mellin identity}
@@ -33018,9 +33041,11 @@ substitute $t=e^{x}$, so $x=\log t$, $\dd x=\dd t/t$, and $e^{(a-i\xi)x}=t^{a-i\
   \widehat f(\xi)=\int_0^\infty t^{a-i\xi}e^{-t}\,\frac{\dd t}{t}
   =\int_0^\infty e^{-t}t^{(a-i\xi)-1}\dd t=\Gamma(a-i\xi).
 \]
-The integral converges because $\Re(a-i\xi)=a>0$. The exponential decay of $f$ in the strip
-$\abs{\Im}<\pi$ (noted by Stein) is exactly what lets one shift contours and justify the
-formula for all real $\xi$. \emph{Check.} At $\xi=0$, $\widehat f(0)=\int_0^\infty e^{ax}
+The integral converges because $\Re(a-i\xi)=a>0$. The exponential decay of $f(x+iy)$ as
+$\abs x\to\infty$, which holds in the strip $\abs y<\pi/2$, lets one shift the line of
+integration within that strip; this shows that $\widehat f(\xi)=\Gamma(a-i\xi)$ decays
+exponentially as $\abs\xi\to\infty$. \emph{Check.} At $\xi=0$,
+$\widehat f(0)=\int_{-\infty}^\infty e^{ax}
 e^{-e^{x}}\dd x=\Gamma(a)$, the total ``mass'' --- e.g.\ $a=1$ gives $\int_{-\infty}^\infty
 e^{x}e^{-e^{x}}\dd x=[-e^{-e^{x}}]_{-\infty}^{\infty}=1=\Gamma(1)$. \checkmark
 \end{wex}
@@ -33032,7 +33057,7 @@ the half-integers $s=-k-\tfrac12$, where $\Gamma$ is small. (Stein, Ch.6 Exercis
 \wsol Take $s=-k-\tfrac12$, $k$ a positive integer. From the reflection
 $\Gamma(s)\Gamma(1-s)=\pi/\sin(\pi s)$ with $\sin(\pi s)=\pm1$ at half-integers,
 $\abs{\Gamma(-k-\tfrac12)}=\dfrac{\pi}{\abs{\Gamma(k+\tfrac32)}}$. Since
-$\Gamma(k+\tfrac32)=\tfrac{(2k+1)!}{4^{k}\,k!}\sqrt\pi\le (k+1)!\,\sqrt\pi$ is only of
+$\Gamma(k+\tfrac32)=\tfrac{(2k+1)!}{2^{2k+1}\,k!}\sqrt\pi\le (k+1)!\,\sqrt\pi$ is only of
 factorial size while the reciprocal forces
 $\bigl|1/\Gamma(-k-\tfrac12)\bigr|=\dfrac{\Gamma(k+\tfrac32)}{\pi}\ge\dfrac{k!}{\pi}$,
 we get a value $\ge k!/\pi$ at a point with $\abs s\approx k$. But $e^{c\abs s}\approx
@@ -33049,7 +33074,7 @@ Compute $\Gamma'(1)$ and then $\psi(n)=\Gamma'(n)/\Gamma(n)$ for integers $n\ge1
 product $1/\Gamma(s)=e^{\gamma s}s\prod_{n\ge1}(1+s/n)e^{-s/n}$ logarithmically.
 \wsol Taking $\log$ of $1/\Gamma$ and differentiating gives the digamma
 $\psi(s)=\dfrac{\Gamma'(s)}{\Gamma(s)}=-\gamma-\dfrac1s+\sum_{n\ge1}\Bigl(\dfrac1n-\dfrac1{s+n}\Bigr)$.
-At $s=1$ every bracketed term telescopes against $-1/s$:
+At $s=1$ the bracketed terms telescope to $1$, which cancels $-1/s$:
 $\psi(1)=-\gamma-1+\sum_{n\ge1}\bigl(\tfrac1n-\tfrac1{n+1}\bigr)=-\gamma-1+1=-\gamma$. Since
 $\Gamma(1)=1$, $\Gamma'(1)=\psi(1)\Gamma(1)=-\gamma$. The recurrence
 $\psi(s+1)=\psi(s)+1/s$ (from $\log\Gamma(s+1)=\log s+\log\Gamma(s)$) then gives
@@ -33078,16 +33103,22 @@ the standard value of the trigamma $\psi'(1)$. \checkmark
 \begin{wex}{$\int_x^{x+1}\log\Gamma(t)\,\dd t=x\log x-x+\tfrac12\log(2\pi)$}
 Evaluate the unit-window average of $\log\Gamma$, recovering the constant in $\log n!$.
 \wrec Trigger: an integral of $\log\Gamma$ over a unit interval. Differentiate in $x$ and use
-the recurrence to pin the constant. (Stein, Ch.6 Exercise 14.)
+the recurrence; pin the constant at $x\to0^+$ with the reflection formula. (Stein, Ch.6
+Exercise 14.)
 \wsol Let $J(x)=\int_x^{x+1}\log\Gamma(t)\,\dd t$ for $x>0$. By the fundamental theorem,
 $J'(x)=\log\Gamma(x+1)-\log\Gamma(x)=\log\!\bigl(\Gamma(x+1)/\Gamma(x)\bigr)=\log x$, using the
-recurrence $\Gamma(x+1)=x\Gamma(x)$. Integrating, $J(x)=x\log x-x+c$. To find $c$, take
-$x\to\infty$ and compare with Stirling $\log\Gamma(t)=t\log t-t-\tfrac12\log t+\tfrac12
-\log(2\pi)+o(1)$: integrating Stirling's main terms over $[x,x+1]$ reproduces
-$x\log x-x$ plus a constant $\tfrac12\log(2\pi)$ in the limit, so $c=\tfrac12\log(2\pi)$.
-\emph{Check.} Setting $x=n$ and using the rectangle approximation
-$\sum_{k=1}^{n}\log k=\log n!$ recovers $\log n!=n\log n-n+\tfrac12\log(2\pi n)+o(1)$, i.e.\
-$n!\sim\sqrt{2\pi n}\,(n/e)^n$. \checkmark
+recurrence $\Gamma(x+1)=x\Gamma(x)$. Integrating, $J(x)=x\log x-x+c$. To find $c$, let
+$x\to0^+$: then $x\log x-x\to0$, so $c=\int_0^1\log\Gamma(t)\,\dd t$ (convergent, since
+$\log\Gamma(t)=-\log t+o(1)$ as $t\to0^+$). Replacing $t$ by $1-t$ and using the reflection
+formula,
+$2c=\int_0^1\log\bigl(\Gamma(t)\Gamma(1-t)\bigr)\dd t=\int_0^1\log\frac{\pi}{\sin\pi t}\,\dd t
+=\log\pi+\log2$ by the classical value $\int_0^1\log(\sin\pi t)\,\dd t=-\log2$; so
+$c=\tfrac12\log(2\pi)$.
+\emph{Check.} Setting $x=n$, the trapezoid rule for the convex function $\log\Gamma$ on
+$[n,n+1]$ (error at most $\tfrac18(\psi(n+1)-\psi(n))=\tfrac1{8n}$) gives
+$J(n)=\tfrac12\bigl(\log(n-1)!+\log n!\bigr)+O(1/n)=\log n!-\tfrac12\log n+O(1/n)$, which
+recovers $\log n!=n\log n-n+\tfrac12\log(2\pi n)+o(1)$, i.e.\
+$n!\sim\sqrt{2\pi n}\,(n/e)^n$ (Stirling). \checkmark
 \end{wex}
 
 \begin{exers}{Exercises (Stein, Ch.6).}
@@ -33117,7 +33148,7 @@ $\displaystyle\abs{\Gamma(\tfrac12+it)}=\sqrt{\frac{2\pi}{e^{\pi t}+e^{-\pi t}}}
 for all $t\in\R$.
 
 \item Show that
-$\displaystyle 1+\frac13+\frac15+\cdots+\frac1{2n-1}-\log n\to\frac\gamma2+\log2$
+$\displaystyle 1+\frac13+\frac15+\cdots+\frac1{2n-1}-\frac12\log n\to\frac\gamma2+\log2$
 as $n\to\infty$, where $\gamma$ is Euler's constant.
 
 \item The Beta function is $B(\alpha,\beta)=\int_0^1(1-t)^{\alpha-1}t^{\beta-1}\,\dd t$ for
@@ -33136,7 +33167,9 @@ for $x>0$, and deduce that $J_\nu$ satisfies
 $J_\nu''+\tfrac1x J_\nu'+\bigl(1-\tfrac{\nu^2}{x^2}\bigr)J_\nu=0$.
 [Hint: expand $e^{ixt}$ and use Exercise 7.]
 
-\item (Hypergeometric series.) For $\alpha>0$, $\beta>0$, $\gamma>\beta$, $\abs z<1$, show
+\item (Hypergeometric series.) For $\alpha>0$, $\beta>0$, $\gamma>\beta$, $\abs z<1$, let
+$F(\alpha,\beta,\gamma;z)=\sum_{n\ge0}\frac{(\alpha)_n(\beta)_n}{n!\,(\gamma)_n}z^n$, where
+$(x)_0=1$ and $(x)_n=x(x+1)\cdots(x+n-1)$. Show
 \[
   F(\alpha,\beta,\gamma;z)=\frac{\Gamma(\gamma)}{\Gamma(\beta)\Gamma(\gamma-\beta)}
    \int_0^1 t^{\beta-1}(1-t)^{\gamma-\beta-1}(1-zt)^{-\alpha}\,\dd t,
@@ -33145,18 +33178,20 @@ and conclude that $F$ continues analytically to $\C$ slit along $[1,\infty)$. No
 $\log(1-z)=-zF(1,1,2;z)$, $e^z=\lim_{\beta\to\infty}F(1,\beta,1;z/\beta)$, and
 $(1-z)^{-\alpha}=F(\alpha,1,1;z)$.
 
-\item (Mellin transform.) Write $\mathcal M(f)(z)=\int_0^\infty f(t)t^{z-1}\,\dd t$.
+\item\label{ex:mellin@c19} (Mellin transform.) Write $\mathcal M(f)(z)=\int_0^\infty f(t)t^{z-1}\,\dd t$.
 (a) Prove for $0<\Re(z)<1$ that $\mathcal M(\cos)(z)=\Gamma(z)\cos\tfrac{\pi z}2$ and
 $\mathcal M(\sin)(z)=\Gamma(z)\sin\tfrac{\pi z}2$.
 (b) Show the sine identity extends to $-1<\Re(z)<1$, hence
 $\int_0^\infty\dfrac{\sin x}{x}\,\dd x=\dfrac\pi2$ and
 $\int_0^\infty\dfrac{\sin x}{x^{3/2}}\,\dd x=\sqrt{2\pi}$.
-[Hint: integrate $e^{-w}w^{z-1}$ around the quarter-circle contour (Figure 1) from $0$ to
-$R$ along the real axis and back along the imaginary axis.]
+[Hint: integrate $e^{-w}w^{z-1}$ around the quarter-circle contour
+(Figure~\ref{fig:sector@c19}) from $0$ to $R$ along the real axis and back along the
+imaginary axis.]
 
-\item Let $f(z)=e^{az}e^{-e^z}$ with $a>0$. Note that in the strip $\set{x+iy:\abs y<\pi}$,
-$f(x+iy)$ decays exponentially as $\abs x\to\infty$. Prove that the Fourier transform is
-$\widehat f(\xi)=\Gamma(a+i\xi)$ for all $\xi\in\R$.
+\item Let $f(z)=e^{az}e^{-e^z}$ with $a>0$. Note that in the strip $\set{x+iy:\abs y<\pi/2}$,
+$f(x+iy)$ decays exponentially as $\abs x\to\infty$. Prove that the Fourier transform
+$\widehat f(\xi)=\int_{-\infty}^\infty f(x)e^{-ix\xi}\,\dd x$ is $\Gamma(a-i\xi)$ for all
+$\xi\in\R$.
 
 \item Two observations about $1/\Gamma$.
 (a) Show $1/\abs{\Gamma(s)}$ is not $O(e^{c\abs s})$ for any $c>0$.
@@ -33253,7 +33288,8 @@ $\zeta$ is holomorphic on $\Re(s)>1$.
   \node[pole] at (1,0) {};
   \node[font=\footnotesize,fill=white,inner sep=1pt,below right=1pt and 1pt] at (1,0) {$s=1$ pole};
   \node[font=\footnotesize,align=center] at (2.7,1.35) {$\Re s>1$\\(series converges)};
-  \node[font=\footnotesize,align=center] at (0.5,-1.55) {critical\\strip\\$0<\Re s<1$};
+  \node[font=\footnotesize,align=center] (cs) at (-1.0,-1.45) {critical\\strip\\$0<\Re s<1$};
+  \draw[-{Stealth[length=1.6mm]},line width=0.5pt] (cs.east) -- (0.5,-1.45);
 \end{tikzpicture}
 \captionof{figure}{Convergence region $\Re s>1$ (shaded), the critical strip (hatched),
 and the lone pole at $s=1$.}
@@ -33308,7 +33344,7 @@ interchanging sum and integral, so
 \end{proof}
 
 \begin{center}
-\begin{tikzcd}[column sep=large,row sep=small]
+\begin{tikzcd}[column sep=2.8cm,row sep=small]
 \vartheta(u) \arrow[r,"\text{Mellin } \frac12\int u^{s/2-1}(\cdot-1)"]
   \arrow[d,"\text{Poisson}"'] & \pi^{-s/2}\Gamma(s/2)\zeta(s) \arrow[d,"s\,\mapsto\,1-s"] \\
 u^{-1/2}\vartheta(1/u) \arrow[r,dashed] & \xi(s)=\xi(1-s)
@@ -33358,12 +33394,13 @@ $\xi(s)=\xi(1-s)$.
 \end{proof}
 
 \[\begin{tikzcd}[row sep=large, column sep=large]
-\C \arrow[r, "\xi"] \arrow[d, "s\,\mapsto\,1-s"'] & \C \arrow[d, equal] \\
-\C \arrow[r, "\xi"'] & \C
+\C\setminus\set{0,1} \arrow[r, "\xi"] \arrow[d, "s\,\mapsto\,1-s"'] & \C \arrow[d, equal] \\
+\C\setminus\set{0,1} \arrow[r, "\xi"'] & \C
 \end{tikzcd}\]
 \noindent The functional equation $\xi(s)=\xi(1-s)$ says exactly that this square commutes:
-$\xi$ is invariant under the reflection $s\mapsto1-s$ of the plane across the critical line
-$\Re s=\tfrac12$ (the involution's fixed-point set).
+$\xi$ is invariant under the involution $s\mapsto1-s$, the point reflection of the plane
+through $s=\tfrac12$ (its only fixed point), which maps the critical line $\Re s=\tfrac12$
+onto itself.
 
 \begin{theorem}[continuation of $\zeta$]\label{t:zeta-cont@c19}
 $\zeta$ has a meromorphic continuation to all of $\C$ whose only singularity is a simple
@@ -33397,13 +33434,13 @@ of $\zeta$ at $s=1$.
   \draw[dashed,black!45] (0.5,-2.0)--(0.5,2.0);
   \draw[cxaxis] (-4.7,0)--(3.7,0) node[right]{$\Re s$};
   \draw[cxaxis] (0,-2.2)--(0,2.5) node[above]{$\Im s$};
-  \node[font=\footnotesize,fill=white,inner sep=1pt] at (0.5,2.25) {$\Re s=\tfrac12$};
+  \node[font=\footnotesize,anchor=south west,inner sep=1pt] at (0.55,2.0) {$\Re s=\tfrac12$};
   % trivial zeros at -2,-4 (real axis)
   \node[zero] at (-2,0) {}; \node[font=\footnotesize,below=2pt] at (-2,0) {$-2$};
   \node[zero] at (-4,0) {}; \node[font=\footnotesize,below=2pt] at (-4,0) {$-4$};
   % pole at s=1
   \node[pole] at (1,0) {};
-  \node[font=\footnotesize,fill=white,inner sep=1pt,above right=0pt and 1pt] at (1,0) {pole $s{=}1$};
+  \node[font=\footnotesize,fill=white,inner sep=1pt,above right=2pt and 1pt] at (1,0) {pole $s{=}1$};
   % nontrivial zeros on the critical line
   \node[zero] at (0.5,0.95) {}; \node[zero] at (0.5,-0.95) {};
   \node[zero] at (0.5,1.55) {}; \node[zero] at (0.5,-1.55) {};
@@ -33435,7 +33472,7 @@ $\Gamma$), while $\xi(-2k)$ is finite and nonzero (its only poles are at $0,1$).
 $\zeta(-2k)=\pi^{-k}\,\xi(-2k)\cdot0=0$. These are the \emph{trivial zeros}. \emph{Check.}
 $s=0$ is excluded because there the zero of $1/\Gamma(s/2)$ is consumed cancelling the pole
 of $\xi$; the trivial zeros start at $-2$. \emph{Non-example:} $s=-1$ is \emph{not} a zero,
-because $1/\Gamma(-\tfrac12)\ne0$; indeed $\zeta(-1)=-\tfrac1{12}$.
+because $1/\Gamma(-\tfrac12)\ne0$ and $\xi(-1)=\xi(2)\ne0$; indeed $\zeta(-1)=-\tfrac1{12}$.
 \end{wex}
 
 \subsection*{An elementary continuation to $\Re(s)>0$ and growth near $\Re s=1$}
@@ -33445,7 +33482,7 @@ only $\Re(s)>0$ but yields growth estimates near the line $\Re(s)=1$.
 
 \begin{proposition}[telescoping comparison]\label{p:delta@c19}
 There are entire functions $\set{\delta_n(s)}_{n\ge1}$ with $\abs{\delta_n(s)}\le
-\abs s/n^{\sigma+1}$ (where $s=\sigma+it$) such that for every integer $N>1$,
+\abs s/n^{\sigma+1}$ (where $s=\sigma+it$ and $\sigma\ge-1$) such that for every integer $N>1$,
 \[
   \sum_{1\le n<N}\frac1{n^s}-\int_1^N\frac{\dd x}{x^s}=\sum_{1\le n<N}\delta_n(s).
 \]
@@ -33454,10 +33491,11 @@ There are entire functions $\set{\delta_n(s)}_{n\ge1}$ with $\abs{\delta_n(s)}\l
 \begin{proof}
 Set $\delta_n(s)=\displaystyle\int_n^{n+1}\Bigl(\frac1{n^s}-\frac1{x^s}\Bigr)\dd x$. The
 mean value theorem applied to $f(x)=x^{-s}$ gives
-$\abs{n^{-s}-x^{-s}}\le\abs{s}/n^{\sigma+1}$ for $n\le x\le n+1$, hence
-$\abs{\delta_n(s)}\le\abs s/n^{\sigma+1}$. Summing
-$\int_n^{n+1}x^{-s}\,\dd x=\int_1^N x^{-s}\,\dd x$ over $1\le n<N$ telescopes to the stated
-identity.
+$\abs{n^{-s}-x^{-s}}\le\abs{s}/n^{\sigma+1}$ for $n\le x\le n+1$ (as
+$\abs{f'(y)}=\abs s\,y^{-\sigma-1}\le\abs s\,n^{-\sigma-1}$ for $y\ge n$ when $\sigma\ge-1$), hence
+$\abs{\delta_n(s)}\le\abs s/n^{\sigma+1}$. Since $\int_n^{n+1}n^{-s}\,\dd x=n^{-s}$ and
+$\sum_{1\le n<N}\int_n^{n+1}x^{-s}\,\dd x=\int_1^N x^{-s}\,\dd x$, summing $\delta_n(s)$ over
+$1\le n<N$ gives the stated identity.
 \end{proof}
 
 \begin{center}
@@ -33490,8 +33528,9 @@ $H(s)=\sum_{n=1}^\infty\delta_n(s)$ is holomorphic on $\Re(s)>0$.
 
 \begin{proof}
 For $\Re(s)>1$ let $N\to\infty$ in Proposition~\ref{p:delta@c19}. The bound
-$\abs{\delta_n}\le\abs s/n^{\sigma+1}$ gives uniform convergence of $\sum\delta_n$ on every
-half-plane $\Re(s)\ge\delta>0$, so $H$ is holomorphic there; and
+$\abs{\delta_n}\le\abs s/n^{\sigma+1}$ gives uniform convergence of $\sum\delta_n$ on each set
+$\set{\Re(s)\ge\delta,\ \abs s\le R}$ with $\delta>0$ (it is dominated there by
+$\sum R/n^{1+\delta}$), so $H$ is holomorphic on $\Re(s)>0$; and
 $\int_1^N x^{-s}\,\dd x\to\tfrac1{s-1}$ while $\sum_{n<N}n^{-s}\to\zeta(s)$. This yields
 $\zeta(s)-\tfrac1{s-1}=H(s)$ for $\Re(s)>1$, and since the right side is holomorphic on
 $\Re(s)>0$, it furnishes the continuation (with the simple pole at $s=1$ visible in the
@@ -33513,11 +33552,14 @@ Besides $\abs{\delta_n}\le\abs s/n^{\sigma+1}$ one has the cruder $\abs{\delta_n
 (from $\abs{n^{-s}}=n^{-\sigma}$ and $\abs{x^{-s}}\le n^{-\sigma}$ for $x\ge n$).
 Interpolating, $\abs{\delta_n}\le(\abs s/n^{\sigma_0+1})^\delta(2/n^{\sigma_0})^{1-\delta}
 \le2\abs s^\delta/n^{\sigma_0+\delta}$ for $0\le\delta\le1$. Choosing $\delta=1-\sigma_0+\eps$
-and using Corollary~\ref{c:zeta-half@c19},
+(for $\sigma_0>0$ we may take $\eps<\sigma_0$, since shrinking $\eps$ only strengthens (i), so
+that $\delta\le1$; the endpoint $\sigma_0=0$ needs a finer, second-order estimate of
+$\delta_n$, which we omit) and using Corollary~\ref{c:zeta-half@c19},
 $\abs{\zeta(s)}\le\bigl|\tfrac1{s-1}\bigr|+2\abs s^{1-\sigma_0+\eps}\sum_n n^{-1-\eps}$,
-which is $O(\abs t^{1-\sigma_0+\eps})$. Part (ii) follows from (i) via the Cauchy integral
-formula on a circle of radius $r=\eps$ centered at $s$:
-$\zeta'(s)=\tfrac1{2\pi r}\int_0^{2\pi}\zeta(s+re^{i\theta})e^{i\theta}\,\dd\theta$, that
+which is $O(\abs t^{1-\sigma_0+\eps})$ for $\sigma_0\le\sigma\le2$ (and
+$\abs{\zeta(s)}\le\zeta(2)$ for $\sigma\ge2$). Part (ii) follows from (i) via the Cauchy
+integral formula on a circle of radius $r=\eps$ centered at $s$:
+$\zeta'(s)=\tfrac1{2\pi r}\int_0^{2\pi}\zeta(s+re^{i\theta})e^{-i\theta}\,\dd\theta$, that
 circle lying in $\Re(\cdot)\ge1-\eps$.
 \end{proof}
 
@@ -33577,7 +33619,7 @@ partial sum $\sum_{n\le10^3}n^{-2}\approx1.6439$ approaches it. \checkmark
   \node[pole] at (0,0) {};
   \node[font=\footnotesize,below left] at (0,0) {$0$};
   \node[font=\footnotesize] at (2.0,2.15) {$C_N$};
-  \node[font=\footnotesize,align=center] at (2.2,-1.6)
+  \node[font=\footnotesize,align=center] at (1.3,-1.45)
     {poles of\\$\pi\cot\pi z$\\at $z\in\Z$};
 \end{tikzpicture}
 \captionof{figure}{Square contour $C_N$ (here $N=2$) capturing the integer poles of
@@ -33604,7 +33646,7 @@ $N=\lfloor\abs t\rfloor$ and bound the head and tail separately. (Stein, Ch.6 Pr
 \wsol From Proposition~\ref{p:delta@c19}/Corollary~\ref{c:zeta-half@c19}, for $\Re(s)>0$ and any
 integer $N\ge2$,
 \[
-  \zeta(s)=\sum_{1\le n<N}\frac1{n^s}-\frac{N^{1-s}}{s-1}+\sum_{n\ge N}\delta_n(s).
+  \zeta(s)=\sum_{1\le n<N}\frac1{n^s}+\frac{N^{1-s}}{s-1}+\sum_{n\ge N}\delta_n(s).
 \]
 Put $s=1+it$, $N=\lfloor\abs t\rfloor$. The head $\sum_{n<N}n^{-1-it}$ has
 $\abs{\,\cdot\,}\le\sum_{n<N}n^{-1}\le 1+\log N=O(\log\abs t)$. The middle term has
@@ -33628,17 +33670,17 @@ i.e.\ $\abs{\zeta(\sigma)}^3\abs{\zeta(\sigma+it_0)}^4\abs{\zeta(\sigma+2it_0)}\
 $\sigma\to1^+$: $\zeta(\sigma)\sim\tfrac1{\sigma-1}$ (order $(\sigma-1)^{-3}$), a zero at
 $1+it_0$ would make $\abs{\zeta(\sigma+it_0)}^4=O((\sigma-1)^4)$, and
 $\zeta(\sigma+2it_0)=O(1)$. The product would then be $O((\sigma-1)^{4-3})=O(\sigma-1)\to0$,
-contradicting $\ge1$. Hence \emph{no} such zero exists: $\zeta(1+it)\ne0$ for all real $t$.
+contradicting $\ge1$. Hence \emph{no} such zero exists: $\zeta(1+it)\ne0$ for all real $t\ne0$.
 \emph{Check.} This is exactly the boundary fact that places all nontrivial zeros strictly
 inside $0<\Re(s)<1$; the Riemann Hypothesis sharpens it to $\Re(s)=\tfrac12$ but the line
 $\Re(s)=1$ is rigorously zero-free. \checkmark
 \end{wex}
 
 \begin{wex}{Bernoulli numbers from $\int_0^1 x^{s-1}/(e^x-1)\,\dd x$}
-Show the integral $\int_0^1\dfrac{x^{s-1}}{e^x-1}\dd x$ continues meromorphically with simple
-poles at $s=1-m$ and residue $B_m/m!$.
+Show the integral $\int_0^1\dfrac{x^{s-1}}{e^x-1}\dd x$ continues meromorphically to $\C$, with
+at most simple poles, at the points $s=1-m$ ($m\ge0$), the residue at $s=1-m$ being $B_m/m!$.
 \wrec Trigger: the small-$x$ behaviour $1/(e^x-1)=\sum_{m\ge0}B_m x^{m-1}/m!$. Integrate the
-power series termwise against $x^{s-1}$. (Stein, Ch.6 Problem 16.)
+power series termwise against $x^{s-1}$. (Stein, Ch.6 Exercise 16.)
 \wsol Insert the generating series $\dfrac{x}{e^x-1}=\sum_{m\ge0}\dfrac{B_m}{m!}x^m$, valid
 for $\abs x<2\pi$, so $\dfrac1{e^x-1}=\sum_{m\ge0}\dfrac{B_m}{m!}x^{m-1}$. Then for $\Re(s)$
 large,
@@ -33647,9 +33689,10 @@ large,
    =\sum_{m=0}^\infty\frac{B_m}{m!}\int_0^1 x^{s+m-2}\dd x
    =\sum_{m=0}^\infty\frac{B_m}{m!\,(s+m-1)}.
 \]
-Each term is meromorphic in $s$ with a simple pole at $s=1-m$ and residue $B_m/m!$; the
-series converges to an entire remainder away from those poles (the upper limit $1$ keeps the
-tail entire). \emph{Check.} The $m=0$ term ($B_0=1$) gives the leading pole at $s=1$ with
+The $m$-th term has a simple pole at $s=1-m$ with residue $B_m/m!$ (no pole when $B_m=0$,
+i.e.\ for odd $m\ge3$), and since $\abs{B_m}/m!\le C\pi^{-m}$ (the series for $x/(e^x-1)$
+converges for $\abs x<2\pi$), the series converges uniformly on compact sets avoiding these
+points, so it is meromorphic on $\C$. \emph{Check.} The $m=0$ term ($B_0=1$) gives the leading pole at $s=1$ with
 residue $1$, matching the pole of $\zeta$ inherited through
 $\Gamma(s)\zeta(s)=\int_0^\infty x^{s-1}/(e^x-1)\dd x$; and $B_1=-\tfrac12$, $B_2=\tfrac16$
 reproduce $\zeta(0)=-\tfrac12$, $\zeta(-1)=-\tfrac1{12}$ after dividing by $\Gamma$. \checkmark
@@ -33682,18 +33725,18 @@ $B_0=1$ and $\limsup_m\abs{B_m/m!}^{1/m}=1/2\pi$.]
 \item Let $f$ be indefinitely differentiable on $\R$ with compact support (more generally,
 $f$ in the Schwartz space), and put $I(s)=\dfrac1{\Gamma(s)}\int_0^\infty f(x)x^{-1+s}\,\dd x$.
 (a) Observe $I$ is holomorphic for $\Re(s)>0$ and prove $I$ continues to an entire function.
-(b) Prove $I(0)=0$, and more generally $I(-n)=(-1)^n f^{(n+1)}(0)$ for all $n\ge0$.
+(b) Prove $I(0)=f(0)$, and more generally $I(-n)=(-1)^n f^{(n)}(0)$ for all $n\ge0$.
 [Hint: integrate by parts to get
 $I(s)=\dfrac{(-1)^k}{\Gamma(s+k)}\int_0^\infty f^{(k)}(x)x^{s+k-1}\,\dd x$.]
 \end{exers}
 
 \begin{exers}{Problems (Stein, Ch.6).}
 \item Further estimates for $\zeta$ and $\zeta'$ near $\Re(s)=1$.
-(a) Use Proposition~2.5 and Corollary~2.6 to prove, for every integer $N\ge2$ and
-$\Re(s)>0$,
-$\displaystyle\zeta(s)=\sum_{1\le n<N}n^{-s}-\frac{N^{s-1}}{s-1}+\sum_{n\ge N}\delta_n(s)$.
+(a) Use Proposition~\ref{p:delta@c19} and Corollary~\ref{c:zeta-half@c19} to prove, for every
+integer $N\ge2$ and $\Re(s)>0$,
+$\displaystyle\zeta(s)=\sum_{1\le n<N}n^{-s}+\frac{N^{1-s}}{s-1}+\sum_{n\ge N}\delta_n(s)$.
 (b) Show $\abs{\zeta(1+it)}=O(\log\abs t)$ as $\abs t\to\infty$ by taking $N=\floor{\abs t}$.
-(c) Refine the second conclusion of Proposition~2.7 similarly.
+(c) Refine the second conclusion of Proposition~\ref{p:growth@c19} similarly.
 (d) Show that for fixed $t\ne0$ the partial sums of $\sum_{n=1}^\infty 1/n^{1+it}$ are
 bounded, yet the series does not converge.
 
@@ -33710,7 +33753,7 @@ $\displaystyle\zeta(s)=\frac{s}{s-1}-\frac12-s\int_1^\infty\Bigl(\frac{d^k}{dx^k
 and a $k$-fold integration by parts gives the continuation of $\zeta$ for $\Re(s)>-k$.
 
 \item[$4^\ast$.] The $Q_k$ above relate to the Bernoulli polynomials $B_k(x)$ by
-$Q_k(x)=\dfrac{B_{k+1}(x)}{(k+1)!}$ for $0\le x\le1$. Also, for a positive integer $k$,
+$Q_k(x)=\dfrac{B_{k+1}(x)}{(k+1)!}$ for $0\le x<1$. Also, for a positive integer $k$,
 $\displaystyle 2\zeta(2k)=(-1)^{k+1}\frac{(2\pi)^{2k}}{(2k)!}\,B_{2k}$,
 where $B_k=B_k(0)$ are the Bernoulli numbers.
 \end{exers}
@@ -33744,7 +33787,7 @@ integrating term by term, justifying the interchange.
 
 \item Show that the bound $\abs{\delta_n(s)}\le\abs s/n^{\sigma+1}$ in
 Proposition~\ref{p:delta@c19} gives $\abs{H(s)}\le\abs s\,\zeta(\sigma+1)$ on $\Re(s)=\sigma>0$,
-and deduce $\zeta(s)=\tfrac1{s-1}+O(\abs s)$ near $s=1$ in any fixed strip.
+and deduce $\zeta(s)=\tfrac1{s-1}+O(\abs s)$ uniformly on each half-plane $\Re(s)\ge\sigma_1>0$.
 
 \item (Diagram problem.) Draw the complex $s$-plane showing: the convergence region
 $\Re s>1$, the critical strip $0<\Re s<1$, the critical line $\Re s=\tfrac12$, the pole at
@@ -33752,8 +33795,9 @@ $s=1$, the trivial zeros at $-2,-4,-6$, and a few nontrivial zeros placed symmet
 the critical line. Indicate the reflection $s\mapsto1-s$ as a point symmetry about
 $s=\tfrac12$.
 
-\item (Harder; diagram.) Using Exercise 10 of the scraped set (the quarter-circle contour
-for the Mellin transform of $\sin$), draw the contour from $0$ to $R$ along the positive
+\item (Harder; diagram.) Using Exercise~\ref{ex:mellin@c19} of Section~\ref{sec:gamma@c19}
+(the quarter-circle contour of Figure~\ref{fig:sector@c19} for the Mellin transform of
+$\sin$), draw the contour from $0$ to $R$ along the positive
 real axis and back along the positive imaginary axis, mark the absence of poles inside, and
 explain how letting $R\to\infty$ yields $\int_0^\infty\dfrac{\sin x}{x}\,\dd x=\dfrac\pi2$.
 \end{exers}
