@@ -33828,15 +33828,16 @@ The relation $f\sim g$ means $f(x)/g(x)\to1$; it is far weaker than $f-g\to0$. T
 chapter is the proof of Theorem~\ref{t:pnt@c20}. The engine is complex-analytic: the heart of
 the matter is that the Riemann zeta function $\zeta(s)$ \emph{does not vanish on the line}
 $\Re(s)=1$. In fact this non-vanishing is logically \emph{equivalent} to the prime number
-theorem. Section 1 establishes the non-vanishing and the growth estimates for $1/\zeta$;
-Section 2 reduces the theorem to an asymptotic for an auxiliary function $\psi_1$ tied to
-$\zeta$ by a contour integral; Section 3 evaluates that integral by deforming the contour
+theorem. Section~20.1 establishes the non-vanishing and the growth estimates for $1/\zeta$;
+Section~20.2 reduces the theorem to an asymptotic for an auxiliary function $\psi_1$ tied to
+$\zeta$ by a contour integral; Section~20.3 evaluates that integral by deforming the contour
 to the line $\Re(s)=1$.
 
 \begin{center}
 % horizontal scale: x-axis value v drawn at 0.46*v ; vertical: pi-count drawn directly.
-% primes <=20: 2,3,5,7,11,13,17,19 -> pi steps 1..8. x/log x plotted honestly on same axes,
-% so it threads just BELOW the staircase (pi(x) > x/log x in this range), matching pi~x/log x.
+% primes <=20: 2,3,5,7,11,13,17,19 -> pi steps 1..8. x/log x plotted honestly on same axes:
+% it lies above the staircase on [2,7), (8.6,11), (12.7,13) and just below 17, and below it for
+% all x>=17 (pi(x) > x/log x for x>=17, Rosser--Schoenfeld).
 \begin{tikzpicture}[xscale=0.46,yscale=0.5,line cap=round]
   \draw[numln] (-0.4,0)--(21.5,0) node[right]{$x$};
   \draw[numln] (0,-0.4)--(0,9.0) node[above]{$y$};
@@ -33847,15 +33848,15 @@ to the line $\Re(s)=1$.
     (0,0)--(2,0)--(2,1)--(3,1)--(3,2)--(5,2)--(5,3)--(7,3)--(7,4)
     --(11,4)--(11,5)--(13,5)--(13,6)--(17,6)--(17,7)--(19,7)--(19,8)--(21,8);
   \node[lblnode] at (15.5,7.4) {$\pi(x)$};
-  % smooth comparison x/log x (natural log), honest values: threads below the steps
+  % smooth comparison x/log x (natural log), honest values (below the steps for x>=17)
   \draw[curve,dashed] plot[domain=2:21,samples=80] (\x,{\x/ln(\x)});
   \node[lblnode] at (18.6,4.7) {$\dfrac{x}{\log x}$};
   % prime tick marks on the axis
   \foreach \p in {2,3,5,7,11,13,17,19}{\draw[dgrid] (\p,0)--(\p,0.18);}
 \end{tikzpicture}
 \captionof{figure}{The staircase $\pi(x)$ (unit jump at each prime) and the smooth comparison
-$x/\log x$, which threads just below it; their ratio tends to $1$. Axis tick marks sit at the
-primes $p=2,3,5,7,11,13,17,19$. (Schematic.)}
+$x/\log x$, which crosses it several times for small $x$ and lies below it for $x\ge17$; their
+ratio tends to $1$. Axis tick marks sit at the primes $p=2,3,5,7,11,13,17,19$. (Schematic.)}
 \end{center}
 
 \subsection*{The Euler product and the first non-vanishing}
@@ -33871,9 +33872,9 @@ the product running over all primes $p$. Consequently $\zeta(s)\neq0$ for $\Re(s
 
 \begin{proof}
 Each factor expands as a geometric series $\dfrac1{1-p^{-s}}=\sum_{k\ge0}p^{-ks}$, valid
-since $|p^{-s}|=p^{-\sigma}<1$ when $\sigma=\Re(s)>1$. Fix integers $M>N$. By the
-fundamental theorem of arithmetic every $n\le N$ factors uniquely into primes $p\le N$,
-each repeated fewer than $M$ times, so
+since $|p^{-s}|=p^{-\sigma}<1$ when $\sigma=\Re(s)>1$. First let $s>1$ be real, and fix
+integers $M>N$. By the fundamental theorem of arithmetic every $n\le N$ factors uniquely
+into primes $p\le N$, each repeated fewer than $M$ times, so
 \[
   \sum_{n=1}^{N}\frac1{n^{s}}
   \le\prod_{p\le N}\Bigl(1+\frac1{p^{s}}+\cdots+\frac1{p^{Ms}}\Bigr)
@@ -33883,8 +33884,14 @@ each repeated fewer than $M$ times, so
 Letting $N\to\infty$ gives $\sum_n n^{-s}\le\prod_p(1-p^{-s})^{-1}$. For the reverse,
 again by unique factorization $\prod_{p\le N}\bigl(1+\cdots+p^{-Ms}\bigr)\le\sum_n n^{-s}$;
 let $M\to\infty$ then $N\to\infty$ to get $\prod_p(1-p^{-s})^{-1}\le\sum_n n^{-s}$. The two
-inequalities give equality. Finally a convergent infinite product of nonzero factors is
-nonzero (Proposition 3.1, Ch.5), so $\zeta(s)\neq0$ for $\Re(s)>1$.
+inequalities give equality for real $s>1$. Both sides are holomorphic on $\Re(s)>1$: the
+series by Proposition~\ref{p:zeta-holo@c19}, and the product by
+Proposition~\ref{p:prod-hol@c18}, since
+$|(1-p^{-s})^{-1}-1|=|p^{-s}|/|1-p^{-s}|\le2p^{-\sigma_0}$ (summable over $p$) on
+$\Re(s)>\sigma_0>1$. So the equality holds on all of $\Re(s)>1$ by the identity theorem.
+Finally, a product $\prod(1+a_p)$ with $\sum|a_p|<\infty$ and no zero factor is nonzero
+(Proposition~\ref{p:prod-conv@c18}); here $|a_p|=|(1-p^{-s})^{-1}-1|\le2p^{-\sigma}$, so
+$\zeta(s)\neq0$ for $\Re(s)>1$.
 \end{proof}
 
 The product formula is unique factorization \emph{analytically encoded}: the primes are
@@ -33899,10 +33906,10 @@ $\zeta(2)$ from below (every factor $(1-p^{-2})^{-1}>1$).
 \[
   \tfrac1{1-1/4}\cdot\tfrac1{1-1/9}\cdot\tfrac1{1-1/25}\cdot\tfrac1{1-1/49}
   =\tfrac43\cdot\tfrac98\cdot\tfrac{25}{24}\cdot\tfrac{49}{48}
-  \approx1.5942 .
+  \approx1.5951 .
 \]
-\emph{Check.} $1.5942<1.6449$ and the ratio is $0.969$; including more primes increases the
-product toward $\pi^2/6$. The deficit $1.6449-1.5942=0.0507$ is accounted for by the omitted
+\emph{Check.} $1.5951<1.6449$ and the ratio is $0.970$; including more primes increases the
+product toward $\pi^2/6$. The deficit $1.6449-1.5951=0.0498$ is accounted for by the omitted
 primes $11,13,\dots$, each contributing a factor just above $1$. \checkmark
 \end{wex}
 
@@ -33922,8 +33929,8 @@ s \arrow[r, "\xi"] \arrow[d, "1-s"'] & \xi(s) \arrow[d, equal] \\
 1-s \arrow[r, "\xi"'] & \xi(1-s)
 \end{tikzcd}
 \captionof{figure}{The functional equation as a commuting square: the completed zeta
-$\xi=\pi^{-s/2}\Gamma(s/2)\,\zeta$ is invariant under the reflection $s\mapsto 1-s$ across the
-critical line $\Re s=\tfrac12$, i.e. $\xi(s)=\xi(1-s)$.}
+$\xi=\pi^{-s/2}\Gamma(s/2)\,\zeta$ is invariant under the reflection $s\mapsto 1-s$ in the
+point $s=\tfrac12$ of the critical line $\Re s=\tfrac12$, i.e. $\xi(s)=\xi(1-s)$.}
 \end{center}
 
 \begin{theorem}[Trivial zeros]\label{t:trivial@c20}
@@ -33933,7 +33940,8 @@ integers $s=-2,-4,-6,\dots$
 
 \begin{proof}
 Take $\Re(s)<0$, so $\Re(1-s)>1$. Then: (i) $\zeta(1-s)\neq0$ by Theorem~\ref{t:euler@c20};
-(ii) $\Gamma((1-s)/2)$ has no zeros, being a nonvanishing entire-after-reciprocal factor;
+(ii) $\Gamma((1-s)/2)$ is finite and nonzero, since $\Re((1-s)/2)>\tfrac12$ and $\Gamma$ has no
+zeros ($1/\Gamma$ is entire, Theorem~\ref{t:reflection@c19});
 (iii) $1/\Gamma(s/2)$ vanishes exactly where $\Gamma(s/2)$ has poles, namely
 $s/2=0,-1,-2,\dots$, i.e. $s=0,-2,-4,\dots$; the value $s=0$ is excluded since
 $\Re(s)<0$. Hence in $\Re(s)<0$ the right side vanishes only at $s=-2,-4,-6,\dots$, and
@@ -33951,17 +33959,18 @@ that every zero \emph{inside} it lies on the central line $\Re(s)=\tfrac12$ --- 
   % critical strip 0<=sigma<=1 (draw band first, under axes)
   \fill[band] (0,-2.7) rectangle (1,2.7);
   \draw[cxaxis] (-4.6,0)--(2.7,0) node[right]{$\sigma=\Re s$};
-  \draw[cxaxis] (0,-2.9)--(0,3.0) node[above]{$t=\Im s$};
+  \draw[cxaxis] (0,-2.9)--(0,3.0) node[left]{$t=\Im s$};
   % critical line sigma=1/2 (dashed)
   \draw[dashed,black!60] (0.5,-2.7)--(0.5,2.7);
   % line Re s = 1 (solid, no zeros)
   \draw[line width=0.9pt,black] (1,-2.7)--(1,2.7);
-  % a few illustrative nontrivial zeros on the critical line
-  \foreach \y in {0.9,1.5,2.1,-1.1,-1.7,-2.3}{\node[zero] at (0.5,\y) {};}
+  % a few illustrative nontrivial zeros on the critical line (symmetric: zeros come in
+  % conjugate pairs)
+  \foreach \y in {0.9,1.5,2.1,-0.9,-1.5,-2.1}{\node[zero] at (0.5,\y) {};}
   % pole at s=1
   \node[pole] at (1,0) {};
-  % trivial zeros on negative real axis
-  \foreach \x in {-2,-3,-4}{\node[zero] at (\x,0) {};}
+  % trivial zeros on negative real axis (at -2,-4; -6 lies off the drawn axis)
+  \foreach \x in {-2,-4}{\node[zero] at (\x,0) {};}
   % ---- labels, all placed clear of the figure body ----
   \node[lblnode,align=center] at (0.5,3.35) {critical\\[-1pt]strip};
   \draw[black!45,line width=0.4pt] (0.5,2.95)--(0.5,2.7);
@@ -33974,14 +33983,14 @@ that every zero \emph{inside} it lies on the central line $\Re(s)=\tfrac12$ --- 
 \captionof{figure}{The critical strip $0\le\sigma\le1$ (shaded), with the conjectured critical
 line $\sigma=\tfrac12$ (dashed) and the zero-free line $\Re s=1$ (solid). Circles ($\circ$)
 mark zeros: the trivial zeros $-2,-4,-6,\dots$ on the negative real axis and a few illustrative
-nontrivial zeros on $\sigma=\tfrac12$; the cross ($\times$) marks the simple pole at $s=1$. The
-plotted nontrivial zeros are illustrative. (Schematic.)}
+nontrivial zeros on $\sigma=\tfrac12$; the cross ($\times$) marks the simple pole at $s=1$.
+(Schematic.)}
 \end{center}
 
 \subsection*{The non-vanishing on $\Re(s)=1$}
 
 This is the crux. Near the pole $s=1$ there are obviously no zeros, but we need the much
-deeper fact that $\zeta(1+it)\neq0$ for \emph{every} real $t$. The proof rests on a
+deeper fact that $\zeta(1+it)\neq0$ for \emph{every} real $t\neq0$. The proof rests on a
 logarithm formula and a trigonometric trick.
 
 \begin{lemma}\label{l:logzeta@c20}
@@ -34032,7 +34041,8 @@ Using $\cos2\theta=2\cos^2\theta-1$,
   \node[font=\footnotesize] at ({pi},-0.3) {$\pi$};
 \end{tikzpicture}
 \captionof{figure}{The trick function $3+4\cos\theta+\cos2\theta=2(1+\cos\theta)^2\ge0$ (here
-scaled by $\tfrac12$), nonnegative and touching $0$ only at $\theta=\pm\pi$ (circles).}
+scaled by $\tfrac12$), nonnegative and touching $0$ only at the odd multiples of $\pi$ (circles
+at $\theta=\pm\pi$).}
 \end{center}
 
 \begin{corollary}\label{c:341@c20}
@@ -34054,7 +34064,7 @@ by Lemma~\ref{l:trig@c20} and $c_n\ge0$. Exponentiating gives the product $\ge1$
 \end{proof}
 
 \begin{theorem}[No zeros on $\Re(s)=1$]\label{t:nozero@c20}
-$\zeta(1+it)\neq0$ for all $t\in\R$.
+$\zeta(1+it)\neq0$ for all real $t\neq0$ (at $t=0$, $s=1$ is the pole).
 \end{theorem}
 
 \begin{proof}
@@ -34072,13 +34082,13 @@ contradicting Corollary~\ref{c:341@c20}, which forces the product $\ge1$. Hence 
 exists.
 \end{proof}
 
-The accounting is exactly balanced: the pole contributes $(\sigma-1)^{-3}$, the
+The accounting is finely balanced: the pole contributes $(\sigma-1)^{-3}$, the
 hypothetical zero contributes $(\sigma-1)^{4}$, and $4>3$ wins, killing the product. The
-constants $3,4,1$ come from $2(1+\cos\theta)^2=3+4\cos\theta+\cos2\theta$ --- nothing else
-would do. As a consequence of this and the functional equation, $\zeta$ also has no zeros
-on $\Re(s)=0$.
+constants $3,4,1$ come from $2(1+\cos\theta)^2=3+4\cos\theta+\cos2\theta$ --- no smaller
+weights of this shape would do (next worked example). As a consequence of this and the
+functional equation, $\zeta$ also has no zeros on $\Re(s)=0$.
 
-\begin{wex}{Why the exponents must be $3,4,1$}
+\begin{wex}{Why the exponents are $3,4,1$}
 Show that a weight combination $\zeta^{a}(\sigma)\zeta^{b}(\sigma+it)\zeta(\sigma+2it)$
 can yield a contradiction only if $a<b$, and that $a=3,b=4$ is the minimal integer choice
 matching a nonnegative cosine polynomial.
@@ -34087,9 +34097,12 @@ $a+b\cos\theta+\cos2\theta\ge0$ for all $\theta$.
 \wsol Near $\sigma=1$ the product behaves like $(\sigma-1)^{-a}\cdot(\sigma-1)^{b}=
 (\sigma-1)^{b-a}$, which tends to $0$ iff $b>a$. Positivity demands
 $a+b\cos\theta+\cos2\theta=a-1+b\cos\theta+2\cos^2\theta\ge0$ for all $\theta$; viewing it
-as a quadratic in $u=\cos\theta\in[-1,1]$, $2u^2+bu+(a-1)\ge0$ requires nonnegativity at
-the vertex, $a-1-b^2/8\ge0$, i.e. $a\ge1+b^2/8$. With $b=4$ this gives $a\ge3$, so
-$(a,b)=(3,4)$ is the smallest integer pair with $b>a$. \emph{Check.} $a=3,b=4$ gives
+as a quadratic in $u=\cos\theta\in[-1,1]$: for $b\le4$ the vertex $u=-b/4$ lies in
+$[-1,1]$, so $2u^2+bu+(a-1)\ge0$ requires nonnegativity at the vertex, $a-1-b^2/8\ge0$, i.e.
+$a\ge1+b^2/8$. For $b=1,2,3$ this forces the integer $a$ to be $\ge b$; with $b=4$ it gives
+$a\ge3$, so $(a,b)=(3,4)$ is the smallest integer pair with $b>a$. (For $b>4$ the minimum
+over $[-1,1]$ is at $u=-1$ and the condition is $a\ge b-1$, so $(4,5),(5,6),\dots$ also
+work, but none is smaller.) \emph{Check.} $a=3,b=4$ gives
 $2u^2+4u+2=2(u+1)^2\ge0$, the equality $2(1+\cos\theta)^2$ of Lemma~\ref{l:trig@c20}. \checkmark
 \end{wex}
 
@@ -34108,10 +34121,12 @@ For every $\epsilon>0$ there is $c>0$ with
 \end{proposition}
 
 \begin{proof}
+For $\sigma\ge2$ there is nothing to prove, since there
+$1/|\zeta(s)|=\prod_p|1-p^{-s}|\le\prod_p(1+p^{-2})<\infty$; so let $\sigma\le2$.
 By Corollary~\ref{c:341@c20}, $|\zeta^{3}(\sigma)\zeta^{4}(\sigma+it)\zeta(\sigma+2it)|\ge1$
-for $\sigma\ge1$. With the growth bound $|\zeta(\sigma+2it)|\le c|t|^{\epsilon}$ from
-Proposition 2.7 of Ch.6, and $|\zeta(\sigma)|^{-3}\ge c(\sigma-1)^{3}$ near the pole, this
-yields
+for $\sigma>1$. With the growth bound $|\zeta(\sigma+2it)|\le c|t|^{\epsilon}$ from
+Proposition~\ref{p:growth@c19}, and $|\zeta(\sigma)|^{-3}\ge c(\sigma-1)^{3}$ for
+$1<\sigma\le2$ (the pole at $s=1$ is simple), this yields, for $1<\sigma\le2$,
 \[
   |\zeta^{4}(\sigma+it)|\ge c\,|\zeta(\sigma)|^{-3}|t|^{-\epsilon}\ge c(\sigma-1)^{3}|t|^{-\epsilon},
   \quad\text{so}\quad
@@ -34122,22 +34137,24 @@ Fix a constant $A$ (chosen below) and split on whether $\sigma-1\ge A|t|^{-5\eps
 $|\zeta(\sigma+it)|\ge A'|t|^{-4\epsilon}$; relabel $4\epsilon\mapsto\epsilon$.
 \emph{Case 2.} If $\sigma-1<A|t|^{-5\epsilon}$, pick $\sigma'>\sigma$ with
 $\sigma'-1=A|t|^{-5\epsilon}$. By the triangle inequality and the mean value theorem with
-the derivative bound of Ch.6,
+the derivative bound of Proposition~\ref{p:growth@c19}(ii),
 \[
   |\zeta(\sigma+it)|\ge|\zeta(\sigma'+it)|-|\zeta(\sigma'+it)-\zeta(\sigma+it)|
   \ge c(\sigma'-1)^{3/4}|t|^{-\epsilon/4}-c'(\sigma'-1)|t|^{\epsilon}.
 \]
-Choosing $A=(c/(2c'))^{4}$ makes $c(\sigma'-1)^{3/4}|t|^{-\epsilon/4}=2c'(\sigma'-1)|t|^{\epsilon}$,
+Choosing $A=(c/(2c'))^{4}$ (we may take $c\le2c'$, so $A\le1$ and $\sigma'\le2$) makes
+$c(\sigma'-1)^{3/4}|t|^{-\epsilon/4}=2c'(\sigma'-1)|t|^{\epsilon}$,
 so the right side is $\tfrac12 c(\sigma'-1)^{3/4}|t|^{-\epsilon/4}=A'|t|^{-4\epsilon}$.
 Again relabel $4\epsilon\mapsto\epsilon$. In both cases $1/|\zeta(s)|\le c|t|^{\epsilon}$.
 \end{proof}
 
-\begin{wex}{The logarithmic derivative has a simple pole at $s=1$}
+\begin{wex}{The logarithmic derivative has a simple pole at $s=1$}\label{wex:logderiv@c20}
 Show $-\zeta'(s)/\zeta(s)=\dfrac1{s-1}+h(s)$ with $h$ holomorphic near $s=1$, and compute
 the residue.
 \wrec $\zeta$ has a simple pole at $s=1$; the logarithmic derivative of a function with a
 simple pole has a simple pole with residue equal to minus the pole order.
-\wsol Near $s=1$, $\zeta(s)=\dfrac1{s-1}+H(s)$ with $H$ holomorphic (Corollary 2.6, Ch.6).
+\wsol Near $s=1$, $\zeta(s)=\dfrac1{s-1}+H(s)$ with $H$ holomorphic
+(Corollary~\ref{c:zeta-half@c19}).
 Then $\zeta(s)=\dfrac{1+(s-1)H(s)}{s-1}$, and
 \[
   \frac{\zeta'(s)}{\zeta(s)}=\frac{d}{ds}\log\zeta(s)
@@ -34151,14 +34168,15 @@ be (a simple pole of $\zeta$ is a simple zero of $1/\zeta$). \checkmark
 
 \begin{pitfall}
 The bound $1/|\zeta|\le c|t|^{\epsilon}$ is \emph{not} uniform down to $t=0$: it requires
-$|t|\ge1$, since $\zeta$ has its pole at $s=1$ (i.e. $t=0$) where $1/|\zeta|\to0$, not
-$\infty$. Never apply Proposition~\ref{p:invzeta@c20} on a neighborhood of $t=0$; the small-$t$
-behavior is governed by the pole, handled separately as the main term in Section 3.
+$|t|\ge1$, since $c|t|^{\epsilon}\to0$ as $t\to0$ while $1/|\zeta(\sigma)|>0$ for real
+$\sigma>1$ (e.g. $1/\zeta(2)=6/\pi^2$). Never apply Proposition~\ref{p:invzeta@c20} on a
+neighborhood of $t=0$; the small-$t$ behavior is governed by the pole at $s=1$ (where
+$1/|\zeta|\to0$), handled separately as the main term in Section~20.3.
 \end{pitfall}
 
 \subsection*{Further worked examples}
 
-\begin{wex}{The alternating zeta (Dirichlet eta) and its zero-free strip}
+\begin{wex}{The alternating zeta (Dirichlet eta) and a zero-free segment}
 Let $\widetilde\zeta(s)=\sum_{n=1}^{\infty}(-1)^{n+1}n^{-s}=1-2^{-s}+3^{-s}-\cdots$. Show
 the series converges for $\Re(s)>0$, that $\widetilde\zeta(s)=(1-2^{1-s})\zeta(s)$ for
 $\Re(s)>1$, and deduce that $\zeta$ has no zeros on the real segment $0<\sigma<1$.
@@ -34172,10 +34190,12 @@ to $\zeta$ through the factor $(1-2^{1-s})$.
   =\sum_n n^{-s}-2^{1-s}\sum_k k^{-s}=(1-2^{1-s})\zeta(s),
 \]
 and the left side is exactly $\sum_n(-1)^{n+1}n^{-s}=\widetilde\zeta(s)$. For $\Re(s)>0$ the
-terms $n^{-s}$ have moduli $n^{-\sigma}$ decreasing to $0$ and the partial sums of
-$(-1)^{n+1}$ are bounded, so Dirichlet's test gives convergence; thus $\widetilde\zeta$ is
-holomorphic on $\Re(s)>0$. Now take $s=\sigma$ real with $0<\sigma<1$. The series
-$\widetilde\zeta(\sigma)=\sum(-1)^{n+1}n^{-\sigma}$ is alternating with strictly decreasing
+terms $n^{-s}$ tend to $0$ with $\sum_n|n^{-s}-(n+1)^{-s}|\le|s|\sum_n n^{-\sigma-1}<\infty$,
+and the partial sums of $(-1)^{n+1}$ are bounded, so Dirichlet's test (summation by parts)
+gives convergence, locally uniformly; thus $\widetilde\zeta$ is holomorphic on $\Re(s)>0$, and
+by the identity theorem $\widetilde\zeta(s)=(1-2^{1-s})\zeta(s)$ persists there ($\zeta$ being
+continued by Corollary~\ref{c:zeta-half@c19}). Now take $s=\sigma$ real with $0<\sigma<1$.
+The series $\widetilde\zeta(\sigma)=\sum(-1)^{n+1}n^{-\sigma}$ is alternating with strictly decreasing
 positive terms, so its sum is strictly positive (it lies between its first term $1$ and
 $1-2^{-\sigma}>0$). Also $2^{1-\sigma}>1$, so $1-2^{1-\sigma}<0$. From
 $\zeta(\sigma)=\widetilde\zeta(\sigma)/(1-2^{1-\sigma})$ we get
@@ -34185,7 +34205,7 @@ $\widetilde\zeta(\tfrac12)\approx0.6049$, so $\zeta(\tfrac12)\approx-1.4604\neq0
 $\zeta(1/2)=-1.4603545\ldots$ \checkmark
 \end{wex}
 
-\begin{wex}{$\zeta(s)$ is real on the critical line}
+\begin{wex}{$\xi(s)$ is real on the critical line}
 Show that $\xi(s)=\pi^{-s/2}\Gamma(s/2)\zeta(s)$ is real whenever $s$ is real and whenever
 $\Re(s)=\tfrac12$.
 \wrec Use the Schwarz reflection identity $\overline{\xi(s)}=\xi(\conj s)$ (valid because
@@ -34203,14 +34223,16 @@ real-valued Riemann--Siegel $Z$-function and count zeros by sign changes; e.g. $
 \end{wex}
 
 \begin{wex}{Sharper non-vanishing: $1/|\zeta(1+it)|\le A(\log|t|)^{7}$}
-Granting $|\zeta(1+it)|\le A\log|t|$ for $|t|\ge2$, improve Proposition~\ref{p:invzeta@c20} on
-the line $\sigma=1$ to a power of $\log|t|$ rather than $|t|^{\epsilon}$.
+Granting $|\zeta(\sigma+it)|\le A\log|t|$ and $|\zeta'(\sigma+it)|\le A(\log|t|)^{2}$ for
+$\sigma\ge1$, $|t|\ge2$ (compare Exercise 6(a),(b) below), improve
+Proposition~\ref{p:invzeta@c20} on the line $\sigma=1$ to a power of $\log|t|$ rather than
+$|t|^{\epsilon}$.
 \wrec Feed the logarithmic growth bound into the $3$-$4$-$1$ inequality of
 Corollary~\ref{c:341@c20}, then optimize the offset $\sigma-1$ as a power of $1/\log|t|$ instead
 of a power of $|t|$.
 \wsol Corollary~\ref{c:341@c20} gives, for $\sigma>1$,
 $|\zeta(\sigma+it)|^{4}\ge|\zeta(\sigma)|^{-3}|\zeta(\sigma+2it)|^{-1}$. Near the pole
-$|\zeta(\sigma)|\ge c/(\sigma-1)$ so $|\zeta(\sigma)|^{-3}\ge c(\sigma-1)^{3}$, while
+$|\zeta(\sigma)|\le C/(\sigma-1)$ so $|\zeta(\sigma)|^{-3}\ge c(\sigma-1)^{3}$, while
 $|\zeta(\sigma+2it)|\le A\log|t|$. Hence
 \[
   |\zeta(\sigma+it)|\ge c(\sigma-1)^{3/4}(\log|t|)^{-1/4}.
@@ -34220,10 +34242,11 @@ $|\zeta(1+it)|\ge|\zeta(\sigma+it)|-A(\log|t|)^{2}(\sigma-1)$. Choose
 $\sigma-1=B(\log|t|)^{-9}$ with $B$ small; the first term is then
 $\asymp(\log|t|)^{-27/4-1/4}=(\log|t|)^{-7}$ and the correction
 $(\log|t|)^{2}(\log|t|)^{-9}=(\log|t|)^{-7}$ is of the same order, so for $B$ chosen
-correctly the difference is $\ge\tfrac12 c(\log|t|)^{-7}$. Thus
-$1/|\zeta(1+it)|\le A(\log|t|)^{7}$. \emph{Check.} The exponent $7=27/4+1/4$ rounded up is
-exactly the constant quoted in Stein's Exercise 9(c); the gain over $|t|^{\epsilon}$ is what
-yields the classical error term $O\!\bigl(x\,e^{-c\sqrt{\log x}}\bigr)$ in $\psi(x)-x$.
+correctly the difference is $\ge\tfrac12 cB^{3/4}(\log|t|)^{-7}$. Thus
+$1/|\zeta(1+it)|\le A(\log|t|)^{7}$. \emph{Check.} The exponent $7=27/4+1/4$ is exactly the
+constant quoted in Stein's Exercise 9(c); the gain over $|t|^{\epsilon}$ is a first step
+towards an error term in $\psi(x)-x$ (the classical $O\!\bigl(x\,e^{-c\sqrt{\log x}}\bigr)$
+also needs de la Vall\'ee Poussin's zero-free region $\sigma>1-c/\log|t|$).
 \checkmark
 \end{wex}
 
@@ -34243,7 +34266,7 @@ $3$-$4$-$1$ argument is needed for the boundary line $\Re(s)=1$: the cheap produ
 that gives non-vanishing for $\Re(s)>1$ simply breaks down on the line. \checkmark
 \end{wex}
 
-\begin{wex}{Residue of $\zeta$ at its pole equals $1$}
+\begin{wex}{Residue of $\zeta$ at its pole equals $1$}\label{wex:zetares@c20}
 Show $\zeta$ has a simple pole at $s=1$ with residue $1$, starting from
 $\zeta(s)-\frac1{s-1}=\sum_{n=1}^{\infty}\Bigl(n^{-s}-\int_n^{n+1}u^{-s}\,du\Bigr)$.
 \wrec Compare the sum $\sum n^{-s}$ with the integral $\int_1^\infty u^{-s}\,du=1/(s-1)$; the
@@ -34274,8 +34297,8 @@ expansion. \checkmark
   \end{axis}
 \end{tikzpicture}
 \captionof{figure}{The modulus surface $|\zeta(\sigma+it)|$ near the pole at $s=1$: a single
-spike on the real axis (the only singularity), with $|\zeta|$ finite and bounded below as soon
-as $\sigma\ge1$, $|t|\ge1$ (Proposition~\ref{p:invzeta@c20}). (Schematic.)}
+spike on the real axis (the only singularity), with $|\zeta(s)|\ge c^{-1}|t|^{-\epsilon}$ for
+$\sigma\ge1$, $|t|\ge1$ (Proposition~\ref{p:invzeta@c20}). (Schematic.)}
 \end{center}
 
 \begin{wex}{$(s-1)\zeta(s)$ has growth order $1$}
@@ -34285,11 +34308,13 @@ growth order $1$, and indicate why this forces infinitely many zeros in the crit
 $|\Gamma(s)|$ grows like $e^{|s|\log|s|}$ by Stirling.
 \wsol Removing the pole, $(s-1)\zeta(s)$ is entire. The completed
 $\xi(s)=\pi^{-s/2}\Gamma(s/2)\zeta(s)$ satisfies $\xi(s)=\xi(1-s)$, and for $\Re(s)\ge\tfrac12$
-Stirling gives $|\Gamma(s/2)|\le e^{C|s|\log|s|}$ while $\pi^{-s/2}$ and the convergent
-Dirichlet series make $\zeta$ at most polynomial; symmetrizing via $\xi(s)=\xi(1-s)$ covers
-$\Re(s)<\tfrac12$. Hence $|\xi(s)|\le e^{C|s|\log|s|}$, and dividing by the entire
-$\pi^{-s/2}\Gamma(s/2)$ (whose reciprocal is order $1$) leaves $|(s-1)\zeta(s)|\le
-A\,e^{a|s|\log|s|}$, growth order $1$. Setting $F(s)=\xi(\tfrac12+s)$ (even, so $F(s)=G(s^2)$),
+Stirling gives $|\Gamma(s/2)|\le e^{C|s|\log|s|}$ while $|\pi^{-s/2}|\le1$ and $\zeta$ is at
+most polynomial away from $s=1$ (Proposition~\ref{p:growth@c19}); symmetrizing via
+$\xi(s)=\xi(1-s)$ covers $\Re(s)<\tfrac12$. Hence $|\xi(s)|\le e^{C|s|\log|s|}$ for large $|s|$,
+and dividing by $\pi^{-s/2}\Gamma(s/2)$, i.e. multiplying by the entire function
+$\pi^{s/2}/\Gamma(s/2)$ of order $1$, leaves $|(s-1)\zeta(s)|\le
+A\,e^{a|s|\log|s|}$, growth order $1$. Setting $F(s)=(s^2-\tfrac14)\,\xi(\tfrac12+s)$ (entire,
+as the factor cancels the poles of $\xi$ at $0,1$; and even, so $F(s)=G(s^2)$ with $G$ entire),
 $G$ has order $\tfrac12$; a Hadamard theorem says an entire function of fractional order has
 infinitely many zeros, so $G$, hence $\xi$, hence $\zeta$ has infinitely many zeros --- all
 in the critical strip since $\zeta\neq0$ for $\sigma\ge1$ or $\sigma\le0$ (nontrivially).
@@ -34309,8 +34334,9 @@ is bounded as $\sigma\to1^+$ (dominated by $\sum_p\sum_{m\ge2}p^{-m}=\sum_p\frac
 the analytic statement is $\sum_p p^{-\sigma}=\log\frac1{\sigma-1}+O(1)$ as $\sigma\to1^+$.
 Hence $\log\zeta(\sigma)=\log\frac1{\sigma-1}+O(1)$, i.e. $\zeta(\sigma)\asymp\frac1{\sigma-1}$.
 \emph{Check.} Exponentiating, $\zeta(\sigma)\to\infty$ like $1/(\sigma-1)$, matching the simple
-pole with residue $1$ found in the previous worked example. The bounded ``prime-power'' tail is
-exactly the analytic shadow of the fact that higher prime powers are sparse. \checkmark
+pole with residue $1$ found in Worked Example~\ref{wex:zetares@c20}. The bounded
+``prime-power'' tail is exactly the analytic shadow of the fact that higher prime powers are
+sparse. \checkmark
 \end{wex}
 
 \begin{exers}{Exercises (Stein, Ch.7).}
@@ -34342,16 +34368,17 @@ the segment $0<\sigma<1$; extend to $\sigma=0$ via the functional equation.
 is real, and also when $\Re(s)=1/2$.
 
 \item (Infinitely many zeros in the critical strip.) Let
-$F(s)=\xi(1/2+s)$ with $\xi(s)=\pi^{-s/2}\Gamma(s/2)\zeta(s)$.
-(a) Show $F$ is an even function of $s$, so there is $G$ with $G(s^2)=F(s)$.
+$F(s)=(s^2-\tfrac14)\,\xi(1/2+s)$ with $\xi(s)=\pi^{-s/2}\Gamma(s/2)\zeta(s)$ (the factor
+$s^2-\tfrac14$ cancels the poles of $\xi(1/2+s)$ at $s=\pm\tfrac12$).
+(a) Show $F$ is an even entire function of $s$, so there is an entire $G$ with $G(s^2)=F(s)$.
 (b) Show $(s-1)\zeta(s)$ is entire of growth order $1$, i.e.
 $|(s-1)\zeta(s)|\le A\,e^{a|s|^{1+\epsilon}}$; deduce $G$ has growth order $1/2$.
 (c) Deduce that $\zeta$ has infinitely many zeros in the critical strip. [Hint: for (a),(b)
-use the functional equation; for (c) use Hadamard's theorem that an entire function of
-fractional order has infinitely many zeros (Exercise 14, Ch.5).]
+use the functional equation; for (c) use Hadamard's theorem (Theorem~\ref{t:hadamard@c18}):
+an entire function of fractional order has infinitely many zeros (Stein, Ch.5, Exercise 14).]
 
-\item (Sharper bounds near the line.) Refine Proposition 2.7 of Ch.6 and Proposition 1.6 to
-show, for $|t|\ge2$:
+\item (Sharper bounds near the line.) Refine Proposition~\ref{p:growth@c19} and
+Proposition~\ref{p:invzeta@c20} to show, for $|t|\ge2$:
 (a) $|\zeta(1+it)|\le A\log|t|$;
 (b) $|\zeta'(1+it)|\le A(\log|t|)^2$;
 (c) $1/|\zeta(1+it)|\le A(\log|t|)^{a}$ (with $a=7$).
@@ -34386,8 +34413,8 @@ $\sum_p p^{-s}$ has the same singular behavior as $\log\zeta$ as $s\to1^+$.)
 $2(1+\cos\theta)$, then square. Where does the resulting expression vanish, and what does
 that say about the equality case $|\zeta^3\zeta^4\zeta|=1$?
 
-\item Suppose, hypothetically, one tried the weights $\zeta^2(\sigma)\zeta^2(\sigma+it)
-\zeta(\sigma+2it)$. Show the associated cosine polynomial $2+2\cos\theta+\cos2\theta$ is
+\item Suppose, hypothetically, one tried the weights $\zeta^2(\sigma)\zeta^3(\sigma+it)
+\zeta(\sigma+2it)$. Show the associated cosine polynomial $2+3\cos\theta+\cos2\theta$ is
 \emph{not} everywhere $\ge0$ (find a $\theta$ making it negative), so this weighting does
 \emph{not} prove non-vanishing. (A NON-example: not every $3$-term weighting works.)
 
@@ -34396,7 +34423,7 @@ trivial zeros at $-2,-4,-6$, the critical strip $0\le\Re s\le1$, the critical li
 $\Re s=\tfrac12$, and the line $\Re s=1$. Indicate which regions Theorem~\ref{t:trivial@c20} and
 Theorem~\ref{t:nozero@c20} rule out for nontrivial zeros.
 
-\item From Corollary~\ref{c:341@c20}, deduce that $\liminf_{\sigma\to1^+}(\sigma-1)|\zeta(\sigma+it)|^{4/3}>0$
+\item From Corollary~\ref{c:341@c20}, deduce that $\liminf_{\sigma\to1^+}(\sigma-1)^{-1}|\zeta(\sigma+it)|^{4/3}>0$
 for each fixed $t\neq0$, and explain how the exponent $4/3$ arises from the $3,4,1$ trick.
 
 \item Show that the functional equation forces $\zeta$ to have no zeros on $\Re(s)=0$ given
@@ -34406,8 +34433,14 @@ vanish.)
 
 \item Prove that Proposition~\ref{p:invzeta@c20} is sharp in form: there is no bound
 $1/|\zeta(s)|\le c$ uniform in $t$ on $\sigma=1$, by exhibiting (qualitatively) why
-$1/|\zeta(1+it)|$ cannot stay bounded as $|t|\to\infty$. [Hint: relate to Exercise 6(c) of
-the scraped set.]
+$1/|\zeta(1+it)|$ cannot stay bounded as $|t|\to\infty$. [Hint: for $\sigma>1$,
+$1/|\zeta(\sigma+it)|=\prod_p|1-p^{-\sigma-it}|$, and Kronecker's theorem (the numbers $\log p$
+are linearly independent over $\Q$) gives $t$ with $p^{-it}$ close to $-1$ for all $p\le P$;
+hence $\sup_t1/|\zeta(\sigma+it)|\ge\prod_p(1+p^{-\sigma})=\zeta(\sigma)/\zeta(2\sigma)$, which
+tends to $\infty$ as $\sigma\to1^+$. A bound on $\sigma=1$ would, by the
+Phragm\'en--Lindel\"of principle in $1\le\sigma\le2$, $|t|\ge1$ (with
+Proposition~\ref{p:invzeta@c20}), bound $1/\zeta$ there. Contrast the upper bound of
+Exercise 6(c).]
 \end{exers}
 
 
@@ -34448,13 +34481,13 @@ since $p^{m}\le x\iff m\le\log x/\log p$.
   \foreach \k in {4,8,12}{\draw[dgrid] (-0.2,\k)--(0.2,\k); \node[font=\scriptsize,left=1pt] at (-0.15,\k) {$\k$};}
   % diagonal y=x (target asymptotic)
   \draw[curve,dashed] (0,0)--(14,14);
-  \node[lblnode,font=\footnotesize] at (12.3,12.9) {$y=x$};
+  \node[lblnode,font=\footnotesize] at (10.9,12.5) {$y=x$};
   % psi staircase: flat until 2, then jump log p at each prime power
   \draw[line width=1pt]
     (0,0)--(2,0)--(2,0.69)--(3,0.69)--(3,1.79)--(4,1.79)--(4,2.48)
     --(5,2.48)--(5,4.09)--(7,4.09)--(7,6.04)--(8,6.04)--(8,6.73)
     --(9,6.73)--(9,7.83)--(11,7.83)--(11,10.22)--(13,10.22)--(13,12.79)--(14,12.79);
-  \node[lblnode,font=\footnotesize] at (10.0,9.0) {$\psi(x)$};
+  \node[lblnode,font=\footnotesize] at (12.1,9.2) {$\psi(x)$};
   % prime-power tick marks on the axis
   \foreach \p in {2,3,4,5,7,8,9,11,13}{\draw[dgrid] (\p,0)--(\p,0.3);}
 \end{tikzpicture}
@@ -34469,13 +34502,13 @@ Compute $\psi(10)$ from Definition~\ref{d:psi@c20}.
 \wsol Prime powers $\le10$: $2,3,4=2^2,5,7,8=2^3,9=3^2$. So
 \[
   \psi(10)=\log2+\log3+\log2+\log5+\log7+\log2+\log3
-  =4\log2+2\log3+\log5+\log7.
+  =3\log2+2\log3+\log5+\log7.
 \]
-Numerically $4(0.6931)+2(1.0986)+1.6094+1.9459=2.7726+2.1972+1.6094+1.9459=8.5251$.
+Numerically $3\log2+2\log3+\log5+\log7=2.0794+2.1972+1.6094+1.9459\approx7.832$.
 \emph{Check.} Via the floor form, $\sum_{p\le10}\lfloor\log10/\log p\rfloor\log p$:
 $p=2$ gives $\lfloor3.32\rfloor=3$, $3\log2$; $p=3$ gives $\lfloor2.10\rfloor=2$, $2\log3$;
-$p=5,7$ give $1$ each. Total $3\log2+2\log3+\log5+\log7=8.5251$. Agrees, and
-$\psi(10)=8.525$ is close to $x=10$. \checkmark
+$p=5,7$ give $1$ each. Total $3\log2+2\log3+\log5+\log7\approx7.832$. Agrees, and
+$\psi(10)\approx7.832$ is already comparable to $x=10$. \checkmark
 \end{wex}
 
 \begin{proposition}\label{p:psitopi@c20}
@@ -34484,7 +34517,7 @@ If $\psi(x)\sim x$ as $x\to\infty$, then $\pi(x)\sim x/\log x$.
 
 \begin{proof}
 It suffices to prove $\displaystyle1\le\liminf_{x\to\infty}\pi(x)\frac{\log x}{x}$ and
-$\displaystyle\limsup_{x\to\infty}\pi(x)\frac{\log x}{x}\le1$. For the upper bound, the
+$\displaystyle\limsup_{x\to\infty}\pi(x)\frac{\log x}{x}\le1$. For the lower bound, the
 floor form gives the crude estimate
 \[
   \psi(x)=\sum_{p\le x}\Bigl\lfloor\frac{\log x}{\log p}\Bigr\rfloor\log p
@@ -34504,7 +34537,7 @@ $1\ge\alpha\limsup\pi(x)\log x/x$. Letting $\alpha\to1^-$ gives $\limsup\le1$.
 \subsection*{The integrated function $\psi_1$}
 
 It is even more convenient to integrate $\psi$ once, which smooths the staircase into a
-piecewise-quadratic curve.
+continuous piecewise-linear curve.
 
 \begin{definition}\label{d:psione@c20}
 \[
@@ -34539,24 +34572,25 @@ $\psi(x)\sim x$.
 
 \begin{center}
 \begin{tikzpicture}[scale=0.95]
+  % shaded area = psi_1(x), drawn first so it does not cover the axis or the staircase;
+  % the brace starts at u=1 (drawn at 0.5), left of the first jump (u=2, drawn at 1): psi=0 on [1,2)
+  \fill[band] (1,0)--(1,0.6)--(2,0.6)--(2,1.3)--(3,1.3)--(3,2.0)--(4,2.0)--(4,2.55)--(4.6,2.55)--(4.6,0)--cycle;
   \draw[numln] (-0.2,0)--(6.0,0) node[right]{$u$};
   \draw[numln] (0,-0.2)--(0,3.2) node[above]{$\psi(u)$};
   % step function psi
   \draw[line width=0.8pt,black!70]
     (0,0)--(1,0)--(1,0.6)--(2,0.6)--(2,1.3)--(3,1.3)--(3,2.0)--(4,2.0)--(4,2.55)--(5.6,2.55);
-  % shaded area = psi_1(x)
-  \fill[band] (1,0)--(1,0.6)--(2,0.6)--(2,1.3)--(3,1.3)--(3,2.0)--(4,2.0)--(4,2.55)--(4.6,2.55)--(4.6,0)--cycle;
-  \draw[brc] (1,-0.3)--(4.6,-0.3) node[midway,below=3pt,font=\footnotesize]{$\psi_1(x)=\int_1^x\psi$};
+  \draw[brc] (0.5,-0.3)--(4.6,-0.3) node[midway,below=3pt,font=\footnotesize]{$\psi_1(x)=\int_1^x\psi$};
   \node[font=\footnotesize] at (5.2,2.3) {$\psi(u)$};
 \end{tikzpicture}
 \captionof{figure}{$\psi_1(x)=\int_1^x\psi(u)\,du$ is the shaded area under the staircase
-$\psi$ from $1$ to $x$; integrating once smooths the jumps into a piecewise-quadratic curve.
-(Schematic.)}
+$\psi$ from $1$ to $x$ ($\psi=0$ on $[1,2)$); integrating once smooths the jumps into a
+continuous piecewise-linear curve. (Schematic.)}
 \end{center}
 
 \subsection*{Linking $\psi_1$ to $\zeta$}
 
-Differentiating the logarithm formula (Lemma 1.3) term by term gives, for $\Re(s)>1$, the
+Differentiating the logarithm formula (Lemma~\ref{l:logzeta@c20}) term by term gives, for $\Re(s)>1$, the
 fundamental identity
 \[
   -\frac{\zeta'(s)}{\zeta(s)}=\sum_{p,m}(\log p)\,p^{-ms}
@@ -34610,8 +34644,7 @@ If $c>0$, then
 Since $|a^{s}|=a^{c}$ and $|s(s+1)|\sim|t|^2$, the integral converges absolutely. Put
 $f(s)=\dfrac{a^{s}}{s(s+1)}=\dfrac{e^{s\beta}}{s(s+1)}$ with $\beta=\log a$. The poles are
 simple, at $s=0$ and $s=-1$, with $\Res_{s=0}f=\dfrac{a^0}{0+1}=1$ and
-$\Res_{s=-1}f=\dfrac{a^{-1}}{(-1)(0)\!+\!\text{...}}=-\dfrac1a$ (so $\Res_{s=0}f=1$,
-$\Res_{s=-1}f=-1/a$).
+$\Res_{s=-1}f=\dfrac{a^{-1}}{-1}=-\dfrac1a$.
 
 \emph{Case $a\ge1$ ($\beta\ge0$).} Close the line to the \emph{left} with a half-circle
 $C(T)$ of radius $T$ centered at $c$; for $T$ large both poles lie inside the resulting
@@ -34634,19 +34667,20 @@ $0$. Hence the line integral is $0$.
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
   \draw[cxaxis] (-2.7,0)--(2.6,0) node[right]{$\Re s$};
-  \draw[cxaxis] (0,-2.4)--(0,2.5) node[above]{$\Im s$};
+  \draw[cxaxis] (0,-2.6)--(0,2.7) node[above]{$\Im s$};
   % vertical line Re s = c
-  \draw[line width=0.7pt,black!55] (1.4,-2.3)--(1.4,2.3);
-  \node[font=\footnotesize] at (1.7,2.1) {$\Re s=c$};
-  % half-circle to the left (case a>=1) : centered at c=1.4 radius ~ 2.9
-  \draw[contour] (1.4,-2.1) -- (1.4,2.1)
-    arc (90:270:2.1);
-  \node[font=\footnotesize] at (-1.1,1.6) {$C(T)$};
-  \node[font=\footnotesize] at (1.7,-1.5) {$S(T)$};
+  \draw[line width=0.7pt,black!55] (0.8,-2.55)--(0.8,2.55);
+  \node[font=\footnotesize,anchor=south west] at (0.85,2.5) {$\Re s=c$};
+  % half-circle to the left (case a>=1): centered at c=0.8, radius 2.3, so it reaches -1.5
+  % and encloses both poles 0 and -1
+  \draw[contour] (0.8,-2.3) -- (0.8,2.3)
+    arc (90:270:2.3);
+  \node[font=\footnotesize] at (-1.45,2.0) {$C(T)$};
+  \node[font=\footnotesize,anchor=west] at (0.9,-1.3) {$S(T)$};
   % poles at 0 and -1
   \node[pole,label={[font=\footnotesize]below right:$0$}] at (0,0) {};
-  \node[pole,label={[font=\footnotesize]below left:$-1$}] at (-1,0) {};
-  \node[font=\footnotesize] at (-1.0,-1.9) {$\Gamma(T)$};
+  \node[pole,label={[font=\footnotesize]below:$-1$}] at (-1,0) {};
+  \node[font=\footnotesize] at (-1.45,-2.0) {$\Gamma(T)$};
 \end{tikzpicture}
 \captionof{figure}{Case $a\ge1$: close the vertical line $\Re s=c$ to the left; the toy
 contour $\Gamma(T)=S(T)\cup C(T)$ encloses the poles $0$ and $-1$. (Schematic.)}
@@ -34656,7 +34690,7 @@ contour $\Gamma(T)=S(T)\cup C(T)$ encloses the poles $0$ and $-1$. (Schematic.)}
 Write $\psi(u)=\sum_{n=1}^{\infty}\Lambda(n)f_n(u)$ where $f_n(u)=1$ if $n\le u$ and $0$
 otherwise. Integrating,
 \[
-  \psi_1(x)=\int_0^{x}\psi(u)\,du=\sum_{n=1}^{\infty}\Lambda(n)\int_{n}^{x}du
+  \psi_1(x)=\int_0^{x}\psi(u)\,du=\sum_{n\le x}\Lambda(n)\int_{n}^{x}du
   =\sum_{n\le x}\Lambda(n)(x-n).
 \]
 On the other hand, inserting $(5)$ into the contour integral and integrating term by term,
@@ -34668,7 +34702,7 @@ then applying Lemma~\ref{l:perron@c20} with $a=x/n$,
   \frac{(x/n)^{s}}{s(s+1)}\,ds
   =x\sum_{n\le x}\Lambda(n)\Bigl(1-\frac{n}{x}\Bigr),
 \]
-since the bracket vanishes for $n>x$ (where $x/n<1$). The last expression is
+since the inner integral vanishes for $n>x$ (where $x/n<1$). The last expression is
 $\sum_{n\le x}\Lambda(n)(x-n)=\psi_1(x)$.
 \end{proof}
 
@@ -34684,7 +34718,7 @@ $n=3$ ($\log3$), $n=4=2^2$ ($\log2$). So
 Directly: $\psi(u)=0$ on $[1,2)$, $=\log2$ on $[2,3)$, $=\log2+\log3=\log6$ on $[3,4)$,
 $=\log6+\log2$ at $u=4$. Then
 $\int_1^4\psi=\log2\cdot1+\log6\cdot1=\log2+\log6=2\log2+\log3$. \emph{Check.} Both equal
-$2\log2+\log3=2(0.6931)+1.0986=2.4849$, and $\tfrac12\cdot4^2=8$, so at this small $x$ the
+$2\log2+\log3=2(0.6931)+1.0986\approx2.485$, and $\tfrac12\cdot4^2=8$, so at this small $x$ the
 asymptotic $\psi_1\sim x^2/2$ has not yet kicked in --- as expected. \checkmark
 \end{wex}
 
@@ -34694,7 +34728,7 @@ $\sum_n\Lambda(n)n^{-s}$ with the contour integral is legitimate because the Dir
 series converges absolutely on $\Re(s)=c>1$ (the factor $x^{s+1}/(s(s+1))$ is
 $O(|t|^{-2})$ there). Do \emph{not} attempt the same interchange after moving the contour
 to $\Re(s)=1$: there $\sum_n\Lambda(n)n^{-s}$ no longer converges absolutely, which is
-precisely why Section 3 must deform the contour rather than integrate the series term by
+precisely why Section~20.3 must deform the contour rather than integrate the series term by
 term.
 \end{pitfall}
 
@@ -34729,7 +34763,7 @@ arc radius to infinity.
 semicircle $C_R$ of radius $R$ about $s=c$. For $R$ large both poles are inside, and
 \[
   \frac1{2\pi i}\oint f=\Res_{s=0}f+\Res_{s=-1}f
-  =\frac{e^{0}}{0+1}+\frac{e^{-\beta}}{(-1)(0)}\Big|_{\text{lim}}=1-\frac1a,
+  =\frac{e^{0}}{0+1}+\frac{e^{-\beta}}{-1}=1-\frac1a,
 \]
 using $\Res_{s=0}=\frac{e^{\beta\cdot0}}{0+1}=1$ and
 $\Res_{s=-1}=\frac{e^{-\beta}}{(-1)}=-a^{-1}$. On $C_R$ (where $\Re s\le c$),
@@ -34757,26 +34791,26 @@ truncating the sum to $n\le x$. \checkmark
 
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
-  \draw[cxaxis] (-2.7,0)--(3.0,0) node[right]{$\Re s$};
-  \draw[cxaxis] (0,-2.4)--(0,2.5) node[above]{$\Im s$};
+  \draw[cxaxis] (-2.2,0)--(3.7,0) node[right]{$\Re s$};
+  \draw[cxaxis] (0,-2.6)--(0,2.7) node[above]{$\Im s$};
   % vertical line Re s = c
-  \draw[line width=0.7pt,black!55] (1.3,-2.3)--(1.3,2.3);
-  \node[font=\footnotesize] at (1.55,2.1) {$\Re s=c$};
-  % right semicircle (case 0<a<1): no poles enclosed
-  \draw[contour] (1.3,2.1) arc (90:-90:2.1);
-  \node[font=\footnotesize] at (3.0,1.5) {$C_R'$};
+  \draw[line width=0.7pt,black!55] (1.0,-2.55)--(1.0,2.55);
+  \node[font=\footnotesize,anchor=south west] at (1.05,2.5) {$\Re s=c$};
+  % right semicircle (case 0<a<1), centered at c=1.0, radius 2.1: no poles enclosed
+  \draw[contour] (1.0,2.1) arc (90:-90:2.1);
+  \node[font=\footnotesize] at (2.95,1.95) {$C_R'$};
   % poles at 0 and -1 (outside the right contour)
   \node[pole,label={[font=\footnotesize]below left:$0$}] at (0,0) {};
   \node[pole,label={[font=\footnotesize]below left:$-1$}] at (-1,0) {};
-  \node[font=\footnotesize] at (2.4,-1.7) {no poles inside};
+  \node[font=\scriptsize,align=center] at (1.95,-0.85) {no poles\\inside};
 \end{tikzpicture}
 \captionof{figure}{Case $0<a<1$: close $\Re s=c$ to the \emph{right}. The poles $0,-1$ lie
 outside, so the integral is $0$ --- this is what truncates $\psi_1$ to $n\le x$. (Schematic.)}
 \end{center}
 
 \begin{wex}{The crude Tchebychev bound $\psi(x)=O(x)$}
-Show directly from the prime factorization of $\binom{2n}{n}$ that $\psi(2n)-\psi(n)\le
-2n\log2$, hence $\psi(x)\le Cx$ for a constant $C$.
+Show directly from the prime factorization of $\binom{2n}{n}$ that
+$\sum_{n<p\le2n}\log p\le2n\log2$, hence $\psi(x)\le Cx$ for a constant $C$.
 \wrec The central binomial coefficient is divisible by every prime in $(n,2n]$; bounding it
 by $4^n$ converts a divisibility statement into a sum-of-logs estimate.
 \wsol Every prime $p$ with $n<p\le2n$ divides $\binom{2n}{n}=\frac{(2n)!}{n!\,n!}$ exactly
@@ -34836,7 +34870,8 @@ progressions. \checkmark
 \item (Dirichlet $L$-series and continuation.) Suppose $\{a_n\}_{n\ge1}$ satisfies
 $a_n=a_m$ whenever $n\equiv m\pmod q$ for a positive integer $q$. Define
 $L(s)=\sum_{n\ge1}a_n n^{-s}$ for $\Re(s)>1$, and with $a_0=a_q$ set
-$Q(x)=\sum_{m=0}^{q-1}a_{q-m}e^{mx}$. Show, as in Exercises 15--16 of Ch.6, that for
+$Q(x)=\sum_{m=0}^{q-1}a_{q-m}e^{mx}$. Show, as for $\zeta$ in Section~19.2 (Stein, Ch.6,
+Exercises 15--16), that for
 $\Re(s)>1$,
 \[
   L(s)=\frac1{\Gamma(s)}\int_0^{\infty}\frac{Q(x)\,x^{s-1}}{e^{qx}-1}\,dx .
@@ -34852,9 +34887,9 @@ $s=1$ iff $\chi$ is a non-trivial character.)
 \]
 the integral over the vertical segment from $c-iN$ to $c+iN$.
 
-\item (Four equivalent asymptotics.) Let $\varphi(x)=\sum_{p\le x}\log p$ (sum over primes
+\item (Four equivalent asymptotics.) Let $\theta(x)=\sum_{p\le x}\log p$ (sum over primes
 $\le x$). Prove that as $x\to\infty$ the following are equivalent:
-(i) $\varphi(x)\sim x$;\ \ (ii) $\pi(x)\sim x/\log x$;\ \ (iii) $\psi(x)\sim x$;\ \
+(i) $\theta(x)\sim x$;\ \ (ii) $\pi(x)\sim x/\log x$;\ \ (iii) $\psi(x)\sim x$;\ \
 (iv) $\psi_1(x)\sim x^2/2$.
 
 \item ($n$th prime asymptotics.) If $p_n$ is the $n$th prime, the prime number theorem
@@ -34865,13 +34900,13 @@ implies $p_n\sim n\log n$ as $n\to\infty$.
 
 \begin{exers}{Problems (Stein, Ch.7).}
 \item (Primes in arithmetic progressions.) Combining the ideas of the prime number theorem
-with the proof of Dirichlet's theorem (Book I), prove the following. Let $q,\ell$ be
-relatively prime integers, consider the primes in the progression $\{qk+\ell\}_{k\ge1}$,
-and let $\pi_{q,\ell}(x)$ count such primes $\le x$. Then
+with the proof of Dirichlet's theorem (Theorem~\ref{t:dirichlet@c38}), prove the following. Let $q,\ell$ be
+relatively prime integers with $q\ge1$, consider the primes in the progression
+$\{qk+\ell\}_{k\ge1}$, and let $\pi_{q,\ell}(x)$ count such primes $\le x$. Then
 \[
   \pi_{q,\ell}(x)\sim\frac{x}{\varphi(q)\log x}\qquad(x\to\infty),
 \]
-where $\varphi(q)$ is the number of positive integers $<q$ relatively prime to $q$.
+where $\varphi(q)$ is the number of integers $n$ with $1\le n\le q$ relatively prime to $q$.
 \end{exers}
 
 \begin{exers}{Additional exercises.}
@@ -34899,7 +34934,7 @@ sum $1-1/a$ for $a\ge1$.
 \item (NON-example.) Show that the kernel $\dfrac{a^s}{s}$ (without the $(s+1)$ factor)
 does \emph{not} give an absolutely convergent vertical integral; explain why Stein's
 $\dfrac{a^s}{s(s+1)}$ (decay $|t|^{-2}$) is used for $\psi_1$ rather than the bare
-$\dfrac{a^s}{s}$ (decay $|t|^{-1}$) of Exercise 6 in \S2.
+$\dfrac{a^s}{s}$ (decay $|t|^{-1}$) of the vertical-line integral in the exercises above.
 
 \item (Diagram.) Draw the contour of Lemma~\ref{l:perron@c20} for the case $0<a\le1$: the
 vertical line $\Re s=c$ closed to the \emph{right} by a half-circle, and indicate that no
@@ -34927,7 +34962,7 @@ ingredients are:
 $\psi_1(x)=\dfrac1{2\pi i}\displaystyle\int_{c-i\infty}^{c+i\infty}F(s)\,ds$, $c>1$, with
 $F(s)=\dfrac{x^{s+1}}{s(s+1)}\bigl(-\zeta'(s)/\zeta(s)\bigr)$ (Proposition~\ref{p:contourformula@c20});
 \item the non-vanishing $\zeta(1+it)\neq0$ (Theorem~\ref{t:nozero@c20}) and the growth bounds
-near $\Re(s)=1$ (Proposition~\ref{p:invzeta@c20} and Ch.6), which give
+near $\Re(s)=1$ (Propositions~\ref{p:invzeta@c20} and~\ref{p:growth@c19}), which give
 $|\zeta'(s)/\zeta(s)|\le A|t|^{\eta}$ for any fixed $\eta>0$ when $\sigma\ge1$, $|t|\ge1$.
 \end{itemize}
 
@@ -34939,9 +34974,10 @@ the main term $x^2/2$; (b) the remaining integral along $\Re(s)=1$ must be shown
 
 \begin{center}
 % Three panels. In each, the pole s=1 sits at Re=1 (here drawn at x=1.0); the line Re s=c
-% is at x=1.8. Panel 1: straight line Re=c. Panel 2: gamma(T) bulges left onto Re=1 for
-% |t|<=T (just touching the pole's line). Panel 3: gamma(T,delta) indents past the pole to
-% Re=1-delta (x=0.5). Mini real/imaginary axes in each panel; labels kept clear of the curve.
+% is at x=1.8. Panel 1: straight line Re=c. Panel 2: gamma(T) runs on Re=1 for |t|>=T and
+% on Re=c for |t|<=T (passing to the right of the pole). Panel 3: gamma(T,delta) runs on
+% Re=1 for |t|>=T and indents past the pole to Re=1-delta (x=0.5) for |t|<=T.
+% Mini real/imaginary axes in each panel; labels kept clear of the curve.
 \begin{tikzpicture}[yscale=0.82,xscale=0.95]
  \foreach \dx/\ttl in {0/{$\Re s=c$}, 4.2/{$\gamma(T)$}, 8.4/{$\gamma(T,\delta)$}}{
    \begin{scope}[shift={(\dx,0)}]
@@ -34955,42 +34991,44 @@ the main term $x^2/2$; (b) the remaining integral along $\Re(s)=1$ must be shown
  \begin{scope}
    \draw[contour] (1.8,-2.9)--(1.8,2.9);
    \node[pole] at (1.0,0) {};
-   \node[lblnode,font=\scriptsize,anchor=south west] at (1.05,0.12) {$s=1$};
+   \node[lblnode,font=\scriptsize,anchor=north] at (1.0,-0.12) {$s=1$};
  \end{scope}
- % ---- panel 2: gamma(T) pushed onto Re=1 for |t|<=T ----
+ % ---- panel 2: gamma(T) pushed onto Re=1 for |t|>=T, on Re=c for |t|<=T ----
  \begin{scope}[shift={(4.2,0)}]
-   \draw[contour] (1.8,-2.9)--(1.8,-1.5)--(1.0,-1.5)--(1.0,1.5)--(1.8,1.5)--(1.8,2.9);
+   \draw[contour] (1.0,-2.9)--(1.0,-1.5)--(1.8,-1.5)--(1.8,1.5)--(1.0,1.5)--(1.0,2.9);
    \node[pole] at (1.0,0) {};
-   \node[lblnode,font=\scriptsize,anchor=west] at (1.12,0) {$s=1$};
+   \node[lblnode,font=\scriptsize,anchor=north] at (1.0,-0.12) {$s=1$};
    \draw[dgrid] (-0.12,1.5)--(0.12,1.5);  \node[lblnode,font=\scriptsize,left] at (-0.05,1.5) {$T$};
    \draw[dgrid] (-0.12,-1.5)--(0.12,-1.5);\node[lblnode,font=\scriptsize,left] at (-0.05,-1.5) {$-T$};
  \end{scope}
  % ---- panel 3: gamma(T,delta) indented to Re=1-delta around the pole ----
  \begin{scope}[shift={(8.4,0)}]
    \draw[contour]
-     (1.8,-2.9)--(1.8,-1.5)   % gamma1
+     (1.0,-2.9)--(1.0,-1.5)   % gamma1 on Re=1
      --(0.5,-1.5)             % gamma2 (lower join)
      --(0.5,1.5)              % gamma3 on Re=1-delta
-     --(1.8,1.5)              % gamma4 (upper join)
-     --(1.8,2.9);             % gamma5
+     --(1.0,1.5)              % gamma4 (upper join)
+     --(1.0,2.9);             % gamma5 on Re=1
    \node[pole] at (1.0,0) {};
    \node[lblnode,font=\scriptsize,anchor=west] at (1.1,0) {$s=1$};
    \node[lblnode,font=\scriptsize,anchor=east] at (0.42,0) {$\gamma_3$};
-   \node[lblnode,font=\scriptsize] at (1.55,1.85) {$\gamma_5$};
-   \node[lblnode,font=\scriptsize] at (1.55,-1.85) {$\gamma_1$};
+   \node[lblnode,font=\scriptsize,anchor=west] at (1.1,2.2) {$\gamma_5$};
+   \node[lblnode,font=\scriptsize,anchor=west] at (1.1,-2.2) {$\gamma_1$};
    \draw[dgrid] (0.5,-3.0)--(0.5,3.0);
    \node[lblnode,font=\scriptsize,below] at (0.5,2.95) {$1{-}\delta$};
  \end{scope}
 \end{tikzpicture}
-\captionof{figure}{Three stages: the line $\Re s=c$; the contour $\gamma(T)$ pushed onto
-$\Re s=1$ for $|t|\le T$; and $\gamma(T,\delta)$, indented left past the pole at $s=1$ to
-$\Re s=1-\delta$ into the zero-free box. (Schematic.)}
+\captionof{figure}{Three stages: the line $\Re s=c$; the contour $\gamma(T)$, pushed onto
+$\Re s=1$ for $|t|\ge T$ and kept on $\Re s=c$ for $|t|\le T$; and $\gamma(T,\delta)$,
+indented left past the pole at $s=1$ to $\Re s=1-\delta$ into the zero-free box.
+(Schematic.)}
 \end{center}
 
 \subsection*{Deforming to the line $\Re(s)=1$}
 
 Fix $c=2$ and $x\ge2$. Let $T\ge3$ (to be chosen) and let $\gamma(T)$ be the contour that
-runs up the line $\Re(s)=1$ for $|t|\ge T$ and crosses over near $|t|=T$, as in the figure.
+runs up the line $\Re(s)=1$ for $|t|\ge T$ and along $\Re(s)=c$ for $|t|\le T$, the pieces
+joined by horizontal segments at $t=\pm T$, as in the figure.
 
 \begin{lemma}[First deformation]\label{l:deform1@c20}
 $\displaystyle\frac1{2\pi i}\int_{c-i\infty}^{c+i\infty}F(s)\,ds
@@ -34998,7 +35036,7 @@ $\displaystyle\frac1{2\pi i}\int_{c-i\infty}^{c+i\infty}F(s)\,ds
 \end{lemma}
 
 \begin{proof}
-By Proposition~\ref{p:invzeta@c20} and Ch.6, $|\zeta'(s)/\zeta(s)|\le A|t|^{\eta}$ for any fixed
+By Propositions~\ref{p:invzeta@c20} and~\ref{p:growth@c19}, $|\zeta'(s)/\zeta(s)|\le A|t|^{\eta}$ for any fixed
 $\eta>0$ on $\sigma\ge1$, $|t|\ge1$. Hence $|F(s)|\le A'|t|^{-2+\eta}$ in the two infinite
 rectangles bounded by the line $\Re s=c$ and $\gamma(T)$. The function $F$ is regular
 (holomorphic) there --- no pole of $\zeta$ and no zero of $\zeta$ are enclosed --- and the
@@ -35021,7 +35059,7 @@ $\Res_{s=1}F(s)=\dfrac{x^{2}}{2}$, and consequently
 \end{lemma}
 
 \begin{proof}
-By the worked example in \S2, $-\zeta'(s)/\zeta(s)=\dfrac1{s-1}+h(s)$ with $h$ holomorphic
+By Worked Example~\ref{wex:logderiv@c20}, $-\zeta'(s)/\zeta(s)=\dfrac1{s-1}+h(s)$ with $h$ holomorphic
 near $s=1$. Thus near $s=1$,
 \[
   F(s)=\frac{x^{s+1}}{s(s+1)}\Bigl(\frac1{s-1}+h(s)\Bigr),
@@ -35029,7 +35067,8 @@ near $s=1$. Thus near $s=1$,
 whose only singular part is the simple pole from $1/(s-1)$. Its residue is
 $\dfrac{x^{s+1}}{s(s+1)}\Big|_{s=1}=\dfrac{x^{2}}{1\cdot2}=\dfrac{x^{2}}{2}$. The displayed
 identity is the residue theorem applied between $\gamma(T)$ and $\gamma(T,\delta)$ (which
-differ by a small loop around $s=1$).
+differ by the boundary of the rectangle $\{1-\delta\le\sigma\le c,\ |t|\le T\}$, in which $F$ is
+holomorphic except for the simple pole at $s=1$).
 \end{proof}
 
 So $\psi_1(x)=\dfrac{x^2}{2}+\dfrac1{2\pi i}\displaystyle\int_{\gamma(T,\delta)}F(s)\,ds$,
@@ -35054,7 +35093,8 @@ horizontal segments $\gamma_2,\gamma_4$ at $t=\mp T$ joining them.
 
 \textbf{The infinite rays $\gamma_1,\gamma_5$.} On $\gamma_1$, $\sigma=1$ so
 $|x^{1+s}|=x^{1+\sigma}=x^{2}$. With the bound
-$|\zeta'(s)/\zeta(s)|\le A|t|^{1/2}$ (take $\eta=\tfrac12$ in Proposition~\ref{p:invzeta@c20}),
+$|\zeta'(s)/\zeta(s)|\le A|t|^{1/2}$ (take $\eta=\tfrac12$ in the bound from
+Propositions~\ref{p:invzeta@c20} and~\ref{p:growth@c19}),
 \[
   \Bigl|\int_{\gamma_1}F\Bigr|\le Cx^{2}\int_{T}^{\infty}\frac{|t|^{1/2}}{t^{2}}\,dt
   =Cx^{2}\int_{T}^{\infty}t^{-3/2}\,dt=2Cx^{2}T^{-1/2}.
@@ -35064,8 +35104,9 @@ $\bigl|\int_{\gamma_1}F\bigr|\le\dfrac{x^2}{2}\epsilon$ and likewise for $\gamma
 $T$ depends only on $\epsilon$, not on $x$.)
 
 \textbf{The vertical segment $\gamma_3$.} Now $T$ is fixed; pick $\delta$ small. On
-$\gamma_3$, $\sigma=1-\delta$ so $|x^{1+s}|=x^{2-\delta}$, and $F$ is bounded on the compact
-segment $|t|\le T$ (it is zero-free there), giving a constant $C_T$ with
+$\gamma_3$, $\sigma=1-\delta$ so $|x^{1+s}|=x^{2-\delta}$, and $x^{-1-s}F(s)$ is bounded on the
+compact segment $|t|\le T$ (it is continuous there, as $\zeta$ has no zeros on it), giving a
+constant $C_T$ with
 \[
   \Bigl|\int_{\gamma_3}F\Bigr|\le C_T\,x^{2-\delta}.
 \]
@@ -35087,20 +35128,21 @@ runs over $[1-\delta,1]$, so $|x^{1+s}|=x^{1+\sigma}\le x^{2}$, and
   \draw[dgrid] (1.0,-2.7)--(1.0,2.7);
   \node[lblnode,font=\scriptsize,above] at (2.0,2.7) {$\sigma{=}1$};
   \node[lblnode,font=\scriptsize,above] at (1.0,2.7) {$1{-}\delta$};
+  % the contour is traversed upward (from 1-i*infty to 1+i*infty): gamma1,...,gamma5 in order
   % gamma5 upper ray (on sigma=1, t>=T)
-  \draw[contour] (2.0,2.6)--(2.0,1.2);
+  \draw[contour] (2.0,1.2)--(2.0,2.6);
   \node[lblnode,font=\scriptsize,anchor=west] at (2.1,1.9) {$\gamma_5$};
   % gamma4 upper join (t=T)
-  \draw[contour] (2.0,1.2)--(1.0,1.2);
-  \node[lblnode,font=\scriptsize,above] at (1.5,1.2) {$\gamma_4$};
+  \draw[contour] (1.0,1.2)--(2.0,1.2);
+  \node[lblnode,font=\scriptsize,above=3pt] at (1.5,1.2) {$\gamma_4$};
   % gamma3 indented segment (on sigma=1-delta)
-  \draw[contour] (1.0,1.2)--(1.0,-1.2);
+  \draw[contour] (1.0,-1.2)--(1.0,1.2);
   \node[lblnode,font=\scriptsize,anchor=east] at (0.9,0) {$\gamma_3$};
   % gamma2 lower join (t=-T)
-  \draw[contour] (1.0,-1.2)--(2.0,-1.2);
-  \node[lblnode,font=\scriptsize,below] at (1.5,-1.2) {$\gamma_2$};
+  \draw[contour] (2.0,-1.2)--(1.0,-1.2);
+  \node[lblnode,font=\scriptsize,below=3pt] at (1.5,-1.2) {$\gamma_2$};
   % gamma1 lower ray (on sigma=1, t<=-T)
-  \draw[contour] (2.0,-1.2)--(2.0,-2.6);
+  \draw[contour] (2.0,-2.6)--(2.0,-1.2);
   \node[lblnode,font=\scriptsize,anchor=west] at (2.1,-1.9) {$\gamma_1$};
   % T / -T marks on the t-axis
   \draw[dgrid] (-0.1,1.2)--(0.1,1.2);  \node[lblnode,font=\scriptsize,left] at (-0.05,1.2) {$T$};
@@ -35138,16 +35180,20 @@ number theorem (Theorem~\ref{t:pnt@c20}). \qed
 
 \begin{wex}{Tracking the three error orders}
 For large $x$, order the three error contributions $\epsilon x^2/2$, $C_T x^{2-\delta}$,
-$C_T'x^2/\log x$ by size and identify which one decides the rate.
-\wrec Compare growth: $x^{2-\delta}=x^2\cdot x^{-\delta}$ and $x^2/\log x=x^2/\log x$
+$C_T'x^2/\log x$ by size and identify which one decides how large $x$ must be taken.
+\wrec Compare growth: $x^{2-\delta}=x^2\cdot x^{-\delta}$ and $x^2/\log x=x^2\cdot(\log x)^{-1}$
 relative to $\epsilon x^2$.
 \wsol Divide all by $x^2$: the terms are $\epsilon/2$ (constant), $C_T x^{-\delta}$ (power
-decay), $C_T'/\log x$ (logarithmic decay). For large $x$ the slowest to vanish is
-$C_T'/\log x$, so the \emph{rate} at which $2\psi_1/x^2\to1$ is governed by $1/\log x$ ---
-no better than logarithmic without further input on zero-free regions. \emph{Check.} This
-matches the classical fact that PNT with this method gives an error term of size
-$x^2/\log x$ in $\psi_1$, equivalently no power saving in $\pi(x)-x/\log x$ until one widens
-the zero-free region. \checkmark
+decay), $C_T'/\log x$ (logarithmic decay), so for large $x$,
+$C_Tx^{-\delta}<C_T'/\log x<\epsilon/2$. The slowest to vanish is $C_T'/\log x$: it decides
+how large $x$ must be before the bound for $|2\psi_1/x^2-1|$ drops below $2\epsilon$. No
+\emph{rate} for $2\psi_1/x^2\to1$ follows, however: $T$, $\delta$, $C_T$, $C_T'$ depend on
+$\epsilon$ in a way the proof does not quantify, so the method gives
+$\psi_1(x)=x^2/2+o(x^2)$ and nothing more. \emph{Check.} This matches the classical picture:
+the qualitative input $\zeta(1+it)\neq0$ yields only $o(x^2)$; an explicit error term needs
+a zero-free region to the left of $\sigma=1$ (the classical region $\sigma>1-c/\log|t|$ gives
+$\psi(x)=x+O(xe^{-c\sqrt{\log x}})$), and a power saving in $\pi(x)-\mathrm{Li}(x)$ needs a
+zero-free strip (Problem 2 below). \checkmark
 \end{wex}
 
 \begin{wex}{Why $\eta$ can be taken arbitrarily small}
@@ -35155,7 +35201,7 @@ In Lemma~\ref{l:deform1@c20} we used $|F(s)|\le A'|t|^{-2+\eta}$. Show this is i
 a vertical line for any $\eta<1$, justifying the deformation.
 \wrec Integrability of $|t|^{-2+\eta}$ at infinity needs the exponent $<-1$.
 \wsol $\int_1^\infty t^{-2+\eta}\,dt$ converges iff $-2+\eta<-1$, i.e. $\eta<1$. Since
-Proposition~\ref{p:invzeta@c20} lets us take $\eta$ as small as we please (e.g. $\eta=\tfrac12$),
+Propositions~\ref{p:invzeta@c20} and~\ref{p:growth@c19} let us take $\eta$ as small as we please (e.g. $\eta=\tfrac12$),
 the integral over the connecting rectangles is finite and the horizontal pieces at infinity
 vanish. \emph{Check.} With $\eta=\tfrac12$ the decay is $|t|^{-3/2}$, and
 $\int_T^\infty t^{-3/2}dt=2T^{-1/2}\to0$ --- exactly the bound used for $\gamma_1,\gamma_5$.
@@ -35168,7 +35214,7 @@ The chapter relied (in Lemma~\ref{l:logzeta@c20}) on freely reordering a double 
 justification is the following absolute-convergence principle.
 
 \begin{theorem}[Interchange of double sums]\label{t:fubinisum@c20}
-Let $\{a_{k\ell}\}_{1\le k,\ell<\infty}$ be complex numbers with
+Let $\{a_{k\ell}\}_{k,\ell\ge1}$ be complex numbers with
 $\sum_{k=1}^{\infty}\sum_{\ell=1}^{\infty}|a_{k\ell}|<\infty$. Then:
 \begin{enumerate}\setlength\itemsep{1pt}
 \item[(i)] $\displaystyle A=\sum_{k}\sum_{\ell}a_{k\ell}=\sum_{\ell}\sum_{k}a_{k\ell}$
@@ -35200,8 +35246,8 @@ neighborhood $U(R)$ of the origin.
 
 \begin{pitfall}
 Absolute summability $\sum|a_{k\ell}|<\infty$ is essential. Without it, the two iterated
-sums can differ: the standard example takes $a_{k\ell}=-1$ on the diagonal, $2^{\ell-k}$
-above it, and $0$ below; then $\sum_k\sum_\ell a_{k\ell}\neq\sum_\ell\sum_k a_{k\ell}$. The
+sums can differ: the standard example takes $a_{k\ell}=-1$ on the diagonal, $2^{k-\ell}$
+above it ($\ell>k$), and $0$ below; then $\sum_k\sum_\ell a_{k\ell}\neq\sum_\ell\sum_k a_{k\ell}$. The
 Euler-product logarithm of Lemma~\ref{l:logzeta@c20} is safe only because $\sum_{p,m}p^{-m\sigma}/m$
 converges absolutely for $\sigma>1$.
 \end{pitfall}
@@ -35210,32 +35256,31 @@ converges absolutely for $\sigma>1$.
 
 \begin{wex}{The toy double sum where the order matters}
 Verify the failure of Fubini for the array $a_{k\ell}$ of the Caution: $-1$ on the diagonal,
-$2^{\ell-k}$ strictly above ($\ell>k$), and $0$ strictly below.
+$2^{k-\ell}$ strictly above ($\ell>k$), and $0$ strictly below.
 \wrec Compute both iterated sums explicitly; they disagree precisely because
 $\sum|a_{k\ell}|=\infty$, so Theorem~\ref{t:fubinisum@c20} does not apply.
-\wsol Fix the row $k$: $a_{kk}=-1$ and $a_{k\ell}=2^{\ell-k}$ for $\ell>k$, so
-$\sum_{\ell}a_{k\ell}=-1+\sum_{\ell>k}2^{\ell-k}$, which \emph{diverges}. To get a finite answer
-use the standard normalized variant $a_{kk}=-1$, $a_{k,k+1}=1$, else $0$ for the upper part,
-giving row sums $\sum_\ell a_{k\ell}=-1+1=0$ for every $k$, so $\sum_k\sum_\ell a_{k\ell}=0$.
-Column $\ell$: $a_{\ell\ell}=-1$ and $a_{\ell-1,\ell}=1$, so $\sum_k a_{k\ell}=-1+1=0$ for
-$\ell\ge2$ but $\sum_k a_{k1}=a_{11}=-1$; hence $\sum_\ell\sum_k a_{k\ell}=-1\neq0$.
-\emph{Check.} The two iterated sums are $0$ and $-1$; the discrepancy is the ``boundary
-term'' that absolute convergence would forbid. This is exactly why
+\wsol Fix the row $k$: $a_{kk}=-1$ and $a_{k\ell}=2^{k-\ell}$ for $\ell>k$, so
+$\sum_{\ell}a_{k\ell}=-1+\sum_{j\ge1}2^{-j}=-1+1=0$ for every $k$, and
+$\sum_k\sum_\ell a_{k\ell}=0$. Fix the column $\ell$: $a_{\ell\ell}=-1$ and
+$a_{k\ell}=2^{k-\ell}$ for $k<\ell$, so $\sum_k a_{k\ell}=-1+\sum_{k=1}^{\ell-1}2^{k-\ell}
+=-1+(1-2^{1-\ell})=-2^{1-\ell}$; hence $\sum_\ell\sum_k a_{k\ell}=-\sum_{\ell\ge1}2^{1-\ell}
+=-2\neq0$. \emph{Check.} The two iterated sums are $0$ and $-2$; the discrepancy is possible
+only because $\sum|a_{k\ell}|=\infty$ (every row has absolute sum $2$), which absolute
+convergence would forbid. This is exactly why
 Lemma~\ref{l:logzeta@c20} insisted on $\sigma>1$, where $\sum_{p,m}p^{-m\sigma}/m<\infty$.
 \checkmark
 \end{wex}
 
-\begin{wex}{A semicircular contour estimate of the same flavor as $\gamma_1,\gamma_5$}
-Bound $\bigl|\int_{C_R}\frac{x^{s+1}}{s(s+1)}\,|t|^{1/2}\,ds\bigr|$ over the upper-right
-quarter-circle $C_R=\{|s-1|=R,\ \Re s\ge1,\ \Im s\ge0\}$ on $\sigma=1$, mimicking the ray
-bound of \S3.
+\begin{wex}{A ray estimate of the same flavor as $\gamma_1,\gamma_5$}
+Bound $\bigl|\int\frac{x^{s+1}}{s(s+1)}\,|t|^{1/2}\,ds\bigr|$ over the vertical ray
+$\{s=1+it:\ t\ge T\}$ on $\sigma=1$ ($T\ge1$), mimicking the ray bound for $\gamma_5$ above.
 \wrec This is the model integral behind the rays $\gamma_1,\gamma_5$: $|x^{s+1}|=x^{1+\sigma}$
 on $\sigma=1$ is $x^2$, and the kernel decays like $|t|^{-3/2}$.
 \wsol On $\sigma=1$, $|x^{s+1}|=x^{2}$ and $|s(s+1)|\ge|t|^2$ for $|t|$ large, so the
-integrand is $\le x^2\,|t|^{1/2}/|t|^2=x^2|t|^{-3/2}$. Parametrizing the vertical ray
-$s=1+it$, $t\in[T,\infty)$ (the relevant part of such a contour),
+integrand is $\le x^2\,|t|^{1/2}/|t|^2=x^2|t|^{-3/2}$. Parametrizing the ray by
+$s=1+it$, $t\in[T,\infty)$, $ds=i\,dt$,
 \[
-  \Bigl|\int_T^\infty x^2(it)^{?}\Bigr|\le x^2\int_T^\infty t^{-3/2}\,dt
+  \Bigl|\int_T^\infty\frac{x^{2+it}\,t^{1/2}}{(1+it)(2+it)}\,i\,dt\Bigr|\le x^2\int_T^\infty t^{-3/2}\,dt
   =x^2\bigl[-2t^{-1/2}\bigr]_T^\infty=2x^2T^{-1/2}.
 \]
 This $\to0$ as $T\to\infty$, uniformly in $x$ after dividing by $x^2$. \emph{Check.} This is
@@ -35252,22 +35297,22 @@ must cross to the left of the pole so that deforming from $\Re s=c>1$ sweeps the
 \wsol Starting on $\Re s=c=2$ and sliding left, the first singularity met is the pole at
 $s=1$. To pass it and reach $\sigma<1$ (where $|x^{s+1}|=x^{1+\sigma}<x^2$ gives the desired
 saving), we indent to $\Re s=1-\delta$, picking up $\Res_{s=1}F=x^2/2$ along the way
-(Lemma~\ref{l:resmain@c20}). Indenting to $\Re s=1+\delta$ instead would keep the whole contour in
-$\sigma>1$, so $|x^{s+1}|\ge x^{2+\delta}$ would \emph{exceed} the target $x^2$ --- no saving,
+(Lemma~\ref{l:resmain@c20}). Indenting to $\Re s=1+\delta$ instead would keep the indented part
+of the contour in $\sigma>1$, where $|x^{s+1}|=x^{2+\delta}$ would \emph{exceed} the target $x^2$ --- no saving,
 and the pole would not be crossed, so the main term $x^2/2$ would never appear.
 \emph{Check.} The bookkeeping $\psi_1(x)=\frac{x^2}{2}+\frac1{2\pi i}\int_{\gamma(T,\delta)}F$
 needs precisely one residue (sign $+$, from the leftward, counterclockwise indentation) and a
-remainder of order $x^{2-\delta}\ll x^2$ --- both delivered only by the left indentation.
+remainder on the indented segment of order $x^{2-\delta}\ll x^2$ --- both delivered only by the left indentation.
 \checkmark
 \end{wex}
 
 \begin{center}
 % sigma=1-delta at x=1.2, sigma=1 at x=2.0, sigma=c at x=3.2 (well separated). t axis at x=0.
 \begin{tikzpicture}[xscale=1.0,yscale=0.95]
+  % swept region between sigma=1-delta and sigma=c (drawn first, so it does not hide the axis)
+  \fill[band] (1.2,-1.6) rectangle (3.2,1.6);
   \draw[cxaxis] (-0.5,0)--(4.0,0) node[right]{$\sigma$};
   \draw[cxaxis] (0,-2.0)--(0,2.2) node[above]{$t$};
-  % swept region between sigma=1-delta and sigma=c
-  \fill[band] (1.2,-1.6) rectangle (3.2,1.6);
   \foreach \xx in {1.2,2.0,3.2}{\draw[line width=0.5pt,black!35] (\xx,-1.7)--(\xx,1.7);}
   \node[lblnode,font=\scriptsize,above] at (3.2,1.72) {$\sigma{=}c$};
   \node[lblnode,font=\scriptsize,above] at (2.0,1.72) {$\sigma{=}1$};
@@ -35295,10 +35340,12 @@ for $\psi(x)$, of the same order $x$ as the main term, destroying $\psi(x)\sim x
 \wsol The (formal) explicit formula reads $\psi(x)=x-\sum_{\rho}\frac{x^{\rho}}{\rho}+\cdots$,
 the sum over nontrivial zeros $\rho$. A zero $\rho=1+it_0$ on the line $\sigma=1$ contributes
 $\frac{x^{1+it_0}}{1+it_0}=\frac{x\cdot x^{it_0}}{1+it_0}$, of modulus $\asymp x$ ---
-\emph{the same order as the main term $x$} --- and oscillating in $\arg=t_0\log x$. Then
-$\psi(x)/x=1-\frac{x^{it_0}}{1+it_0}+o(1)$ does not converge (its real part oscillates), so
+\emph{the same order as the main term $x$} --- and oscillating in $\arg=t_0\log x$. The
+conjugate zero $\bar\rho=1-it_0$ (recall $\zeta(\bar s)=\overline{\zeta(s)}$) contributes the
+conjugate term, so $\psi(x)/x=1-2\Re\frac{x^{it_0}}{1+it_0}+o(1)$, which does not converge
+(it oscillates with amplitude $2/|1+it_0|$); so
 $\psi(x)\sim x$ fails, hence PNT fails. Contrapositive: PNT $\Rightarrow\zeta(1+it)\neq0$.
-\emph{Check.} This matches the headline claim of \S1 that non-vanishing on $\Re s=1$ is
+\emph{Check.} This matches the claim made after Theorem~\ref{t:pnt@c20} that non-vanishing on $\Re s=1$ is
 \emph{logically equivalent} to PNT; zeros strictly inside the strip ($\sigma<1$) give terms
 $x^{\sigma}\ll x$, only \emph{lowering} the error, which is why only the boundary line is
 decisive. \checkmark
@@ -35323,16 +35370,16 @@ $\gamma(T,\delta)$. \checkmark
 
 \begin{wex}{Non-example: term-by-term integration fails on $\Re s=1$}
 Show that one \emph{cannot} obtain $\psi_1(x)$ on the line $\Re s=1$ by integrating
-$\sum_n\Lambda(n)(x/n)^{s}/(s(s+1))$ term by term, even though it worked on $\Re s=c>1$.
+$x\sum_n\Lambda(n)(x/n)^{s}/(s(s+1))$ term by term, even though it worked on $\Re s=c>1$.
 \wrec The interchange in Proposition~\ref{p:contourformula@c20} needed absolute convergence of
 $\sum_n\Lambda(n)n^{-s}$; on $\sigma=1$ that series diverges.
 \wsol On $\Re s=1$ the term moduli are $\Lambda(n)n^{-1}$, and
 $\sum_{n\le x}\Lambda(n)/n\sim\log x\to\infty$ (this sum is $\asymp\log x$ by Mertens-type
 estimates). So $\sum_n\Lambda(n)n^{-s}$ is \emph{not} absolutely convergent on $\sigma=1$, and
 the dominated-convergence/Fubini justification of the term-by-term interchange
-(Theorem~\ref{t:fubinisum@c20}) collapses. Any ``answer'' obtained that way is unjustified.
-\emph{Check.} This is precisely the obstruction flagged in the \S2 Caution; the entire point of
-\S3 is to avoid the interchange by \emph{deforming the contour} and extracting the pole's
+(the sum--integral analogue of Theorem~\ref{t:fubinisum@c20}) collapses. Any ``answer'' obtained that way is unjustified.
+\emph{Check.} This is precisely the obstruction flagged in the Caution of Section~20.2; the entire point of
+this section is to avoid the interchange by \emph{deforming the contour} and extracting the pole's
 residue, never summing the divergent series on the line. \checkmark
 \end{wex}
 
@@ -35359,14 +35406,14 @@ to show $\int_2^{x}(\log t)^{-2}\,dt=O(x/(\log x)^2)$, splitting at $\sqrt x$.]
 
 \begin{exers}{Problems (Stein, Ch.7).}
 \item (Explicit formula.) One of the ``explicit formulas'' of prime theory states: if
-$\psi_1$ is the integrated Tchebychev function of Section 2, then
+$\psi_1$ is the integrated Tchebychev function of Definition~\ref{d:psione@c20}, then
 \[
   \psi_1(x)=\frac{x^2}{2}-\sum_{\rho}\frac{x^{\rho+1}}{\rho(\rho+1)}-E(x),
 \]
 the sum over all zeros $\rho$ of $\zeta$ in the critical strip, with
 $E(x)=c_1 x+c_0+\sum_{k\ge1}x^{1-2k}/(2k(2k-1))$, where $c_1=\zeta'(0)/\zeta(0)$ and
-$c_0=\zeta'(-1)/\zeta(-1)$. Note $\sum_{\rho}1/|\rho|^{1+\epsilon}<\infty$ for every
-$\epsilon>0$ (since $(1-s)\zeta(s)$ has order $1$, Exercise 5 of \S1), and $E(x)=O(x)$.
+$c_0=-\zeta'(-1)/\zeta(-1)$. Note $\sum_{\rho}1/|\rho|^{1+\epsilon}<\infty$ for every
+$\epsilon>0$ (since $(1-s)\zeta(s)$ has order $1$, Exercise 5 of Section~20.1), and $E(x)=O(x)$.
 
 \item (Error term and the Riemann hypothesis.) Using the previous problem, show that
 $\pi(x)-\mathrm{Li}(x)=O(x^{\alpha+\epsilon})$ as $x\to\infty$ for every $\epsilon>0$, where
@@ -35397,8 +35444,8 @@ without the monotonicity squeeze of Proposition~\ref{p:psi1topsi@c20}; give the 
 in full for the $\limsup$ direction.
 
 \item (NON-example.) Exhibit a nondecreasing step function $g$ with
-$\int_1^x g\sim x^2/2$ but $g(x)\not\sim x$ pointwise at the jump points, to show the
-squeeze yields the \emph{asymptotic} $\sim$, not pointwise equality. (E.g. let $g$ jump by
+$\int_1^x g\sim x^2/2$ but $g(x)-x$ unbounded, to show the squeeze yields only the
+\emph{asymptotic} $g(x)\sim x$, not $g(x)-x\to0$. (E.g. let $g$ jump by
 large amounts on a sparse set.)
 
 \item (Diagram.) Reproduce the three-stage contour figure: the line $\Re s=c$, the contour
@@ -35406,7 +35453,7 @@ $\gamma(T)$ pushed onto $\Re s=1$ for $|t|\ge T$, and $\gamma(T,\delta)$ indente
 $\Re s=1-\delta$ around the pole at $s=1$. Label all five pieces $\gamma_1,\dots,\gamma_5$.
 
 \item Using the order-of-error analysis, explain why this proof yields no power-saving error
-term for $\pi(x)-x/\log x$, and state what stronger zero-free region (cf. Problem 3 of \S3)
+term for $\pi(x)-\mathrm{Li}(x)$, and state what stronger zero-free region (cf. Problem 2 above)
 would be needed for $O(x^{1/2+\epsilon})$.
 
 \item Apply Theorem~\ref{t:fubinisum@c20} to justify the term-by-term differentiation in (5):
