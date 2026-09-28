@@ -4623,16 +4623,16 @@ The threshold $K$ is allowed to grow as $\eps$ shrinks; that dependence is the w
 \begin{center}
 \begin{tikzpicture}[xscale=0.62,yscale=1.6]
   \def\L{2.0}
-  \def\eps{0.45}
+  \def\ep{0.41}
   % horizontal axis
   \draw[numln] (0,0)--(15.4,0) node[right]{$n$};
   % limit line and epsilon band
   \begin{scope}[on background layer]
-    \fill[band] (0,\L-\eps) rectangle (15,\L+\eps);
+    \fill[band] (0,\L-\ep) rectangle (15,\L+\ep);
   \end{scope}
   \draw[dashed] (0,\L)--(15,\L) node[right=10pt]{$L$};
-  \node[left] at (0,\L+\eps) {\footnotesize $L{+}\eps$};
-  \node[left] at (0,\L-\eps) {\footnotesize $L{-}\eps$};
+  \node[left] at (0,\L+\ep) {\footnotesize $L{+}\eps$};
+  \node[left] at (0,\L-\ep) {\footnotesize $L{-}\eps$};
   % the sequence dots: x_n = L + 1.4*(-1)^n / n
   \foreach \n in {1,...,15}{
     \pgfmathsetmacro{\y}{\L + 1.4*(mod(\n,2)==0 ? 1 : -1)/\n}
@@ -4884,7 +4884,7 @@ $\abs{y_n-y}<\eps/2$ ($n\ge K_2$). For $n\ge\max\set{K_1,K_2}$,
 \[
   \abs{(x_n+y_n)-(x+y)}\le\abs{x_n-x}+\abs{y_n-y}<\tfrac\eps2+\tfrac\eps2=\eps .
 \]
-(b) is the case $y_n\equiv0$ of (c), or directly $\abs{cx_n-cx}=\abs c\abs{x_n-x}$.
+(b) is the case $y_n\equiv c$ of (c), or directly $\abs{cx_n-cx}=\abs c\abs{x_n-x}$.
 
 (c) Since $\seq{x_n}$ converges it is bounded, say $\abs{x_n}\le M$; also $\abs y$ is a
 constant. Write the standard ``add and subtract'' splitting:
@@ -4997,7 +4997,7 @@ Let $x_n>0$ and suppose $L=\lim_{n\to\infty}\dfrac{x_{n+1}}{x_n}$ exists.
 
 \begin{proof}
 (a) Pick $r$ with $L<r<1$. For some $K$, $x_{n+1}/x_n<r$ when $n\ge K$, so by iterating,
-$0<x_{K+m}<r^m x_K$. Since $r^m\to0$ (next section / geometric), squeezing gives
+$0<x_{K+m}<r^m x_K$. Since $r^m\to0$ (Theorem~\ref{t:special@c4}(b) below), squeezing gives
 $x_n\to0$. (b) Apply (a) to $1/x_n$, whose ratio $\to1/L<1$.
 \end{proof}
 
@@ -5036,7 +5036,7 @@ $a^{1/n}=1/(1/a)^{1/n}\to1$.
 $n=(1+e_n)^n\ge\binom n2 e_n^2=\dfrac{n(n-1)}2 e_n^2$, hence $e_n^2\le\dfrac2{n-1}$ and
 $0\le e_n\le\sqrt{2/(n-1)}\to0$. Squeeze gives $e_n\to0$, so $n^{1/n}\to1$.
 
-(e) Deferred to \S3 (Monotone Convergence), where $\bigl(1+\tfrac1n\bigr)^n$ is shown
+(e) Deferred to \S4.3 (Monotone Convergence), where $\bigl(1+\tfrac1n\bigr)^n$ is shown
 increasing and bounded above, its limit \emph{defining} $e$.
 \end{proof}
 
@@ -5071,10 +5071,10 @@ $\dfrac1{n^2+n}\le\dfrac1{n^2+k}\le\dfrac1{n^2+1}$. Summing the $n$ terms,
 \]
 The left side is $\dfrac1{n+1}\to0$ and the right is $\dfrac n{n^2+1}\to0$, so by squeezing
 the sum $\to0$. \emph{Check.} At $n=3$ the sum is $\tfrac1{10}+\tfrac1{11}+\tfrac1{12}
-\approx0.282$, between $\tfrac3{12}=0.25$ and $\tfrac3{10}=0.30$. \checkmark
+\approx0.274$, between $\tfrac3{12}=0.25$ and $\tfrac3{10}=0.30$. \checkmark
 \end{wex}
 
-\begin{wex}{A non-example: product of two divergent sequences}
+\begin{wex}{A non-example: a convergent product with a divergent factor}
 The algebra of limits needs both factors to converge. With $x_n=n$ and $y_n=1/n^2$,
 show that $x_n$ diverges yet $x_ny_n\to0$, so ``$x_ny_n$ converges'' carries no information
 about the factors.
@@ -5088,7 +5088,7 @@ to converge first. \emph{Check.} Reversing roles, $x_n=n^2$, $y_n=1/n$ gives $x_
 exactly why the hypothesis matters. \checkmark
 \end{wex}
 
-\begin{wex}{$\seq{a^{1/n}}$ from the ratio test viewpoint}
+\begin{wex}{$\seq{a^{1/n}}$ by Bernoulli's inequality and squeezing}
 For fixed $a>0$, re-derive $a^{1/n}\to1$ using the Squeeze Theorem with Bernoulli's
 inequality, for the case $a>1$.
 \wrec ``Find/verify a special limit''; the cleanest route bounds the root deviation by a
@@ -5160,7 +5160,7 @@ is either increasing or decreasing.
 
 For a bounded sequence the missing ingredient that forces convergence is monotonicity: a
 climbing-but-capped sequence must pile up against its ceiling. This is where the
-\emph{completeness} of $\R$ (every set bounded above has a supremum) enters analysis.
+\emph{completeness} of $\R$ (every nonempty set bounded above has a supremum) enters analysis.
 
 \begin{theorem}[Monotone Convergence Theorem]\label{t:mct@c4}
 A monotone sequence of real numbers converges \emph{if and only if} it is bounded. Moreover:
@@ -5184,7 +5184,7 @@ $\abs{x_n-x^*}<\eps$. So $x_n\to x^*$. The decreasing case follows by negating.
 \begin{tikzpicture}[xscale=0.78,yscale=2.0]
   \def\S{1.5}
   \draw[numln] (0,0)--(12.5,0) node[right]{$n$};
-  \draw[dashed] (0,\S)--(12,\S) node[right]{$\sup_n x_n$};
+  \draw[dashed] (0,\S)--(12.6,\S) node[right]{$\sup_n x_n$};
   % increasing bounded sequence climbing to sup: x_n = S - 1.3*(0.7)^n
   \foreach \n in {1,...,12}{
     \pgfmathsetmacro{\y}{\S - 1.3*pow(0.72,\n)}
@@ -5224,7 +5224,7 @@ Let $x_1=1$ and $x_{n+1}=\sqrt{2+x_n}$. Show $\seq{x_n}$ converges and find its 
 \wsol \emph{Bounded above by $2$:} $x_1=1<2$; if $x_n<2$ then $x_{n+1}=\sqrt{2+x_n}<\sqrt4=2$.
 \emph{Increasing:} $x_{n+1}^2-x_n^2=2+x_n-x_n^2=-(x_n-2)(x_n+1)>0$ for $0<x_n<2$, so
 $x_{n+1}>x_n$. By MCT, $x_n\to L\in(1,2]$. Taking limits: $L=\sqrt{2+L}\imp L^2-L-2=0\imp
-L=2$ (the root $-1$ is rejected). \emph{Check.} $x_4=\sqrt{2+\sqrt{2+\sqrt3}}\approx1.962$,
+L=2$ (the root $-1$ is rejected). \emph{Check.} $x_4=\sqrt{2+\sqrt{2+\sqrt3}}\approx1.983$,
 nearing $2$. \checkmark
 \end{wex}
 
@@ -5257,13 +5257,14 @@ Each factor $(1-j/n)$ increases with $n$, and passing from $a_n$ to $a_{n+1}$ ad
 nonnegative term, so $a_n$ increases. Bounding each factor by $1$,
 $a_n\le\sum_{k=0}^n\frac1{k!}\le 1+1+\sum_{k=2}^n\frac1{2^{k-1}}<3$. By MCT, $a_n\to e\le3$,
 and $a_2=2.25$ gives $e>2$. The companion $b_n$ is checked to decrease, with
-$b_n/a_n=(1+1/n)\to1$, so $\lim b_n=\lim a_n=e$.
+$b_n/a_n=(1+1/n)\to1$, so $\lim b_n=\lim a_n=e$. As $a_n$ strictly increases and $b_n$
+strictly decreases, $a_n<e<b_n$; in particular $e<b_5=(6/5)^6<2.99$.
 \end{proof}
 
 \begin{remark}
-The series form $\sum_{k=0}^\infty\frac1{k!}$ also equals $e$ (Section~8), and converges far
-faster: $a_n$ approaches $e$ like $e/(2n)$, whereas the series error after $n$ terms is below
-$1/(n\cdot n!)$. We prove $e$ is irrational in Section~8.
+The series form $\sum_{k=0}^\infty\frac1{k!}$ also equals $e$ (Section~4.8), and converges far
+faster: $a_n$ approaches $e$ like $e/(2n)$, whereas the partial sum $\sum_{k=0}^n\frac1{k!}$ is
+within $1/(n\cdot n!)$ of $e$. We prove $e$ is irrational in Section~4.8.
 \end{remark}
 
 \begin{wex}{Recognizing the $e$-pattern}
@@ -5273,7 +5274,7 @@ $\displaystyle\lim_{n\to\infty}\Bigl(1-\tfrac1n\Bigr)^{n}$ \textup{(B\&S 3.3.12)
 \wsol $\bigl(1+\tfrac1n\bigr)^{2n}=\bigl[(1+\tfrac1n)^n\bigr]^2\to e^2$. For the second,
 $\bigl(1-\tfrac1n\bigr)^n=\bigl(\tfrac{n-1}n\bigr)^n=\bigl(\tfrac n{n-1}\bigr)^{-n}
 =\bigl(1+\tfrac1{n-1}\bigr)^{-n}\to e^{-1}$. \emph{Check.} $e^2\approx7.389$,
-$1/e\approx0.368$; at $n=1000$ the values are $7.382$ and $0.3682$. \checkmark
+$1/e\approx0.368$; at $n=1000$ the values are $7.382$ and $0.3677$. \checkmark
 \end{wex}
 
 \begin{pitfall}
@@ -5310,13 +5311,14 @@ Thus $\seq{s_n}$ is increasing and bounded above by $2$, so it converges by MCT.
 Let $x_1=1$ and $x_{n+1}=\dfrac{x_n+2}{x_n+1}$. Show $\seq{x_n}$ converges and find its
 limit.
 \wrec Recursive $x_{n+1}=f(x_n)$ with $f(x)=\dfrac{x+2}{x+1}$. The sequence is not monotone,
-so instead bound it and identify the fixed point; here we show the \emph{odd} and \emph{even}
-subsequences are each monotone and meet (the four-step Method, adapted).
+so instead bound it and identify the fixed point; here we show the distance to the fixed point
+shrinks geometrically (the four-step Method, adapted).
 \wsol Note $f$ maps $[1,2]$ into $[1,2]$: if $1\le x\le2$ then
 $f(x)=1+\dfrac1{x+1}\in[1+\tfrac13,\,1+\tfrac12]=[\tfrac43,\tfrac32]\subseteq[1,2]$, so all
 terms lie in $[1,2]$. The fixed point solves $L=\dfrac{L+2}{L+1}\imp L^2+L=L+2\imp L^2=2\imp
-L=\sqrt2$ (positive root). One checks $\abs{x_{n+1}-\sqrt2}=\dfrac{\abs{x_n-\sqrt2}}{x_n+1}
-\le\dfrac12\abs{x_n-\sqrt2}$ (since $x_n+1\ge2$), so the error halves each step and
+L=\sqrt2$ (positive root). One checks
+$\abs{x_{n+1}-\sqrt2}=\dfrac{(\sqrt2-1)\abs{x_n-\sqrt2}}{x_n+1}
+\le\dfrac12\abs{x_n-\sqrt2}$ (since $x_n+1\ge2$), so the error at least halves each step and
 $x_n\to\sqrt2$. \emph{Check.} $x_1=1$, $x_2=1.5$, $x_3=1.4$, $x_4\approx1.41667$, closing on
 $\sqrt2\approx1.41421$. \checkmark
 \end{wex}
@@ -5357,15 +5359,15 @@ $\sqrt n$ already forces divergence. \checkmark
 \item Establish convergence and find the limits of
   (a) $(1+1/n)^{n+1}$;\quad (b) $(1+1/n)^{2n}$;\quad
   (c) $\bigl(1+\tfrac1{n+1}\bigr)^n$;\quad (d) $(1-1/n)^n$.
-\item Use the Babylonian method (Example $3.3.5$) to compute $\sqrt2$ to $4$ decimals.
+\item Use the Babylonian method (B\&S Example~3.3.5) to compute $\sqrt2$ to $4$ decimals.
 \item Use the same method to compute $\sqrt5$ to $5$ decimals.
 \item Compute $e_n=(1+1/n)^n$ for $n=2,4,8,16$.
 \item Compute $e_n$ for $n=50,100,1000$.
 \end{exers}
 
 \begin{exers}{Additional exercises.}
-\item Let $x_1=1$, $x_{n+1}=\tfrac14(x_n+3)$. Show $\seq{x_n}$ is increasing, bounded above by
-  $1$? Decide the correct one-sided bound, prove convergence, and find the limit.
+\item Let $x_1=2$, $x_{n+1}=\tfrac14(x_n+3)$. Is $\seq{x_n}$ increasing and bounded above by
+  $1$? Decide the correct monotonicity and one-sided bound, prove convergence, and find the limit.
 \item Let $x_1=3$ and $x_{n+1}=\dfrac{x_n^2+2}{2x_n}$. Show $\seq{x_n}$ decreases to $\sqrt2$.
 \item Show $\seq{(1+1/n)^n}$ and $\seq{(1+1/n)^{n+1}}$ trap $e$: prove the first is below $e$,
   the second above, and their ratio $\to1$.
@@ -5426,14 +5428,15 @@ $\seq{z_n}$ converges \emph{iff} both converge to a \emph{common} limit. \checkm
 \begin{tikzpicture}[xscale=0.62,yscale=1.5]
   \draw[numln] (0,0)--(15.4,0) node[right]{$n$};
   \draw[dashed] (0,1.6)--(15,1.6) node[right]{$L$};
-  % bounded oscillating sequence x_n = 1.6 + 1.1*sin(n)
-  \foreach \n in {1,...,15}{
+  % bounded oscillating sequence: x_n = 1.6 + 1.1*sin(1.7n) for n not of the form 3k-1
+  \foreach \n in {1,3,4,6,7,9,10,12,13,15}{
     \pgfmathsetmacro{\y}{1.6 + 1.1*sin(\n r*1.7)}
-    \node[opt] (s\n) at (\n,\y) {};
+    \node[opt] at (\n,\y) {};
   }
-  % highlight a selected convergent subsequence: pick indices near top of band toward L
-  \foreach \n in {2,5,8,11,14}{
-    \pgfmathsetmacro{\y}{1.6 + 1.1*sin(\n r*1.7)}
+  % the selected subsequence n = 3k-1: x_n = L + (-0.6)^(k-1), converging to L = 1.6
+  \foreach \k in {1,...,5}{
+    \pgfmathsetmacro{\n}{3*\k-1}
+    \pgfmathsetmacro{\y}{1.6 + (mod(\k,2)==1 ? 1 : -1)*pow(0.6,\k-1)}
     \node[pt] at (\n,\y) {};
   }
   \node[font=\footnotesize,align=center] at (8,-0.45)
@@ -5468,7 +5471,7 @@ Theorem~\ref{t:mct@c4}.
 \end{proof}
 
 \begin{remark}[The bisection proof]
-Rudin's route uses \emph{nested intervals}: if $\seq{x_n}\subset[a,b]$, halve $[a,b]$;
+A second route uses \emph{nested intervals}: if $\seq{x_n}\subset[a,b]$, halve $[a,b]$;
 at least one half contains $x_n$ for infinitely many $n$ --- keep it, call it $I_1$, and pick
 $x_{n_1}\in I_1$. Halve $I_1$, keep a half $I_2$ holding infinitely many terms, pick
 $x_{n_2}\in I_2$ with $n_2>n_1$, and so on. The $I_k$ are nested with
@@ -5485,7 +5488,7 @@ and $\abs{x_{n_k}-L}\le\abs{I_k}\to0$, so $x_{n_k}\to L$.
     \draw[line width=1.4pt] (\lo,\yy)--(\hi,\yy);
     \draw[line width=0.7pt] (\lo,\yy+0.12)--(\lo,\yy-0.12);
     \draw[line width=0.7pt] (\hi,\yy+0.12)--(\hi,\yy-0.12);
-    \node[font=\footnotesize,left] at (-0.2,\yy) {$I_{\k}$};
+    \node[font=\footnotesize,left] at (-0.55,\yy) {$I_{\k}$};
   }
   % converging point
   \draw[densely dotted] (5.5,0.2)--(5.5,-1.9);
@@ -5547,9 +5550,11 @@ $[0,1]$ in the limit --- a maximal cluster set. \checkmark
 For $x_n=\dfrac{(-1)^n n}{n+1}$, extract an explicit monotone convergent subsequence.
 \wrec Apply the Monotone Subsequence Theorem~\ref{t:monsub@c4} concretely: locate a one-signed,
 monotone run of indices.
-\wsol The even-indexed terms are $x_{2k}=\dfrac{2k}{2k+1}=1-\dfrac1{2k+1}$, which increase to
-$1$. So the subsequence $\seq{x_{2k}}$ is strictly increasing, bounded above by $1$, hence
-monotone and convergent with $x_{2k}\to1$ by MCT. (The odd-indexed terms
+\wsol No index is a peak: each odd-indexed term is negative while the next term is positive,
+and $x_{2k}<x_{2k+2}$. So we are in Case~2 of the proof, which yields an increasing
+subsequence. Concretely, the even-indexed terms are $x_{2k}=\dfrac{2k}{2k+1}=1-\dfrac1{2k+1}$,
+which increase to $1$. So the subsequence $\seq{x_{2k}}$ is strictly increasing, bounded
+above by $1$, hence monotone and convergent with $x_{2k}\to1$ by MCT. (The odd-indexed terms
 $x_{2k-1}=-\dfrac{2k-1}{2k}\to-1$ give the other subsequential limit.) \emph{Check.}
 $x_2=\tfrac23$, $x_4=\tfrac45$, $x_6=\tfrac67$, visibly climbing to $1$. \checkmark
 \end{wex}
@@ -5557,7 +5562,7 @@ $x_2=\tfrac23$, $x_4=\tfrac45$, $x_6=\tfrac67$, visibly climbing to $1$. \checkm
 \begin{wex}{Bolzano--Weierstrass in $\R^2$}
 Show the bounded sequence $\mathbf x_n=\bigl(\cos n,\,(-1)^n\tfrac{n}{n+1}\bigr)$ in $\R^2$
 has a convergent subsequence, and exhibit the coordinate-by-coordinate extraction.
-\wrec ``Find a convergent subsequence in $\Rk$'': run the coordinate diagonalization of
+\wrec ``Find a convergent subsequence in $\Rk$'': run the iterated extraction of
 Theorem~\ref{t:bw-rk@c4}, extracting one coordinate at a time.
 \wsol Both coordinates are bounded ($\abs{\cos n}\le1$, $\abs{(-1)^n n/(n+1)}\le1$), so
 $\seq{\mathbf x_n}$ is bounded. First coordinate: $\seq{\cos n}$ is bounded, so by B--W in
@@ -5571,7 +5576,7 @@ iterated extraction exploits. \checkmark
 
 \begin{exers}{Exercises (Bartle \& Sherbert, \S3.4).}
 \item Give an example of an unbounded sequence that has a convergent subsequence.
-\item Use the method of Example $3.4.3$(b) to show that if $0<c<1$ then $\lim c^{1/n}=1$.
+\item Use the method of B\&S Example~3.4.3(b) to show that if $0<c<1$ then $\lim c^{1/n}=1$.
 \item Let $\seq{f_n}$ be the Fibonacci sequence and $x_n=f_{n+1}/f_n$. Given $\lim x_n=L$
   exists, find $L$.
 \item Show the following diverge:
@@ -5595,7 +5600,8 @@ iterated extraction exploits. \checkmark
 \item Show that if $\seq{x_n}$ is unbounded, there is a subsequence $\seq{x_{n_k}}$ with
   $\lim(1/x_{n_k})=0$.
 \item If $x_n=(-1)^n/n$, find the subsequence constructed in the bisection proof of
-  Bolzano--Weierstrass when $I_1=[-1,1]$.
+  Bolzano--Weierstrass when $[a,b]=[-1,1]$, keeping the left half whenever it holds infinitely
+  many terms and always picking the least admissible index.
 \end{exers}
 
 \begin{exers}{Additional exercises.}
@@ -5637,13 +5643,13 @@ such that
 \begin{center}
 \begin{tikzpicture}[xscale=0.62,yscale=1.6]
   \def\L{1.7}
-  \def\eps{0.4}
+  \def\hw{0.4}
   \draw[numln] (0,0)--(15.4,0) node[right]{$n$};
   \begin{scope}[on background layer]
-    \fill[band] (5,\L-\eps) rectangle (15,\L+\eps);
+    \fill[band] (5,\L-\hw) rectangle (15,\L+\hw);
   \end{scope}
   \draw[dashed] (5,\L)--(15,\L);
-  \node[right] at (15,\L) {\footnotesize tail cluster};
+  \node[below left,font=\footnotesize] at (15,\L-\hw) {tail cluster};
   \foreach \n in {1,...,15}{
     \pgfmathsetmacro{\y}{\L + 1.6*sin(\n r*2.1)*pow(0.72,\n)}
     \node[pt] at (\n,\y) {};
@@ -5652,8 +5658,8 @@ such that
   \node[below] at (5,-0.05) {\footnotesize $K$};
   \node[font=\footnotesize,align=center] at (10,2.65)
     {beyond $K$ all terms lie within $\eps$ of each other};
-  \draw[brc] (15,\L+\eps)--(15,\L-\eps);
-  \node[font=\footnotesize,right] at (15.15,\L) {$2\eps$};
+  \draw[brc] (15,\L+\hw)--(15,\L-\hw);
+  \node[font=\footnotesize,right] at (15.15,\L) {$\eps$};
 \end{tikzpicture}
 \captionof{figure}{Cauchy: past index $K$ the entire tail fits in a window of width $\eps$ --- the
 terms cluster, even before we name where.}
@@ -5839,7 +5845,8 @@ matching $s_{10}=1-2^{-10}\approx0.999$. \checkmark
   $\abs{x_m-x_n}$ for $m>n$.
 \item Show that $\seq{x_n}$ is Cauchy iff $\seq{x_{2n}}$, $\seq{x_{2n+1}}$ are Cauchy and
   $\abs{x_{2n}-x_{2n+1}}\to0$.
-\item Prove a Cauchy sequence with a constant subsequence is eventually constant.
+\item Prove a Cauchy sequence with a constant subsequence converges to that constant; show by
+  an example that it need not be eventually constant.
 \item (Non-example.) Exhibit a sequence in $\Q$ that is Cauchy in the metric $\abs{x-y}$ but
   has no limit in $\Q$, and identify its limit in $\R$. Explain what fails.
 \item Show $x_1=1$, $x_{n+1}=1+\dfrac1{1+x_n}$ is contractive; find its limit (a continued
@@ -5925,10 +5932,11 @@ Equivalently, $\limsup x_n$ is the \emph{largest} subsequential limit and $\limi
     \node[pt] at (\n,\y) {};
   }
   \node[font=\footnotesize,align=center] at (7.5,-0.5)
-    {the tail eventually lives between $\liminf$ and $\limsup$};
+    {for each $\eps>0$ the tail eventually lives within $\eps$ of the band};
 \end{tikzpicture}
 \captionof{figure}{$\limsup$/$\liminf$ are the upper and lower edges of the band the tail
-ultimately occupies. The sequence converges exactly when the band has zero width.}
+ultimately occupies, up to any margin $\eps>0$. The sequence converges exactly when the band has
+zero width.}
 \end{center}
 
 \begin{theorem}[Characterization and convergence]\label{t:limsup-conv@c4}
@@ -5946,7 +5954,9 @@ every subsequential limit equals $x$, so $\liminf=\limsup=x$. Conversely if
 $\liminf=\limsup=L$, then $t_n\le x_n\le s_n$ with $t_n,s_n\to L$, and squeezing gives
 $x_n\to L$. (c) From $s_n\downarrow L$: $s_N<L+\eps$ for some $N$ gives $x_n\le s_N<L+\eps$
 for $n\ge N$; and $s_n\ge L$ for all $n$ means $\sup_{k\ge n}x_k\ge L$, so some $x_k>L-\eps$
-with $k\ge n$, for every $n$.
+with $k\ge n$, for every $n$. Conversely, if $L$ has both properties, then for each $\eps>0$,
+$s_n\le L+\eps$ for all large $n$ and $s_n>L-\eps$ for every $n$; hence $s_n\to L$, i.e.\
+$L=\limsup x_n$.
 \end{proof}
 
 \begin{theorem}[Subadditivity, Rudin Ex.\ 3.5]\label{t:limsup-subadd@c4}
@@ -5995,7 +6005,7 @@ inequalities survive, and only under sign hypotheses.
 
 \subsection*{Further worked examples}
 
-\begin{wex}{A three-valued $\limsup$/$\liminf$ via tail suprema}
+\begin{wex}{A three-valued $\limsup$/$\liminf$ via subsequential limits}
 Compute $\limsup$ and $\liminf$ of $x_n=\dfrac{n}{n+1}\sin\dfrac{n\pi}{3}$ by identifying
 all subsequential limits.
 \wrec ``Find upper/lower limits''; the factor $n/(n+1)\to1$ is a convergent envelope, so the
@@ -6027,7 +6037,7 @@ ratio limits spread to $0$ and $\infty$ --- precisely the gap that makes the roo
 sharper. \checkmark
 \end{wex}
 
-\begin{wex}{A non-example: $\liminf x_n + \limsup y_n$ need not bound $\limsup(x_n+y_n)$}
+\begin{wex}{A non-example: $\liminf(x_n+y_n)$ can exceed $\liminf x_n+\liminf y_n$}
 Show that $\liminf(x_n+y_n)\ge\liminf x_n+\liminf y_n$ can be \emph{strict}, mirroring the
 subadditivity of $\limsup$.
 \wrec ``Show the inequality is strict''; pick anti-phase $\pm1$ sequences as in the
@@ -6186,13 +6196,13 @@ a_n$ (term-by-term $\le$), giving convergence. (b) is the contrapositive.
 \begin{center}
 \begin{tikzpicture}[xscale=0.62,yscale=1.0]
   % comparison: bars a_n under bars b_n
-  \draw[numln] (0,0)--(11,0) node[right]{$n$};
   \foreach \n in {1,...,9}{
     \pgfmathsetmacro{\bb}{2.6*pow(0.7,\n)+0.15}
     \pgfmathsetmacro{\aa}{\bb*0.55}
     \fill[band] (\n-0.32,0) rectangle (\n+0.32,\bb);
     \fill[black!55] (\n-0.18,0) rectangle (\n+0.18,\aa);
   }
+  \draw[numln] (0,0)--(11,0) node[right]{$n$};
   \node[font=\footnotesize] at (7,2.2) {gray: $a_n$};
   \node[font=\footnotesize] at (7,1.7) {light: $b_n$};
   \node[font=\footnotesize,align=center] at (5,-0.6)
@@ -6219,7 +6229,9 @@ $\displaystyle\sum_{n=1}^\infty\frac1{n^p}$ converges iff $p>1$.
 \end{theorem}
 
 \begin{proof}
-Condensation: $\sum 2^k\cdot\dfrac1{(2^k)^p}=\sum (2^{1-p})^k$ is geometric with ratio
+If $p\le0$ the terms do not tend to $0$, so the series diverges
+(Theorem~\ref{t:nth-term@c4}). If $p>0$ the terms decrease, so condensation applies:
+$\sum 2^k\cdot\dfrac1{(2^k)^p}=\sum (2^{1-p})^k$ is geometric with ratio
 $2^{1-p}$, which converges iff $2^{1-p}<1\eqv p>1$.
 \end{proof}
 
@@ -6250,7 +6262,8 @@ $a_n\not\to0$ and the series diverges.
 \end{proof}
 
 \begin{remark}[Root is stronger]
-Whenever the ratio test decides, so does the root test, because
+Whenever the ratio test decides via $\limsup\abs{a_{n+1}/a_n}<1$ or
+$\liminf\abs{a_{n+1}/a_n}>1$, so does the root test, because
 $\liminf\abs{a_{n+1}/a_n}\le\liminf\abs{a_n}^{1/n}\le\limsup\abs{a_n}^{1/n}\le
 \limsup\abs{a_{n+1}/a_n}$. The root test can succeed where the ratio test fails (e.g.\ a
 series whose ratios oscillate). The ratio test is, however, easier to compute.
@@ -6270,8 +6283,8 @@ Decide convergence of \textup{(a)} $\sum\dfrac{n}{2^n}$, \textup{(b)} $\sum\dfra
 converges. (b) Ratio: $\dfrac{(n+1)!/(n+1)^{n+1}}{n!/n^n}=\Bigl(\tfrac n{n+1}\Bigr)^n
 =(1+\tfrac1n)^{-n}\to e^{-1}<1$, converges. (c) Condensation:
 $\sum 2^k\dfrac1{2^k\ln2^k}=\sum\dfrac1{k\ln2}$, a constant multiple of the harmonic series,
-diverges. \emph{Check.} (c) shows $\sum1/(n\ln n)$ \emph{just barely} diverges --- slower
-than $\sum1/n$, faster to settle than any $p$-series with $p>1$. \checkmark
+diverges. \emph{Check.} (c) shows $\sum1/(n\ln n)$ \emph{just barely} diverges --- its terms
+decay faster than $1/n$ but slower than $1/n^p$ for every $p>1$. \checkmark
 \end{wex}
 
 \begin{wex}{Root test where the ratio test stalls}
@@ -6306,8 +6319,8 @@ converge or diverge together.
     \fill[band] (\n,0) rectangle (\n+1,\h);
     \draw (\n,0)--(\n,\h)--(\n+1,\h)--(\n+1,0);
   }
-  \draw[curve,domain=0.55:6,samples=80] plot (\x,{1.9/\x});
-  \node[font=\footnotesize] at (4.6,1.4) {$y=f(x)$};
+  \draw[curve,domain=0.8:6,samples=80] plot (\x,{1.9/\x});
+  \node[font=\footnotesize,right] at (1.9,1.25) {$y=f(x)$};
   \node[font=\footnotesize,align=center] at (3.2,-0.4)
     {rectangles of height $f(n{+}1)$ lie under the curve: $\sum_{n\ge2}f(n)\le\int_1^\infty f$};
 \end{tikzpicture}
@@ -6362,7 +6375,8 @@ diverges, $p=2>1$ converges, exactly as for $\sum1/n^p$. \checkmark
   length $\eps^n$. Find the total length of all intervals; evaluate for $\eps=0.1,0.01$.
 \item (a) Show $\displaystyle\sum_{n=1}^\infty\cos n$ diverges.\quad
   (b) Show $\displaystyle\sum_{n=1}^\infty\dfrac{\cos n}{n^2}$ converges.
-\item Use an argument like Example $3.7.6$(f) to show $\displaystyle\sum_{n=1}^\infty
+\item Use an argument like B\&S Example $3.7.6$(f) (pair consecutive terms, as in the proof of
+  Theorem~\ref{t:alternating@c4}) to show $\displaystyle\sum_{n=1}^\infty
   \dfrac{(-1)^n}{\sqrt n}$ converges.
 \item If $\sum a_n$ with $a_n>0$ converges, must $\sum a_n^2$ converge? Prove or give a
   counterexample.
@@ -6391,9 +6405,10 @@ diverges, $p=2>1$ converges, exactly as for $\sum1/n^p$. \checkmark
   (d) $\dfrac{2\cdot4\cdots(2n)}{5\cdot7\cdots(2n+3)}$.
 \item (\S9.2) Let $0<a<1$ and consider $a^2+a+a^4+a^3+\cdots+a^{2n}+a^{2n-1}+\cdots$. Show the
   Root Test applies but the Ratio Test does not.
-\item (\S9.2) If $r\in(0,1)$ satisfies the Root Test condition, show
-  $\abs{s-s_n}\le r^{n+1}/(1-r)$ for $n\ge K$.
-\item (\S9.2) If $r\in(0,1)$ satisfies the Ratio Test condition, show
+\item (\S9.2) If $r\in(0,1)$ and $\abs{x_n}^{1/n}\le r$ for all $n\ge K$, show that the sum
+  $s$ and the partial sums $s_n$ of $\sum x_n$ satisfy $\abs{s-s_n}\le r^{n+1}/(1-r)$ for
+  $n\ge K$.
+\item (\S9.2) If $r\in(0,1)$ and $\abs{x_{n+1}/x_n}\le r$ for all $n\ge K$, show
   $\abs{s-s_n}\le r\abs{x_n}/(1-r)$ for $n\ge K$.
 \item (\S9.2) Show $1+\tfrac12-\tfrac13+\tfrac14+\tfrac15-\tfrac16+\cdots$ diverges.
 \item (\S9.2) Let $c_n=1+\tfrac12+\cdots+\tfrac1n-\ln n$. Show $\seq{c_n}$ decreases to a
@@ -6485,8 +6500,8 @@ Show $\sum_{n=1}^\infty\dfrac{(-1)^{n+1}}{n}$ converges conditionally.
 \wrec ``Conditional vs absolute''; test the series and its absolute version separately.
 \wsol $c_n=1/n$ decreases to $0$, so the Alternating Series Test gives convergence (in fact
 to $\ln2$). But $\sum\abs{a_n}=\sum1/n$ is the divergent harmonic series. So the convergence
-is conditional. \emph{Check.} $s_2=1-\tfrac12=0.5$, $s_4\approx0.583$, bracketing
-$\ln2\approx0.693$ with errors $\le c_{N+1}$. \checkmark
+is conditional. \emph{Check.} $s_3=1-\tfrac12+\tfrac13\approx0.833$, $s_4\approx0.583$,
+bracketing $\ln2\approx0.693$ with errors $\le c_{N+1}$. \checkmark
 \end{wex}
 
 \subsection*{Dirichlet and Abel tests}
@@ -6514,8 +6529,9 @@ converges.
 
 \begin{proof}[Proof sketch]
 A bounded monotone $\seq{b_n}$ converges to some $b$; write $b_n=b+(b_n-b)$ where $b_n-b$ is
-monotone $\to0$. Then $\sum a_n b=b\sum a_n$ converges and $\sum a_n(b_n-b)$ converges by
-Dirichlet (partial sums of $\sum a_n$ are bounded). Add.
+monotone $\to0$, so $\pm(b_n-b)\downarrow0$ for one choice of sign. Then $\sum a_n b=b\sum a_n$
+converges and $\sum a_n(b_n-b)$ converges by Dirichlet (partial sums of $\sum a_n$ are
+bounded). Add.
 \end{proof}
 
 \begin{remark}
@@ -6569,7 +6585,7 @@ Find $R$ for \textup{(a)} $\sum n^3 z^n$, \textup{(b)} $\sum\dfrac{2^n}{n!}z^n$,
 $\lim\abs{c_{n+1}/c_n}$ (ratio).
 \wsol (a) $\abs{c_n}^{1/n}=(n^3)^{1/n}=(n^{1/n})^3\to1$, so $R=1$. (b) ratio
 $\dfrac{2^{n+1}/(n+1)!}{2^n/n!}=\dfrac2{n+1}\to0$, so $\alpha=0$, $R=\infty$. (c)
-$\abs{c_n}^{1/n}=2/(n^{1/n})^2\to2$, so $R=\tfrac12$. \emph{Check.} (b) is (a multiple of) the
+$\abs{c_n}^{1/n}=2/(n^{1/n})^2\to2$, so $R=\tfrac12$. \emph{Check.} (b) is (a rescaling of) the
 exponential series $\sum(2z)^n/n!=e^{2z}$, entire, consistent with $R=\infty$. \checkmark
 \end{wex}
 
@@ -6618,7 +6634,7 @@ absolute) is what permits the value to change (Theorem~\ref{t:rearrange-abs@c4} 
 
 \subsection*{The number $e$ is irrational}
 
-\begin{theorem}[$e\notin\Q$, Rudin 3.31]\label{t:e-irrational@c4}
+\begin{theorem}[$e\notin\Q$, Rudin 3.32]\label{t:e-irrational@c4}
 $\displaystyle e=\sum_{n=0}^\infty\frac1{n!}$ is irrational.
 \end{theorem}
 
@@ -6698,8 +6714,8 @@ growth rate $3$. \checkmark
   positive terms diverges and the series of its negative terms diverges.
 \item (\S9.1) If $\sum a_n$ is conditionally convergent, show there is a rearrangement whose
   partial sums diverge to $+\infty$.
-\item (\S9.1) Where is absolute convergence of $\sum x_n$ used in the proof of Theorem
-  $9.1.5$ (rearrangement)?
+\item (\S9.1) Where is absolute convergence of $\sum a_n$ used in the proof of
+  Theorem~\ref{t:rearrange-abs@c4} (rearrangement)?
 \item (\S9.1) If $\sum a_n$ is absolutely convergent, is every rearrangement also absolutely
   convergent?
 \item (\S9.1) Find an explicit $n$-th partial sum of $\sum_{n=2}^\infty\ln(1-1/n^2)$ to show
@@ -6722,7 +6738,7 @@ growth rate $3$. \checkmark
   (a) $\displaystyle\sum\frac{(-1)^{n+1}}{n+1}$;\quad (b) $\displaystyle\sum\frac{(-1)^{n+1}}{n^2+1}$;\quad
   (c) $\displaystyle\sum\frac{(-1)^{n+1}n}{n+2}$;\quad (d) $\displaystyle\sum\frac{(-1)^{n+1}\ln n}{n}$.
 \item (\S9.3) If $s_n$ is the $n$-th partial sum of $\sum(-1)^{n+1}z_n$ (an alternating
-  series with sum $s$), show $\abs{s-s_n}\le z_{n+1}$.
+  series with $z_n\downarrow0$ and sum $s$), show $\abs{s-s_n}\le z_{n+1}$.
 \item (\S9.3) Give an example showing the Alternating Series Test may fail if $\seq{z_n}$ is
   not decreasing.
 \item (\S9.3) Show the Alternating Series Test is a consequence of Dirichlet's Test.
@@ -6741,8 +6757,9 @@ growth rate $3$. \checkmark
 \item (\S9.3) Can Dirichlet's Test establish convergence of
   $1-\tfrac12-\tfrac13+\tfrac14+\tfrac15+\tfrac16-\cdots$, where the number of signs increases
   by one per block? If not, use another method.
-\item (\S9.3) Show the hypothesis that $X=\seq{x_n}$ is decreasing in Dirichlet's Test may be
-  replaced by ``$\sum\abs{x_n-x_{n+1}}$ converges''.
+\item (\S9.3) Show that in Dirichlet's Test (Theorem~\ref{t:dirichlet@c4}) the hypothesis that
+  $\seq{b_n}$ is decreasing may be replaced by ``$\sum\abs{b_n-b_{n+1}}$ converges'' (still
+  assuming $b_n\to0$).
 \item (\S9.3) If $\seq{a_n}$ is bounded decreasing and $\seq{b_n}$ bounded increasing, and
   $x_n=a_n+b_n$, show $\sum\abs{x_n-x_{n+1}}$ converges.
 \item (\S9.3) If the partial sums $s_n$ of $\sum a_k$ satisfy $\abs{s_n}\le Mn^r$ with $r<1$,
@@ -6800,9 +6817,9 @@ growth rate $3$. \checkmark
   $\lim(na_n)=0$ and $\seq{\sigma_n}$ converges; prove $\seq{s_n}$ converges. (A converse of
   (a) under $na_n\to0$.)\quad
   (e) Derive the same from the weaker hypothesis $\abs{na_n}\le M$ for all $n$.
-\item Definition $3.21$ extends to sequences in a fixed $\R^k$; absolute convergence means
-  convergence of $\sum\abs{\mathbf a_n}$. Show Theorems $3.22$, $3.23$, $3.25$(a), $3.33$,
-  $3.34$, $3.42$, $3.45$, $3.47$, $3.55$ hold in this setting.
+\item Rudin's Definition $3.21$ (series) extends to sequences in a fixed $\R^k$; absolute
+  convergence means convergence of $\sum\abs{\mathbf a_n}$. Show Rudin's Theorems $3.22$,
+  $3.23$, $3.25$(a), $3.33$, $3.34$, $3.42$, $3.45$, $3.47$, $3.55$ hold in this setting.
 \item Fix $\alpha>0$. Choose $x_1>\sqrt\alpha$ and define
   $x_{n+1}=\tfrac12\bigl(x_n+\tfrac\alpha{x_n}\bigr)$.
   (a) Prove $\seq{x_n}$ decreases monotonically and $\lim x_n=\sqrt\alpha$.\quad
@@ -6822,10 +6839,11 @@ growth rate $3$. \checkmark
   the Cantor set.
 \item Suppose $\seq{p_n}$ is Cauchy in a metric space $X$ and some subsequence
   $\seq{p_{n_k}}$ converges to $p\in X$. Prove the full sequence $\seq{p_n}$ converges to $p$.
-\item Prove the analogue of Theorem $3.10$(b): if $\seq{E_n}$ is a sequence of closed bounded
-  sets in a complete metric space $X$ with $E_n\supseteq E_{n+1}$ and $\lim\diam E_n=0$, then
-  $\bigcap_n E_n$ consists of exactly one point.
-\item Suppose $X$ is complete and $\seq{G_n}$ is a sequence of dense open subsets of $X$.
+\item Prove the analogue of Rudin's Theorem $3.10$(b): if $\seq{E_n}$ is a sequence of nonempty
+  closed bounded sets in a complete metric space $X$ with $E_n\supseteq E_{n+1}$ and
+  $\lim\diam E_n=0$, then $\bigcap_n E_n$ consists of exactly one point.
+\item Suppose $X$ is a nonempty complete metric space and $\seq{G_n}$ is a sequence of dense
+  open subsets of $X$.
   Prove Baire's theorem: $\bigcap_n G_n$ is nonempty (in fact dense). \emph{[Hint: find a
   shrinking sequence of neighborhoods $E_n$ with $\closure{E_n}\subseteq G_n$, and apply
   Exercise $21$.]}
@@ -6864,8 +6882,8 @@ growth rate $3$. \checkmark
   $\sum\dfrac{(x-2)^n}{3^n n}$ (center, radius, and each endpoint's convergence), shading where
   it converges absolutely.
 \item Mimic the irrationality proof of $e$ to show that $\sum_{n=0}^\infty\dfrac{1}{n!\,2^n}$
-  has a sum strictly between consecutive rationals $p/q$ for suitable $q$; i.e.\ reproduce the
-  tail estimate $0<\text{tail}<\dfrac1{q!\,q}$ for this series.
+  is irrational: reproduce the tail estimate $0<\text{tail}<\dfrac1{q!\,2^q\,q}$ for this
+  series, and multiply by $q!\,2^q$ (not $q!$).
 \item Prove that if $\sum a_n$ converges absolutely then $\sum a_n^2$ converges, and that the
   Cauchy product of $\sum a_n$ with itself converges absolutely.
 \end{exers}
