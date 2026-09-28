@@ -50525,7 +50525,7 @@ sets whose ``true'' dimension is the fractional number $\alpha$. The guiding heu
 $\alpha$ exceeds the dimension of $E$ then $m_\alpha(E)=0$; if $\alpha$ is below it then
 $m_\alpha(E)=\infty$; at the critical $\alpha$ the value $m_\alpha(E)$ records the genuine
 $\alpha$-dimensional size. Two facts we will earn: the Cantor set has dimension
-$\log 2/\log 3$ with $m_\alpha(C)=1$, and for a rectifiable curve $\Gamma$ one has
+$\log 2/\log 3$ with $m_\alpha(C)=1$, and for a simple rectifiable curve $\Gamma$ one has
 $m_1(\Gamma)=\text{length}(\Gamma)$.
 
 \subsection*{The exterior Hausdorff measure}
@@ -50549,7 +50549,7 @@ decreases (shrinking $\delta$ restricts the admissible covers, raising the infim
 The crucial design choice is the requirement $\diam F_k\le\delta$ with $\delta\to0$: we
 must cover $E$ by sets of \emph{arbitrarily small} diameter. This is precisely what makes
 $m_\alpha^*$ a metric exterior measure (Property~3 below); a single unrestricted infimum
-(no $\delta$) would fail additivity, as Exercise~12 shows.
+(no $\delta$) would fail additivity, as Exercise~3 shows.
 
 \begin{remark}
 Scaling is the soul of the definition. If $F$ is scaled by $r$, then $\diam(rF)=r\diam F$,
@@ -50562,17 +50562,18 @@ $(\diam F_k)^\alpha$ is exactly the dial that records dimension.
 \begin{center}
 \begin{tikzpicture}[scale=1.15]
   % a wiggly set E covered by a chain of small disks of bounded diameter that hug it
-  \draw[line width=1.1pt] plot[smooth,tension=0.7]
-    coordinates {(0,0) (0.8,0.7) (1.6,0.2) (2.4,0.9) (3.2,0.3) (4.0,0.8)};
-  % covering disks of radius 0.24 placed densely along the curve so they tile it with
-  % only light overlap (a cover by patches F_k of diameter <= delta)
+  % covering disks of radius 0.32 centred on (or within 0.06 of) the curve; every point of
+  % the curve is within 0.291 of a centre, so the disks really cover it (a cover by
+  % patches F_k of diameter <= delta); drawn first so the curve stays visible on top
   \foreach \x/\y in {0/0, 0.4/0.42, 0.8/0.7, 1.2/0.46, 1.6/0.2, 2.0/0.52,
                      2.4/0.9, 2.8/0.62, 3.2/0.3, 3.6/0.52, 4.0/0.8}{
-    \draw[band,draw=black!50,line width=0.5pt] (\x,\y) circle (0.24);
+    \draw[band,draw=black!50,line width=0.5pt] (\x,\y) circle (0.32);
   }
+  \draw[line width=1.1pt] plot[smooth,tension=0.7]
+    coordinates {(0,0) (0.8,0.7) (1.6,0.2) (2.4,0.9) (3.2,0.3) (4.0,0.8)};
   % one disk marked with its diameter delta
-  \draw[<->,black!70,line width=0.5pt] (2.4,0.9)++(135:0.24) -- ($(2.4,0.9)+(-45:0.24)$);
-  \node[font=\footnotesize,fill=white,inner sep=0.5pt] at (2.05,1.18){$\le\delta$};
+  \draw[<->,black!70,line width=0.5pt] (2.4,0.9)++(135:0.32) -- ($(2.4,0.9)+(-45:0.32)$);
+  \node[font=\footnotesize,fill=white,inner sep=0.5pt] at (1.98,1.3){$\le\delta$};
   \node[font=\footnotesize] at (2.0,-0.6)
     {cover by sets $F_k$, each $\diam F_k\le\delta$; minimize $\sum_k(\diam F_k)^\alpha$};
 \end{tikzpicture}
@@ -50612,9 +50613,10 @@ infima then let $\delta\to0$.
 \end{proof}
 
 Because $m_\alpha^*$ is a \emph{metric} exterior measure (Property 3), Caratheodory's
-criterion from Chapter 6 applies: every Borel set is measurable and $m_\alpha^*$ restricts
-to a countably additive measure on the Borel $\sigma$-algebra. We write $m_\alpha$ for this
-restriction and call it the \textbf{$\alpha$-dimensional Hausdorff measure}.
+criterion for metric exterior measures (Theorem~\ref{t:metric@c29}) applies: every Borel set
+is measurable and $m_\alpha^*$ restricts to a countably additive measure on the Borel
+$\sigma$-algebra. We write $m_\alpha$ for this restriction and call it the
+\textbf{$\alpha$-dimensional Hausdorff measure}.
 
 \begin{center}
 \begin{tikzpicture}[scale=1.0]
@@ -50650,8 +50652,11 @@ fewest sets of diameter $\le\delta$ needed to cover $E$, which for small $\delta
 number of points of $E$. For $m_1=m$ on $\R$: every set of diameter $\delta$ sits inside an
 interval of length $\delta$, whose Lebesgue length equals its diameter, so the Hausdorff
 sum and the Lebesgue sum coincide in the limit. For the two-sided bound $c_d m_d\le m\le
-2^dc_d m_d$: given $\eps,\delta$, cover $E$ by balls $B_j$ with $\diam B_j<\delta$ and
-$\sum_j m(B_j)\le m(E)+\eps$; since $m(B_j)=c_d(\diam B_j)^d$ we get
+2^dc_d m_d$: given $\eps,\delta$ and $m(E)<\infty$ (otherwise there is nothing to prove),
+cover $E$ by balls $B_j$ with $\diam B_j<\delta$ and $\sum_j m(B_j)\le m(E)+\eps$ (by the
+Vitali covering Lemma~\ref{l:vitali-rep@c26}, applied repeatedly, disjoint such balls in an
+open $O\supseteq E$ with $m(O)\le m(E)+\eps/2$ exhaust $E$ up to a null set, and a null set is
+covered by such balls of total measure $\le\eps/2$); since $m(B_j)=c_d(\diam B_j)^d$ we get
 $H_d^\delta(E)\le c_d^{-1}\sum_j m(B_j)\le c_d^{-1}(m(E)+\eps)$, giving
 $m_d(E)\le c_d^{-1}m(E)$. Conversely cover $E$ by sets $F_j$ with
 $\sum_j(\diam F_j)^d\le m_d(E)+\eps$ and enclose each $F_j$ in a ball $B_j$ of diameter
@@ -50690,7 +50695,7 @@ Lower bounds $m_\alpha(E)>0$ are harder and usually need a Lipschitz map onto a 
 positive measure, or a counting argument over ``vertices'' (Section 30.2).
 \end{method}
 
-\begin{wex}{$m_\alpha(C)\le1$ for the Cantor set at $\alpha=\log2/\log3$}
+\begin{wex}{$m_\alpha(C)\le1$ for the Cantor set at $\alpha=\log2/\log3$}\label{wex:cantorup@c30}
 Let $C=\bigcap_kC_k$ be the middle-thirds Cantor set, $C_k$ a union of $2^k$ intervals of
 length $3^{-k}$. Show $m_\alpha(C)\le1$ when $\alpha=\log2/\log3$.
 \wrec Upper bound: use the natural cover $C\subseteq C_K$ and the method above. The exponent
@@ -50712,13 +50717,12 @@ Exercise~1).
 $m_\alpha(A_j)<\infty$ and derive a contradiction with a set of positive $\alpha$-measure.
 \wsol Any nonempty open ball $B\subseteq\Rd$ has $m_d(B)>0$ (since $c_dm_d=m$ and
 $m(B)>0$), so by Theorem~\ref{t:collapse@c30} with $\beta=\alpha<d$ we get $m_\alpha(B)=\infty$.
-Were $m_\alpha$ $\sigma$-finite, write $B=\bigcup_j(B\cap A_j)$ with $m_\alpha(A_j)<\infty$;
-then $m_\alpha(B)\le\sum_j m_\alpha(A_j)$. But each $B\cap A_j$ has finite measure while their
-union $B$ has infinite measure --- not yet a contradiction, so refine: cover $B$ by countably
-many pieces of finite $m_\alpha$ forces, by Theorem~\ref{t:collapse@c30} applied in reverse, that
-$B$ itself has $m_\beta(B)=0$ for every $\beta>\alpha$, in particular $m_d(B)=0$,
-contradicting $m_d(B)>0$. \emph{Check.} For $\alpha=1$, $d=2$ the plane has infinite length
-on every disc, which cannot be exhausted by finitely-long pieces --- matching intuition.
+Were $m_\alpha$ $\sigma$-finite, write $B=\bigcup_j(B\cap A_j)$ with $m_\alpha(A_j)<\infty$.
+Each piece has $m_\alpha(B\cap A_j)\le m_\alpha(A_j)<\infty$, so Theorem~\ref{t:collapse@c30}
+(with $\beta=d>\alpha$) gives $m_d(B\cap A_j)=0$ for every $j$; by countable subadditivity
+$m_d(B)\le\sum_j m_d(B\cap A_j)=0$, contradicting $m_d(B)>0$. \emph{Check.} For $\alpha=1$,
+$d=2$ the plane has infinite length on every disc, which cannot be exhausted by countably
+many finitely-long pieces --- matching intuition.
 \end{wex}
 
 \begin{wex}{Diameter scaling of the Hausdorff sum}
@@ -50742,7 +50746,7 @@ projecting (a $1$-Lipschitz map cannot increase $m_1$).
 \wsol \emph{Upper bound.} Split $I$ into $N$ subsegments of diameter $L/N\le\delta$; then
 $H_1^\delta(I)\le N\cdot(L/N)=L$, so $m_1(I)\le L$. \emph{Lower bound.} The projection
 $\pi(x,y)=x$ is $1$-Lipschitz and $\pi(I)=[0,L]$, so $m_1([0,L])\le m_1(I)$ (a $1$-Lipschitz
-image cannot have larger $m_1$, by Lemma~2.2 of Section 30.2). Since $m_1([0,L])=L$ on the
+image cannot have larger $m_1$, by Lemma~\ref{l:lipdim@c30}). Since $m_1([0,L])=L$ on the
 line, $L\le m_1(I)$. Hence $m_1(I)=L$. \emph{Check.} For $L=1$, $m_1(I)=1\in(0,\infty)$, so
 the unit segment indeed has strict dimension $1$; doubling to $L=2$ doubles the measure,
 consistent with $m_1(\lambda I)=\lambda m_1(I)$.
@@ -50750,16 +50754,17 @@ consistent with $m_1(\lambda I)=\lambda m_1(I)$.
 
 \begin{wex}{The primitive measure $\tilde m_1$ fails additivity}
 Define $\tilde m_1(E)=\inf\set{\sum_k\diam F_k\st E\subseteq\bigcup_kF_k}$ with no bound on
-the diameters. Show $\tilde m_1$ is not additive on separated sets (Exercise~12).
+the diameters. Show $\tilde m_1$ is not additive on separated sets (Exercise~3).
 \wrec A non-example that motivates the $\delta\to0$ requirement: drop it and additivity dies.
-\wsol Let $I_1,I_2$ be two parallel unit segments in $\R^2$ with $I_1=I_2+h$, $\abs h<\eps$.
-Each has $\tilde m_1(I_i)=1$ (cover by one set of diameter $1$; cannot do better). But cover
-$I_1\cup I_2$ by a single set $F$ enclosing both: its diameter is at most $1+\eps$, so
+\wsol Let $I_1,I_2$ be two disjoint parallel unit segments in $\R^2$ with $I_1=I_2+h$,
+$\abs h<\eps$. Each has $\tilde m_1(I_i)=1$ (cover by one set of diameter $1$; cannot do
+better). But cover $I_1\cup I_2$ by a single set $F$ enclosing both: its diameter is at most
+$1+\eps$, so
 $\tilde m_1(I_1\cup I_2)\le1+\eps$. For $\eps<1$ this gives
 $\tilde m_1(I_1\cup I_2)\le1+\eps<2=\tilde m_1(I_1)+\tilde m_1(I_2)$, so $\tilde m_1$ is
-strictly subadditive, never additive. \emph{Check.} The genuine $m_1$ uses arbitrarily
-small diameters, which forbids the single fat cover $F$; that is exactly why the $\delta\to0$
-clause is built into Definition~\ref{d:hausext@c30}.
+strictly subadditive on this separated pair, hence not additive. \emph{Check.} The genuine
+$m_1$ uses arbitrarily small diameters, which forbids the single fat cover $F$; that is
+exactly why the $\delta\to0$ clause is built into Definition~\ref{d:hausext@c30}.
 \end{wex}
 
 \begin{wex}{$m_d$ and Lebesgue measure agree up to a constant}
@@ -50785,16 +50790,20 @@ $c_2=\pi/4$ is exactly the area-to-diameter$^2$ ratio of a disc.
   }}
   \node[font=\footnotesize] at (0.5,-0.18){cover $[0,1]^2$ by $16$ balls of diameter $\delta$};
 \end{tikzpicture}
-\captionof{figure}{Covering the square by balls of diameter $\delta$ gives
-$H_2^\delta\approx\sum(\diam)^2\approx m/c_2$, the link $c_dm_d=m$ in $\Rd$.}
+\captionof{figure}{Covering the square by balls $B$ of diameter $\delta$. Since
+$(\diam B)^2=m(B)/c_2$, every such cover has $\sum(\diam B)^2=\sum m(B)/c_2\ge m/c_2$.
+Near-optimal covers (disjoint balls filling the square up to a null set, by a Vitali argument)
+and the iso-diametric inequality for arbitrary covering sets give the exact link $c_dm_d=m$
+in $\Rd$ (Problem~1 below).}
 \end{center}
 
 \begin{pitfall}
 Two traps. First, $\diam F$ uses the \emph{ambient} metric, not the intrinsic length of a
 curve --- a long curve can have small diameter. Second, the exponent $\alpha$ must match the
-geometry: computing $H_\alpha^\delta$ with the ``wrong'' $\alpha$ gives $0$ or $\infty$, and
-only the critical $\alpha$ returns a finite positive answer. When in doubt, get the upper
-bound (easy, via an explicit cover) first, then fight for the lower bound separately.
+geometry: computing $m_\alpha=\lim_{\delta\to0}H_\alpha^\delta$ with the ``wrong'' $\alpha$
+gives $0$ or $\infty$, and only the critical $\alpha$ returns a finite positive answer. When
+in doubt, get the upper bound (easy, via an explicit cover) first, then fight for the lower
+bound separately.
 \end{pitfall}
 
 \begin{exers}{Exercises (Stein, Ch.7).}
@@ -50803,8 +50812,9 @@ bound (easy, via an explicit cover) first, then fight for the lower bound separa
   Show directly from the definition of the exterior measure that if $0<\alpha\le d$ and
   $E=E_1\cup E_2$, then $m_\alpha^*(E)=m_\alpha^*(E_1)+m_\alpha^*(E_2)$. [Hint: if
   $E_1\cap E_2=\set x$, let $B_\eps$ be the open ball of diameter $\eps$ at $x$ and
-  $E^\eps=E\cap B_\eps^c$; show $m_\alpha^*(E^\eps)\ge H_\alpha^\eps(E)\ge m_\alpha^*(E)-
-  \mu(\eps)-\eps^\alpha$ with $\mu(\eps)\to0$, hence $m_\alpha^*(E^\eps)\to m_\alpha^*(E)$.]
+  $E^\eps=E\cap B_\eps^c$; show $m_\alpha^*(E^\eps)\ge H_\alpha^\eps(E)-\eps^\alpha\ge
+  m_\alpha^*(E)-\mu(\eps)-\eps^\alpha$ with $\mu(\eps)\to0$, hence
+  $m_\alpha^*(E^\eps)\to m_\alpha^*(E)$.]
 \item Define a primitive one-dimensional measure $\tilde m_1=\inf\sum_k\diam F_k$ over covers
   $E\subseteq\bigcup_kF_k$, with no restriction on the diameters $\diam F_k$. For two disjoint
   unit segments $I_1=I_2+h$ in $\Rd$ ($d\ge2$) with $\abs h<\eps$, observe
@@ -50818,11 +50828,12 @@ bound (easy, via an explicit cover) first, then fight for the lower bound separa
   $m(E)\le v_d(\diam E/2)^d$, where $v_d$ is the volume of the unit ball; among sets of given
   diameter the ball has maximal volume. (a) Prove it when $E$ is symmetric ($-x\in E$ whenever
   $x\in E$). For the general case use Steiner symmetrization: for a unit vector $e$ and plane
-  $P\perp e$, set $S(E,e)=\set{x+te\st x\in P,\ \abs t\le\tfrac12L(E;e;x)}$ where
-  $L(E;e;x)=m\set{t\st x+te\in E}$. (b) Show $S(E,e)$ is bounded measurable with
-  $m(S(E,e))=m(E)$ [Fubini]. (c) Show $\diam S(E,e)\le\diam E$. (d) If a rotation $\rho$ fixes
-  $E$ and $P$, then $\rho S(E,e)=S(E,e)$. (e) With the standard basis, iterate
-  $E_0=E$, $E_{j}=S(E_{j-1},e_j)$; use that $E_d$ is symmetric to conclude the inequality.
+  $P\perp e$, set $S(E,e)=\set{x+te\st x\in P,\ (x+\R e)\cap E\ne\es,\
+  \abs t\le\tfrac12L(E;e;x)}$ where $L(E;e;x)=m\set{t\st x+te\in E}$. (b) Show $S(E,e)$ is
+  bounded measurable with $m(S(E,e))=m(E)$ [Fubini]. (c) Show $\diam S(E,e)\le\diam E$. (d) If
+  a (possibly improper) rotation $\rho$ fixes $E$ and $P$, then $\rho S(E,e)=S(E,e)$. (e) With
+  the standard basis, iterate $E_0=E$, $E_{j}=S(E_{j-1},e_j)$; use that $E_d$ is symmetric to
+  conclude the inequality.
   (f) Deduce $m(E)=\frac{v_d}{2^d}m_d(E)$ for any Borel $E\subseteq\Rd$.
 \end{exers}
 
@@ -50841,8 +50852,8 @@ bound (easy, via an explicit cover) first, then fight for the lower bound separa
 \item Let $Q$ be a $k$-dimensional cube in $\Rd$ (a product of $k$ nontrivial intervals and
   $d-k$ points). Show $0<m_k(Q)<\infty$, so $\dim Q=k$.
 \item (Non-example.) Exhibit a bounded set $E\subseteq\R$ with $m_1(E)=0$ but $E$ uncountable,
-  and conclude $\dim E$ can be anything in $[0,1]$ depending on the construction. (Use a
-  fat/thin Cantor set.)
+  and conclude $\dim E$ can be anything in $[0,1]$ depending on the construction. (Use
+  Cantor sets with suitably chosen dissection ratios.)
 \item (Diagram.) Sketch a covering of the boundary circle of the unit disc by $N$ arcs of
   diameter $\delta\approx2\pi/N$, and use it to give the upper bound $m_1(\text{circle})\le
   2\pi$. Explain what extra step is needed for the matching lower bound.
@@ -50894,7 +50905,7 @@ the jump locates $\dim E=\alpha$. (Schematic.)}
 \begin{definition}\label{d:lip@c30}
 A map $f$ on $E\subseteq\Rd$ is \emph{Lipschitz} if $\abs{f(x)-f(y)}\le M\abs{x-y}$ for some
 $M$, and \emph{Lipschitz of exponent $\gamma$} (or \emph{Holder $\gamma$}) if
-$\abs{f(x)-f(y)}\le M\abs{x-y}^\gamma$. The interesting range is $0<\gamma\le1$ (Exercise~3:
+$\abs{f(x)-f(y)}\le M\abs{x-y}^\gamma$. The interesting range is $0<\gamma\le1$ (Exercise~1:
 exponent $>1$ forces $f$ constant on an interval).
 \end{definition}
 
@@ -50914,12 +50925,13 @@ $\diam f(E\cap F_k)\le M(\diam F_k)^\gamma$, since $f$ is Holder $\gamma$. There
   \le M^{\alpha/\gamma}\sum_k(\diam F_k)^\alpha .
 \]
 Taking infima over covers and $\delta\to0$ gives $m_\beta(f(E))\le M^\beta m_\alpha(E)$ with
-$\beta=\alpha/\gamma$. If $m_\alpha(E)<\infty$ then $m_\beta(f(E))<\infty$, so
-$\dim f(E)\le\beta=\dim E/\gamma$.
+$\beta=\alpha/\gamma$. Consequently, for every $\alpha>\dim E$ we have $m_\alpha(E)=0$, hence
+$m_{\alpha/\gamma}(f(E))=0$ and $\dim f(E)\le\alpha/\gamma$; letting $\alpha\downarrow\dim E$
+gives $\dim f(E)\le\dim E/\gamma$.
 \end{proof}
 
 In particular a genuine ($\gamma=1$) Lipschitz map never raises dimension, and a bijective
-bi-Lipschitz map preserves it. Dimension is thus a Lipschitz invariant --- much coarser than
+bi-Lipschitz map preserves it. Dimension is thus a bi-Lipschitz invariant --- much coarser than
 a diffeomorphism invariant, which is why fractional values survive.
 
 \[\begin{tikzcd}[row sep=large, column sep=large]
@@ -50934,8 +50946,8 @@ The middle-thirds Cantor set $C$ has strict Hausdorff dimension $\alpha=\log2/\l
 \end{theorem}
 
 \begin{proof}
-The bound $m_\alpha(C)\le1$ was proved in Worked Example in Section 30.1: cover $C$ by the
-$2^K$ intervals of $C_K$ and use $3^\alpha=2$. For the reverse bound $m_\alpha(C)>0$ we use
+The bound $m_\alpha(C)\le1$ was proved in Worked Example~\ref{wex:cantorup@c30}: cover $C$ by
+the $2^K$ intervals of $C_K$ and use $3^\alpha=2$. For the reverse bound $m_\alpha(C)>0$ we use
 the Cantor--Lebesgue function $F:C\to[0,1]$, which is surjective. We claim $F$ is Holder of
 exponent $\gamma=\alpha=\log2/\log3$ (Lemma~\ref{l:cantorlip@c30} below). Granting this,
 Lemma~\ref{l:lipdim@c30} with $E=C$, $\gamma=\alpha$, $\beta=\alpha/\gamma=1$ gives
@@ -50944,7 +50956,7 @@ Lemma~\ref{l:lipdim@c30} with $E=C$, $\gamma=\alpha$, $\beta=\alpha/\gamma=1$ gi
 \]
 so $m_\alpha(C)\ge M^{-1}>0$. Combined with $m_\alpha(C)\le1$ this yields
 $0<m_\alpha(C)\le1$, i.e.\ $C$ has strict dimension $\alpha=\log2/\log3$. (With more care
-$m_\alpha(C)=1$ exactly; Exercise~7.)
+$m_\alpha(C)=1$ exactly; Exercise~4.)
 \end{proof}
 
 \begin{lemma}[Holder continuity of the Cantor--Lebesgue function]\label{l:cantorlip@c30}
@@ -50983,7 +50995,7 @@ $3^{-n}\le\abs{x-y}$. This balancing argument recurs as Lemma~\ref{l:lim@c30} be
     -- (21/27,6/8) -- (24/27,6/8)            % plateau 3/4
     -- (25/27,7/8) -- (26/27,7/8)            % plateau 7/8
     -- (1,1);
-  \node[font=\footnotesize,fill=white,inner sep=1pt] at (0.30,0.90){devil's staircase};
+  \node[font=\footnotesize,fill=white,inner sep=1pt] at (0.46,0.90){devil's staircase};
 \end{tikzpicture}
 \captionof{figure}{The Cantor--Lebesgue function (stage $3$): flat off $C$, Holder of exponent
 $\log2/\log3$ on $C$; it transfers positive $m_\alpha$-mass to $m_1([0,1])$.}
@@ -51004,8 +51016,8 @@ $\abs{\tilde\gamma(t_1)-\tilde\gamma(t_2)}\le\abs{t_1-t_2}$ (chord $\le$ arc), s
 $\tilde\gamma$ is $1$-Lipschitz and Lemma~\ref{l:lipdim@c30} ($\gamma=M=1$) gives
 $m_1(\Gamma)\le L$. \emph{$m_1\ge$ length.} Take a partition
 $a=t_0<\dots<t_N=b$, $\Gamma_j=\gamma([t_j,t_{j+1}])$. By quasi-simplicity the $\Gamma_j$
-are disjoint off finitely many points (which have $m_1=0$), so Property~4 of Hausdorff
-measure gives $m_1(\Gamma)=\sum_j m_1(\Gamma_j)$. Rotating coordinates so the chord
+are disjoint off finitely many points (which have $m_1=0$), so the additivity of the measure
+$m_1$ on Borel sets gives $m_1(\Gamma)=\sum_j m_1(\Gamma_j)$. Rotating coordinates so the chord
 $[\gamma(t_j),\gamma(t_{j+1})]$ lies on the $x$-axis as $[0,\ell_j]$, the projection
 $\pi(x,y)=x$ is $1$-Lipschitz and $[0,\ell_j]\subseteq\pi(\Gamma_j)$, so by
 Lemma~\ref{l:lipdim@c30} $\ell_j\le m_1(\Gamma_j)$. Summing,
@@ -51018,12 +51030,12 @@ rectifiable.
 \begin{center}
 \begin{tikzcd}[row sep=large, column sep=large]
 {[0,L]} \arrow[r, "\tilde\gamma", two heads] \arrow[dr, "\pi\circ\tilde\gamma"'] & \Gamma \arrow[d, "\pi"] \\
- & {[0,\ell_j]}
+ & \R
 \end{tikzcd}
 \captionof{figure}{Rectifiability bounds. The arc-length parametrization $\tilde\gamma$ is
-$1$-Lipschitz, so $m_1(\Gamma)\le L$; the coordinate projection $\pi$ is $1$-Lipschitz onto a
-chord $[0,\ell_j]$, so $\ell_j\le m_1(\Gamma_j)$. Both maps shrink $m_1$, pinching
-$m_1(\Gamma)=\mathrm{length}(\gamma)$.}
+$1$-Lipschitz, so $m_1(\Gamma)\le L$; the coordinate projection $\pi$ is $1$-Lipschitz and
+$\pi(\Gamma_j)$ contains the projected chord $[0,\ell_j]$, so $\ell_j\le m_1(\Gamma_j)$. Both
+maps shrink $m_1$, pinching $m_1(\Gamma)=\mathrm{length}(\gamma)$.}
 \end{center}
 
 \subsection*{The Sierpinski triangle and the von Koch curve}
@@ -51042,8 +51054,8 @@ $\diam B_j<\delta$, let $N_\ell$ count balls with $2^{-\ell}\le\diam B_j<2^{-\el
 of that size contains at most $c\,3^{k-\ell}$ of the $k$th-generation vertices
 (Lemma~\ref{l:sierpcount@c30}). Since all $3^k$ vertices must be covered,
 $c\sum_\ell N_\ell3^{k-\ell}\ge3^k$, i.e.\ $c\sum_\ell N_\ell3^{-\ell}\ge1$. As
-$2^{-\ell\alpha}=3^{-\ell}$, this gives $\sum_j(\diam B_j)^\alpha\ge\sum_\ell N_\ell2^{-\ell\alpha}\ge c>0$,
-whence $m_\alpha(S)>0$.
+$2^{-\ell\alpha}=3^{-\ell}$, this gives
+$\sum_j(\diam B_j)^\alpha\ge\sum_\ell N_\ell2^{-\ell\alpha}\ge c^{-1}>0$, whence $m_\alpha(S)>0$.
 \end{proof}
 
 \begin{lemma}[Vertex-counting in a ball]\label{l:sierpcount@c30}
@@ -51056,7 +51068,7 @@ Let $B^*$ be the concentric ball of triple diameter. If a $k$th-generation trian
 $\triangle_k$ with vertex $v\in B$ lies in the $\ell$th-generation triangle $\triangle_\ell'$,
 then $v\in\triangle_k\subseteq\triangle_\ell'\subseteq B^*$ (since $\diam B\ge2^{-\ell}$).
 The $\ell$th-generation triangles have disjoint interiors and area $\approx4^{-\ell}$, while
-$B^*$ has area $\le c''4^{-\ell}$, so $B^*$ meets at most $c$ of them. Each $\triangle_\ell'$
+$B^*$ has area $\le c''4^{-\ell}$, so $B^*$ contains at most $c$ of them. Each $\triangle_\ell'$
 contains $3^{k-\ell}$ triangles (hence vertices) of generation $k$. Thus $B$ holds at most
 $c\,3^{k-\ell}$ such vertices.
 \end{proof}
@@ -51087,7 +51099,7 @@ vertices, giving $\abs{K_j(t)-K_j(s)}\le(4/3)^j\abs{t-s}$; also
 $\abs{K_{j+1}(t)-K_j(t)}\le3^{-j}$. Lemma~\ref{l:lim@c30} (with $A=4/3$, $B=3$) yields
 $\abs{K(t)-K(s)}\le M\abs{t-s}^\gamma$ where
 $\gamma=\log B/\log(AB)=\log3/\log4$. By Lemma~\ref{l:lipdim@c30},
-$\dim K\le1/\gamma=\log4/\log3$. The reverse $m_\gamma'(K)>0$ (with $\gamma'=1/\gamma$)
+$\dim K\le1/\gamma=\log4/\log3$. The reverse $m_{\gamma'}(K)>0$ (with $\gamma'=1/\gamma$)
 follows from the separated self-similar theory below; thus $\dim K=\log4/\log3\approx1.262$.
 \end{proof}
 
@@ -51102,8 +51114,9 @@ Uniform convergence: $\abs{f(t)-f_j(t)}\le\sum_{k\ge j}B^{-k}\le cB^{-j}$. Hence
 $\abs{f(t)-f(s)}\le\abs{f_j(t)-f_j(s)}+2cB^{-j}\le c(A^j\abs{t-s}+B^{-j})$. Choose $j$ with
 $(AB)^j\abs{t-s}\le1\le(AB)^{j+1}\abs{t-s}$ (possible since $\abs{t-s}\le1$, $AB>1$). The
 first inequality gives $A^j\abs{t-s}\le B^{-j}$; raising the second to the power $\gamma$ and
-using $(AB)^\gamma=B$ gives $1\le B^j\abs{t-s}^\gamma$, i.e.\ $B^{-j}\le\abs{t-s}^\gamma$.
-Therefore $\abs{f(t)-f(s)}\le2cB^{-j}\le M\abs{t-s}^\gamma$.
+using $(AB)^\gamma=B$ gives $1\le B^{j+1}\abs{t-s}^\gamma$, i.e.\
+$B^{-j}\le B\abs{t-s}^\gamma$. Therefore $\abs{f(t)-f(s)}\le2cB^{-j}\le M\abs{t-s}^\gamma$
+with $M=2cB$.
 \end{proof}
 
 \begin{center}
@@ -51125,15 +51138,16 @@ dimension $\log4/\log3$, between $1$ and $2$.}
 \begin{definition}\label{d:selfsim@c30}
 A map $\mathcal S:\Rd\to\Rd$ is a \emph{similarity with ratio $r$} if
 $\abs{\mathcal S(x)-\mathcal S(y)}=r\abs{x-y}$; every similarity is a translation composed
-with a rotation and a dilation by $r$. Given similarities $\mathcal S_1,\dots,\mathcal S_m$
-of common ratio $r$, a set $F$ is \emph{self-similar} if
+with a (possibly improper) rotation and a dilation by $r$. Given similarities
+$\mathcal S_1,\dots,\mathcal S_m$ of common ratio $r$, a set $F$ is \emph{self-similar} if
 $F=\mathcal S_1(F)\cup\dots\cup\mathcal S_m(F)$.
 \end{definition}
 
 For the Cantor set: $\mathcal S_1(x)=x/3$, $\mathcal S_2(x)=x/3+2/3$, $m=2$, $r=1/3$. For
 the Sierpinski triangle: $m=3$, $r=1/2$. For von Koch: $m=4$, $r=1/3$ (with two rotations by
-$\pm\pi/3$). The \emph{Cantor dust} $D=C_\xi\times C_\xi$ uses $m=4$ corner squares of ratio
-$\mu$.
+$\pm\pi/3$). The \emph{Cantor dust} $D=C_\xi\times C_\xi$ ($C_\xi$ the Cantor set of constant
+dissection of Exercise~3 in Section~24.1) uses $m=4$ corner squares of ratio
+$\mu=(1-\xi)/2$.
 
 \begin{theorem}[Existence of self-similar sets]\label{t:exist@c30}
 If $\mathcal S_1,\dots,\mathcal S_m$ are similarities of common ratio $0<r<1$, there is a
@@ -51174,9 +51188,9 @@ S_{n_k}(x)\in F$ and the disjoint ``open sets'' $\mathcal S_{n_1}\circ\dots\circ
 S_{n_k}(O)$, with $d(v,O(v))\le cr^k$ and $\diam O(v)\approx r^k$. As for Sierpinski, a ball
 $B$ with $r^\ell\le\diam B<r^{\ell-1}$ contains at most $cm^{k-\ell}$ vertices
 (Lemma~\ref{l:sscount@c30}). Letting $N_\ell$ count cover-balls of that size,
-$c\sum_\ell N_\ell m^{k-\ell}\ge m^k$, so $\sum_\ell N_\ell m^{-\ell}\ge c$. Since
-$r^{\ell\alpha}=m^{-\ell}$, $\sum_j(\diam B_j)^\alpha\ge\sum_\ell N_\ell r^{\ell\alpha}\ge c>0$,
-so $m_\alpha(F)>0$ and $\dim F=\alpha$.
+$c\sum_\ell N_\ell m^{k-\ell}\ge m^k$, so $\sum_\ell N_\ell m^{-\ell}\ge c^{-1}$. Since
+$r^{\ell\alpha}=m^{-\ell}$, $\sum_j(\diam B_j)^\alpha\ge\sum_\ell N_\ell r^{\ell\alpha}\ge
+c^{-1}>0$, so $m_\alpha(F)>0$ and $\dim F=\alpha$.
 \end{proof}
 
 \begin{lemma}[Vertex-counting, general case]\label{l:sscount@c30}
@@ -51188,7 +51202,7 @@ vertices of the $k$th generation.
 For a vertex $v\in B$ with open set $O(v)$, a fixed dilate $B^*$ of $B$ contains $O(v)$ and
 the generation-$\ell$ open set above it (by $d(v,O(v))\le cr^k$ and $\diam O(v)\approx r^k$).
 The generation-$\ell$ open sets are disjoint with volume $\approx r^{d\ell}$, and $B^*$ has
-volume $\le cr^{d\ell}$, so $B^*$ meets at most $c$ of them; each contains $m^{k-\ell}$
+volume $\le cr^{d\ell}$, so $B^*$ contains at most $c$ of them; each contains $m^{k-\ell}$
 generation-$k$ open sets. Hence $\le cm^{k-\ell}$ vertices.
 \end{proof}
 
@@ -51219,7 +51233,7 @@ rule $\dim(A\times B)=\dim A+\dim B$ for these sets.
 
 \begin{wex}{Holder exponent $>1$ forces constancy}
 Show that if $f:[0,1]\to\R$ is Holder of exponent $\gamma>1$, then $f$ is constant
-(Exercise~3).
+(Exercise~1).
 \wrec ``Exponent above $1$ kills the function'': estimate the difference quotient and let the
 mesh go to zero.
 \wsol For $x<y$ split $[x,y]$ into $N$ equal pieces $x=u_0<\dots<u_N=y$ of length
@@ -51231,8 +51245,8 @@ $M(y-x)$, the ordinary Lipschitz estimate, which does not force constancy.
 \end{wex}
 
 \begin{wex}{Dimension of a finite or countable set}
-Show that any countable set $E\subseteq\Rd$ has $\dim E=0$, and that monotonicity gives
-$\dim\bigcup_kE_k\le\sup_k\dim E_k$ (Exercise~6).
+Show that any countable set $E\subseteq\Rd$ has $\dim E=0$, and that countable subadditivity
+gives $\dim\bigcup_kE_k\le\sup_k\dim E_k$ (Exercise~3).
 \wrec ``Dimension of a small set'': single points have measure zero in every positive
 exponent; assemble countably.
 \wsol For a single point $\set p$ and any $\alpha>0$, cover by one ball of diameter
@@ -51247,7 +51261,7 @@ is not topological.
 
 \begin{wex}{Dimension is preserved by a polynomial}
 Let $f(x)=x^k$ on $\R$, $k\ge1$, and $E$ a bounded Borel set. Show $\dim f(E)=\dim E$
-(Exercise~5).
+(Exercise~2).
 \wrec Locally Lipschitz both ways on a bounded set; apply Lemma~\ref{l:lipdim@c30} twice.
 \wsol On a bounded interval $[-R,R]\supseteq E$, $f$ has bounded derivative, so $f$ is
 Lipschitz ($\gamma=1$) there, giving $\dim f(E)\le\dim E$. Where $f'\ne0$, $f$ has a
@@ -51259,7 +51273,7 @@ or destroy fractional dimension.
 \end{wex}
 
 \begin{wex}{Totally disconnected when $\dim E<1$}
-Show that a Borel set $E\subseteq\Rd$ with $\dim E<1$ is totally disconnected (Exercise~24).
+Show that a Borel set $E\subseteq\Rd$ with $\dim E<1$ is totally disconnected (Exercise~20).
 \wrec Use a $1$-Lipschitz real-valued map to push $E$ to a small subset of $\R$ with gaps.
 \wsol Fix $x\in E$ and let $f(t)=\abs{t-x}$, which is $1$-Lipschitz, so by
 Lemma~\ref{l:lipdim@c30} $\dim f(E)\le\dim E<1$, hence $m_1(f(E))=0$ and $f(E)$ has empty
@@ -51283,11 +51297,11 @@ $\dim<1$ is sharp.
   [Hint: from a finite cover of $C$ by closed intervals $\set{I_j}$, produce another cover by
   intervals $\set{I_\ell'}$ each of length $3^{-k}$ for some $k$ with
   $\sum_j\abs{I_j}^\alpha\ge\sum_\ell\abs{I_\ell'}^\alpha\ge1$, $\alpha=\log2/\log3$.]
-\item Show that the Cantor set of constant dissection $C_\xi$ (Exercise 3, Chapter 1) has
+\item Show that the Cantor set of constant dissection $C_\xi$ (Exercise~3 in Section~24.1) has
   strict Hausdorff dimension $\log2/\log(2/(1-\xi))$.
 \item Consider $C_{\xi_1}\times C_{\xi_2}$ in $\R^2$. Show it has strict Hausdorff dimension
   $\dim(C_{\xi_1})+\dim(C_{\xi_2})$.
-\item Construct a Cantor-like set (as in Exercise 4, Chapter 1) of Lebesgue measure zero yet
+\item Construct a Cantor-like set (as in Exercise~4 in Section~24.1) of Lebesgue measure zero yet
   Hausdorff dimension $1$. [Hint: choose $\ell_1,\ell_2,\dots$ so that
   $1-\sum_{j=1}^k2^{j-1}\ell_j\to0$ slowly.]
 \item Let $D=D_\mu=C_\xi\times C_\xi$ be the Cantor dust, $\mu=(1-\xi)/2$. (a) Show that for
@@ -51295,15 +51309,19 @@ $\dim<1$ is sharp.
   of slope $\lambda=\tan\theta$. (b) Prove that if $\xi>1/2$ then $C_\xi+\lambda C_\xi$ has
   Lebesgue measure zero for every $\lambda$. [Hint: $m_\alpha(C_\xi+\lambda C_\xi)<\infty$ for
   $\alpha=\dim D_\mu$.]
-\item Consider the von Koch curve $K_\ell$, $1/4<\ell<1/2$. Prove the analogue of
+\item Consider the von Koch curve $K_\ell$, $1/4<\ell<1/2$, built like $K$ but replacing each
+  segment by four segments of relative length $\ell$, the middle two forming an isosceles
+  bump. Prove the analogue of
   Theorem~\ref{t:koch@c30}: $t\mapsto K_\ell(t)$ is Lipschitz of exponent
   $\gamma=\log(1/\ell)/\log4$, and $K_\ell$ has strict Hausdorff dimension $\alpha=1/\gamma$.
-  [Hint: with $O$ the shaded open triangle, $O\supseteq\bigcup_{j=0}^3 S_j(O)$ where
-  $S_0(x)=\ell x$, $S_1(x)=\rho_\theta(\ell x)+a$, $S_2(x)=\rho_\theta^{-1}(\ell x)+c$,
-  $S_3(x)=\ell x+b$, and the $S_j(O)$ are disjoint.]
+  [Hint: with $O$ the open isosceles triangle with base $[0,1]$ and apex
+  $c=(\tfrac12,\sqrt{\ell-1/4})$ (the apex of the first bump), $O\supseteq\bigcup_{j=0}^3 S_j(O)$
+  where $S_0(x)=\ell x$, $S_1(x)=\rho_\theta(\ell x)+a$, $S_2(x)=\rho_\theta^{-1}(\ell x)+c$,
+  $S_3(x)=\ell x+b$, with $a=(\ell,0)$, $b=(1-\ell,0)$ and $\rho_\theta$ the rotation by the base
+  angle $\theta$ of the bump, and the $S_j(O)$ are disjoint.]
 \item Show that if $\ell<1/2$ the von Koch curve $t\mapsto K_\ell(t)$ is simple. [Hint: if
   $t=\sum_j a_j/4^j$, $a_j\in\set{0,1,2,3}$, then
-  $\set{K(t)}=\bigcap_j S_{a_1}(S_{a_2}(\cdots S_{a_j}(O)\cdots))$.]
+  $\set{K(t)}=\bigcap_j S_{a_1}(S_{a_2}(\cdots S_{a_j}(\closure O)\cdots))$.]
 \item Take $\ell=1/2$ in the von Koch construction: show one obtains a space-filling curve
   that fills the right triangle with vertices $(0,0),(1,0),(1/2,1/2)$.
 \item Prove that the von Koch curve $t\mapsto K_\ell(t)$, $1/4<\ell\le1/2$, is continuous but
@@ -51311,7 +51329,9 @@ $\dim<1$ is sharp.
   $\lim_n(K(u_n)-K(v_n))/(u_n-v_n)$ would exist for $u_n=k/4^n$, $v_n=(k+1)/4^n$.]
 \item For compact $E\subseteq\Rd$ let $\#(\eps)$ be the least number of $\eps$-balls covering
   $E$, and define the covering dimension $\dim_C(E)=\inf\set{\beta\st\#(\eps)=O(\eps^{-\beta})}$.
-  Show $\dim_C(E)=\dim_M(E)$ (Minkowski dimension) by proving for all $\delta>0$:
+  Show $\dim_C(E)=\dim_M(E)$, where $\dim_M(E)=\inf\set{\beta\st m(E^\delta)=O(\delta^{d-\beta})}$
+  is the Minkowski dimension and $E^\delta=\set{x\st\dist(x,E)<\delta}$, by proving for all
+  $\delta>0$:
   (i) $m(E^\delta)\le c\#(\delta)\delta^d$; (ii) $\#(\delta)\le c'm(E^\delta)\delta^{-d}$.
   [Hint for (ii): use the Vitali-type lemma to find disjoint balls $B_i$ of radius $\delta/3$
   centered on $E$ whose triples cover $E$.]
@@ -51327,7 +51347,8 @@ $\dim<1$ is sharp.
 \item From $[0,1]$ remove the second and fourth quarters; repeat in each remaining closed
   interval. Let $F=\set{x=\sum_k a_k/4^k\st a_k\in\set{0,2}}$ be the limit. Prove
   $0<m_{1/2}(F)<\infty$.
-\item Suppose $F$ is the self-similar set of Theorem~\ref{t:exist@c30}. (a) Show that if
+\item Suppose $F$ is the self-similar set of Theorem~\ref{t:exist@c30}, and let
+  $F_i=\mathcal S_i(F)$. (a) Show that if
   $m\le1/r^d$ then $m_d(F_i\cap F_j)=0$ for $i\ne j$. (b) If $m\ge1/r^d$, prove $F_i\cap F_j$
   is nonempty for some $i\ne j$. (c) Under the hypotheses of Theorem~\ref{t:ssdim@c30}, prove
   $m_\alpha(F_i\cap F_j)=0$ with $\alpha=\log m/\log(1/r)$ for $i\ne j$.
@@ -51379,8 +51400,8 @@ $\dim<1$ is sharp.
 \item (Non-example.) Show that the formula $\dim=\log m/\log(1/r)$ can fail without the
   separation hypothesis: exhibit overlapping similarities whose attractor is an interval
   (dimension $1$) even though $\log m/\log(1/r)>1$.
-\item Show that the set $F=\set{\sum_k a_k4^{-k}\st a_k\in\set{0,2}}$ from the scraped
-  exercises has strict dimension $1/2$, and compute an explicit cover realizing the upper
+\item Show that the set $F=\set{\sum_k a_k4^{-k}\st a_k\in\set{0,2}}$ from Exercise~17 above
+  has strict dimension $1/2$, and compute an explicit cover realizing the upper
   bound.
 \item Using Lemma~\ref{l:lim@c30}, show that any uniformly convergent series of piecewise-linear
   graphs with slopes growing like $A^j$ and increments decaying like $B^{-j}$ produces a
@@ -51438,12 +51459,14 @@ four dyadic subsquares; refining indefinitely fills the square.}
 \begin{tikzpicture}[scale=2.6]
   \draw[dgrid] (0,0) grid[step=0.25] (1,1);
   \draw (0,0) rectangle (1,1);
-  % second-generation Hilbert curve through 16 cell centers
+  % second-generation Hilbert curve through 16 cell centers, refining the first generation
+  % (quarters in the order lower-left, upper-left, upper-right, lower-right), from the
+  % lower-left cell to the lower-right cell as in Lemma l:special
   \draw[line width=1pt]
-    (0.125,0.125)--(0.125,0.375)--(0.375,0.375)--(0.375,0.125)--
-    (0.625,0.125)--(0.875,0.125)--(0.875,0.375)--(0.625,0.375)--
-    (0.625,0.625)--(0.875,0.625)--(0.875,0.875)--(0.625,0.875)--
-    (0.375,0.875)--(0.375,0.625)--(0.125,0.625)--(0.125,0.875);
+    (0.125,0.125)--(0.375,0.125)--(0.375,0.375)--(0.125,0.375)--
+    (0.125,0.625)--(0.125,0.875)--(0.375,0.875)--(0.375,0.625)--
+    (0.625,0.625)--(0.625,0.875)--(0.875,0.875)--(0.875,0.625)--
+    (0.875,0.375)--(0.625,0.375)--(0.625,0.125)--(0.875,0.125);
   \node[font=\footnotesize] at (0.5,-0.12){second generation: a path through all $16$ subsquares};
 \end{tikzpicture}
 \captionof{figure}{Refined Hilbert path visiting every dyadic square of generation $2$;
@@ -51464,8 +51487,9 @@ analogously.
 \begin{proposition}[Chains and points]\label{p:chains@c30}
 (i) Each chain $\set{I^k}$ has a unique point $t\in\bigcap_kI^k$. (ii) Each $t\in[0,1]$ lies
 in some chain. (iii) The $t$ with a non-unique chain are exactly the $4$-adic rationals
-$\ell/4^k$, a countable (hence null) set. The same three statements hold for dyadic squares,
-the ambiguous points being those with a dyadic-rational coordinate.
+$\ell/4^k$, $0<\ell<4^k$, a countable (hence null) set. The same statements hold for dyadic
+squares, except that the ambiguous points, those with a coordinate $\ell/2^k$, $0<\ell<2^k$,
+form a null but uncountable set (a countable union of segments).
 \end{proposition}
 
 \begin{proof}
@@ -51489,13 +51513,13 @@ $\Phi^*:[0,1]\to[0,1]^2$ by $\Phi^*(t)=\bigcap_k\Phi(I^k)$ when $\set t=\bigcap_
 
 \begin{center}
 \begin{tikzcd}[row sep=large, column sep=large]
-\set{\text{quartic intervals}} \arrow[r, "\Phi", "\sim"'] \arrow[d, "\bigcap_k(\cdot)"'] & \set{\text{dyadic squares}} \arrow[d, "\bigcap_k(\cdot)"] \\
+\set{\text{chains of quartic intervals}} \arrow[r, "\Phi", "\sim"'] \arrow[d, "\bigcap_k(\cdot)"'] & \set{\text{chains of dyadic squares}} \arrow[d, "\bigcap_k(\cdot)"] \\
 {[0,1]\setminus Z_1} \arrow[r, "\Phi^*", "\sim"', dashrightarrow] & {[0,1]^2\setminus Z_2}
 \end{tikzcd}
 \captionof{figure}{The dyadic correspondence $\Phi$ is a generation- and inclusion-preserving
-bijection of quartic intervals onto dyadic squares; intersecting a chain ($\bigcap_k$) realizes
-each side as a point, and the induced map $\Phi^*$ (dashed: built from $\Phi$) is the
-measure-preserving bijection off the null sets $Z_1,Z_2$.}
+bijection of quartic intervals onto dyadic squares, hence of chains onto chains; intersecting a
+chain ($\bigcap_k$) realizes each side as a point, and the induced map $\Phi^*$ (dashed: built
+from $\Phi$) is the measure-preserving bijection off the null sets $Z_1,Z_2$.}
 \end{center}
 
 \begin{theorem}[Induced map is a measure isomorphism]\label{t:corriso@c30}
@@ -51509,8 +51533,8 @@ intervals) and $N_2$ (for squares) across, and removing the corresponding null p
 $Z_1,Z_2$ leaves a bijection. That $Z_1,Z_2$ are null follows from a base-$4$ digit lemma:
 for a fixed digit sequence $\set{f_k}$, the set of $x=\sum a_k4^{-k}$ with $a_k\ne f_k$ for
 all large $k$ has measure zero (since $m\set{a_r\ne f_r}=3/4$ and these are independent, the
-product $(3/4)^n\to0$). Measure preservation: any open set in $[0,1]$ is a disjoint union of
-quartic intervals $I_j$ (refine the standard dyadic decomposition), and
+product $(3/4)^n\to0$). Measure preservation: any open set in $[0,1]$ is a union of almost
+disjoint quartic intervals $I_j$ (refine the standard dyadic decomposition), and
 $\Phi^*(I_j)=\Phi(I_j)$ is the corresponding dyadic square, so $m_1(I_j)=4^{-k}=m_2(\Phi(I_j))$;
 summing and passing to $G_\delta$ then arbitrary measurable sets gives
 $m_2(\Phi^*(E))=m_1(E)$.
@@ -51523,9 +51547,9 @@ square and the right-most to the lower-right square.
 \end{lemma}
 
 The construction is the ``traverse'' bookkeeping: among the four subsquares of a square one
-chooses an ordering $S_1,S_2,S_3,S_4$ with consecutive squares adjacent, entering a white
-corner and exiting a black corner so that the path can continue into the neighbor. This is
-exactly Hilbert's recursion.
+chooses an ordering $S_1,S_2,S_3,S_4$ with consecutive squares adjacent, entering at one
+corner and exiting at an adjacent corner so that the path can continue into the neighbor. This
+is exactly Hilbert's recursion.
 
 \begin{center}
 \begin{tikzpicture}[scale=2.6]
@@ -51552,13 +51576,13 @@ For the $\Phi$ of Lemma~\ref{l:special@c30}, let $S_1,\dots,S_{4^k}$ be the gene
 ordered by $\Phi$, with centers $x_j$, and $t_j=(j-\tfrac12)/4^k$. Set $\mathcal P_k(t_j)=x_j$,
 $\mathcal P_k(0)=(0,2^{-k-1})$, $\mathcal P_k(1)=(1,2^{-k-1})$, and interpolate linearly. Then
 $\abs{x_j-x_{j+1}}=2^{-k}$ while $\abs{t_j-t_{j+1}}=4^{-k}$, so
-$\mathcal P_k'(t)=2^k$ off the nodes and $\abs{\mathcal P_k(t)-\mathcal P_k(s)}\le2^k\abs{t-s}$.
+$\abs{\mathcal P_k'(t)}=2^k$ off the nodes and $\abs{\mathcal P_k(t)-\mathcal P_k(s)}\le2^k\abs{t-s}$.
 Consecutive approximants stay in one generation-$k$ square, so
-$\abs{\mathcal P_{k+1}(t)-\mathcal P_k(t)}\le\sqrt2\,2^{-k}$. Lemma~\ref{l:lim@c30} (with $A=2$,
-$B=2$) gives the uniform limit $\mathcal P=\lim\mathcal P_k$, Holder of exponent
-$\log2/\log4=1/2$. Each $\mathcal P_k$ visits every generation-$k$ square, so $\mathcal P$ is
+$\abs{\mathcal P_{k+1}(t)-\mathcal P_k(t)}\le\sqrt2\,2^{-k}$. Lemma~\ref{l:lim@c30}, applied to
+$\mathcal P_k/\sqrt2$ with $A=B=2$, gives the uniform limit $\mathcal P=\lim\mathcal P_k$, Holder
+of exponent $\log2/\log4=1/2$. Each $\mathcal P_k$ visits every generation-$k$ square, so $\mathcal P$ is
 dense, and by continuity onto $[0,1]^2$. Finally $\mathcal P=\Phi^*$ (Lemma below), so
-Theorem~\ref{t:corriso@c30} gives the measure-preserving property (iii).
+Theorem~\ref{t:corriso@c30} gives the measure-preserving property~3.
 \end{proof}
 
 \begin{lemma}\label{l:peq@c30}
@@ -51570,13 +51594,13 @@ $m_2=b-a$.
 If $\set t=\bigcap_kI^k=\bigcap_kJ^k$ are two chains for $t$, then $I^k,J^k$ are adjacent for
 large $k$, so $\Phi(I^k),\Phi(J^k)$ are adjacent squares with the same intersection; thus
 $\Phi^*$ is unambiguous and equals $\bigcap_k\Phi(I^k)=\lim\mathcal P_k(t)=\mathcal P(t)$.
-Writing $(a,b)=\bigcup_jI_j$ as disjoint quartic intervals,
-$\mathcal P(I_j)=\Phi(I_j)$ are disjoint dyadic squares, so
+Writing $(a,b)=\bigcup_jI_j$ with almost disjoint quartic intervals $I_j$,
+the $\mathcal P(I_j)=\Phi(I_j)$ are almost disjoint dyadic squares, so
 $m_2(\mathcal P(a,b))=\sum_jm_2(\Phi(I_j))=\sum_j m_1(I_j)=m_1(a,b)=b-a$.
 \end{proof}
 
 \begin{wex}{The optimal Holder exponent is $1/2$}
-Prove directly (Exercise~4) that any continuous surjection $f:[0,1]\to[0,1]^2$ with
+Prove directly (Exercise~1) that any continuous surjection $f:[0,1]\to[0,1]^2$ with
 $\abs{f(x)-f(y)}\le C\abs{x-y}^\gamma$ has $\gamma\le1/2$, without invoking
 Lemma~\ref{l:lipdim@c30}.
 \wrec ``Bound a space-filling Holder exponent'': cover the square by images of small
@@ -51599,8 +51623,8 @@ homeomorphism. But $[0,1]$ is disconnected by removing any interior point, while
 remains connected after removing the corresponding image point --- a homeomorphism must
 preserve this, contradiction. Concretely, removing $t_0\in(0,1)$ splits $[0,1]$ into two
 pieces, yet the square minus $\mathcal P(t_0)$ is path-connected, so $G$ cannot be continuous.
-\emph{Check.} Consistent with property: the Peano curve has dense self-intersections, the
-geometric face of non-injectivity.
+\emph{Check.} Consistent with remark (b) above: the Peano curve has dense self-intersections,
+the geometric face of non-injectivity.
 \end{wex}
 
 \begin{wex}{Length of the $k$th polygonal approximant}
@@ -51611,14 +51635,15 @@ $1$.
 pieces), so its length is $\approx4^k\cdot2^{-k}=2^k\to\infty$. Thus the approximating
 curves have unbounded length even though they converge uniformly to a continuous map.
 \emph{Check.} An infinite-length limit is forced --- the image has positive area
-($m_2=1$), and a rectifiable (finite-length) curve has $m_2=0$ by
-Theorem~\ref{t:rect@c30}; so $\mathcal P$ is necessarily non-rectifiable.
+($m_2=1$), and a rectifiable curve of length $L$ has $m_1\le L$, hence $m_2=0$ (the first step
+of the proof of Theorem~\ref{t:rect@c30}, which does not use quasi-simplicity); so
+$\mathcal P$ is necessarily non-rectifiable.
 \end{wex}
 
 \begin{wex}{A base-$4$ null set}
 Fix a digit sequence $\set{f_k}\subseteq\set{0,1,2,3}$ and let
 $E_0=\set{x=\sum_k a_k4^{-k}\st a_k\ne f_k\text{ for all large }k}$. Show $m(E_0)=0$
-(Lemma~3.6).
+(the digit lemma in the proof of Theorem~\ref{t:corriso@c30}).
 \wrec ``Digits avoiding a value'': independence of digit events gives a geometric decay.
 \wsol For fixed $r$, $m\set{x\st a_r\ne f_r}=3/4$, and the events for distinct positions are
 independent, so $m\set{x\st a_k\ne f_k\text{ for }r\le k\le n}=(3/4)^{\,n-r+1}\to0$. Hence
@@ -51652,8 +51677,9 @@ partitioning both spaces consistently.
 \item A compact $K\subseteq\Rd$ is \emph{uniformly locally connected} if for each $\eps>0$
   there is $\delta>0$ so that whenever $x,y\in K$, $\abs{x-y}<\delta$, there is a continuous
   curve $\gamma\subseteq K$ joining $x$ to $y$ with $\gamma\subseteq B_\eps(x)$ and
-  $\gamma\subseteq B_\eps(y)$. Using the Hausdorff problem (Section 30.2), show $K$ is a
-  continuous image of $[0,1]$ if and only if $K$ is uniformly locally connected.
+  $\gamma\subseteq B_\eps(y)$. Using the Hausdorff problem (Section 30.2), show that a nonempty
+  $K$ is a continuous image of $[0,1]$ if and only if $K$ is connected and uniformly locally
+  connected.
 \item Formulate and prove a generalization of Theorem~\ref{t:corriso@c30}: after removing
   appropriate sets of measure zero, there is a measure-preserving isomorphism between the unit
   interval in $\R$ and the unit cube in $\Rd$.
@@ -51662,20 +51688,25 @@ partitioning both spaces consistently.
 \end{exers}
 
 \begin{exers}{Additional exercises.}
-\item Write the base-$4$ expansion of $t=11/16$ and trace the chain of quartic intervals
-  containing it; identify the dyadic square $\Phi^*(t)$ under the standard correspondence
-  ($b_k=a_k$).
+\item Write the two base-$4$ expansions of $t=11/16$ and trace the two chains of quartic
+  intervals containing it. Under the standard correspondence ($b_k=a_k$: label the four
+  subsquares of each dyadic square $b=0,1,2,3$ as lower-left, upper-left, lower-right,
+  upper-right, and send the quartic interval with digits $a_1,\dots,a_k$ to the square with
+  labels $b_1,\dots,b_k$), identify the image chains of dyadic squares and the points they
+  determine.
 \item Show that the standard correspondence $b_k=a_k$ does \emph{not} yield a continuous map
   $\Phi^*$, by exhibiting two parameters $t,t'$ that are close yet have far-apart images.
   (This motivates the adjacency-preserving $\Phi$ of Lemma~\ref{l:special@c30}.)
 \item Verify that $\abs{\mathcal P_k(t)-\mathcal P_k(s)}\le2^k\abs{t-s}$ and
-  $\abs{\mathcal P_{k+1}-\mathcal P_k}\le\sqrt2\,2^{-k}$, then apply Lemma~\ref{l:lim@c30} with
-  $A=B=2$ to recover the exponent $1/2$.
+  $\abs{\mathcal P_{k+1}-\mathcal P_k}\le\sqrt2\,2^{-k}$, then apply Lemma~\ref{l:lim@c30} to
+  $\mathcal P_k/\sqrt2$ with $A=B=2$ to recover the exponent $1/2$.
 \item (Diagram.) Draw the second-generation Hilbert path through the $16$ dyadic squares,
   marking the entry and exit squares and confirming consecutive squares share a side.
-\item Prove that the Peano curve is non-rectifiable by showing the length of $\mathcal P_k$ is
-  $\approx2^k\to\infty$, and connect this to $m_2(\mathcal P([0,1]))=1$ via
-  Theorem~\ref{t:rect@c30}.
+\item Prove that the Peano curve is non-rectifiable by showing that the polygon inscribed in
+  $\mathcal P$ at the points $j/4^k$ has length $2^k\to\infty$, like $\mathcal P_k$ (the lengths
+  of the $\mathcal P_k$ alone prove nothing, since length is only lower semicontinuous under
+  uniform convergence), and connect this to $m_2(\mathcal P([0,1]))=1$ via the first step of the
+  proof of Theorem~\ref{t:rect@c30}.
 \item Show that the image of a single point can have up to four preimages under $\mathcal P$,
   and locate such a quadruple point among the dyadic-rational ambiguities.
 \item (Non-example.) Explain why the map $t\mapsto(t,t)$ from $[0,1]$ to $[0,1]^2$, though
@@ -51707,8 +51738,8 @@ $d\ge3$ this slice function is, for almost every direction, far more regular.
   % An ellipsoidal body E in oblique projection. gamma points right (the t-axis).
   % Two cutting planes perpendicular to gamma sit at t1<t2 as parallelograms skewed
   % by the depth vector (sx,sy); each meets E in an elliptical slice that LIES IN its
-  % plane (its disc is sheared by (sx,sy)). t1<t2 are both right of centre, so the
-  % chord -- hence the slice -- visibly shrinks as t increases.
+  % plane (spanned by the vertical and by (sx,sy)). t2 is farther from the centre than
+  % t1, so the chord -- hence the slice -- visibly shrinks as t increases.
   \def\sx{1.05}\def\sy{0.60}     % oblique depth vector for planes and slices
   \def\hh{1.75}                  % plane half-height (clears the body)
   % --- two cutting planes, drawn behind the body so the front of E occludes them ---
@@ -51721,13 +51752,16 @@ $d\ge3$ this slice function is, for almost every direction, far more regular.
   % --- the body E: front ellipse plus an oblique back ellipse to read as a 3-D body ---
   \draw[black!30,line width=0.6pt] (\sx,\sy) ellipse (2.5 and 1.35);
   \draw[line width=1pt,black!85] (0,0) ellipse (2.5 and 1.35);
-  \node[font=\footnotesize,black!70] at (-1.7,1.05){$E$};
-  % --- slices: an ellipse of vertical half-height = chord of E at x=cx, but SHEARED
-  %     by (sx,sy) so it lies flat inside its tilted plane.  half-chord(cx)=1.35 sqrt(1-(cx/2.5)^2)
+  \node[font=\footnotesize,black!70] at (-1.75,0.35){$E$};
+  % --- slices: E is read as an ellipsoid with semi-axes 2.5 (along gamma), 1.35 (vertical)
+  %     and 1/2 (depth, in units of (sx,sy)), centred at depth 1/2.  Its slice by the plane
+  %     x=cx is the ellipse IN that plane with vertical semi-axis 1.35*w and depth semi-axis
+  %     (w/2)(sx,sy), where w=sqrt(1-(cx/2.5)^2); the cm below maps (1,0) to the depth
+  %     semi-axis and (0,1) to the vertical one, so the unit circle becomes the slice.
   \foreach \cx in {-0.55, 1.45}{
-    \pgfmathsetmacro\hc{1.35*sqrt(1-(\cx/2.5)^2)}
-    \begin{scope}[shift={(\cx+0.5*\sx,0.5*\sy)},cm={1,0,\sx/(2*\hc),\sy/(2*\hc),(0,0)}]
-      \fill[black!35,draw=black!80,line width=0.7pt] (0,0) ellipse (0.30 and \hc);
+    \pgfmathsetmacro\slw{sqrt(1-(\cx/2.5)^2)}
+    \begin{scope}[shift={(\cx+0.5*\sx,0.5*\sy)},cm={0.5*\slw*\sx,0.5*\slw*\sy,0,1.35*\slw,(0,0)}]
+      \fill[black!35,draw=black!80,line width=0.7pt] (0,0) circle (1);
     \end{scope}
   }
   % --- gamma / t axis along the bottom, with the two slice positions marked ---
@@ -51741,7 +51775,7 @@ $d\ge3$ this slice function is, for almost every direction, far more regular.
   }
   % --- slice labels, lifted above the planes with leader lines ---
   \node[font=\footnotesize,fill=white,inner sep=1pt] (l1) at (-2.0,2.3){$E_{t_1,\gamma}$};
-  \node[font=\footnotesize,fill=white,inner sep=1pt] (l2) at (2.3,2.3){$E_{t_2,\gamma}$};
+  \node[font=\footnotesize,fill=white,inner sep=1pt] (l2) at (2.25,2.75){$E_{t_2,\gamma}$};
   \draw[black!55,line width=0.4pt] (l1) -- (-0.05,1.45);
   \draw[black!55,line width=0.4pt] (l2) -- (1.95,1.25);
 \end{tikzpicture}
@@ -51826,13 +51860,14 @@ For continuous compactly supported $f$,
 \end{lemma}
 
 \begin{proof}
-Plancherel gives $\int_{\Rd}\abs f^2=2\int_{\Rd}\abs{\hat f}^2$ (the factor as normalized in
-Stein). Polar coordinates $\xi=\lambda\gamma$, $\lambda>0$, $\gamma\in S^{d-1}$ contribute the
-Jacobian $\lambda^{d-1}$:
+Plancherel (Theorem~\ref{t:plancherel@c28}) gives $\int_{\Rd}\abs f^2=\int_{\Rd}\abs{\hat f}^2$.
+Polar coordinates
+$\xi=\lambda\gamma$, $\lambda>0$, $\gamma\in S^{d-1}$ contribute the Jacobian $\lambda^{d-1}$:
 $\int_{\Rd}\abs{\hat f}^2=\int_{S^{d-1}}\int_0^\infty\abs{\hat f(\lambda\gamma)}^2
 \lambda^{d-1}\,d\lambda\,d\sigma$. Symmetrizing to $\lambda\in\R$ replaces $\lambda^{d-1}$ by
-$\abs\lambda^{d-1}$, and Lemma~\ref{l:slice@c30} substitutes $\hat f(\lambda\gamma)=\widehat
-R(f)$.
+$\abs\lambda^{d-1}$ and doubles the integral (the substitution
+$(\lambda,\gamma)\mapsto(-\lambda,-\gamma)$ shows that $\lambda<0$ contributes as much as
+$\lambda>0$), and Lemma~\ref{l:slice@c30} substitutes $\hat f(\lambda\gamma)=\widehat R(f)$.
 \end{proof}
 
 The key dimensional gain: the larger $d$, the heavier the weight $\abs\lambda^{d-1}$, hence
@@ -51856,7 +51891,7 @@ bound, use $\abs{e^{2\pi i\lambda t_1}-e^{2\pi i\lambda t_2}}\le c\abs{t_1-t_2}^
 \abs\lambda^\alpha$ ($0\le\alpha<1$); the high part is then majorized by
 $\abs{t_1-t_2}^\alpha\bigl(\int\abs{\widehat F}^2\abs\lambda^{d-1}\bigr)^{1/2}
 \bigl(\int_{\abs\lambda>1}\abs\lambda^{-d+1+2\alpha}\bigr)^{1/2}$, finite when
-$-d+1+2\alpha<-1$, i.e.\ $\alpha<1/2$ for $d\ge3$.
+$-d+1+2\alpha<-1$, i.e.\ $\alpha<(d-2)/2$, which holds for every $\alpha<1/2$ when $d\ge3$.
 \end{proof}
 
 \begin{theorem}[A priori Radon estimate]\label{t:apriori@c30}
@@ -51880,7 +51915,7 @@ yields $\int_{S^{d-1}}R^*(f)\,d\sigma\le c(\norm f_{\Lone}+\norm f_{\Ltwo})$. Th
 version uses the second estimate of Lemma~\ref{l:onevar@c30}.
 \end{proof}
 
-The $\Ltwo$-norm provides essential local control; it cannot be dropped (Exercise~27, with
+The $\Ltwo$-norm provides essential local control; it cannot be dropped (Exercise~3, with
 $f_\eps(x)=(\abs x+\eps)^{-d+\delta}$). The proof of Theorem~\ref{t:reg@c30} then extends this
 from continuous $f$ to $f=\ind E\in\Lone\cap\Ltwo$ via monotone/bounded convergence, giving
 the slice regularity.
@@ -51905,7 +51940,7 @@ For continuous compactly supported $f$ on $\R^2$ and $0<\delta\le1/2$,
 The single power $\abs\lambda^{d-1}=\abs\lambda$ at $d=2$ makes the bare estimate
 (Theorem~\ref{t:apriori@c30}) fail, but the strip average tames the integral at the cost of the
 $(\log1/\delta)^{1/2}$ factor: the weighted tail $\int_{1<\abs\lambda\le1/\delta}\abs\lambda^{-1}\,
-d\lambda=\log(1/\delta)$ appears.
+d\lambda=2\log(1/\delta)$ appears.
 
 \begin{theorem}[Theorem~\ref{t:besicdim@c30}, proof]\label{t:besicdimproof@c30}
 Any Besicovitch-type $F$ (compact, containing a translate of every unit segment) has
@@ -51913,13 +51948,16 @@ $\dim F=2$.
 \end{theorem}
 
 \begin{proof}[Proof sketch]
-Suppose $F\subseteq\bigcup_iB_i$, balls of diameter $<1$; we show
+Suppose $F\subseteq\bigcup_iB_i$, balls of diameter $<1/2$; we show
 $\sum_i(\diam B_i)^\alpha\ge c_\alpha>0$ for every $\alpha<2$. Group the balls by dyadic size,
-$N_k=\#\set{i\st2^{-k-1}\le\diam B_i\le2^{-k}}$, and let $F_k^*$ be the doubled union at
-scale $k$, so $m(F_k^*)\le cN_k2^{-2k}$. For each $\gamma\in S^1$ there is a unit segment
-$s_\gamma\subseteq F$; choosing weights $a_k\approx2^{-\eps k}$ with $\sum a_k=1$, some $k$
-has $m_1(s_\gamma\cap F_k)\ge a_k$, whence $R_{2^{-k}}^*(\ind{F_k^*})(\gamma)\ge a_k$.
-Letting $E_k=\set{\gamma\st R_{2^{-k}}^*(\ind{F_k^*})(\gamma)\ge a_k}$, the sphere is
+$N_k=\#\set{i\st2^{-k-1}\le\diam B_i\le2^{-k}}$ ($k\ge1$), and let $F_k$ be the union of the
+balls of group $k$ and $F_k^*$ the union of their doubles, so $m(F_k^*)\le cN_k2^{-2k}$. For
+each $\gamma\in S^1$ there is a unit segment $s_\gamma\subseteq F$ perpendicular to $\gamma$;
+choosing weights $a_k\approx2^{-\eps k}$ with $\sum a_k=1$, some $k$ has
+$m_1(s_\gamma\cap F_k)\ge a_k$, whence $R_{2^{-k}}^*(\ind{F_k^*})(\gamma)\ge a_k/4$ (the
+doubles contain the segments of length $2^{-k-1}$ perpendicular to $s_\gamma$ centered at the
+points of $s_\gamma\cap F_k$). Letting
+$E_k=\set{\gamma\st R_{2^{-k}}^*(\ind{F_k^*})(\gamma)\ge a_k/4}$, the sphere is
 $\bigcup_kE_k$, so some $k'$ has $m(E_{k'})\ge2\pi a_{k'}$. Theorem~\ref{t:strip@c30} then gives
 $a_{k'}^2\le c(\log2^{k'})^{1/2}\norm{\ind{F_{k'}^*}}_{\Ltwo}\le c(k')^{1/2}N_{k'}^{1/2}2^{-k'}$,
 i.e.\ $2^{(1-2\eps)k'}\le c(k')^{1/2}N_{k'}^{1/2}$, which forces $N_{k'}2^{-\alpha k'}\ge
@@ -51950,8 +51988,8 @@ joining a point of $E_0$ to a point of $E_1$.
   \foreach \a/\b in {0/0.25, 0.75/1}{ \draw[line width=3pt,black!85] (\a,0)--(\b,0); }
   % E1 = (1/2)C on y=1: [0,1/8] and [3/8,1/2]
   \foreach \a/\b in {0/0.125, 0.375/0.5}{ \draw[line width=3pt,black!85] (\a,1)--(\b,1); }
-  \node[font=\footnotesize,fill=white,inner sep=1pt] at (0.62,-0.13){$E_0\subset C$ (on $y=0$)};
-  \node[font=\footnotesize,fill=white,inner sep=1pt] at (0.78,1.13){$E_1\subset\tfrac12C$ (on $y=1$)};
+  \node[font=\footnotesize,fill=white,inner sep=1pt] at (0.62,-0.13){$E_0=C\times\set0$};
+  \node[font=\footnotesize,fill=white,inner sep=1pt] at (0.78,1.13){$E_1=\tfrac12C\times\set1$};
 \end{tikzpicture}
 \captionof{figure}{Segments joining $E_0$ (a copy of $C$) to $E_1$ (a copy of
 $\tfrac12C$); their union $F$ is compact, null, yet rich in directions. (Schematic.)}
@@ -52025,7 +52063,7 @@ square root appears --- exactly the borderline divergence at $d=2$.
 \end{wex}
 
 \begin{wex}{A Besicovitch slice has positive length}
-Using $F$ from Theorem~\ref{t:besic@c30}, show that for each $\gamma$ some slice has
+Using a Besicovitch set $F$ (Theorem~\ref{t:besic@c30}), show that for each $\gamma$ some slice has
 $m_1(F\cap P_{t_0,\gamma})\ge1$, and deduce that the slice function cannot be continuous.
 \wrec ``Discontinuity from a fat slice in a null set.''
 \wsol Since $F$ contains a unit segment $s_\gamma$ perpendicular to $\gamma$, that segment
@@ -52038,7 +52076,8 @@ slice can be large on a null-measure set of $t$, but never on an interval.
 \end{wex}
 
 \begin{wex}{Fubini reduces $m_2(F)=0$ to a.e.\ null slices}
-Show that if $m_1(F^y)=0$ for a.e.\ $y\in(0,1)$ (and $F$ is bounded), then $m_2(F)=0$.
+Show that if $m_1(F^y)=0$ for a.e.\ $y\in(0,1)$, where $F\subseteq\R\times[0,1]$ is the compact
+set of the construction, then $m_2(F)=0$.
 \wrec ``Vanishing slices give vanishing area'': Fubini--Tonelli on the indicator.
 \wsol By Tonelli applied to $\ind F\ge0$,
 $m_2(F)=\int_0^1\Bigl(\int_\R\ind F(x,y)\,dx\Bigr)dy=\int_0^1 m_1(F^y)\,dy$. If $m_1(F^y)=0$
@@ -52053,7 +52092,7 @@ compute it when $E$ is the unit disc, $\gamma=e_2$.
 \wrec ``Radon transform of a characteristic function'': it is the $1$-dimensional measure of
 a slice.
 \wsol By Definition~\ref{d:radon@c30}, $R(\ind E)(t,\gamma)=\int_{P_{t,\gamma}}\ind E\,dm_1=
-m_1(E\cap P_{t,\gamma})$, the length of the chord. For $E=\set{x^2+y^2\le1}$ and
+m_1(E\cap P_{t,\gamma})$, the length of the slice. For $E=\set{x^2+y^2\le1}$ and
 $\gamma=e_2=(0,1)$ the plane $P_{t,\gamma}$ is the horizontal line $y=t$, cutting a chord of
 half-length $\sqrt{1-t^2}$ for $\abs t\le1$, so $R(\ind E)(t,e_2)=2\sqrt{1-t^2}$ and $0$
 otherwise. \emph{Check.} $\int_{-1}^1 2\sqrt{1-t^2}\,dt=\pi=m_2(\text{disc})$, matching
@@ -52066,16 +52105,17 @@ Fubini --- the integral of the Radon transform recovers the area.
   $F(t)=m_{d-1}(E\cap P_{t,\gamma})$.
 \item (Refinement for $d\ge4$.) Define $C^{k,\alpha}$ as the functions $F$ on $\R$ that are
   $C^k$ with $F^{(k)}$ Lipschitz of exponent $\alpha$. If $E$ has finite measure, then for
-  a.e.\ $\gamma\in S^{d-1}$ the function $m(E\cap P_{t,\gamma})$ is in $C^{k,\alpha}$ with
+  a.e.\ $\gamma\in S^{d-1}$ the function $m_{d-1}(E\cap P_{t,\gamma})$ is in $C^{k,\alpha}$ with
   $k=(d-3)/2$, $\alpha<1/2$ for $d$ odd ($d\ge3$); and $k=(d-4)/2$, $\alpha<1$ for $d$ even
   ($d\ge4$).
-\item Show that the modification of inequality (2) in Theorem~\ref{t:apriori@c30} fails if the
-  term $\norm f_{\Ltwo(\Rd)}$ is dropped. [Hint: consider $R^*(f_\eps)$ with
+\item Show that the inequality of Theorem~\ref{t:apriori@c30} (and its Holder-quotient version)
+  fails if the term $\norm f_{\Ltwo(\Rd)}$ is dropped. [Hint: consider $R^*(f_\eps)$ with
   $f_\eps(x)=(\abs x+\eps)^{-d+\delta}$ for $\abs x\le1$, $\delta$ fixed in $(0,1)$, and
   $\eps\to0$.]
 \item Construct a compact $E\subseteq\Rd$, $d\ge3$, with $m_d(E)=0$ that contains translates
   of every unit segment in $\Rd$. (Examples follow from the case $d=2$; the least Hausdorff
-  dimension of such a set is an open problem.)
+  dimension of such a set is an open problem for $d\ge4$, while for $d=3$ it is $3$, by Wang
+  and Zahl, 2025.)
 \end{exers}
 
 \begin{exers}{Problems (Stein, Ch.7).}
@@ -52105,15 +52145,18 @@ Fubini --- the integral of the Radon transform recovers the area.
   definition, and show $R_\delta(\ind E)(t,\gamma)\to m_{d-1}(E\cap P_{t,\gamma})$ as
   $\delta\to0$ at Lebesgue points.
 \item Verify the logarithmic divergence at $d=2$: compute
-  $\int_{1<\abs\lambda\le1/\delta}\abs\lambda^{-1}\,d\lambda=\log(1/\delta)$ and explain its
+  $\int_{1<\abs\lambda\le1/\delta}\abs\lambda^{-1}\,d\lambda=2\log(1/\delta)$ and explain its
   appearance as $(\log1/\delta)^{1/2}$ in Theorem~\ref{t:strip@c30}.
 \item (Non-example.) Show that in $d=2$ the bare estimate
-  $\int_{S^1}R^*(f)\,d\sigma\le c(\norm f_{\Lone}+\norm f_{\Ltwo})$ fails, using
-  $f_\eps(x)=(\abs x+\eps)^{-2+\delta}\ind{\abs x\le1}$ and letting $\eps\to0$.
+  $\int_{S^1}R^*(f)\,d\sigma\le c(\norm f_{\Lone}+\norm f_{\Ltwo})$ fails, using continuous
+  $f_\eta$ with $0\le f_\eta\le1$, $f_\eta=1$ on the Besicovitch set $B$ of
+  Theorem~\ref{t:besic@c30}, supported in the $\eta$-neighborhood of $B$, and letting
+  $\eta\to0$. (Radial examples such as $(\abs x+\eps)^{-2+\delta}\ind{\abs x\le1}$ cannot work:
+  in $d=2$ both $R^*(f)$ and $\norm f_{\Ltwo}$ scale like $\eps^{\delta-1}$.)
 \item Using $C+\tfrac12C=[0,3/2]$ (Lemma~\ref{l:interval@c30}), determine the set
-  $\tfrac12C+C$ and explain the symmetry $C=1-C$ used in computing realizable slopes.
-\item Show that $m(C+\lambda C)=0$ for $\lambda$ irrational of bounded type by a digit-counting
-  estimate, illustrating the a.e.\ statement with a concrete $\lambda$.
+  $\tfrac12C-C$ and explain the symmetry $C=1-C$ used in computing realizable slopes.
+\item Show that $m(C+\lambda C)=0$ for $\lambda=1$ by a digit-counting estimate,
+  illustrating the a.e.\ statement with a concrete $\lambda$.
 \item Prove Corollary~\ref{c:null@c30} from Theorem~\ref{t:reg@c30}: a measure-zero set in
   $\Rd$ ($d\ge3$) has a.e.-direction slices all null. Then show by the Besicovitch set that
   this fails in $\R^2$.
