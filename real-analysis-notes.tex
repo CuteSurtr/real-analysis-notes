@@ -27911,7 +27911,7 @@ $1/f$. So we begin with zeros.
     \node[font=\footnotesize] at (0,-1.95) {$f(z)=z$};
   \end{scope}
   % arrow: reciprocal
-  \draw[-{Stealth[length=2.4mm]}] (2.1,0.0)--(3.2,0.0)
+  \draw[-{Stealth[length=2.4mm]}] (2.45,0.0)--(3.5,0.0)
     node[midway,above,font=\footnotesize]{$z\mapsto 1/z$};
   % right mini-plane: 1/z has a pole (x) at the origin
   \begin{scope}[shift={(5.3,0)}]
@@ -28077,7 +28077,7 @@ develop this fully in \S\,16.2.
   \draw[cxaxis] (-2.6,0)--(2.6,0) node[right]{\footnotesize$\Re$};
   \draw[cxaxis] (0,-1.9)--(0,2.1) node[above]{\footnotesize$\Im$};
   \draw[contour] (0,0) circle (1.7);
-  \node[pole,label={[font=\footnotesize]below right:$z_0$}] at (0.5,0.35) {};
+  \node[pole,label={[font=\footnotesize]right:$z_0$}] at (0.5,0.35) {};
   \node[font=\footnotesize] at (1.35,1.35) {$C$};
   \node[font=\footnotesize,align=center] at (0,-2.4)
     {$\displaystyle\frac{1}{2\pi i}\ci_C f\dz=\Res_{z=z_0}f=a_{-1}$};
@@ -28222,14 +28222,14 @@ before applying it.
 \item Show that $\dfrac{1}{z(z-1)}=\dfrac{1}{z-1}-\dfrac1z$ (partial fractions) and read off
   $\Res_{z=0}$ and $\Res_{z=1}$ directly from this decomposition.
 \item Let $f(z)=\dfrac{g(z)}{(z-a)^3}$ with $g$ holomorphic and $g(a)\neq0$. Derive the
-  residue $\Res_{z=a}f=\tfrac12 g''(a)$ from Theorem 16.1 and verify it for $g(z)=e^z$,
+  residue $\Res_{z=a}f=\tfrac12 g''(a)$ from Theorem~\ref{t:resformula@c16} and verify it for $g(z)=e^z$,
   $a=0$.
 \item (Non-example.) The function $f(z)=\dfrac{z-1}{z^2-1}$ \emph{appears} to have a pole at
   $z=1$. Show instead that $z=1$ is a removable singularity, find the limiting value, and
   conclude $\Res_{z=1}f=0$.
 \item (Diagram.) On a copy of the complex plane, mark with $\times$ the poles and with
   $\circ$ the zeros of $f(z)=\dfrac{z^2(z-2)}{(z-i)(z+i)^2}$, labeling each with its order.
-  State the order of the zero/pole of $f$ at $\infty$.
+  Decide whether $f$ has a zero or a pole at $\infty$.
 \item Suppose $f$ has a zero of order $m$ at $z_0$ and $g$ a zero of order $n$ at $z_0$, with
   $m>n$. Determine the type and order of the singularity of $g/f$ at $z_0$, and compute
   $\Res_{z=z_0}\dfrac{g}{f}$ when $m-n=1$.
@@ -28241,7 +28241,7 @@ before applying it.
 \section{The Residue Formula}
 \subsection*{The residue theorem}
 
-Cauchy's theorem says that the contour integral of a holomorphic function over a toy
+Cauchy's theorem says that the integral over a toy contour of a function holomorphic on the
 contour and its interior is $0$. The residue formula is the exact correction term when
 finitely many poles intrude: each pole contributes $2\pi i$ times its residue. The single
 input is the basic computation $\ci_C\frac{dz}{z-z_0}=2\pi i$ over a circle about $z_0$.
@@ -28271,10 +28271,11 @@ disc); and $\ci_{C_\eps}G\dz=0$ by Cauchy's theorem. Summing, $\ci_C f\dz=2\pi i
   \draw[cxaxis] (0,-2.2)--(0,2.4);
   % keyhole: big circle with a slit to a small circle around z0
   \draw[contour] (0,0) circle (2.0);
-  \node[pole,label={[font=\footnotesize]right:$z_0$}] at (0.7,0.4) {};
+  \node[pole] at (0.7,0.4) {};
+  \node[font=\footnotesize] at (0.7,0.93) {$z_0$};
   \draw[line width=0.7pt,black!60] (0.7,0.4) circle (0.32);
   \draw[dashed,black!50] (1.0,0.55)--(1.9,0.62);
-  \draw[dashed,black!50] (1.0,0.25)--(1.9,0.32);
+  \draw[dashed,black!50] (1.0,0.25)--(1.97,0.33);
   \node[font=\footnotesize] at (1.55,1.7) {$C$};
   \node[font=\footnotesize] at (0.7,-0.2) {$C_\eps$};
 \end{tikzpicture}
@@ -28294,8 +28295,9 @@ and its interior, except for poles at $z_1,\dots,z_N$ inside $\gamma$, then
 \begin{proof}
 Use a \emph{multiple} keyhole with one loop avoiding each pole; let the corridor widths
 $\to0$. The outer integral becomes a sum of integrals over small circles, to each of which
-Theorem~\ref{t:res1@c16} applies. For a general toy contour the same keyhole reduction works
-because the interior is simply connected away from the poles.
+Theorem~\ref{t:res1@c16} applies. For a general toy contour the same keyhole reduction works,
+because Cauchy's theorem applies to the multiple keyhole built on $\gamma$, which encloses no
+pole.
 \end{proof}
 
 \begin{method}{Evaluating a real integral by residues}
@@ -28331,11 +28333,11 @@ $[\arctan x]_{-\infty}^{\infty}=\frac\pi2-(-\frac\pi2)=\pi$. Agrees.
 \begin{center}
 \begin{tikzpicture}[scale=1.0]
   \draw[cxaxis] (-2.8,0)--(2.8,0) node[right]{\footnotesize$\Re$};
-  \draw[cxaxis] (0,-0.6)--(0,2.5) node[above]{\footnotesize$\Im$};
+  \draw[cxaxis] (0,-1.4)--(0,2.5) node[above]{\footnotesize$\Im$};
   \draw[contour] (-2.2,0) -- (2.2,0) arc(0:180:2.2);
   \node[pole,label={[font=\footnotesize]right:$i$}] at (0,1.0) {};
-  \node[pole,label={[font=\footnotesize]right:$-i$}] at (0,-0.45) {};
-  \node[font=\footnotesize] at (1.7,1.7) {$C_R^+$};
+  \node[pole,label={[font=\footnotesize]right:$-i$}] at (0,-1.0) {};
+  \node[font=\footnotesize] at (2.15,1.6) {$C_R^+$};
   \node[font=\footnotesize] at (1.1,-0.25) {$[-R,R]$};
 \end{tikzpicture}
 \captionof{figure}{Semicircular contour $\gamma_R=[-R,R]\cup C_R^+$ enclosing only the pole
@@ -28366,8 +28368,8 @@ Thus the integral $=2\pi i\cdot\bigl(-\tfrac{i}{2\sqrt2}\bigr)=\frac{\pi}{\sqrt2
   \draw[dgrid] (0,0) circle (1.2);
   \draw[contour] (-2.2,0) -- (2.2,0) arc(0:180:2.2);
   \foreach \a in {45,135,225,315}{ \node[pole] at ({1.2*cos(\a)},{1.2*sin(\a)}) {}; }
-  \node[font=\footnotesize,fill=white,inner sep=1pt] at (1.55,1.15) {$e^{i\pi/4}$};
-  \node[font=\footnotesize,fill=white,inner sep=1pt] at (-1.6,1.15) {$e^{3i\pi/4}$};
+  \node[font=\footnotesize,fill=white,inner sep=1pt] at (1.17,1.17) {$e^{i\pi/4}$};
+  \node[font=\footnotesize,fill=white,inner sep=1pt] at (-1.17,1.17) {$e^{3i\pi/4}$};
   \node[font=\footnotesize,black!55] at (1.0,-1.35) {$\abs{z}=1$};
 \end{tikzpicture}
 \captionof{figure}{Four poles on $\abs{z}=1$ (roots of $z^4=-1$); only the two in the
@@ -28392,13 +28394,13 @@ integral $\to2\pi/a$, matching $\frac{2\pi}{\sqrt{a^2-1}}\sim\frac{2\pi}{a}$.
 
 \begin{center}
 \begin{tikzpicture}[scale=1.0]
-  \draw[cxaxis] (-2.4,0)--(2.4,0) node[right]{\footnotesize$\Re$};
+  \draw[cxaxis] (-3.0,0)--(2.4,0) node[right]{\footnotesize$\Re$};
   \draw[cxaxis] (0,-2.0)--(0,2.2) node[above]{\footnotesize$\Im$};
   \draw[contour] (0,0) circle (1.6);
-  \node[pole,label={[font=\footnotesize]above right:$z_+$}] at (0.55,0) {};
-  \node[zero] at (-1.95,0) {};
-  \node[font=\footnotesize] at (-2.05,0.3) {$z_-$};
-  \node[font=\footnotesize] at (1.3,1.3) {$\abs{z}=1$};
+  \node[pole,label={[font=\footnotesize]above right:$z_+$}] at (-1.0,0) {};
+  \node[pole] at (-2.56,0) {};
+  \node[font=\footnotesize] at (-2.56,0.3) {$z_-$};
+  \node[font=\footnotesize] at (1.75,1.4) {$\abs{z}=1$};
 \end{tikzpicture}
 \captionof{figure}{Substituting $z=e^{i\theta}$ turns the trig integral into a contour
 integral; only the inside root $z_+$ contributes. (Schematic.)}
@@ -28418,7 +28420,7 @@ sides vanish as $R\to\infty$ (bounded by $Ce^{(a-1)R}$ and $Ce^{-aR}$). In the l
 $I-e^{2\pi i a}I=-2\pi i\,e^{a\pi i}$, so
 \[
   I=\frac{-2\pi i\,e^{a\pi i}}{1-e^{2\pi i a}}
-   =\frac{2\pi i}{e^{a\pi i}-e^{-a\pi i}}\cdot\frac{-e^{2a\pi i}}{-1}\!
+   =\frac{-2\pi i}{e^{-a\pi i}-e^{a\pi i}}
    =\frac{2\pi i}{e^{\pi i a}-e^{-\pi i a}}=\frac{\pi}{\sin\pi a}.
 \]
 \emph{Check.} At $a=\tfrac12$, $I=\pi$; and indeed $\int\frac{e^{x/2}}{1+e^x}\dx$ over
@@ -28429,9 +28431,9 @@ $\R$, via $u=e^{x/2}$, equals $2\int_0^\infty\frac{du}{1+u^2}=2\cdot\frac\pi2=\p
 \begin{tikzpicture}[scale=0.92]
   \draw[cxaxis] (-3.0,0)--(3.0,0) node[right]{\footnotesize$\Re$};
   \draw[cxaxis] (0,-0.5)--(0,3.0) node[above]{\footnotesize$\Im$};
+  \draw[dashed,black!45] (-3.0,2.2)--(3.0,2.2);
   \draw[contour] (-2.4,0) -- (2.4,0) -- (2.4,2.2) -- (-2.4,2.2) -- cycle;
   \node[pole,label={[font=\footnotesize]right:$\pi i$}] at (0,1.1) {};
-  \draw[dashed,black!45] (-2.4,2.2)--(2.4,2.2);
   \node[font=\footnotesize] at (1.9,2.45) {$\Im z=2\pi$};
 \end{tikzpicture}
 \captionof{figure}{Rectangle of height $2\pi$ exploiting the $2\pi i$-periodicity of
@@ -28449,7 +28451,8 @@ Vertical sides vanish ($\abs{\cosh\pi z}\to\infty$); the top side ($z=x+2i$, wit
 $\cosh\pi(x+2i)=\cosh\pi x$ and $e^{-2\pi i z\xi}=e^{4\pi\xi}e^{-2\pi i x\xi}$), reversed,
 gives $-e^{4\pi\xi}I$. So $I-e^{4\pi\xi}I=2\pi i\bigl(\frac{e^{\pi\xi}}{\pi i}-
 \frac{e^{3\pi\xi}}{\pi i}\bigr)=-2e^{2\pi\xi}(e^{\pi\xi}-e^{-\pi\xi})$. Since
-$1-e^{4\pi\xi}=-e^{2\pi\xi}(e^{2\pi\xi}-e^{-2\pi\xi})$, dividing gives
+$1-e^{4\pi\xi}=-e^{2\pi\xi}(e^{2\pi\xi}-e^{-2\pi\xi})$, dividing (for $\xi\neq0$; the case
+$\xi=0$ follows by continuity in $\xi$) gives
 \[
   I=\frac{2(e^{\pi\xi}-e^{-\pi\xi})}{e^{2\pi\xi}-e^{-2\pi\xi}}
    =\frac{2}{e^{\pi\xi}+e^{-\pi\xi}}=\frac{1}{\cosh\pi\xi}.
@@ -28477,14 +28480,14 @@ consistent with the imaginary part of $\pi e^{-1}$ being $0$.
 Evaluate the Mellin-type integral for $0<a<1$.
 \wrec A fractional power $x^{a-1}$ forces a branch cut; the standard device is the
 \emph{keyhole} contour hugging the positive real axis, picking up the pole at $z=-1$.
-\wsol Take the branch of $z^{a-1}=e^{(a-1)\Log z}$ with $\arg z\in(0,2\pi)$, cut along
+\wsol Take the branch of $z^{a-1}=e^{(a-1)\log z}$ with $\arg z\in(0,2\pi)$, cut along
 $[0,\infty)$. The keyhole $\gamma$ runs out along the top of the cut, around a big circle
 $C_R$, back along the bottom, and around a small circle $C_\eps$ at $0$. The only enclosed
 pole is $z=-1=e^{i\pi}$, with
 $\Res_{z=-1}\frac{z^{a-1}}{1+z}=e^{(a-1)i\pi}=-e^{ia\pi}$, so
-$\ci_\gamma=2\pi i(-e^{ia\pi})$. On $C_R$ the integrand is $O(R^{a-1})\cdot$length
-$O(R)=O(R^{a})\cdot R^{-1}\to0$ (as $a<1$), and on $C_\eps$ it is $O(\eps^{a})\to0$ (as
-$a>0$). On the bottom edge $\arg z=2\pi$, so $z^{a-1}=x^{a-1}e^{2\pi i(a-1)}=
+$\ci_\gamma=2\pi i(-e^{ia\pi})$. On $C_R$ the integrand is $O(R^{a-2})$ and the length is
+$O(R)$, so the integral is $O(R^{a-1})\to0$ (as $a<1$), and on $C_\eps$ it is
+$O(\eps^{a})\to0$ (as $a>0$). On the bottom edge $\arg z=2\pi$, so $z^{a-1}=x^{a-1}e^{2\pi i(a-1)}=
 x^{a-1}e^{2\pi i a}$. Thus
 \[
   \int_0^\infty\frac{x^{a-1}}{1+x}\dx-e^{2\pi i a}\int_0^\infty\frac{x^{a-1}}{1+x}\dx
@@ -28503,12 +28506,12 @@ Agrees.
   % big circle minus a small wedge near positive axis
   \draw[contour] (2.3,0.16) arc(4:356:2.3);
   % small circle near origin
-  \draw[line width=0.7pt,black!60] (0.45,-0.16) arc(-20:200:0.48);
+  \draw[line width=0.7pt,black!60] (0.45,0.16) arc(20:340:0.48);
   % corridor edges along positive axis
   \draw[line width=0.7pt,black!60] (0.46,0.16)--(2.29,0.16);
   \draw[line width=0.7pt,black!60] (0.46,-0.16)--(2.29,-0.16);
   \node[pole,label={[font=\footnotesize]above left:$-1$}] at (-1.3,0) {};
-  \node[font=\footnotesize] at (1.75,1.65) {$C_R$};
+  \node[font=\footnotesize] at (2.0,1.8) {$C_R$};
   \node[font=\footnotesize] at (-0.55,-0.55) {$C_\eps$};
   \node[font=\footnotesize] at (1.5,0.42) {cut $[0,\infty)$};
 \end{tikzpicture}
@@ -28537,9 +28540,9 @@ result.
 \begin{pitfall}
 The decay estimate on the closing arc is not optional --- it is half the proof. For
 $\int\frac{P}{Q}$ with $\deg Q\ge\deg P+2$ the semicircle vanishes, but for $\deg Q=\deg
-P+1$ (e.g.\ $\int\frac{\cos x}{x^2+a^2}$ handled as $\Re\int\frac{e^{ix}}{x^2+a^2}$) you
-must keep the oscillatory factor $e^{iz}$ and invoke Jordan's lemma; closing with $\cos z$
-fails because $\abs{\cos z}$ grows in the imaginary direction. Always match the contour to
+P+1$ (e.g.\ $\int\frac{x\sin x}{x^2+a^2}$ handled as $\Im\int\frac{xe^{ix}}{x^2+a^2}$) you
+must keep the oscillatory factor $e^{iz}$ and invoke Jordan's lemma; closing with $\sin z$
+fails because $\abs{\sin z}$ grows in the imaginary direction. Always match the contour to
 the decay of the integrand.
 \end{pitfall}
 
@@ -28578,7 +28581,7 @@ the decay of the integrand.
 \item Evaluate $\displaystyle\int_{-\infty}^{\infty}\frac{dx}{(x^2+1)(x^2+4)}$ using the two
   poles $i,2i$ in the upper half-plane.
 \item Compute $\displaystyle\int_0^{2\pi}\frac{d\theta}{5+4\cos\theta}$ via $z=e^{i\theta}$.
-\item Compute $\displaystyle\int_0^{2\pi}\frac{d\theta}{(2+\cos\theta)^2}$ (a double pole on
+\item Compute $\displaystyle\int_0^{2\pi}\frac{d\theta}{(2+\cos\theta)^2}$ (a double pole in
   the unit circle's interior).
 \item Use Jordan's lemma to evaluate $\displaystyle\int_{-\infty}^{\infty}
   \frac{\cos x}{x^2+1}\dx$, writing it as $\Re\int\frac{e^{ix}}{x^2+1}\dx$.
@@ -28635,10 +28638,13 @@ Letting $\eps\to0$ yields $(\ast)$.
 \begin{tikzpicture}[scale=1.0]
   \draw[contour] (0,0) circle (2.0);
   \node[font=\footnotesize] at (1.55,1.55) {$C$};
-  \node[pt,label={[font=\footnotesize]right:$z$}] at (0.7,0.5) {};
+  \node[pt] at (0.7,0.5) {};
+  \node[font=\footnotesize] at (1.13,0.5) {$z$};
   \draw[line width=0.6pt,black!55] (0.7,0.5) circle (0.28);
-  \node[opt,label={[font=\footnotesize]below:$z_0$}] at (-0.6,-0.4) {};
+  \node[opt] at (-0.6,-0.4) {};
+  \node[font=\footnotesize] at (-0.6,-0.86) {$z_0$};
   \draw[line width=0.6pt,black!55] (-0.6,-0.4) circle (0.28);
+  \draw[dashed,black!45] (0.93,0.66)--(1.63,1.16);
   \draw[dashed,black!45] (0.55,0.25)--(-0.45,-0.6);
 \end{tikzpicture}
 \captionof{figure}{Multiple keyhole avoiding the evaluation point $z$ and the
@@ -28673,12 +28679,12 @@ point the behavior is as wild as possible:
 \begin{tikzpicture}[scale=0.95]
   \draw[cxaxis] (-2.4,0)--(2.4,0) node[right]{\footnotesize$\Re$};
   \draw[cxaxis] (0,-1.9)--(0,1.9) node[above]{\footnotesize$\Im$};
-  \node[pole] at (0,0) {};
+  \node[pt] at (0,0) {};
   \node[font=\footnotesize] at (1.9,1.45) {$e^{1/z}\to\infty$};
   \draw[-{Stealth[length=2mm]},black!60] (1.6,0.15)--(0.25,0.05);
   \node[font=\footnotesize] at (-1.9,1.45) {$e^{1/z}\to0$};
   \draw[-{Stealth[length=2mm]},black!60] (-1.6,0.15)--(-0.25,0.05);
-  \node[font=\footnotesize] at (0.95,-1.4) {oscillates on $i\R$};
+  \node[font=\footnotesize] at (1.3,-1.4) {oscillates on $i\R$};
   \draw[-{Stealth[length=2mm]},black!60] (0.1,-1.2)--(0.05,-0.25);
 \end{tikzpicture}
 \captionof{figure}{$e^{1/z}$ at the origin: $\to\infty$ from the right, $\to0$ from the
@@ -28796,28 +28802,32 @@ at $w=x+iy$ with
 \]
 As $\abs w\to\infty$, $W\to N$, so $N$ is the natural ``point at infinity.'' Thus
 $\widehat\C$ is the compact sphere $S$ --- the \emph{one-point compactification} of $\C$ ---
-and a meromorphic function becomes a map $S\to S$, sending each pole to the tractable point
-$N$. Concretely, a function $f$ meromorphic on $\C$ with pole set $P$ is holomorphic
-$\C\setminus P\to\C$, and extends across the poles to a single map of the sphere that carries
-each pole to $\infty=N$:
+and a function meromorphic in the extended plane becomes a map $S\to S$, sending each pole to
+the tractable point $N$. Concretely, such an $f$, with pole set $P$ in $\C$, is holomorphic
+$\C\setminus P\to\C$, and extends across the poles and $\infty$ to a single map of the sphere
+that carries each pole to $\infty=N$:
 \[\begin{tikzcd}[row sep=large, column sep=large]
 \C\setminus P \arrow[r, hook] \arrow[d, "f"'] & \widehat\C \arrow[d, "\widehat f"] \\
 \C \arrow[r, hook] & \widehat\C
 \end{tikzcd}\]
 The square commutes off $P$; the extension $\widehat f$ fills in the values
-$\widehat f(p)=\infty$ at the poles, turning a partial map into a genuine map $S\to S$.
+$\widehat f(p)=\infty$ at the poles and $\widehat f(\infty)=\lim_{z\to\infty}f(z)$, turning a
+partial map into a genuine map $S\to S$.
 
 \begin{center}
 \tdplotsetmaincoords{72}{118}
 \begin{tikzpicture}[tdplot_main_coords,scale=2.6,line cap=round]
-  % equatorial complex plane z=0, drawn as a faint grid
-  \fill[black!5] (-1.4,-1.4,0)--(1.6,-1.4,0)--(1.6,1.4,0)--(-1.4,1.4,0)--cycle;
+  % complex plane z=0 (tangent to the sphere at the origin), drawn as a faint grid
+  \fill[black!5] (-1.4,-1.4,0)--(1.6,-1.4,0)--(1.6,1.6,0)--(-1.4,1.6,0)--cycle;
   \foreach \g in {-1,-0.5,...,1.5}{
-    \draw[black!22,very thin] (\g,-1.4,0)--(\g,1.4,0);
+    \draw[black!22,very thin] (\g,-1.4,0)--(\g,1.6,0);
     \draw[black!22,very thin] (-1.4,\g,0)--(1.6,\g,0);}
   \node[black!55,font=\footnotesize] at (1.45,1.15,0) {$\C$};
-  % sphere of diameter 1 resting on the origin: center (0,0,0.5), radius 0.5
-  \shade[ball color=black!10,opacity=0.9] (0,0,0.5) circle (0.5);
+  % sphere of diameter 1 resting on the origin: center (0,0,0.5), radius 0.5;
+  % its outline is a true circle on the screen, the equator an ellipse
+  \coordinate (O) at (0,0,0.5);
+  \shade[tdplot_screen_coords,ball color=black!10,opacity=0.9] (O) circle (0.5);
+  \draw[tdplot_screen_coords,black!40,very thin] (O) circle (0.5);
   \draw[black!40,very thin] (0,0,0.5) circle (0.5);
   % north pole N=(0,0,1) and the projection of the plane point w=(0.85,0.85,0)
   \coordinate (N) at (0,0,1);
@@ -28999,7 +29009,7 @@ multiplicity); since all satisfy $\abs z<2$ here, the count $Z=4$ is forced.
 \begin{theorem}[Rouch\'e]\label{t:rouche@c16}
 If $f,g$ are holomorphic in an open set containing a circle $C$ and its interior and
 $\abs{f(z)}>\abs{g(z)}$ for all $z\in C$, then $f$ and $f+g$ have the same number of zeros
-inside $C$.
+inside $C$. The same holds for toy contours.
 \end{theorem}
 
 \begin{proof}
@@ -29040,17 +29050,17 @@ in $\C$.
 \wsol Pick $R>1+\abs{a_{n-1}}+\cdots+\abs{a_0}$. On $\abs z=R$, $\abs{z^n}=R^n$ while
 $\abs{a_{n-1}z^{n-1}+\cdots+a_0}\le(\abs{a_{n-1}}+\cdots+\abs{a_0})R^{n-1}<R^n$. By Rouch\'e
 $p$ has the same number of zeros in $\abs z<R$ as $z^n$, i.e.\ $n$. All zeros lie inside, so
-$p$ has exactly $n$ zeros. \emph{Check.} For $p(z)=z^2+1$, $R=2$ works and indeed there are
-$2$ zeros $\pm i$ inside $\abs z<2$.
+$p$ has exactly $n$ zeros. \emph{Check.} For $p(z)=z^2+1$ the recipe asks for $R>2$; $R=3$
+works and indeed there are $2$ zeros $\pm i$ inside $\abs z<3$.
 \end{wex}
 
 \begin{center}
 \begin{tikzpicture}[scale=0.9]
   \draw[cxaxis] (-2.6,0)--(2.6,0); \draw[cxaxis] (0,-2.2)--(0,2.4);
   \draw[contour] (0,0) circle (2.0);
-  \node[font=\footnotesize] at (1.55,1.65) {$\abs z=R$};
-  \node[font=\footnotesize,align=center] at (0,-0.0)
-    {\,$\abs{z^n}>\abs{\text{lower}}$\,};
+  \node[font=\footnotesize,anchor=south west] at (1.45,1.45) {$\abs z=R$};
+  \node[font=\footnotesize] at (0,-2.6)
+    {on $\abs z=R$: $\abs{z^n}>\abs{\text{lower}}$};
   \foreach \a in {30,100,170,250,320}{ \node[zero] at ({1.1*cos(\a)},{1.1*sin(\a)}) {}; }
 \end{tikzpicture}
 \captionof{figure}{On a large circle $z^n$ dominates the lower-order terms; Rouch\'e
@@ -29119,8 +29129,8 @@ so ``$\sup$ on boundary'' does not control the interior here.
 \begin{wex}{Zeros in an annulus by two Rouch\'e applications}
 How many zeros of $p(z)=z^6+4z^2+1$ lie in the annulus $1<\abs z<2$?
 \wrec Count zeros inside each boundary circle by Rouch\'e, then subtract.
-\wsol On $\abs z=2$: $\abs{z^6}=64>\abs{4z^2+1}\le17$, so $p$ has $6$ zeros in $\abs z<2$.
-On $\abs z=1$: $\abs{4z^2}=4>\abs{z^6+1}\le2$, so $p$ has the same number as $4z^2$, namely
+\wsol On $\abs z=2$: $\abs{4z^2+1}\le17<64=\abs{z^6}$, so $p$ has $6$ zeros in $\abs z<2$.
+On $\abs z=1$: $\abs{z^6+1}\le2<4=\abs{4z^2}$, so $p$ has the same number as $4z^2$, namely
 $2$, in $\abs z<1$. Hence the annulus contains $6-2=4$ zeros. \emph{Check.} No zeros sit on
 either circle (both inequalities are strict), so the subtraction is valid; $4+2=6$ accounts
 for all roots of the degree-$6$ polynomial.
@@ -29139,7 +29149,7 @@ guarantees.
 
 \subsection*{Further worked examples}
 
-\begin{wex}{A transcendental Rouch\'e: $z=e^{-z}$ in the right half}
+\begin{wex}{A transcendental Rouch\'e: $\lambda-z=e^{-z}$ in the right half-plane}
 Show $\lambda - z - e^{-z}=0$ has exactly one root in the right half-plane $\Re z>0$ for real
 $\lambda>1$.
 \wrec No closed disc bounds the half-plane, so apply Rouch\'e on a large half-disc and let
@@ -29160,9 +29170,9 @@ unique right-half-plane root being real.
 Rouch\'e requires the \emph{strict} inequality $\abs f>\abs g$ on the \emph{whole} contour.
 If equality holds anywhere (e.g.\ $\abs f=\abs g$ at one boundary point), zeros can sit on
 $C$ and the count is invalid; perturb the contour or sharpen the estimate. And the maximum
-modulus principle is about $\abs f$, not $f$ or $\Re f$: a non-constant holomorphic function
-\emph{can} attain a maximum of $\Re f$ nowhere either, but the clean statement is for the
-modulus.
+modulus principle is about $\abs f$, not $f$ itself ($\C$ is not ordered); it also rules out
+an interior maximum of $\Re f$, since $\abs{e^{f}}=e^{\Re f}$ and $e^{f}$ is non-constant
+when $f$ is.
 \end{pitfall}
 
 \begin{exers}{Exercises (Stein, Ch.3).}
@@ -29188,8 +29198,8 @@ modulus.
 \end{exers}
 
 \begin{exers}{Problems (Stein, Ch.3).}
-\item Consider a holomorphic $f:\Disc\to\C$ with $f(0)=0$. By the open mapping theorem,
-  $f(\Disc)$ contains a small disc about $0$. Does there exist $r>0$ with $D_r(0)\subseteq
+\item Consider a non-constant holomorphic $f:\Disc\to\C$ with $f(0)=0$. By the open mapping
+  theorem, $f(\Disc)$ contains a small disc about $0$. Does there exist $r>0$ with $D_r(0)\subseteq
   f(\Disc)$ for \emph{all} such $f$? (a) With no further restriction, show no such $r$
   exists: find $\set{f_n}$ holomorphic in $\Disc$ with $1/n\notin f_n(\Disc)$; compute
   $f_n'(0)$ and discuss. (b) Assuming also $f'(0)=1$, show still no such $r$ exists. [Hint:
@@ -29215,9 +29225,9 @@ modulus.
   $\abs{f(z_0)}\ge\abs{f(z)}$ on a disc, average and conclude $\abs f$ is constant near
   $z_0$.
 \item (Non-example.) Show that Rouch\'e \emph{fails} without the strict inequality: with
-  $f(z)=z$ and $g(z)=z$ on $\abs z=1$ (so $\abs f=\abs g$), $f$ has one zero inside but
-  $f+g=2z$ also has one --- yet exhibit $f=z$, $g=-z$ where $f+g\equiv0$ has infinitely many
-  zeros, illustrating that equality on the boundary voids the conclusion.
+  $f(z)=z$ and $g(z)=z$ on $\abs z=1$ (so $\abs f=\abs g$) the count happens to survive, as
+  $f$ and $f+g=2z$ each have one zero inside --- yet exhibit $f=z$, $g=-z$ where $f+g\equiv0$
+  has infinitely many zeros, illustrating that equality on the boundary voids the conclusion.
 \item (Diagram.) For $f(z)=z^2$ on the circle $\abs z=1$, draw the image curve $w=f(e^{i
   \theta})$ and count how many times it winds around $0$; relate the winding number to the
   number of zeros of $f$ inside $\abs z=1$ via the argument principle.
@@ -29237,8 +29247,8 @@ a \emph{global} question, governed by homotopy.
 
 \begin{definition}\label{d:homotopy@c16}
 Two curves $\gamma_0,\gamma_1$ in an open set $\Omega$ with common endpoints $\alpha,\beta$
-are \emph{homotopic in $\Omega$} if there is a family $\gamma_s(t)$ ($s\in[0,1]$,
-$t\in[a,b]$), jointly continuous in $(s,t)$, with $\gamma_s(a)=\alpha$, $\gamma_s(b)=\beta$
+are \emph{homotopic in $\Omega$} if there is a family of curves $\gamma_s(t)\in\Omega$
+($s\in[0,1]$, $t\in[a,b]$), jointly continuous in $(s,t)$, with $\gamma_s(a)=\alpha$, $\gamma_s(b)=\beta$
 for all $s$, and $\gamma_s|_{s=0}=\gamma_0$, $\gamma_s|_{s=1}=\gamma_1$. Informally, one
 curve deforms continuously into the other without leaving $\Omega$.
 \end{definition}
@@ -29374,8 +29384,9 @@ $\Log z=\int_1^r\frac{dx}{x}+\int_0^\theta\frac{ire^{it}}{re^{it}}\,dt=\log r+i\
   \draw[ccut] (0,0)--(-2.4,0);
   \node[font=\footnotesize] at (-1.7,0.35) {branch cut};
   \node[pt,label={[font=\footnotesize]below:$1$}] at (1.0,0) {};
-  \node[pt,label={[font=\footnotesize]above right:$z=re^{i\theta}$}] at (1.2,1.3) {};
+  \node[pt,label={[font=\footnotesize]above right:$z=re^{i\theta}$}] at (47.3:1.7) {};
   \draw[line width=0.8pt] (1.0,0)--(1.7,0);
+  \node[font=\footnotesize] at (1.7,-0.25) {$r$};
   \draw[contour] (1.7,0) arc(0:47.3:1.7);
   \node[font=\footnotesize] at (1.95,0.75) {$\eta$};
 \end{tikzpicture}
@@ -29385,7 +29396,7 @@ along the arc $\eta$ to $z$; the cut $(-\infty,0]$ keeps $\theta\in(-\pi,\pi)$.}
 
 \begin{wex}{Principal logarithm of specific points}
 Compute $\Log(i)$, $\Log(-1+i)$, and $\Log(1)$.
-\wrec Use $\Log z=\log\abs z+i\Arg z$ with $\Arg\in(-\pi,\pi)$.
+\wrec Use $\Log z=\log\abs z+i\Arg z$ with $\Arg\in(-\pi,\pi]$.
 \wsol $\Log(i)=\log1+i\frac\pi2=\frac{i\pi}{2}$. For $-1+i$: $\abs{-1+i}=\sqrt2$ and
 $\Arg=\frac{3\pi}{4}$, so $\Log(-1+i)=\frac12\log2+\frac{3\pi i}{4}$. And
 $\Log(1)=\log1+0=0$. \emph{Check.} $e^{i\pi/2}=i$; $e^{\frac12\log2+3\pi i/4}=\sqrt2
@@ -29443,7 +29454,7 @@ f'e^{-g}-fg'e^{-g}=(f'-f\cdot\tfrac{f'}{f})e^{-g}=0$, so $fe^{-g}$ is constant; 
 equals $f(z_0)e^{-c_0}=1$. Hence $f=e^{g}$.
 \end{proof}
 
-\begin{wex}{A branch of $\sqrt{1-z^2}$ on the slit plane}
+\begin{wex}{A branch of $\sqrt{1-z^2}$ on the doubly-slit plane}
 Construct a holomorphic square root of $1-z^2$ on $\C\setminus\bigl((-\infty,-1]\cup
 [1,\infty)\bigr)$.
 \wrec $1-z^2$ is nonvanishing off $\pm1$; on the doubly-slit plane (simply connected) apply
@@ -29500,17 +29511,17 @@ midline $\arg z=\pi/8$ maps to $\arg w=\pi/2$, the positive imaginary axis.
     \foreach \a in {5,15,25,35}{ \draw[conff] (0,0)--({2.3*cos(\a)},{2.3*sin(\a)}); }
     \draw[conff] (1.0,0) arc(0:45:1.0);
     \draw[conff] (1.8,0) arc(0:45:1.8);
-    \node[font=\footnotesize] at (1.3,0.95) {$S$};
+    \node[lblnode] at (1.3,0.95) {$S$};
     \node[font=\footnotesize] at (1.2,-0.35) {$z$-plane};
   \end{scope}
   \draw[-{Stealth[length=2.4mm]}] (3.0,0.8)--(4.1,0.8)
      node[midway,above,font=\footnotesize]{$z^4$};
   \begin{scope}[shift={(6.6,0)}]
+    \fill[band] (-2.2,0) rectangle (2.2,1.4);
     \draw[cxaxis] (-2.4,0)--(2.4,0) node[right]{\footnotesize$\Re$};
     \draw[cxaxis] (0,-0.4)--(0,1.6) node[above]{\footnotesize$\Im$};
-    \fill[band] (-2.2,0) rectangle (2.2,1.4);
     \draw[line width=0.8pt,black!70] (-2.2,0)--(2.2,0);
-    \node[font=\footnotesize] at (0,0.9) {$\HH$};
+    \node[font=\footnotesize] at (1.1,0.8) {$\HH$};
     \node[font=\footnotesize] at (1.4,-0.35) {$w$-plane};
   \end{scope}
 \end{tikzpicture}
@@ -29524,9 +29535,9 @@ directly and reconcile with $\Log(-1)-\Log(1)$.
 \wrec $1/z$ has primitive $\Log z$ on the slit plane; but $\gamma$ ends \emph{on} the cut, so
 take the limiting principal value.
 \wsol Parametrize $z=e^{i\theta}$, $\theta:0\to\pi$: $\int_\gamma\frac{dz}{z}=\int_0^\pi
-\frac{ie^{i\theta}}{e^{i\theta}}\dtheta=\int_0^\pi i\,d\theta=i\pi$. This equals
+\frac{ie^{i\theta}}{e^{i\theta}}\dtheta=\int_0^\pi i\dtheta=i\pi$. This equals
 $\Log(-1)-\Log(1)=i\pi-0$ using the branch with $\arg\in(-\pi,\pi]$ (so $\Arg(-1)=\pi$).
-\emph{Check.} The \emph{lower} semicircle from $1$ to $-1$ gives $\int_0^{-\pi}i\,d\theta=
+\emph{Check.} The \emph{lower} semicircle from $1$ to $-1$ gives $\int_0^{-\pi}i\dtheta=
 -i\pi=\Log(-1)-\Log(1)$ with the branch $\Arg(-1)=-\pi$ instead; the two paths differ by
 $2\pi i$, the period of $\log$, exactly the winding around the puncture at $0$.
 \end{wex}
@@ -29618,21 +29629,21 @@ hallmark of holomorphy. Concretely, extracting $a_n$ factors through restriction
 the circle $C_r$ followed by taking the $n$th Fourier coefficient:
 \[\begin{tikzcd}[row sep=large, column sep=large]
 \mathcal O(D_R(z_0)) \arrow[r, "f\,\mapsto\, f|_{C_r}"] \arrow[dr, "a_n"'] &
-  C(C_r) \arrow[d, "f\,\mapsto\, r^n\widehat f(n)"] \\
+  C(C_r) \arrow[d, "f\,\mapsto\, r^{-n}\widehat f(n)"] \\
  & \C
 \end{tikzcd}\]
-where $\mathcal O(D_R(z_0))$ is the holomorphic functions on the disc and $\widehat f(n)$ is
-the $n$th Fourier coefficient of $\theta\mapsto f(z_0+re^{i\theta})$.
+where $\mathcal O(D_R(z_0))$ is the space of holomorphic functions on the disc and
+$\widehat f(n)$ is the $n$th Fourier coefficient of $\theta\mapsto f(z_0+re^{i\theta})$.
 
 \begin{center}
 \begin{tikzpicture}[scale=1.0]
   \draw[cxaxis] (-2.4,0)--(2.4,0) node[right]{\footnotesize$\Re$};
   \draw[cxaxis] (0,-2.0)--(0,2.2) node[above]{\footnotesize$\Im$};
   \draw[contour] (0,0) circle (1.6);
-  \node[pt,label={[font=\footnotesize]below:$z_0$}] at (0,0) {};
+  \node[pt,label={[font=\footnotesize]below left:$z_0$}] at (0,0) {};
   \draw[line width=0.7pt,black!60] (0,0)--({1.6*cos(40)},{1.6*sin(40)});
-  \node[font=\footnotesize] at (0.65,0.75) {$re^{i\theta}$};
-  \node[font=\footnotesize] at (1.3,1.3) {$\abs{\zeta-z_0}=r$};
+  \node[font=\footnotesize] at (0.45,0.8) {$re^{i\theta}$};
+  \node[font=\footnotesize,anchor=south west] at (1.2,1.2) {$\abs{\zeta-z_0}=r$};
 \end{tikzpicture}
 \captionof{figure}{Integrating $f$ around the circle of radius $r$ extracts the Taylor
 coefficient $a_n$ as a Fourier coefficient on $[0,2\pi]$. (Schematic.)}
@@ -29659,7 +29670,7 @@ harmonic functions.
 \begin{corollary}[Mean value for harmonic functions]\label{c:mvpharm@c16}
 If $f$ is holomorphic on $D_R(z_0)$ and $u=\Re f$, then $u(z_0)=\frac{1}{2\pi}
 \int_0^{2\pi}u(z_0+re^{i\theta})\dtheta$ for $0<r<R$. Every harmonic function on a disc
-has this property (it is locally the real part of a holomorphic function).
+has this property (on a disc it is the real part of a holomorphic function).
 \end{corollary}
 
 \begin{center}
@@ -29694,7 +29705,7 @@ between. \emph{Check.} $u$ harmonic and non-constant cannot attain an interior e
 indeed both extreme values occur on $\abs z=1$, consistent with the boundary principle.
 \end{wex}
 
-\begin{wex}{NON-example: the modulus is subharmonic, not harmonic}
+\begin{wex}{NON-example: the squared modulus is subharmonic, not harmonic}
 Show $v(z)=\abs z^2=x^2+y^2$ is \emph{not} harmonic, so it need not satisfy the mean-value
 \emph{equality}.
 \wrec Test the Laplacian; harmonicity requires $\Delta v=0$.
@@ -29707,7 +29718,7 @@ value exactly; here the strict inequality flags non-harmonicity.
 
 \begin{remark}
 The mean-value property is not merely a curiosity: it characterizes harmonic functions and
-underlies the maximum principle, Poisson's integral formula (Problem 2), and the rigidity
+underlies the maximum principle, Poisson's integral formula (Problem~1 below), and the rigidity
 of holomorphic and harmonic functions. The bridge ``power series $\leftrightarrow$ Fourier
 series'' developed here is taken up systematically when the Fourier transform enters in the
 next chapter.
@@ -29780,7 +29791,7 @@ when $f$ is holomorphic, although $\log\abs f$ is harmonic away from the zeros o
   maximum and use that $f$ is open.]
 \item This exercise shows mean-square convergence dominates uniform convergence of analytic
   functions. For open $U\subseteq\C$ write $\norm{f}_{L^2(U)}=\bigl(\int_U\abs{f(z)}^2
-  \dx\,dy\bigr)^{1/2}$ and $\norm{f}_{L^\infty(U)}=\sup_U\abs f$. (a) If $f$ is holomorphic
+  \dx\dy\bigr)^{1/2}$ and $\norm{f}_{L^\infty(U)}=\sup_U\abs f$. (a) If $f$ is holomorphic
   in a neighborhood of $D_r(z_0)$, show that for $0<s<r$ there is $C>0$ (depending on
   $s,r$) with $\norm{f}_{L^\infty(D_s(z_0))}\le C\norm{f}_{L^2(D_r(z_0))}$. (b) Prove that
   if $\set{f_n}$ is Cauchy in $\norm{\cdot}_{L^2(U)}$ for holomorphic $f_n$, then $\set{f_n}$
