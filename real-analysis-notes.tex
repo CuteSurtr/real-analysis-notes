@@ -40532,9 +40532,9 @@ is $r_4(p)=8(p+1)$.
 We work in $\Rd$ with the Euclidean norm $\abs{x}=(x_1^2+\cdots+x_d^2)^{1/2}$ and the
 distance $\dist(x,y)=\abs{x-y}$; for sets, $\dist(E,F)=\inf\set{\abs{x-y}\st x\in E,\ y\in
 F}$. Open balls $B_r(x)=\set{y\st\abs{y-x}<r}$ generate the topology: $E$ is \emph{open}
-if every point of $E$ has a ball inside $E$, \emph{closed} if its complement is open, and
-\emph{compact} if it is closed and bounded. Compact sets obey the Heine--Borel property:
-every open cover has a finite subcover.
+if every point $x\in E$ has a ball $B_r(x)$ inside $E$, \emph{closed} if its complement is
+open, and \emph{compact} if it is closed and bounded. Compact sets obey the Heine--Borel
+property: every open cover has a finite subcover.
 
 \begin{definition}[Rectangles and cubes]\label{d:rect@c24}
 A \emph{closed rectangle} in $\Rd$ is a product of closed bounded intervals
@@ -40567,8 +40567,8 @@ and the demand that it behave well under (almost disjoint) decomposition.
   \begin{scope}[shift={(4.2,-0.7)}]
     \fill[band] (0.3,0.3) rectangle (2.1,1.7);
     \draw[line width=0.8pt] (0.3,0.3) rectangle (2.1,1.7);
-    \draw[brc] (0.3,0.18)--(2.1,0.18);
-    \node[font=\footnotesize] at (1.2,-0.05) {$b_1-a_1$};
+    \draw[brc] (2.1,0.18)--(0.3,0.18);
+    \node[font=\footnotesize] at (1.2,-0.2) {$b_1-a_1$};
     \node[font=\footnotesize,fill=white,inner sep=1pt] at (1.2,1.0) {$R\subset\R^2$};
   \end{scope}
   % R in R^3 : a parallelepiped
@@ -40576,10 +40576,11 @@ and the demand that it behave well under (almost disjoint) decomposition.
     \fill[band] (0,0) rectangle (1.6,1.2);
     \draw[line width=0.8pt] (0,0) rectangle (1.6,1.2);
     \draw[line width=0.8pt]
-      (0,0)--(0.55,0.55) (1.6,0)--(2.15,0.55)
-      (1.6,1.2)--(2.15,1.75) (0,1.2)--(0.55,1.75);
-    \draw[line width=0.8pt] (0.55,0.55)--(2.15,0.55)--(2.15,1.75)--(0.55,1.75)--cycle;
-    \node[font=\footnotesize,fill=white,inner sep=1pt] at (0.8,0.6) {$R\subset\R^3$};
+      (1.6,0)--(2.15,0.55)--(2.15,1.75)--(0.55,1.75)--(0,1.2)
+      (1.6,1.2)--(2.15,1.75);
+    % hidden edges dashed
+    \draw[line width=0.5pt,dashed] (0,0)--(0.55,0.55)--(2.15,0.55) (0.55,0.55)--(0.55,1.75);
+    \node[font=\footnotesize] at (0.8,-0.3) {$R\subset\R^3$};
   \end{scope}
 \end{tikzpicture}
 \captionof{figure}{Rectangles in $\Rd$ for $d=1,2,3$: intervals, boxes, parallelepipeds. (Schematic.)}
@@ -40621,7 +40622,7 @@ $\abs{R}=\sum_{\widetilde R_j\subset R}\abs{\widetilde R_j}\le\sum_{k=1}^N
   \node[font=\footnotesize] at (0.6,2.05) {$\widetilde R_1$};
   \node[font=\footnotesize] at (3.0,0.5) {$\widetilde R_M$};
   \draw[line width=0.9pt] (1.2,1.0) rectangle (3.6,2.4);
-  \node[font=\footnotesize] at (2.4,0.5) {$R_k$};
+  \node[font=\footnotesize,right] at (3.6,1.7) {$R_k$};
 \end{tikzpicture}
 \captionof{figure}{Extending all sides refines the rectangles into a common grid; each
 $R_k$ is a union of grid cells (Lemmas \ref{l:add@c24}--\ref{l:sub@c24}). (Schematic.)}
@@ -40656,27 +40657,35 @@ $\bigcup_{Q\in\mathcal Q}Q=O$.
 
 \begin{center}
 \begin{tikzpicture}[scale=2.0,line cap=round]
-  % open set O: a smooth blob enclosing a block of dyadic cubes.
-  % The blob hugs the cube region with a small uniform margin so the
-  % large interior cubes sit wholly inside and only a boundary ring is bisected.
+  % open set O: a smooth blob. The cubes below are those the algorithm
+  % accepts on the dyadic grids of side 1/2, 1/4, 1/8 (computed for this
+  % blob, keeping a small visible gap to its boundary): each lies inside O,
+  % none overlaps another, and the thin layer left along the boundary is
+  % bisected further (not drawn).
   \def\Oblob{plot[smooth cycle,tension=0.75]
     coordinates {(0.35,1.32) (1.55,1.40) (2.30,0.95) (2.32,0.20)
                  (1.70,-0.28) (0.80,-0.30) (0.18,0.20) (0.10,0.85)}}
   % shade the region first
   \fill[black!4] \Oblob;
-  % --- large accepted cubes (side 1/2), wholly inside O ---
+  % --- accepted cubes of side 1/4 (from bisected cubes of side 1/2) ---
+  \foreach \x/\y in {%
+      0.75/-0.25, 1/-0.25, 1.25/-0.25, 0.25/0.25, 2/0.25, 0.25/0.5, 2/0.5,
+      0.25/0.75, 0.5/1, 0.75/1, 1/1, 1.25/1, 1.5/1}{
+    \fill[band] (\x,\y) rectangle ({\x+0.25},{\y+0.25});
+    \draw[line width=0.35pt,black!55] (\x,\y) rectangle ({\x+0.25},{\y+0.25});}
+  % --- accepted cubes of side 1/8 (from bisected cubes of side 1/4) ---
+  \foreach \x/\y in {%
+      1.5/-0.25, 0.625/-0.125, 1.5/-0.125, 1.625/-0.125, 1.75/-0.125, 0.375/0, 2/0,
+      0.375/0.125, 2/0.125, 0.125/0.5, 2.25/0.5, 0.125/0.625, 2/0.75, 2.125/0.75,
+      2/0.875, 0.25/1, 0.375/1, 1.75/1, 1.875/1, 0.375/1.125, 1.75/1.125,
+      0.75/1.25, 0.875/1.25, 1/1.25, 1.125/1.25, 1.25/1.25, 1.375/1.25}{
+    \fill[band] (\x,\y) rectangle ({\x+0.125},{\y+0.125});
+    \draw[line width=0.25pt,black!55] (\x,\y) rectangle ({\x+0.125},{\y+0.125});}
+  % --- accepted cubes of side 1/2, wholly inside O (drawn last so their
+  %     edges stay black) ---
   \foreach \x/\y in {0.5/0, 1.0/0, 1.5/0, 0.5/0.5, 1.0/0.5, 1.5/0.5}{
     \fill[band] (\x,\y) rectangle ({\x+0.5},{\y+0.5});
     \draw[line width=0.6pt] (\x,\y) rectangle ({\x+0.5},{\y+0.5});}
-  % --- bisected cubes (side 1/4) forming the boundary layer ---
-  \foreach \x/\y in {%
-      0.25/0, 0.25/0.25, 0.25/0.5, 0.25/0.75,
-      0.5/0.75, 0.75/0.75, 1.0/0.75, 1.25/0.75, 1.5/0.75, 1.75/0.75,
-      2.0/0.5, 2.0/0.25, 2.0/0,
-      1.75/-0.25, 1.5/-0.25, 1.25/-0.25, 1.0/-0.25, 0.75/-0.25, 0.5/-0.25,
-      0.25/-0.25}{
-    \fill[band] (\x,\y) rectangle ({\x+0.25},{\y+0.25});
-    \draw[line width=0.35pt,black!55] (\x,\y) rectangle ({\x+0.25},{\y+0.25});}
   % outline of O on top
   \draw[line width=0.9pt] \Oblob;
   \node[font=\footnotesize] at (1.25,0.25) {$O$};
@@ -40724,19 +40733,24 @@ cubes. Always $0\le m_*(E)\le\infty$.
 \end{definition}
 
 The exterior measure approximates a set ``from the outside'' by cube coverings. It is vital
-that \emph{countably} many cubes be allowed: finite covers give a strictly larger quantity
-(the Jordan content; see the exercises). Covers by rectangles or by balls give the same
-$m_*$.
+that \emph{countably} many cubes be allowed: finite covers give a quantity that can be
+strictly larger (the Jordan content; see the exercises). Covers by rectangles or by balls
+give the same $m_*$.
 
 \begin{center}
 \begin{tikzpicture}[scale=1.7]
+  % a cover of E: the closed grid cubes of side 0.25 that meet E
+  \foreach \x/\y in {%
+      0.3/-0.325, 0.55/-0.325, 0.8/-0.325, 1.05/-0.325, 1.3/-0.325,
+      0.05/-0.075, 0.3/-0.075, 0.55/-0.075, 0.8/-0.075, 1.05/-0.075, 1.3/-0.075, 1.55/-0.075,
+      0.05/0.175, 0.3/0.175, 0.55/0.175, 0.8/0.175, 1.05/0.175, 1.3/0.175, 1.55/0.175,
+      0.05/0.425, 0.3/0.425, 0.55/0.425, 0.8/0.425, 1.05/0.425, 1.3/0.425, 1.55/0.425,
+      0.3/0.675, 0.55/0.675, 0.8/0.675, 1.05/0.675, 1.3/0.675}{
+    \fill[band] (\x,\y) rectangle ({\x+0.25},{\y+0.25});
+    \draw[dgrid] (\x,\y) rectangle ({\x+0.25},{\y+0.25});}
   \draw[line width=0.8pt] plot[smooth cycle,tension=0.85]
     coordinates {(0.2,0.5) (0.9,0.85) (1.55,0.55) (1.6,0.05) (1.0,-0.2) (0.3,0.0)};
-  \node[font=\footnotesize] at (0.9,0.3) {$E$};
-  \foreach \x in {0.2,0.45,...,1.5}{
-    \foreach \y in {-0.2,0.05,...,0.85}{
-      \draw[dgrid] (\x,\y) rectangle ({\x+0.25},{\y+0.25});
-    }}
+  \node[font=\footnotesize] at (0.925,0.3) {$E$};
 \end{tikzpicture}
 \captionof{figure}{$m_*(E)$ is the infimum of the total volume over all countable
 coverings of $E$ by cubes; finer covers track the set more tightly. (Schematic.)}
@@ -40758,13 +40772,14 @@ rectangles.
 \begin{proof}
 $Q$ covers itself, so $m_*(Q)\le\abs{Q}$. For the reverse, take any cover
 $Q\subseteq\bigcup_j Q_j$; fix $\eps>0$ and enlarge each $Q_j$ to an open cube $S_j$ with
-$\abs{S_j}\le(1+\eps)\abs{Q_j}$. By compactness finitely many $S_1,\dots,S_N$ cover $Q$, so
-Lemma~\ref{l:sub@c24} gives $\abs{Q}\le\sum_{j=1}^N\abs{S_j}\le(1+\eps)\sum_j\abs{Q_j}$. Letting
-$\eps\to0$ and infimizing over covers gives $\abs{Q}\le m_*(Q)$. For an open cube,
-$m_*(Q)=m_*(\closure Q)=\abs{\closure Q}=\abs{Q}$. For a rectangle, approximate by a grid of
-cubes of side $1/k$ inside and along the boundary: the inside cubes have total volume
-$\le\abs{R}$, the $O(k^{d-1})$ boundary cubes contribute $O(1/k)$, and $k\to\infty$ gives
-$m_*(R)\le\abs{R}$; the reverse is as for cubes.
+$\abs{S_j}\le\abs{Q_j}+\eps2^{-j}$. By compactness finitely many $S_1,\dots,S_N$ cover $Q$, so
+Lemma~\ref{l:sub@c24} gives $\abs{Q}\le\sum_{j=1}^N\abs{S_j}\le\sum_j\abs{Q_j}+\eps$. Letting
+$\eps\to0$ and infimizing over covers gives $\abs{Q}\le m_*(Q)$. For an open cube $Q$,
+$m_*(Q)\le m_*(\closure Q)=\abs{Q}$, and every closed cube $Q_0\subset Q$ gives
+$\abs{Q_0}=m_*(Q_0)\le m_*(Q)$, with $\abs{Q_0}$ as close to $\abs{Q}$ as we like. For a
+rectangle, approximate by a grid of cubes of side $1/k$ inside and along the boundary: the
+inside cubes have total volume $\le\abs{R}$, the $O(k^{d-1})$ boundary cubes contribute
+$O(1/k)$, and $k\to\infty$ gives $m_*(R)\le\abs{R}$; the reverse is as for cubes.
 \end{proof}
 
 \begin{theorem}[Five properties of $m_*$]\label{t:props@c24}
@@ -40780,12 +40795,12 @@ $m_*(E)=\sum_j\abs{Q_j}$.
 \begin{proof}
 (1) Any cover of $E_2$ covers $E_1$. (2) If some $m_*(E_j)=\infty$ the claim is trivial;
 else cover each $E_j$ by cubes with $\sum_k\abs{Q_{k,j}}\le m_*(E_j)+\eps2^{-j}$; the
-combined family covers $E$ and totals $\le\sum_j m_*(E_j)+\eps$. (3) ``$\le$'' is
+combined family covers $E=\bigcup_j E_j$ and totals $\le\sum_j m_*(E_j)+\eps$. (3) ``$\le$'' is
 monotonicity; for ``$\ge$'' cover $E$ by cubes summing to $\le m_*(E)+\eps/2$, fatten each
 $Q_j$ to an open $Q_j'$ with $\abs{Q_j'}\le\abs{Q_j}+\eps2^{-j-1}$, and let $O=\bigcup_j
 Q_j'$. (4) ``$\le$'' is (2); for ``$\ge$'' pick $\delta$ with $0<\delta<\dist(E_1,E_2)$,
-cover $E$ by cubes of diameter $<\delta$ summing to $\le m_*(E)+\eps$; each cube meets at
-most one $E_i$, so splitting the cover into the two index sets gives
+cover $E=E_1\cup E_2$ by cubes of diameter $<\delta$ summing to $\le m_*(E)+\eps$; each
+cube meets at most one $E_i$, so splitting the cover into the two index sets gives
 $m_*(E_1)+m_*(E_2)\le m_*(E)+\eps$. (5) Shrink $Q_j$ to $\widetilde Q_j$ with
 $\abs{Q_j}\le\abs{\widetilde Q_j}+\eps2^{-j}$; the $\widetilde Q_1,\dots,\widetilde Q_N$ are
 at positive mutual distance, so (4) gives
@@ -40796,10 +40811,10 @@ $N\to\infty,\eps\to0$ and combine with (2).
 \begin{center}
 \begin{tikzpicture}[scale=1.0]
   \draw[band] (0,0) circle (0.85); \draw (0,0) circle (0.85); \node at (0,0) {$E_1$};
-  \draw[band] (3,0) circle (0.85); \draw (3,0) circle (0.85); \node at (3,0) {$E_2$};
-  \draw[<->,>=Stealth] (0.9,-0.0)--(2.1,-0.0);
-  \node[font=\footnotesize] at (1.5,0.25) {$\dist(E_1,E_2)>0$};
-  \node[font=\footnotesize] at (1.5,-0.85) {cubes of diameter $<\delta$ meet only one set};
+  \draw[band] (4.2,0) circle (0.85); \draw (4.2,0) circle (0.85); \node at (4.2,0) {$E_2$};
+  \draw[<->,>=Stealth] (0.9,0)--(3.3,0);
+  \node[font=\footnotesize] at (2.1,0.25) {$\dist(E_1,E_2)>0$};
+  \node[font=\footnotesize] at (2.1,-1.15) {cubes of diameter $<\delta$ meet at most one set};
 \end{tikzpicture}
 \captionof{figure}{When two sets are separated, a fine enough cube cover splits cleanly,
 giving exact additivity (Theorem \ref{t:props@c24}(4)). (Schematic.)}
@@ -40827,7 +40842,7 @@ even though $m_*=0$.
 \wrec Trigger: contrast finite vs countable covers. A finite cover by intervals whose union
 contains the dense set $\Q\cap[0,1]$ must in fact cover $[0,1]$ up to finitely many points.
 \wsol Any finite family of closed intervals covering the dense set $\Q\cap[0,1]$ has union a
-finite union of intervals that is dense in $[0,1]$ and closed, hence equals $[0,1]$; so the
+finite union of intervals that is dense in $[0,1]$ and closed, hence contains $[0,1]$; so the
 total length is $\ge1$, and taking $I=[0,1]$ shows $J_*=1$. But $m_*=0$ by the previous
 example. \emph{Check.} This is exactly why Definition~\ref{d:ext@c24} insists on countable
 covers; finiteness would wreck countable additivity.
@@ -40838,8 +40853,9 @@ Let $S=[0,1]\times\set0\subset\R^2$. Show $m_*(S)=0$.
 \wrec A lower-dimensional set; cover by a thin rectangle and let its height shrink.
 \wsol For $\eps>0$ the rectangle $R=[0,1]\times[-\eps/2,\eps/2]$ covers $S$ and has
 $\abs{R}=\eps$. Hence $m_*(S)\le\eps$ for all $\eps>0$, so $m_*(S)=0$. \emph{Check.} More
-generally any subset of a hyperplane in $\Rd$ has $m_*=0$, since a slab of thickness $\eps$
-has volume $\to0$.
+generally any subset of a hyperplane in $\Rd$ has $m_*=0$, since each bounded piece of the
+hyperplane lies in a slab of thickness $\eps$ and bounded extent, whose volume $\to0$, and
+countable sub-additivity handles the rest.
 \end{wex}
 
 \begin{wex}{Outer regularity in action}
@@ -40853,7 +40869,7 @@ m_*(O)=0=m_*(E)$. \emph{Check.} Consistent with Theorem~\ref{t:props@c24}(3), wh
 such approximating open sets for \emph{every} $E$.
 \end{wex}
 
-\begin{wex}{Measure of a half-open box via almost disjoint cubes}
+\begin{wex}{Measure of a box via almost disjoint cubes}
 Use Theorem~\ref{t:props@c24}(5) to compute $m_*([0,2]\times[0,1])$.
 \wrec Trigger: decompose into almost disjoint unit cubes and sum volumes.
 \wsol Write $R=[0,2]\times[0,1]=([0,1]\times[0,1])\cup([1,2]\times[0,1])$, two almost
@@ -40865,10 +40881,10 @@ disjoint unit squares of area $1$ each. By property (5), $m_*(R)=1+1=2=\abs{R}$.
 Show the Cantor set $C$ has Hausdorff dimension $\log2/\log3$, consistent with $m_*(C)=0$.
 \wrec Trigger: $C$ is self-similar with $2$ pieces each scaled by $1/3$; the similarity
 dimension $s$ solves $2\cdot(1/3)^s=1$.
-\wsol For a self-similar set built from $N$ copies scaled by ratio $r$, the dimension $s$
-satisfies $N r^s=1$, here $2(1/3)^s=1$, i.e.\ $s=\log2/\log3\approx0.6309$. At stage $k$,
-$C$ is covered by $2^k$ intervals of length $3^{-k}$, so the $s$-dimensional Hausdorff
-content is $\le2^k(3^{-k})^s=(2\cdot3^{-s})^k=1$, bounded -- the threshold dimension.
+\wsol For a self-similar set built from $N$ non-overlapping copies scaled by ratio $r$, the
+dimension $s$ satisfies $N r^s=1$, here $2(1/3)^s=1$, i.e.\ $s=\log2/\log3\approx0.6309$. At
+stage $k$, $C$ is covered by $2^k$ intervals of length $3^{-k}$, so the $s$-dimensional
+Hausdorff content is $\le2^k(3^{-k})^s=(2\cdot3^{-s})^k=1$, bounded -- the threshold dimension.
 \emph{Check.} Since $s<1$, the $1$-dimensional (length) measure is $0$, matching
 $m_*(C)=0$; yet $s>0$, so $C$ is far from a single point.
 \end{wex}
@@ -40877,9 +40893,11 @@ $m_*(C)=0$; yet $s>0$, so $C$ is far from a single point.
 Bound $m_*$ of the open disc $D=B_1(0)\subset\R^2$ between inscribed and circumscribed
 grids, confirming $m_*(D)=\pi$.
 \wrec Trigger: trap the disc between cubes inside it and cubes covering it; refine the grid.
-\wsol With a grid of side $1/k$, the cubes entirely inside $D$ have total area $\le\pi$, and
-the cubes meeting $D$ cover it with total area $\pi+O(1/k)$ (a boundary layer of $O(k)$
-cubes each of area $k^{-2}$). Letting $k\to\infty$ squeezes $m_*(D)$ to the area $\pi$.
+\wsol With a grid of side $1/k$, the cubes meeting $D$ cover it with total area
+$\le\pi+O(1/k)$, while the cubes entirely inside $D$ are almost disjoint with total area
+$\ge\pi-O(1/k)$, so $m_*(D)\ge\pi-O(1/k)$ by Theorem~\ref{t:props@c24}(1),(5) (the two
+families differ by a boundary layer of $O(k)$ cubes each of area $k^{-2}$). Letting
+$k\to\infty$ squeezes $m_*(D)$ to the area $\pi$.
 \emph{Check.} This matches $m(B_r)=v_d r^d=\pi r^2$ in $\R^2$ with $r=1$.
 \end{wex}
 
@@ -40917,8 +40935,8 @@ cubes each of area $k^{-2}$). Letting $k\to\infty$ squeezes $m_*(D)$ to the area
   $E\subseteq[0,1]$ with $J_*(E)=1$ but $m_*(E)=0$.
 \item At the start of the theory one might cover by rectangles instead of cubes:
   $m_*^R(E)=\inf\sum_j\abs{R_j}$ over countable closed-rectangle covers. Prove
-  $m_*(E)=m_*^R(E)$ for every $E\subseteq\Rd$. [Hint: Lemma~24.1.\ref{l:add@c24}.]
-\item Theorem~24.1.\ref{t:open1@c24} (every open set in $\R$ is a disjoint union of open
+  $m_*(E)=m_*^R(E)$ for every $E\subseteq\Rd$. [Hint: Lemma~\ref{l:add@c24}.]
+\item Theorem~\ref{t:open1@c24} (every open set in $\R$ is a disjoint union of open
   intervals) has no analogue in $\Rd$, $d\ge2$. Prove: (a) an open disc in $\R^2$ is not a
   disjoint union of open rectangles [Hint: boundaries]; (b) an open connected $\Omega$ is a
   disjoint union of open rectangles iff $\Omega$ is itself an open rectangle.
@@ -40935,13 +40953,13 @@ cubes each of area $k^{-2}$). Letting $k\to\infty$ squeezes $m_*(D)$ to the area
   ``invisible'' to exterior measure.)
 \item Let $E=\bigcup_{n\ge1}[n,n+2^{-n}]\subset\R$. Compute $m_*(E)$ and decide whether $E$
   is bounded.
-\item Prove directly from Definition~24.1.\ref{d:ext@c24} that $m_*$ is translation invariant:
+\item Prove directly from Definition~\ref{d:ext@c24} that $m_*$ is translation invariant:
   $m_*(E+h)=m_*(E)$.
 \item For the Cantor set $C$, show $C+C=[0,2]$. Deduce $m_*(C+C)=2$ although
   $m_*(C)=0$, foreshadowing the Brunn--Minkowski discussion.
 \item (Non-example.) A student claims ``$m_*(\bigcup_j E_j)=\sum_j m_*(E_j)$ always.''
   Refute this with overlapping intervals $E_j=[0,1]$ for all $j$, and state the correct
-  inequality from Theorem~24.1.\ref{t:props@c24}.
+  inequality from Theorem~\ref{t:props@c24}.
 \item (Diagram.) Sketch a covering of the triangle with vertices $(0,0),(1,0),(0,1)$ by
   cubes of side $1/4$, count the cubes meeting the triangle, and use the count to give an
   explicit upper bound for $m_*$ of the triangle. Compare with the true area $1/2$.
@@ -40959,7 +40977,7 @@ $O\supseteq E$ with $m_*(O\setminus E)\le\eps$. For measurable $E$ we set its
 \emph{Lebesgue measure} $m(E)=m_*(E)$.
 \end{definition}
 
-Compare this with outer regularity (Theorem~24.1.\ref{t:props@c24}(3)), which says $m_*(E)$ is
+Compare this with outer regularity (Theorem~\ref{t:props@c24}(3)), which says $m_*(E)$ is
 approximated by $m_*(O)$ for \emph{any} $E$. Measurability asks the stronger thing: the
 \emph{difference} $O\setminus E$, not just $O$ itself, can be made small. This single
 condition tames exactly those sets on which $m_*$ becomes countably additive.
@@ -40978,7 +40996,7 @@ then $m_*(O\setminus E)\le m_*(O)\le\eps$. (P3) Given $E=\bigcup_j E_j$, choose 
 $O_j\supseteq E_j$ with $m_*(O_j\setminus E_j)\le\eps2^{-j}$; then $O=\bigcup_j O_j$ is
 open, $E\subseteq O$, and $O\setminus E\subseteq\bigcup_j(O_j\setminus E_j)$, so
 $m_*(O\setminus E)\le\eps$. (P4) It suffices to treat compact $F$ (write a closed set as
-$\bigcup_k F\cap B_k$ and use (P3)). For compact $F$, pick open $O\supseteq F$ with
+$\bigcup_k F\cap\closure{B_k(0)}$ and use (P3)). For compact $F$, pick open $O\supseteq F$ with
 $m_*(O)\le m_*(F)+\eps$; then $O\setminus F$ is open, hence a countable almost disjoint
 union of cubes $\bigcup_j Q_j$. For each $N$, $K=\bigcup_{j\le N}Q_j$ is compact and
 disjoint from $F$, so $\dist(K,F)>0$ (Lemma~\ref{l:dist@c24}); by properties (1),(4),(5) of
@@ -41005,17 +41023,21 @@ $\abs{y-x}\ge3\delta_j-2\delta_j\ge\delta>0$.
 
 \begin{center}
 \begin{tikzpicture}[scale=0.95]
+  % shade O, then clear E, so that exactly the collar O\setminus E is shaded
+  \fill[band] plot[smooth cycle,tension=0.8]
+    coordinates {(-0.25,-0.25) (1.7,-0.05) (2.05,1.35) (0.65,1.95) (-0.75,1.2)};
+  \fill[white] plot[smooth cycle,tension=0.8]
+    coordinates {(0,0) (1.4,0.3) (1.7,1.2) (0.6,1.6) (-0.4,1.0)};
   \draw[line width=0.8pt] plot[smooth cycle,tension=0.8]
     coordinates {(0,0) (1.4,0.3) (1.7,1.2) (0.6,1.6) (-0.4,1.0)};
   \node[font=\footnotesize] at (0.7,0.85) {$E$};
   \draw[dashed] plot[smooth cycle,tension=0.8]
     coordinates {(-0.25,-0.25) (1.7,-0.05) (2.05,1.35) (0.65,1.95) (-0.75,1.2)};
-  \node[font=\footnotesize] at (1.7,0.15) {$O$};
-  \fill[band,opacity=0.5] plot[smooth cycle,tension=0.8]
-    coordinates {(-0.25,-0.25) (1.7,-0.05) (2.05,1.35) (0.65,1.95) (-0.75,1.2)};
+  \node[font=\footnotesize] at (1.7,0.25) {$O$};
   \node[font=\footnotesize,fill=white,inner sep=1.5pt] at (3.2,1.6)
     {$m_*(O\setminus E)\le\eps$};
-  \draw[-{Stealth[length=1.8mm]}] (2.6,1.45)--(1.55,0.55);
+  % the arrow ends in the collar
+  \draw[-{Stealth[length=1.8mm]}] (2.6,1.45)--(1.95,0.7);
 \end{tikzpicture}
 \captionof{figure}{Measurability: an open $O\supseteq E$ hugs $E$ so tightly that the
 shaded collar $O\setminus E$ has small exterior measure. (Schematic.)}
@@ -41030,7 +41052,7 @@ $m(E)=\sum_{j=1}^\infty m(E_j)$.
 Assume first each $E_j$ bounded. Applying measurability to $E_j^c$, choose closed
 $F_j\subseteq E_j$ with $m_*(E_j\setminus F_j)\le\eps2^{-j}$. For fixed $N$ the sets
 $F_1,\dots,F_N$ are compact and disjoint, so by Lemma~\ref{l:dist@c24} and
-Theorem~24.1.\ref{t:props@c24}(4), $m(\bigcup_{j\le N}F_j)=\sum_{j\le N}m(F_j)$. Since
+Theorem~\ref{t:props@c24}(4), $m(\bigcup_{j\le N}F_j)=\sum_{j\le N}m(F_j)$. Since
 $\bigcup_{j\le N}F_j\subseteq E$, monotonicity gives
 $m(E)\ge\sum_{j\le N}m(F_j)\ge\sum_{j\le N}m(E_j)-\eps$. Let $N\to\infty$, $\eps\to0$:
 $m(E)\ge\sum_j m(E_j)$. The reverse is sub-additivity. For general $E_j$, slice by an
@@ -41056,15 +41078,17 @@ $E_n\searrow\es$ yet $m(E_n)=\infty$ for all $n$, so $\lim m(E_n)=\infty\neq0=m(
 \end{remark}
 
 \begin{center}
-\begin{tikzpicture}[scale=0.6]
-  \foreach \k/\r in {1/2.4,2/1.9,3/1.5,4/1.2}{
+\begin{tikzpicture}[scale=0.7]
+  % discs E_1 > E_2 > E_3 > E_4 (radii 2.5, 1.9, 1.5, 1.2) and the limit E (shaded)
+  \foreach \k/\r in {1/2.5,2/1.9,3/1.5,4/1.2}{
     \draw (0,0) circle (\r);
   }
-  \fill[band] (0,0) circle (1.2);
+  \fill[band] (0,0) circle (0.65);
+  \draw (0,0) circle (0.65);
   \node[font=\footnotesize] at (0,0) {$E$};
-  \node[font=\footnotesize] at (0,1.35) {$E_4$};
-  \node[font=\footnotesize] at (0,2.55) {$E_1$};
-  \node[font=\footnotesize,align=center] at (5.0,0)
+  \node[font=\footnotesize] at (0,0.925) {$E_4$};
+  \node[font=\footnotesize] at (0,2.2) {$E_1$};
+  \node[font=\footnotesize,align=center,anchor=west] at (2.8,0)
     {$E_k\searrow E$:\\[2pt] $m(E)=\lim_N m(E_N)$\\[2pt] (when some $m(E_k)<\infty$)};
 \end{tikzpicture}
 \captionof{figure}{Continuity from above: nested measurable sets shrinking to $E$ have
@@ -41083,7 +41107,7 @@ $m(E\triangle F)\le\eps$.
 (i) is the definition. (ii) Apply (i) to $E^c$: open $O\supseteq E^c$ with
 $m(O\setminus E^c)\le\eps$; then $F=O^c$ is closed, $F\subseteq E$, and
 $E\setminus F=O\setminus E^c$. (iii) Take $F$ as in (ii) with $m(E\setminus F)\le\eps/2$ and
-$K_n=F\cap B_n$; then $E\setminus K_n\searrow E\setminus F$, and finiteness gives
+$K_n=F\cap\closure{B_n(0)}$; then $E\setminus K_n\searrow E\setminus F$, and finiteness gives
 $m(E\setminus K_n)\le\eps$ for large $n$. (iv) Cover $E$ by cubes with
 $\sum_j\abs{Q_j}\le m(E)+\eps/2$; pick $N$ with $\sum_{j>N}\abs{Q_j}<\eps/2$ and
 $F=\bigcup_{j\le N}Q_j$; then $m(E\triangle F)\le\sum_{j>N}\abs{Q_j}+(\sum_j\abs{Q_j}-m(E))
@@ -41091,14 +41115,14 @@ $F=\bigcup_{j\le N}Q_j$; then $m(E\triangle F)\le\sum_{j>N}\abs{Q_j}+(\sum_j\abs
 \end{proof}
 
 \begin{theorem}[Invariance]\label{t:inv@c24}
-Lebesgue measure is translation invariant ($m(E+h)=m(E)$), dilation relative
+Lebesgue measure is translation invariant ($m(E+h)=m(E)$), relatively dilation invariant
 ($m(\delta E)=\delta^d m(E)$ for $\delta>0$), and reflection invariant ($m(-E)=m(E)$); in
 each case the transformed set is measurable when $E$ is.
 \end{theorem}
 
 \begin{proof}
 For a cube, $\abs{Q+h}=\abs{Q}$, $\abs{\delta Q}=\delta^d\abs{Q}$, $\abs{-Q}=\abs{Q}$, so
-the corresponding identities for $m_*$ follow from Definition~24.1.\ref{d:ext@c24} by
+the corresponding identities for $m_*$ follow from Definition~\ref{d:ext@c24} by
 transforming each cover. Measurability is preserved because if $O\supseteq E$ is open with
 $m_*(O\setminus E)<\eps$, then $O+h$, $\delta O$, $-O$ are open, contain the transformed
 set, and the collar transforms with the stated factor.
@@ -41151,7 +41175,8 @@ $=\infty$).
 The non-measurable set $N$ shows exterior measure is genuinely \emph{not} additive on all
 disjoint sets: one can show $m_*(N)+m_*([0,1]\setminus N)\neq m_*([0,1])=1$. Measurability
 is exactly the hypothesis that restores additivity. The axiom of choice is unavoidable
-here -- it is consistent with ZF that every set is measurable.
+here -- it is consistent with ZF plus dependent choice that every set is measurable
+(Solovay, assuming the consistency of an inaccessible cardinal).
 \end{pitfall}
 
 \begin{center}
@@ -41179,7 +41204,7 @@ measure can assign them a consistent value. (Schematic.)}
 \begin{wex}{Measure of an interval and of $\Q$}
 Compute $m([a,b])$ and $m(\Q)$.
 \wrec Intervals are rectangles in $\R$; $\Q$ is countable.
-\wsol $m([a,b])=\abs{[a,b]}=b-a$ by Theorem~24.1.\ref{t:cube@c24}. Since $\Q=\bigcup_q\set q$ is
+\wsol $m([a,b])=\abs{[a,b]}=b-a$ by Theorem~\ref{t:cube@c24}. Since $\Q=\bigcup_q\set q$ is
 a countable union of points, each of measure $0$, countable additivity gives $m(\Q)=0$.
 \emph{Check.} Thus $m([0,1])=m([0,1]\setminus\Q)=1$ -- the irrationals carry all the
 measure of the unit interval.
@@ -41208,7 +41233,7 @@ Using the Vitali set $N\subset[0,1]$, explain why $m_*(N)+m_*(N^c\cap[0,1])>m_*(
 \wrec Trigger: a disjoint decomposition of $[0,1]$ into two non-measurable pieces.
 \wsol One shows $m_*(N^c\cap[0,1])=1$ (any measurable set inside $N$ is null, so $N$
 contains no positive-measure measurable set, forcing the complement to fill up the
-interval in outer measure). Since also $m_*(N)>0$, we get
+interval in outer measure). Since also $m_*(N)>0$ (null sets are measurable), we get
 $m_*(N)+m_*(N^c\cap[0,1])>1=m_*([0,1])$. \emph{Check.} Strict super-additivity of $m_*$ on a
 disjoint pair is impossible for \emph{measurable} sets, where Theorem~\ref{t:cadd@c24} forces
 equality.
@@ -41248,7 +41273,7 @@ with $A=[0,1]$, $B=[0,2]$ it reads $2+1=1+2$.
   is: (a) if $E$ compact so is $L(E)$, hence $L$ maps $F_\sigma$ to $F_\sigma$; (b) since
   $\abs{L(x)-L(x')}\le M\abs{x-x'}$, $L$ maps any cube of side $\ell$ into a cube of side
   $c_dM\ell$ with $c_d=2\sqrt d$, so $m(E)=0$ implies $m(L(E))=0$; conclude via
-  Corollary~24.2.\ref{c:gd@c24}. (One can show $m(L(E))=\abs{\det L}\,m(E)$.)
+  Corollary~\ref{c:gd@c24}. (One can show $m(L(E))=\abs{\det L}\,m(E)$.)
 \item The $G_\delta$ and $F_\sigma$ sets. (a) Show a closed set is a $G_\delta$ and an open
   set is an $F_\sigma$. [Hint: $O_n=\set{x\st\dist(x,F)<1/n}$.] (b) Give an $F_\sigma$ that
   is not a $G_\delta$. [Hint: a countable dense set.] (c) Give a Borel set that is neither a
@@ -41269,7 +41294,7 @@ with $A=[0,1]$, $B=[0,2]$ it reads $2+1=1+2$.
   if $m(A)=m(B)$ then $E$ is measurable.
 \item Let $E_1\subseteq E_2$ be compact in $\Rd$ with $a=m(E_1)$, $b=m(E_2)$. Prove that for
   any $a<c<b$ there is a compact $E$ with $E_1\subseteq E\subseteq E_2$ and $m(E)=c$. [Hint:
-  $t\mapsto m(E\cap[0,t])$ is continuous.]
+  $t\mapsto m\bigl(E_1\cup(E_2\cap[-t,t]^d)\bigr)$ is continuous.]
 \item Let $E\subseteq\R$ with $m_*(E)>0$. Prove that for each $0<\alpha<1$ there is an open
   interval $I$ with $m_*(E\cap I)\ge\alpha\,m_*(I)$ -- $E$ contains ``almost a whole
   interval.'' [Hint: choose open $O\supseteq E$ with $m_*(E)\ge\alpha\,m_*(O)$; decompose
@@ -41287,24 +41312,24 @@ with $A=[0,1]$, $B=[0,2]$ it reads $2+1=1+2$.
   $G$ is non-measurable. [Hint: rational translates of $E$.]
 \item With $N$ as above, show $m_*(N^c\cap I)=1$, and conclude that for $E_1=N$,
   $E_2=N^c\cap I$ (disjoint) one has $m_*(E_1)+m_*(E_2)\neq m_*(E_1\cup E_2)$. [Hint: argue
-  by contradiction with a measurable $U$, $N^c\subseteq U\subseteq I$, $m_*(U)<1-\eps$.]
+  by contradiction with a measurable $U$, $N^c\cap I\subseteq U\subseteq I$, $m_*(U)<1-\eps$.]
 \item Let $C_1,C_2$ be Cantor sets (Exercise 24.1.3). Show there is $F:[0,1]\to[0,1]$ that
   is (i) continuous and bijective, (ii) monotonically increasing, (iii) maps $C_1$
   surjectively onto $C_2$. [Hint: copy the Cantor--Lebesgue construction.]
 \end{exers}
 
 \begin{exers}{Additional exercises.}
-\item Show that the measurable sets containing a fixed null set, modulo null sets, form a
-  $\sigma$-algebra. More concretely: if $E$ is measurable and $Z$ is null, prove $E\cup Z$,
+\item Show that changing a measurable set by a null set affects neither its measurability
+  nor its measure. More concretely: if $E$ is measurable and $Z$ is null, prove $E\cup Z$,
   $E\setminus Z$, $E\triangle Z$ are measurable with the same measure as $E$.
 \item Prove that every interval (open, closed, half-open) in $\R$ is measurable with
-  $m=$ length, directly from Definition~24.2.\ref{d:meas@c24}.
+  $m=$ length, directly from Definition~\ref{d:meas@c24}.
 \item Let $E_n=[0,1]\cap\set{x\st\text{the }n\text{th binary digit of }x\text{ is }1}$.
   Compute $m(E_n)$ and $m(\bigcap_{n\le N}E_n)$, and interpret probabilistically.
 \item (Continuity from above, sharpness.) Give measurable $E_n\searrow E$ with
   $m(E_n)=\infty$ for all $n$ but $m(E)=0$, and explain which hypothesis of
-  Corollary~24.2.\ref{c:cont@c24} fails.
-\item Using Theorem~24.2.\ref{t:reg@c24}(iv), approximate $E=[0,1]\setminus\Q$ within $\eps$ (in
+  Corollary~\ref{c:cont@c24} fails.
+\item Using Theorem~\ref{t:reg@c24}(iv), approximate $E=[0,1]\setminus\Q$ within $\eps$ (in
   symmetric difference) by a finite union of closed intervals, and exhibit such a union
   explicitly for $\eps=1/10$.
 \item Prove that a measurable set $E$ with $m(E)>0$ has a point of density: there is $x$
@@ -41317,7 +41342,7 @@ with $A=[0,1]$, $B=[0,2]$ it reads $2+1=1+2$.
 \item Prove that if $A,B$ are measurable then
   $m(A\cup B)+m(A\cap B)=m(A)+m(B)$ (inclusion--exclusion for measure), assuming all
   measures finite.
-\item Show that the dilation factor in Theorem~24.2.\ref{t:inv@c24} is exactly $\delta^d$ by
+\item Show that the dilation factor in Theorem~\ref{t:inv@c24} is exactly $\delta^d$ by
   computing $m(\delta Q)$ for a cube $Q$ and passing to general $E$ via outer regularity.
 \end{exers}
 
@@ -41402,11 +41427,13 @@ measurable.
 \end{theorem}
 
 \begin{proof}
-(P2) For continuous $f$, $\set{f<a}=f\inv((-\infty,a))$ is open, hence measurable; and
+(P2) For continuous $f$ on $E$, $\set{f<a}=f\inv((-\infty,a))$ is relatively open in $E$
+(of the form $U\cap E$ with $U$ open), hence measurable; and
 $(\Phi\circ f)\inv((-\infty,a))=f\inv(\Phi\inv((-\infty,a)))=f\inv(O)$ is measurable.
 (P3) $\set{\sup_n f_n>a}=\bigcup_n\set{f_n>a}$; $\inf_n f_n=-\sup_n(-f_n)$;
 $\limsup_n f_n=\inf_k\sup_{n\ge k}f_n$ and $\liminf_n f_n=\sup_k\inf_{n\ge k}f_n$. (P4) When
-$\lim_n f_n=f$, $f=\limsup_n f_n$, covered by (P3). (P5) If $k$ is odd
+$\lim_n f_n=f$, $f=\limsup_n f_n$, covered by (P3); for an a.e.\ limit, $f=\limsup_n f_n$
+a.e., so (P6) applies. (P5) If $k$ is odd
 $\set{f^k>a}=\set{f>a^{1/k}}$; if $k$ even and $a\ge0$,
 $\set{f^k>a}=\set{f>a^{1/k}}\cup\set{f<-a^{1/k}}$. For sums,
 $\set{f+g>a}=\bigcup_{r\in\Q}\set{f>a-r}\cap\set{g>r}$; products via
@@ -41438,9 +41465,9 @@ $fg=\tfrac14[(f+g)^2-(f-g)^2]$. (P6) $\set{f<a}$ and $\set{g<a}$ differ by a nul
     \draw[line width=1pt,domain=0:3,smooth,samples=120] plot (\x,{\fcurve});
     % the preimage {a<f<b}: x-intervals where the curve lies in the band 1.25<f<1.6
     \draw[line width=2pt] (0.277,0)--(0.417,0) (2.153,0)--(2.297,0) (2.847,0)--(2.987,0);
-    \node[font=\scriptsize,fill=white,inner sep=0.5pt] at (1.6,1.43) {$a<f<b$};
-    \node[font=\scriptsize] at (1.5,-0.45) {Lebesgue: slice the range};
-    \node[font=\scriptsize,fill=white,inner sep=0.5pt] at (1.2,0.22)
+    \node[font=\scriptsize,fill=white,inner sep=0.5pt] at (1.25,1.43) {$a<f<b$};
+    \node[font=\footnotesize] at (1.5,-0.45) {Lebesgue: slice the range};
+    \node[font=\scriptsize,fill=white,inner sep=0.5pt] at (1.2,0.17)
       {$\{a<f<b\}$};
   \end{scope}
 \end{tikzpicture}
@@ -41471,10 +41498,10 @@ If $f$ is measurable on $\Rd$ there are step functions $\psi_k\to f$ a.e.
 
 \begin{proof}
 By Theorem~\ref{t:approx@c24} reduce to $f=\ind{E}$, $m(E)<\infty$. By
-Theorem~24.2.\ref{t:reg@c24}(iv) pick cubes with $m(E\triangle\bigcup_{j\le N}Q_j)\le\eps$;
+Theorem~\ref{t:reg@c24}(iv) pick cubes with $m(E\triangle\bigcup_{j\le N}Q_j)\le\eps$;
 refine into almost disjoint rectangles $\widetilde R_j$ and shrink slightly to disjoint
 $R_j$ with $m(E\triangle\bigcup_j R_j)\le2\eps$. Then $\ind{E}=\sum_j\ind{R_j}$ off a set of
-measure $\le2\eps$. Choosing $\eps=2^{-k}$ gives step functions $\psi_k$ with
+measure $\le2\eps$. Choosing $\eps=2^{-k-1}$ gives step functions $\psi_k$ with
 $m\set{\psi_k\neq f}\le2^{-k}$; by Borel-Cantelli the exceptional set has measure $0$, so
 $\psi_k\to f$ a.e.
 \end{proof}
@@ -41483,18 +41510,18 @@ $\psi_k\to f$ a.e.
 
 \begin{remark}[Littlewood's principles]
 (i) Every (finite-measure) measurable set is nearly a finite union of intervals
-(Theorem~24.2.\ref{t:reg@c24}(iv)). (ii) Every measurable function is nearly continuous (Lusin).
+(Theorem~\ref{t:reg@c24}(iv)). (ii) Every measurable function is nearly continuous (Lusin).
 (iii) Every a.e.-convergent sequence is nearly uniformly convergent (Egorov).
 \end{remark}
 
 \begin{theorem}[Egorov]\label{t:egorov@c24}
-If $f_k\to f$ a.e.\ on $E$ with $m(E)<\infty$, then for every $\eps>0$ there is a closed
-$A_\eps\subseteq E$ with $m(E\setminus A_\eps)\le\eps$ and $f_k\to f$ uniformly on
-$A_\eps$.
+If the $f_k$ are measurable and $f_k\to f$ a.e.\ on $E$, where $m(E)<\infty$ and $f$ is
+finite a.e., then for every $\eps>0$ there is a closed $A_\eps\subseteq E$ with
+$m(E\setminus A_\eps)\le\eps$ and $f_k\to f$ uniformly on $A_\eps$.
 \end{theorem}
 
 \begin{proof}
-Assume $f_k(x)\to f(x)$ for all $x\in E$. For integers $n,k$ let
+Discarding a null set, assume $f_k(x)\to f(x)\in\R$ for all $x\in E$. For integers $n,k$ let
 $E_k^n=\set{x\in E\st\abs{f_j(x)-f(x)}<1/n\ \forall j>k}$. For fixed $n$,
 $E_k^n\nearrow E$, so by continuity from below pick $k_n$ with $m(E\setminus
 E_{k_n}^n)<2^{-n}$. Choose $N$ with $\sum_{n\ge N}2^{-n}<\eps/2$ and set $\widetilde
@@ -41515,8 +41542,8 @@ continuous.
 Take step functions $f_n\to f$ a.e.; each $f_n$ is continuous off a set $E_n$ with
 $m(E_n)<2^{-n}$. By Egorov find $A_{\eps/3}$ with $f_n\to f$ uniformly and
 $m(E\setminus A_{\eps/3})\le\eps/3$. Put $F'=A_{\eps/3}\setminus\bigcup_{n\ge N}E_n$ with
-$N$ so large that $\sum_{n\ge N}2^{-n}<\eps/3$; on $F'$ each $f_n$ is continuous and
-$f_n\to f$ uniformly, so $f|_{F'}$ is continuous. Approximate $F'$ from inside by a closed
+$N$ so large that $\sum_{n\ge N}2^{-n}<\eps/3$; on $F'$ each $f_n$ with $n\ge N$ is
+continuous and $f_n\to f$ uniformly, so $f|_{F'}$ is continuous. Approximate $F'$ from inside by a closed
 $F_\eps$ with $m(F'\setminus F_\eps)<\eps/3$.
 \end{proof}
 
@@ -41591,8 +41618,10 @@ extend to be constant on each deleted middle third. Show $F$ is continuous, incr
 $F(0)=0$, $F(1)=1$, yet $F'=0$ a.e.
 \wrec Trigger: a monotone continuous surjection $[0,1]\to[0,1]$ flat off the (null) Cantor
 set.
-\wsol Two ternary expansions of the same $x\in C$ give the same binary value, so $F$ is
-well defined on $C$; it is monotone there and extends to a monotone continuous $F$ on
+\wsol Each $x\in C$ has exactly one ternary expansion with all $a_k\in\set{0,2}$, so $F$ is
+well defined on $C$; it is monotone there, the two endpoints of each deleted interval get the
+same value (e.g.\ $F(\tfrac13)=F(0.0222\ldots_3)=0.0111\ldots_2=\tfrac12=F(0.2_3)=F(\tfrac23)$),
+and so it extends to a monotone continuous $F$ on
 $[0,1]$ (the gaps are filled by constants, matching endpoint values). $F(0)=0$, $F(1)=1$.
 On each deleted interval $F$ is constant so $F'=0$; the union of deleted intervals has
 measure $1$, hence $F'=0$ a.e. \emph{Check.} Although $F'=0$ a.e., $F$ climbs from $0$ to
@@ -41627,8 +41656,8 @@ showing $F$ is \emph{not} absolutely continuous.
     (0.88889,0.75)--(0.92593,0.875)   % rise 7  -> 7/8
     (0.92593,0.875)--(0.96296,0.875)  % plateau 7/8
     (0.96296,0.875)--(1,1);           % rise 8  -> 1
-  \node[font=\footnotesize,fill=white,inner sep=1pt] at (0.5,0.30)
-    {flat on every deleted third};
+  \node[font=\footnotesize,align=center,inner sep=1pt] at (0.56,0.22)
+    {flat on every\\ deleted third};
 \end{tikzpicture}
 \captionof{figure}{The Cantor--Lebesgue function (stage $3$): continuous and increasing
 with $F'=0$ a.e., yet rising from $0$ to $1$ on the measure-zero Cantor set.}
@@ -41646,8 +41675,9 @@ set, confirming measurability directly.
 \begin{wex}{Egorov is sharp: convergence need not be uniform on all of $E$}
 On $E=[0,1]$ let $f_n=\ind{[0,1/n]}$. Show $f_n\to0$ a.e.\ but not uniformly, while Egorov
 holds.
-\wrec Trigger: a moving-bump sequence; uniform convergence fails only near $0$.
-\wsol For $x>0$, $f_n(x)=0$ once $n>1/x$, so $f_n\to0$ pointwise (and a.e.). It is not
+\wrec Trigger: a shrinking-bump sequence; uniform convergence fails only near $0$.
+\wsol For $x>0$, $f_n(x)=0$ once $n>1/x$, so $f_n\to0$ on $(0,1]$, hence a.e.\ (at $x=0$,
+$f_n(0)=1$ for all $n$). It is not
 uniform: $\sup_{[0,1]}\abs{f_n}=1$ for all $n$. But removing $[0,\eps]$ leaves
 $A_\eps=[\eps,1]$, closed with $m(E\setminus A_\eps)=\eps$, and $f_n\equiv0$ on $A_\eps$ for
 $n>1/\eps$ -- uniform there. \emph{Check.} Exactly Egorov's conclusion; the bad behavior is
@@ -41658,9 +41688,9 @@ confined to the small set $[0,\eps]$.
 For $f(x)=x$ on $[0,1]$ write the standard dyadic simple approximation $\varphi_k\nearrow f$
 and compute $\norm{f-\varphi_k}_\infty$.
 \wrec Trigger: partition the range $[0,1]$ into $2^k$ bands as in Theorem~\ref{t:approx@c24}.
-\wsol Set $\varphi_k(x)=\ell2^{-k}$ on $E_\ell=\set{x\st\ell2^{-k}\le x<(\ell+1)2^{-k}}$ for
-$0\le\ell<2^k$. Each $E_\ell$ is an interval, so $\varphi_k$ is simple; $\varphi_k\le
-\varphi_{k+1}$ and $0\le f-\varphi_k\le2^{-k}$ pointwise, so $\varphi_k\nearrow f$. Hence
+\wsol Set $\varphi_k(x)=\ell2^{-k}$ on $E_\ell=\set{x\st\ell2^{-k}<x\le(\ell+1)2^{-k}}$ for
+$0\le\ell<2^k$, and $\varphi_k(0)=0$. Each $E_\ell$ is an interval, so $\varphi_k$ is
+simple; $\varphi_k\le\varphi_{k+1}$ and $0\le f-\varphi_k\le2^{-k}$ pointwise, so $\varphi_k\nearrow f$. Hence
 $\norm{f-\varphi_k}_\infty=2^{-k}$. \emph{Check.} For $k=2$ the error is $1/4$; the bands at
 heights $0,\tfrac14,\tfrac12,\tfrac34$ undershoot the line $y=x$ by at most one band width,
 exactly $2^{-k}$.
@@ -41669,7 +41699,7 @@ exactly $2^{-k}$.
 \begin{exers}{Exercises (Stein, Ch.1) -- measurable functions, Littlewood.}
 \item A decreasing sequence of positive continuous functions whose pointwise limit is not
   Riemann integrable. Let $\widehat C$ be a Cantor-like set of positive measure
-  (Exercise 24.2 above / Stein 24.1.4). Let $F_1$ be piecewise-linear continuous on $[0,1]$,
+  (Exercise 24.1.4). Let $F_1$ be piecewise-linear continuous on $[0,1]$,
   equal to $1$ off the first removed interval, $0$ at its center, $0\le F_1\le1$; similarly
   define $F_2$ from the stage-two intervals, etc., and set $f_n=F_1F_2\cdots F_n$. Prove:
   (a) $0\le f_n\le1$ and $f_n\ge f_{n+1}$, so $f_n\to f$ pointwise. (b) $f$ is discontinuous
@@ -41692,7 +41722,8 @@ exactly $2^{-k}$.
   under the Cantor--Lebesgue $F$.]
 \item Show there is no everywhere-continuous $f$ on $\R$ with $f=\ind{[0,1]}$ a.e.
 \item Give an example of a measurable $f$ and continuous $\Phi$ with $f\circ\Phi$
-  non-measurable. [Hint: $\Phi:C_1\to C_2$ as in Exercise 24.2.17 with $m(C_1)>0$,
+  non-measurable. [Hint: $\Phi:C_1\to C_2$ as in Exercise 24.2.17 (the same construction works
+  when $C_1$ is a Cantor-like set of Exercise 24.1.4), with $m(C_1)>0$,
   $m(C_2)=0$; let $N\subseteq C_1$ be non-measurable and $f=\ind{\Phi(N)}$.] Use this to
   exhibit a Lebesgue measurable set that is not Borel.
 \item A measurable $f$ on $[0,1]$ such that every $g=f$ a.e.\ is discontinuous everywhere.
@@ -41709,9 +41740,10 @@ exactly $2^{-k}$.
   $f\circ g$ need not be; relate to Exercise 24.3.8.
 \item Show that the set of points where a sequence of measurable functions $\set{f_n}$
   converges, $\set{x\st\lim_n f_n(x)\text{ exists in }\R}$, is measurable.
-\item Construct a sequence $f_n\to0$ pointwise on $[0,1]$ that does not converge uniformly
-  on any set of full measure minus $\eps$ for $\eps<1$... then reconcile this with Egorov by
-  giving the correct $A_\eps$. (Use the moving-bump $f_n=\ind{[(k-1)/2^j,\,k/2^j]}$ ordered
+\item Construct a sequence $f_n\to0$ in measure on $[0,1]$ (that is,
+  $m\set{\abs{f_n}>\eta}\to0$ for every $\eta>0$) that does not converge uniformly on any set
+  of measure $1-\eps$, for any $0<\eps<1$, and explain why this does not contradict Egorov.
+  (Use the moving bump $f_n=\ind{[(k-1)/2^j,\,k/2^j]}$, $1\le k\le2^j$, ordered
   by $j$ then $k$ -- note this converges in measure but \emph{not} a.e.; contrast with
   Egorov's a.e.\ hypothesis.)
 \item For the Cantor function $F$, show $F$ maps the (null) Cantor set onto $[0,1]$, hence a
@@ -41721,15 +41753,15 @@ exactly $2^{-k}$.
   computing $\set{f<a}$.
 \item (Non-example.) Exhibit measurable $f,g$ that are finite a.e.\ but for which $f+g$ is
   not defined everywhere; explain how the a.e.\ convention in
-  Theorem~24.3.\ref{t:mclosure@c24}(P6) repairs this.
+  Theorem~\ref{t:mclosure@c24}(P6) repairs this.
 \item (Diagram.) Draw the standard simple-function approximation $\varphi_k\nearrow f$ for
   $f(x)=x$ on $[0,1]$ by partitioning the range into $2^k$ bands, and compute
   $\norm{f-\varphi_2}_\infty$.
-\item Prove Lusin's theorem implies the following: for measurable $f$ on $[0,1]$ and
-  $\eps>0$ there is a continuous $g$ on $[0,1]$ with $m\set{f\neq g}\le\eps$. [Hint: Tietze
+\item Prove Lusin's theorem implies the following: for measurable finite-valued $f$ on
+  $[0,1]$ and $\eps>0$ there is a continuous $g$ on $[0,1]$ with $m\set{f\neq g}\le\eps$. [Hint: Tietze
   extend $f|_{F_\eps}$.]
 \item Show that if $f_n\to f$ in measure on a finite-measure set, some subsequence converges
-  a.e.; illustrate with the moving-bump sequence of Exercise 4.
+  a.e.; illustrate with the moving-bump sequence of Exercise 4 of this list.
 \end{exers}
 
 
@@ -41763,7 +41795,7 @@ inequality compares the $d$-th roots of the volumes. (Schematic.)}
 \end{center}
 
 \begin{theorem}[Brunn--Minkowski]\label{t:bm@c24}
-If $A,B$ and $A+B$ are measurable in $\Rd$, then
+If $A,B\subseteq\Rd$ are nonempty and $A$, $B$, $A+B$ are measurable, then
 \[
   m(A+B)^{1/d}\ge m(A)^{1/d}+m(B)^{1/d}.
 \]
@@ -41780,9 +41812,9 @@ $1=\frac1d\sum_j(a_j+b_j)\ge(\prod a_j)^{1/d}+(\prod b_j)^{1/d}$, which is the c
 
 \emph{Step 2: finite unions of almost disjoint rectangles, by induction on the total number
 $n$ of rectangles.} The inequality is translation invariant in $A$ and $B$ separately.
-Choose two disjoint rectangles in $A$ separated by a coordinate hyperplane $\set{x_j=0}$
-(after translation): set $A_-=A\cap\set{x_j\le0}$, $A_+=A\cap\set{x_j\ge0}$, each with fewer
-rectangles than $A$. Translate $B$ so that $B_\pm=B\cap\set{\pm x_j\ge0}$ satisfy
+Choose two of the (almost disjoint) rectangles of $A$; they are separated by a coordinate
+hyperplane $\set{x_j=0}$ (after translation): set $A_-=A\cap\set{x_j\le0}$,
+$A_+=A\cap\set{x_j\ge0}$, each with fewer rectangles than $A$. Translate $B$ so that $B_\pm=B\cap\set{\pm x_j\ge0}$ satisfy
 $m(B_\pm)/m(B)=m(A_\pm)/m(A)$. Since $A+B\supseteq(A_++B_+)\cup(A_-+B_-)$ with the two parts
 in opposite half-spaces (essentially disjoint),
 \[
@@ -41795,11 +41827,11 @@ $m(A+B)\ge\bigl(m(A)^{1/d}+m(B)^{1/d}\bigr)^d$.
 
 \emph{Step 3: open, then compact, then general.} For open $A,B$ of finite measure,
 exhaust from inside by finite almost disjoint rectangle unions $A_\eps,B_\eps$
-(Theorem~24.1.\ref{t:opend@c24}) and pass to the limit using $A+B\supseteq A_\eps+B_\eps$. For
+(Theorem~\ref{t:opend@c24}) and pass to the limit using $A+B\supseteq A_\eps+B_\eps$. For
 compact $A,B$, the $\eps$-neighborhoods $A^\eps=\set{x\st\dist(x,A)<\eps}$ are open with
 $A^\eps\searrow A$, and $A+B\subseteq A^\eps+B^\eps\subseteq(A+B)^{2\eps}$; let $\eps\to0$.
 For general measurable $A,B$ with $A+B$ measurable, approximate from inside by compact sets
-(Theorem~24.2.\ref{t:reg@c24}(iii)).
+(Theorem~\ref{t:reg@c24}(iii)).
 \end{proof}
 
 \begin{center}
@@ -41818,18 +41850,21 @@ For general measurable $A,B$ with $A+B$ measurable, approximate from inside by c
   \node[font=\footnotesize] at (3.9,0.1){$A+B$};
 \end{tikzpicture}
 \captionof{figure}{Brunn--Minkowski: the Minkowski sum of two bodies is at least as
-``large'' as scaling predicts; equality forces $A,B$ convex and homothetic. (Schematic.)}
+``large'' as scaling predicts; equality forces $A,B$ convex and homothetic (up to null
+sets). (Schematic.)}
 \end{center}
 
 \begin{corollary}[Convex case and equality]\label{c:bmconv@c24}
 For convex $A$, $A+\lambda A=(1+\lambda)A$ and $m((1+\lambda)A)=(1+\lambda)^d m(A)$, so
 Brunn--Minkowski is sharp with exponent $1/d$. For open sets of finite positive measure,
-equality holds iff $A$ and $B$ are convex and homothetic: $A=\delta B+h$ for some
-$\delta>0$, $h\in\Rd$.
+equality holds iff $A$ and $B$ are convex and homothetic up to null sets: there are convex
+$K,L$ with $m(A\triangle K)=m(B\triangle L)=0$ and $K=\delta L+h$ for some $\delta>0$,
+$h\in\Rd$. (For $B=(0,1)^2$ and $A=B\setminus\set{p}$ with $p\in B$ one has
+$A+B=(0,2)^2$ and equality, although $A$ is not convex.)
 \end{corollary}
 
 \begin{remark}
-The exponent $1/d$ is forced: for convex $A$ and $B=\lambda A$, equality in any candidate
+The exponent $1/d$ is forced: for convex $A$ and $B=\lambda A$, the validity of any candidate
 inequality $m(A+B)^\alpha\ge m(A)^\alpha+m(B)^\alpha$ requires
 $(1+\lambda)^{d\alpha}\ge1+\lambda^{d\alpha}$ for all $\lambda>0$, which by the elementary
 inequality $(a+b)^\gamma\ge a^\gamma+b^\gamma$ ($\gamma\ge1$) holds exactly when
@@ -41924,8 +41959,8 @@ equality criterion (homothetic bodies).
   $\abs{x-p/q}\le1/q^2$. Prove, however, that the set of $x\in\R$ for which there are
   infinitely many reduced $p/q$ with $\abs{x-p/q}\le1/q^3$ (or $\le1/q^{2+\eps}$) has
   measure zero. [Hint: Borel--Cantelli.]
-\item Show any open set $\Omega$ can be written as $\Omega=\bigcup_j Q_j$ with closed cubes
-  $Q_j$ such that (i) the $Q_j$ have disjoint interiors and (ii)
+\item Show any open set $\Omega\neq\Rd$ can be written as $\Omega=\bigcup_j Q_j$ with closed
+  cubes $Q_j$ such that (i) the $Q_j$ have disjoint interiors and (ii)
   $c\le\dist(Q_j,\Omega^c)/\ell(Q_j)\le C$ for positive constants $c,C$, where $\ell(Q_j)$
   is the side length (a Whitney decomposition).
 \item Find a measurable $C\subseteq[0,1]$ with $m(C)=0$ whose difference set contains a
@@ -41934,9 +41969,10 @@ equality criterion (homothetic bodies).
   in $[0,1]^2$ by keeping four corner cubes of side $1/3$ at each stage; show the line meets
   the dust by nested compactness.]
 \item Outline a proof that a bounded function on $[a,b]$ is Riemann integrable iff its set
-  of discontinuities has measure zero. With $\osc(f,c)=\lim_{r\to0}\sup\set{\abs{f(x)-f(y)}
+  of discontinuities has measure zero. With $J=[a,b]$, $I(c,r)=(c-r,c+r)$ and
+  $\osc(f,c)=\lim_{r\to0}\sup\set{\abs{f(x)-f(y)}
   \st x,y\in J\cap I(c,r)}$ (so $f$ is continuous at $c$ iff $\osc(f,c)=0$), prove: (a) for
-  every $\eps>0$, $\set{c\st\osc(f,c)\ge\eps}$ is compact; (b) if the discontinuity set is
+  every $\eps>0$, $\set{c\in J\st\osc(f,c)\ge\eps}$ is compact; (b) if the discontinuity set is
   null then $f$ is Riemann integrable; (c) conversely, if $f$ is Riemann integrable its
   discontinuity set is null.
 \item Suppose $E$ is measurable, $m(E)<\infty$, $E=E_1\cup E_2$ with $E_1\cap E_2=\es$. If
@@ -41953,7 +41989,8 @@ equality criterion (homothetic bodies).
   differentiable. Show $m(\Gamma+\Gamma)>0$ iff $\Gamma+\Gamma$ contains an open set iff $f$
   is not linear.
 \item Suppose $A,B$ are open of finite positive measure. Show equality holds in
-  Brunn--Minkowski iff $A,B$ are convex and similar, i.e.\ $A=\delta B+h$ for some
+  Brunn--Minkowski iff $A,B$ are, up to null sets, convex and similar, i.e.\
+  $m(A\triangle K)=m(B\triangle L)=0$ for convex $K,L$ with $K=\delta L+h$ for some
   $\delta>0$, $h\in\Rd$.
 \end{exers}
 
@@ -41968,16 +42005,16 @@ equality criterion (homothetic bodies).
   \eps$.
 \item Prove the $d=2$ AM--GM step $\tfrac12(x_1+x_2)\ge\sqrt{x_1x_2}$ and deduce the
   rectangle case of Brunn--Minkowski for two rectangles with $a_j+b_j=1$.
-\item (Non-example.) Show the naive ``$m(A+B)\ge m(A)+m(B)$'' (exponent $\alpha=1$) fails in
-  $\R^2$ by taking $A=B=[0,1]^2$; compute both sides and identify the correct exponent
-  $1/d$.
+\item (Non-example.) In $\R^2$ take $A=B=[0,1]^2$ and compute $m(A+B)^\alpha$ and
+  $m(A)^\alpha+m(B)^\alpha$. Show that $m(A+B)^\alpha\ge m(A)^\alpha+m(B)^\alpha$ fails for every
+  $\alpha<1/2$, while the naive ``$m(A+B)\ge m(A)+m(B)$'' (exponent $\alpha=1$) holds but is far
+  from equality; identify the correct exponent $1/d$.
 \item For convex $A$ and $B=\lambda A$, verify $A+B=(1+\lambda)A$ and that
   $m((1+\lambda)A)=(1+\lambda)^d m(A)$ gives equality in Brunn--Minkowski; identify the
   homothety data $(\delta,h)$.
 \item (Diagram.) Sketch the Minkowski sum of a unit square and a unit disc in $\R^2$
-  (a ``rounded square''), label its straight edges and quarter-circle corners, and write its
-  area as $1+4\cdot\tfrac12+\pi(\tfrac12)^2$... (correct the coefficients) to get
-  $1+ \text{(perimeter)}\cdot 1 + \pi$.
+  (a ``rounded square''), label its straight edges and quarter-circle corners, and show that
+  its area is $1+4\cdot1+\pi\cdot1^2=1+\text{(perimeter)}\cdot1+\pi$.
 \item Deduce from Brunn--Minkowski that $t\mapsto m((1-t)A+tB)^{1/d}$ is concave on $[0,1]$
   for convex $A,B$, and state what equality of the endpoints forces.
 \end{exers}
