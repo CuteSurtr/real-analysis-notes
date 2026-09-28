@@ -45473,14 +45473,14 @@ an integral $\int fg$ or $\inner f g$.
   \coordinate (P) at (2.558,0.711);
   \draw[dashed,black!55] (2.2,2.0)--(P);
   % right-angle marker at the foot P (between line f and the dashed drop)
-  \coordinate (u) at (0.9615,0.2671); % unit along f
-  \coordinate (v) at (-0.5151,0.8571); % unit from P toward g
+  \coordinate (u) at (0.9635,0.2676); % unit along f
+  \coordinate (v) at (-0.2676,0.9635); % unit from P toward g (perpendicular to f)
   \draw[black!55,line width=0.5pt]
-    ($(P)+(-0.18*0.9615,-0.18*0.2671)$)
-    -- ($(P)+(-0.18*0.9615+0.18*-0.5151,-0.18*0.2671+0.18*0.8571)$)
-    -- ($(P)+(0.18*-0.5151,0.18*0.8571)$);
+    ($(P)+(-0.18*0.9635,-0.18*0.2676)$)
+    -- ($(P)+(-0.18*0.9635+0.18*-0.2676,-0.18*0.2676+0.18*0.9635)$)
+    -- ($(P)+(0.18*-0.2676,0.18*0.9635)$);
   \draw[->,line width=0.9pt,black!70] (0,0)--(P);
-  \node[font=\footnotesize,fill=white,inner sep=1pt] at (1.55,0.05) {$\dfrac{\inner g f}{\norm f^2}f$};
+  \node[font=\footnotesize,anchor=north,inner sep=1pt] at (2.30,0.52) {$\frac{\inner g f}{\norm f^2}f$};
   \fill (P) circle (0.7pt);
 \end{tikzpicture}
 \captionof{figure}{Cauchy--Schwarz says the projection of $g$ onto $f$ has length
@@ -45496,10 +45496,10 @@ the surface element contributes $r^{d-1}\,dr$.
 \wsol $\int_{\abs x\le1}\abs x^{-2\alpha}\dx=c_d\int_0^1 r^{-2\alpha}r^{d-1}\,dr
 =c_d\int_0^1 r^{d-1-2\alpha}\,dr$, finite iff $d-1-2\alpha>-1$, i.e.\ $\alpha<d/2$. For $g$,
 $\int_1^\infty r^{d-1-2\alpha}\,dr$ is finite iff $d-1-2\alpha<-1$, i.e.\ $\alpha>d/2$.
-\emph{Check.} In $d=1$ the threshold is $\alpha=1/2$: $x^{-1/2}$ is in $\Ltwo(0,1)$
-($\int_0^1 x^{-1}$ diverges --- wait, $2\alpha=1<1$ fails) --- recompute: $x^{-1/2}$ has
-$\abs f^2=x^{-1}$, $\int_0^1 x^{-1}$ diverges, consistent with needing $\alpha<1/2$
-strictly. So $x^{-0.4}\in\Ltwo(0,1)$ but $x^{-0.6}\notin$. \checkmark
+\emph{Check.} In $d=1$ the threshold is $\alpha=1/2$: $x^{-1/2}$ has
+$\abs f^2=x^{-1}$ and $\int_0^1 x^{-1}$ diverges, so $x^{-1/2}\notin\Ltwo(0,1)$, consistent
+with needing $\alpha<1/2$ strictly. So $x^{-0.4}\in\Ltwo(0,1)$ but
+$x^{-0.6}\notin\Ltwo(0,1)$. \checkmark
 \end{wex}
 
 \begin{wex}{$L^2\not\subseteq L^1$ and $L^1\not\subseteq L^2$ on $\Rd$}
@@ -45549,16 +45549,16 @@ $K\to\infty$ and applying the monotone convergence theorem gives $\int\abs g^2<\
 $g\in\Ltwo$; since $\abs f\le g$, also $f\in\Ltwo$ and the series for $f$ converges a.e.
 The $(K-1)$th partial sum telescopes to $f_{n_K}$, so $f_{n_k}\to f$ a.e. Because
 $\abs{f-S_K(f)}^2\le(2g)^2$, dominated convergence gives $\norm{f_{n_k}-f}\to0$. Finally,
-the full sequence is Cauchy: given $\eps$ pick $N$ with $\norm{f_n-f_m}<\eps/2$ for
-$n,m>N$ and $n_k>N$ with $\norm{f_{n_k}-f}<\eps/2$; then
-$\norm{f_n-f}\le\norm{f_n-f_{n_k}}+\norm{f_{n_k}-f}<\eps$.
+since the full sequence is Cauchy, it converges to $f$: given $\eps$ pick $N$ with
+$\norm{f_n-f_m}<\eps/2$ for $n,m>N$ and $n_k>N$ with $\norm{f_{n_k}-f}<\eps/2$; then for
+$n>N$, $\norm{f_n-f}\le\norm{f_n-f_{n_k}}+\norm{f_{n_k}-f}<\eps$.
 \end{proof}
 
 \begin{remark}
 The contrast with Riemann integration is the whole point. The Riemann-integrable functions
 on $[-\pi,\pi]$ are \emph{not} complete in the $L^2$ metric: a Cauchy sequence of such
-functions can converge to a function that is not Riemann integrable. Lebesgue's theory
-closes this gap.
+functions can converge in $L^2$ to a function that agrees a.e.\ with no Riemann integrable
+function. Lebesgue's theory closes this gap.
 \end{remark}
 
 \begin{theorem}[$L^2$ is separable]\label{t:sep@c27}
@@ -45592,7 +45592,7 @@ $\norm{g-\psi}<\eps/2$ and $\norm{f-\psi}<\eps$.
   % smooth target curve on top
   \draw[line width=1pt,smooth,samples=120,domain=0.3:5.2]
     plot (\x,{1.3+0.7*sin(60*\x)*exp(-0.10*\x)});
-  \node[font=\footnotesize] at (5.05,2.05) {$f$};
+  \node[font=\footnotesize,anchor=west] at (5.22,1.0) {$f$};
   \node[font=\footnotesize,fill=white,inner sep=1pt] at (2.0,0.5) {$\psi=\sum_j r_j\ind{R_j}$};
 \end{tikzpicture}
 \captionof{figure}{Separability: every $f\in\Ltwo$ is approximated in norm by a step
@@ -45601,17 +45601,27 @@ tracks $f$ over its subinterval. (Schematic.)}
 \end{center}
 
 \begin{wex}{Completeness fails for Riemann integrable functions}
-Build a sequence of Riemann integrable $f_n$ on $[0,1]$ that is $L^2$-Cauchy but whose
-limit is not Riemann integrable.
-\wrec Trigger: illustrate Remark above; use an enumeration of the rationals to build the
-Dirichlet function as an $L^2$ limit.
-\wsol Enumerate $\Q\cap[0,1]=\set{q_1,q_2,\dots}$ and let $f_n=\ind{\set{q_1,\dots,q_n}}$.
-Each $f_n$ is Riemann integrable (finitely many discontinuities) with
-$\int f_n^2=0$. For $m>n$, $\norm{f_m-f_n}^2=\int\ind{\set{q_{n+1},\dots,q_m}}=0$, so the
-sequence is Cauchy (indeed constant in norm). Its pointwise limit is the Dirichlet function
-$\ind{\Q\cap[0,1]}$, which is \emph{not} Riemann integrable. \emph{Check.} In $L^2$ the
-limit is the zero class (a countable set has measure $0$), and indeed $\norm{f_n-0}=0$;
-$L^2$ completeness holds, Riemann completeness does not.
+Build a sequence of Riemann integrable $f_n$ on $[0,1]$ that is $L^2$-Cauchy but has no
+Riemann integrable $L^2$ limit.
+\wrec Trigger: illustrate Remark above; use the stages of a fat Cantor set, whose indicator
+is discontinuous on a set of positive measure.
+\wsol From $[0,1]$ remove a central open interval of length $\tfrac14$, then from each of the
+two remaining closed intervals a central open interval of length $\tfrac1{16}$, and so on (at
+stage $k$, $2^{k-1}$ intervals of length $4^{-k}$). Let $C_n$ be the union of the $2^n$ closed
+intervals left after stage $n$, $f_n=\ind{C_n}$, and $\widehat C=\bigcap_nC_n$ (a fat Cantor
+set). Each $f_n$ is Riemann integrable (finitely many discontinuities), and
+$\norm[\big]{f_n-\ind{\widehat C}}^2=\Leb(C_n\setminus\widehat C)=\sum_{k>n}2^{k-1}4^{-k}=2^{-n-1}
+\to0$, so $\set{f_n}$ converges in $L^2$ to $\ind{\widehat C}$; in particular it is Cauchy.
+If a Riemann integrable $g$ were an $L^2$ limit, then $g=\ind{\widehat C}$ a.e. But each
+$x\in\widehat C$ lies, for every $n$, in a stage-$n$ interval $I$ of length $\le2^{-n}$, and
+$I$ contains a removed interval (where $g=0$ a.e.)\ and the set $I\cap\widehat C$ of measure
+$2^{-n-1}>0$ (where $g=1$ a.e.). So $g$ is discontinuous at every point of $\widehat C$, a set
+of measure $\tfrac12$, contradicting Lebesgue's criterion
+(Theorem~\ref{t:lebesgue-crit@c13}). \emph{Check.} For $m>n$,
+$\norm{f_n-f_m}^2=\Leb(C_n\setminus C_m)=2^{-n-1}-2^{-m-1}\to0$. By contrast, the indicators
+of $\set{q_1,\dots,q_n}$, for an enumeration of $\Q\cap[0,1]$, converge pointwise to the
+Dirichlet function $\ind{\Q\cap[0,1]}$, which is not Riemann integrable; but in $L^2$ they
+all equal $0$, a Riemann integrable limit, so they do not show incompleteness.
 \end{wex}
 
 \begin{wex}{A concrete inner-product computation}
@@ -45634,7 +45644,7 @@ would require $f,g$ parallel.
 \wsol $\norm f=1$, $\norm g=(\int_0^1 x^2)^{1/2}=1/\sqrt3\approx0.577$. And
 $\norm{f+g}^2=\int_0^1(1+x)^2=\int_0^1(1+2x+x^2)=1+1+\tfrac13=\tfrac73$, so
 $\norm{f+g}=\sqrt{7/3}\approx1.528$. The bound gives $\norm f+\norm g\approx1.577$, and
-$1.528\le1.577$. \emph{Check.} Strict inequality, with defect $\approx0.049$, because $g=x$
+$1.528\le1.577$. \emph{Check.} Strict inequality, with defect $\approx0.050$, because $g=x$
 is not a nonnegative constant multiple of $f=1$. \checkmark
 \end{wex}
 
@@ -45646,11 +45656,11 @@ what lets $\norm{\cdot}$ be a true norm.
 \end{pitfall}
 
 \begin{exers}{Exercises (Stein, Ch.4).}
-\item Show that properties (i) and (ii) in the definition of a Hilbert space imply property
-(iii): the Cauchy--Schwarz inequality $\abs{\inner f g}\le\norm f\norm g$ and the triangle
-inequality $\norm{f+g}\le\norm f+\norm g$. [Hint: consider $\inner{f+\lambda g}{f+\lambda
-g}$ as a positive quadratic in $\lambda$; for the triangle inequality expand
-$\norm{f+g}^2$.]
+\item Show that properties (i) and (ii) in the definition of a Hilbert space
+(Definition~\ref{d:hilbert@c27}) imply property (iv): the Cauchy--Schwarz inequality
+$\abs{\inner f g}\le\norm f\norm g$ and the triangle inequality $\norm{f+g}\le\norm f+\norm g$.
+[Hint: consider $\inner{f+\lambda g}{f+\lambda g}$ as a positive quadratic in $\lambda$; for the
+triangle inequality expand $\norm{f+g}^2$.]
 \item In the equality case of Cauchy--Schwarz: if $\abs{\inner f g}=\norm f\norm g$ and
 $g\neq0$, then $f=cg$ for some scalar $c$. [Hint: assume $\norm f=\norm g=1$, $\inner
 f g=1$; then $f-g\perp g$ and $\norm f^2=\norm{f-g}^2+\norm g^2$.]
@@ -45713,10 +45723,10 @@ A set $H$ is a \emph{Hilbert space} if:
 \end{enumerate}
 \end{definition}
 
-Properties (iv) follow from (i)--(ii) (Exercise 1); we list them for emphasis.
-Separability (vi) is imposed because it covers essentially all applications, though
-interesting non-separable examples exist (Problem 2). We write $f_n\to f$ for
-$\norm{f_n-f}\to0$.
+Properties (iv) follow from (i)--(ii) (Exercise~1 at the end of Section~27.1); we list them
+for emphasis. Separability (vi) is imposed because it covers essentially all applications,
+though interesting non-separable examples exist (Problem~2 at the end of Section~27.5). We
+write $f_n\to f$ for $\norm{f_n-f}\to0$.
 
 \begin{example}\label{ex:hil@c27}
 Standard examples:
@@ -45889,7 +45899,7 @@ $U(\sum a_ke_k)=\sum a_ke'_k$. This is linear and invertible, and by Parseval
 $\norm{Uf}^2=\sum\abs{a_k}^2=\norm f^2$, so $U$ is unitary.
 \end{proof}
 
-\begin{proposition}[Pre-Hilbert spaces complete]\label{p:precomplete@c27}
+\begin{proposition}[Completion of a pre-Hilbert space]\label{p:precomplete@c27}
 A \emph{pre-Hilbert space} $H_0$ satisfies all the axioms except completeness. Every $H_0$
 has a \emph{completion}: a Hilbert space $H\supseteq H_0$ with the same inner product on
 $H_0$ and $H_0$ dense in $H$. The completion is unique up to isomorphism.
@@ -45917,8 +45927,9 @@ integrand $x(x^2-\tfrac13)$ is odd. \checkmark
 \end{wex}
 
 \begin{wex}{Bessel's inequality is generally strict}
-In $\Ltwo([-\pi,\pi])$ with normalized exponentials, take $f$ with $a_0=\inner
-f{e_0}\neq0$ and use only the single vector $e_0=1/\sqrt{2\pi}$. Show Bessel is strict.
+In $\Ltwo([-\pi,\pi])$ with normalized exponentials, use only the single vector
+$e_0=1/\sqrt{2\pi}$, and take $f$ that is not a multiple of $e_0$, with $a_0=\inner f{e_0}$.
+Show Bessel is strict.
 \wrec Trigger: a non-basis (one element) orthonormal set; Bessel must hold, with strict
 inequality whenever $f$ is not a multiple of $e_0$.
 \wsol For $f(x)=x$ on $[-\pi,\pi]$, $a_0=\frac1{\sqrt{2\pi}}\int_{-\pi}^\pi x\,dx=0$, so
@@ -45967,8 +45978,8 @@ the integral of $\abs f^2$. \checkmark
 collection $\set{\varphi_{k,j}}_{1\le k,j<\infty}$ with
 $\varphi_{k,j}(x,y)=\varphi_k(x)\varphi_j(y)$ is an orthonormal basis of
 $\Ltwo(\Rd\times\Rd)$. [Hint: orthonormality by Fubini; for completeness fix $j$ and set
-$F_j(x)=\int F(x,y)\varphi_j(y)\,dy$. If $\inner F{\varphi_{k,j}}=0$ for all $j$ then $\int
-F_j(x)\conj{\varphi_k(x)}\,dx=0$.]
+$F_j(x)=\int F(x,y)\conj{\varphi_j(y)}\,dy$. If $\inner F{\varphi_{k,j}}=0$ for all $k,j$
+then $\int F_j(x)\conj{\varphi_k(x)}\,dx=0$.]
 \item Let $\eta$ be a fixed strictly positive continuous function on $[a,b]$, and define
 $H_\eta=\Ltwo([a,b],\eta)$ to be the measurable $f$ with $\int_a^b\abs{f(t)}^2\eta(t)\,dt
 <\infty$, with $\inner f g_\eta=\int_a^b f(t)\conj{g(t)}\eta(t)\,dt$. (a) Show $H_\eta$ is a
@@ -45980,12 +45991,12 @@ sequence $\set{f_n}\subset H_0$ converging to $f$ in $H$; it also converges to s
 H'$, and $f\mapsto f'$ is the required map.]
 \item Let $T$ be any linear transformation $H_1\to H_2$. If $H_1$ is finite-dimensional,
 then $T$ is automatically bounded. (If $H_1$ is not finite-dimensional this may fail; see
-Problem 1.)
+Problem~1 at the end of Section~27.5.)
 \end{exers}
 
 \begin{exers}{Additional exercises.}
 \item Apply Gram--Schmidt to $1,x,x^2,x^3$ in $\Ltwo([-1,1])$ and identify the outputs as
-normalized Legendre polynomials. Verify $\inner{e_2}{e_4}=0$ by a parity argument.
+normalized Legendre polynomials. Verify $\inner{e_3}{e_4}=0$ by a parity argument.
 \item In $\C^2$ orthonormalize the vectors $(1,1)$ and $(1,0)$ via Gram--Schmidt; check the
 result is an orthonormal basis.
 \item Prove Bessel's inequality $\sum_k\abs{\inner f{e_k}}^2\le\norm f^2$ for any orthonormal
@@ -45996,8 +46007,8 @@ by direct integration, computing $\inner{e^{inx}}{e^{imx}}$ for $n\neq m$ and $n
 basis, and exhibit a nonzero $f$ orthogonal to every member. (E.g.\ use only even
 frequencies.)
 \item Prove that a unitary map carries an orthonormal basis to an orthonormal basis, and
-conversely a linear bijection carrying some orthonormal basis to an orthonormal basis is
-unitary.
+conversely a bounded linear bijection carrying some orthonormal basis to an orthonormal basis
+is unitary.
 \item (Diagram.) Draw the Gram--Schmidt step in $\R^2$: given $f_1,f_2$, show $e_1$, the
 projection $\inner{f_2}{e_1}e_1$, and the orthogonal remainder $e_2'$. Label the right angle.
 \item Let $H=\ell^2(\N)$ and $e_k$ the standard basis. Show the shift $S(a_1,a_2,\dots)=
@@ -46061,8 +46072,9 @@ Lebesgue set of $f$, hence a.e.
     \addplot[line width=0.8pt,black!55]{(1-0.3*0.3)/(1-2*0.3*cos(deg(x))+0.3*0.3)};
     \addplot[line width=0.9pt,black!75,dashed]{(1-0.6*0.6)/(1-2*0.6*cos(deg(x))+0.6*0.6)};
     \addplot[line width=1.1pt]{(1-0.85*0.85)/(1-2*0.85*cos(deg(x))+0.85*0.85)};
-    \node[font=\footnotesize,fill=white,inner sep=1pt] at (axis cs:1.55,1.45){$r=0.3$};
-    \node[font=\footnotesize,fill=white,inner sep=1pt] at (axis cs:1.0,4.0){$r=0.6$};
+    \node[font=\footnotesize,anchor=south west,inner sep=1pt] at (axis cs:1.75,1.05){$r=0.3$};
+    \draw[line width=0.4pt] (axis cs:0.47,2.21)--(axis cs:0.9,3.1)
+      node[font=\footnotesize,anchor=south west,inner sep=1pt]{$r=0.6$};
     \node[font=\footnotesize,fill=white,inner sep=1pt] at (axis cs:0.62,11.0){$r=0.85$};
     \node[font=\footnotesize,anchor=west] at (axis cs:0.05,12.7){$P_r(y)$};
   \end{axis}
@@ -46132,7 +46144,7 @@ $[-\pi,\pi]$ and confirm $\sum\abs{a_n}^2$ is finite.
 square-summability against Parseval.
 \wsol $a_0=0$ by symmetry. For $n\neq0$,
 $a_n=\frac1{2\pi}\bigl(\int_0^\pi e^{-inx}-\int_{-\pi}^0 e^{-inx}\bigr)
-=\frac{1-(-1)^n}{\pi i n}\cdot\tfrac12\cdot2$, which is $\frac{2}{\pi i n}$ for $n$ odd and
+=\frac{1-(-1)^n}{\pi i n}$, which is $\frac{2}{\pi i n}$ for $n$ odd and
 $0$ for $n$ even. So $\abs{a_n}^2=\frac{4}{\pi^2n^2}$ ($n$ odd). \emph{Check.}
 $\sum_{n\ \mathrm{odd}}\frac4{\pi^2n^2}=\frac{8}{\pi^2}\sum_{k\ge0}\frac1{(2k+1)^2}
 =\frac8{\pi^2}\cdot\frac{\pi^2}8=1=\frac1{2\pi}\int_{-\pi}^\pi\abs f^2$, since
@@ -46271,8 +46283,9 @@ smallest closed convex set containing $z$ and the closed disc $D_s(0)$ (near $z$
 like a triangle). Say $F$ has a non-tangential limit at $z$ if
 $\lim_{w\to z,\,w\in\Gamma_s(z)}F(w)$ exists for every $s$. Prove: if $F$ is holomorphic and
 bounded on the open unit disc, then $F$ has a non-tangential limit at almost every point of
-the circle. [Hint: show the Poisson integral of $f$ has non-tangential limits at every
-point of the Lebesgue set of $f$.]
+the circle. [Hint: $F$ is the Poisson integral of its boundary function $f=F(e^{i\theta})$;
+show the Poisson integral of $f$ has non-tangential limits at every point of the Lebesgue set
+of $f$.]
 \end{exers}
 
 \begin{exers}{Problems (Stein, Ch.4).}
@@ -46369,9 +46382,9 @@ $\inner{f-g_0}{g}=0$. Uniqueness: if $\tilde g_0$ also minimizes, then $(f-g_0)\
   \draw[->,line width=1pt] (f)--(g);
   \draw (0.4,0.85)--(0.4,1.05)--(0.6,1.05);
   % other points in S farther
-  \node[pt] (h) at (-1.4,0.85) {};
+  \node[pt,label={below:$g$}] (h) at (-1.4,0.85) {};
   \draw[dashed,black!55] (f)--(h);
-  \node[font=\footnotesize] at (-0.7,1.7) {$\norm{f-g}\ge\norm{f-g_0}$};
+  \node[font=\footnotesize] at (-1.55,1.95) {$\norm{f-g}\ge\norm{f-g_0}$};
 \end{tikzpicture}
 \captionof{figure}{The nearest point $g_0\in S$ to $f$; the error $f-g_0$ is
 perpendicular to all of $S$. (Schematic.)}
@@ -46487,9 +46500,9 @@ $p(x)=1/3$. \emph{Check.} The error $x^2-\tfrac13$ is orthogonal to $1$ ($\int_{
 (x^2-\tfrac13)=0$) and to $x$ (odd integrand) --- as the projection demands. \checkmark
 \end{wex}
 
-\begin{wex}{Projection in $\C^3$ onto a plane}
+\begin{wex}{Projection in $\R^3$ onto a plane}
 Project $v=(1,2,3)$ onto $S=\set{(x,y,z)\st x+y+z=0}$ in real $\R^3$.
-\wrec Trigger: $S$ is a closed subspace (a plane through $0$); its complement is spanned by
+\wrec Trigger: $S$ is a closed subspace (a plane through $0$); its orthogonal complement is spanned by
 the normal $n=(1,1,1)$, so $P_S v=v-P_{S^\perp}v$.
 \wsol $S^\perp=\mathrm{span}(n)$ with $n=(1,1,1)$, $\norm n^2=3$. $P_{S^\perp}v=
 \frac{\inner v n}{\norm n^2}n=\frac{1+2+3}3(1,1,1)=2(1,1,1)$. So $P_S
@@ -46534,7 +46547,7 @@ $\int_0^1(x-\tfrac12)^2=\tfrac1{12}$ is the variance of a uniform variable. \che
 \begin{pitfall}
 The decomposition $H=S\oplus S^\perp$ requires $S$ to be \emph{closed}. For a non-closed
 subspace the nearest-point lemma can fail and $f$ need not split. The correct general
-statement is $(S^\perp)^\perp=\closure S$, the closure of $S$ (Exercise 10): taking
+statement is $(S^\perp)^\perp=\closure S$, the closure of $S$ (Exercise~1 below): taking
 $\perp$ twice recovers $S$ only when $S$ is already closed.
 \end{pitfall}
 
@@ -46561,13 +46574,13 @@ $\Ltwo([-1,1])$, and verify the residual is orthogonal to $1$ and to $x$.
 orthogonal plane; confirm the two pieces sum to $v$.
 \item Let $S\subset\Ltwo([0,1])$ be the constants. Show $P_Sf=\int_0^1 f$ (the average), and
 that $\norm{f-P_Sf}^2=\norm f^2-\abs{\int_0^1 f}^2$ is the variance of $f$.
-\item Prove that an orthogonal projection $P$ satisfies $\norm{Pf}\le\norm f$ with equality
-iff $f\in S$. Interpret geometrically.
+\item Prove that the orthogonal projection $P$ onto a closed subspace $S$ satisfies
+$\norm{Pf}\le\norm f$ with equality iff $f\in S$. Interpret geometrically.
 \item (Non-example.) Let $S\subset\Ltwo([0,1])$ be the polynomials. Show $S$ is a non-closed
 subspace and exhibit $f\in\Ltwo$ (e.g.\ $e^x$ in $\Ltwo$, or a non-smooth function) for
 which no nearest polynomial exists, illustrating why closedness is needed in
 Lemma~\ref{l:nearest@c27}.
-\item Show that if $P_1,P_2$ are orthogonal projections with $P_1P_2=P_2P_1=0$, then
+\item Show that if $P_1,P_2$ are orthogonal projections onto $S_1,S_2$ with $P_1P_2=P_2P_1=0$, then
 $P_1+P_2$ is the orthogonal projection onto $S_1\oplus S_2$.
 \item (Diagram.) Draw $f\in H$, a closed subspace $S$ (as a shaded region), the nearest
 point $g_0=P_Sf$, and the perpendicular $f-g_0$. Mark the right angle and the inequality
@@ -46650,7 +46663,8 @@ f{T^*g}$; moreover $\norm{T^*}=\norm T$ and $(T^*)^*=T$.
 
 \begin{proof}
 For fixed $g$, $f\mapsto\inner{Tf}{g}$ is a bounded functional, so by Riesz equals
-$\inner f h$ for a unique $h=:T^*g$; this defines $T^*$, linear and satisfying (i). From
+$\inner f h$ for a unique $h=:T^*g$; this defines $T^*$, linear and satisfying
+$\inner{Tf}{g}=\inner f{T^*g}$. From
 Lemma~\ref{l:opnorm@c27}, $\norm T=\sup\abs{\inner{Tf}g}=\sup\abs{\inner f{T^*g}}=\norm{T^*}$.
 Finally $\inner{Tf}g=\inner f{T^*g}$ for all $f,g$ iff $\inner{T^*f}g=\inner f{Tg}$, giving
 $(T^*)^*=T$.
@@ -46711,10 +46725,10 @@ writing $\inner{Tf}{g}$ as a double integral and applying Fubini.
   % diagonal operator picture: basis vectors scaled
   \draw[cxaxis] (-0.3,0)--(3.4,0) node[right]{$\varphi_1$};
   \draw[cxaxis] (0,-0.3)--(0,2.6) node[above]{$\varphi_2$};
-  \draw[->,line width=1pt,black!55] (0,0)--(2.4,0);
-  \draw[->,line width=1pt] (0,0)--(1.2,0) node[midway,below]{$\lambda_1$};
+  \draw[->,line width=1pt,black!55] (0,0)--(2.2,0);
+  \draw[->,line width=1pt] (0,0)--(1.2,0) node[midway,below]{$\lambda_1\varphi_1$};
   \draw[->,line width=1pt,black!55] (0,0)--(0,2.2);
-  \draw[->,line width=1pt] (0,0)--(0,0.8) node[midway,left]{$\lambda_2$};
+  \draw[->,line width=1pt] (0,0)--(0,0.8) node[midway,left]{$\lambda_2\varphi_2$};
   \node[font=\footnotesize] at (2.3,1.6) {$T\varphi_k=\lambda_k\varphi_k$};
 \end{tikzpicture}
 \captionof{figure}{A diagonal operator scales each basis direction by its eigenvalue
@@ -46725,8 +46739,8 @@ $\lambda_k$; $\norm T=\sup_k\abs{\lambda_k}$. (Schematic.)}
 
 \begin{definition}\label{d:compact@c27}
 $T:H\to H$ is \emph{compact} if the closure of $T(B)$ ($B$ the closed unit ball) is
-compact; equivalently, every bounded sequence $\set{f_k}$ has a subsequence with
-$\set{Tf_{n_k}}$ convergent. Finite-rank operators (finite-dimensional range) are compact;
+compact; equivalently, every bounded sequence $\set{f_n}$ has a subsequence with
+$\set{Tf_{n_k}}$ convergent. Bounded finite-rank operators (finite-dimensional range) are compact;
 the identity on an infinite-dimensional $H$ is not.
 \end{definition}
 
@@ -46755,15 +46769,15 @@ finite-rank $T_n$ with $\norm{T_n-T}\to0$. (iv) $T$ is compact iff $T^*$ is comp
 
 \begin{proof}[Sketch]
 (i) is immediate. (ii): a diagonalization argument extracts, from a bounded $\set{f_k}$, a
-subsequence on which every $T_m$ converges; the limit is Cauchy for $T$ via the
-three-term split. (iii): with $Q_n$ the projection onto $\mathrm{span}\set{e_k}_{k>n}$,
-one shows $\norm{Q_nT}\to0$, so $P_nT$ (finite rank, $P_n=I-Q_n$) converges to $T$. (iv):
+subsequence on which every $T_m$ converges; along it the images under $T$ are Cauchy, via
+the three-term split. (iii): with $\set{e_k}$ an orthonormal basis and $Q_n$ the projection
+onto the closed span of $\set{e_k}_{k>n}$, one shows $\norm{Q_nT}\to0$, so $P_nT$ (finite rank, $P_n=I-Q_n$) converges to $T$. (iv):
 $\norm{P_nT-T}\to0\imp\norm{T^*P_n-T^*}\to0$ with $T^*P_n$ finite rank.
 \end{proof}
 
 \begin{remark}
 Two facts complete the picture: a diagonal $T$ ($T\varphi_k=\lambda_k\varphi_k$) is compact
-iff $\lambda_k\to0$ (Exercise 25), and \emph{every Hilbert--Schmidt operator is compact}
+iff $\lambda_k\to0$ (Exercise~8 below), and \emph{every Hilbert--Schmidt operator is compact}
 (approximate $K$ by truncating its expansion in $\set{\varphi_k(x)\varphi_\ell(y)}$).
 \end{remark}
 
@@ -46779,30 +46793,33 @@ for distinct eigenvalues are orthogonal: $\lambda\inner f f=\inner{Tf}f=\inner f
 =\conj\lambda\inner f f$ forces $\lambda\in\R$; and $\lambda_1\inner{f_1}{f_2}
 =\inner{Tf_1}{f_2}=\inner{f_1}{Tf_2}=\lambda_2\inner{f_1}{f_2}$ forces orthogonality when
 $\lambda_1\neq\lambda_2$. (b) For compact $T$ and $\mu>0$, only finitely many eigenvalues
-exceed $\mu$ in modulus and each eigenspace is finite-dimensional (else an orthonormal
+exceed $\mu$ in modulus and each eigenspace of a nonzero eigenvalue is finite-dimensional
+(else an orthonormal
 sequence of eigenvectors would have $\norm{T\varphi_{n_k}-T\varphi_{n_j}}^2\ge2\mu^2$,
 contradicting compactness); hence the eigenvalues form a sequence $\to0$. (c) For compact
-symmetric $T\neq0$, either $\norm T$ or $-\norm T$ is an eigenvalue: with
-$\lambda=\sup_{\norm f=1}\inner{Tf}{f}=\norm T$, pick $f_n$ with $\inner{Tf_n}{f_n}\to
-\lambda$; since $\norm{Tf_n-\lambda f_n}^2\le2\lambda^2-2\lambda\inner{Tf_n}{f_n}\to0$ and
+symmetric $T\neq0$, either $\norm T$ or $-\norm T$ is an eigenvalue: replacing $T$ by $-T$
+if necessary, we may assume (Definition~\ref{d:symm@c27}) that
+$\lambda=\sup_{\norm f=1}\inner{Tf}{f}=\norm T$; pick unit vectors $f_n$ with
+$\inner{Tf_n}{f_n}\to\lambda$; since $\norm{Tf_n-\lambda f_n}^2\le2\lambda^2-2\lambda\inner{Tf_n}{f_n}\to0$ and
 $Tf_n\to g$ along a subsequence, $\lambda f_n\to g$ and $Tg=\lambda g$ with $g\neq0$.
 
 Now let $S$ be the closure of the span of all eigenvectors; by (c) $S\neq\set0$. Suppose
 $S\neq H$, so $S^\perp\neq\set0$. Because $T$ is symmetric and $TS\subseteq S$, also
-$TS^\perp\subseteq S^\perp$. The restriction $T_1=T|_{S^\perp}$ is compact and symmetric and
-nonzero, so by (c) it has an eigenvector in $S^\perp$ --- which is an eigenvector of $T$ not
-in $S$, a contradiction. Hence $S=H$, and normalizing a basis of each eigenspace yields the
-orthonormal eigenbasis.
+$TS^\perp\subseteq S^\perp$. The restriction $T_1=T|_{S^\perp}$ is compact and symmetric,
+so it has an eigenvector in $S^\perp$ (by (c) if $T_1\neq0$; any nonzero vector of
+$S^\perp$ if $T_1=0$) --- which is an eigenvector of $T$ not
+in $S$, a contradiction. Hence $S=H$, and orthonormalizing a basis of each eigenspace yields
+the orthonormal eigenbasis.
 \end{proof}
 
 \begin{center}
 \begin{tikzcd}[row sep=large, column sep=large]
-S^\perp \arrow[r, hook, "i"] \arrow[dr, "T_1"'] & H \arrow[d, "T"] \\
- & S^\perp
+S^\perp \arrow[r, hook, "i"] \arrow[d, "T_1"'] & H \arrow[d, "T"] \\
+S^\perp \arrow[r, hook, "i"] & H
 \end{tikzcd}
-\captionof{figure}{Because $TS^\perp\subseteq S^\perp$, the action of $T$ on the invariant
-subspace factors through the inclusion: $T_1=T|_{S^\perp}$ is the composite
-$T\circ i$ landing back in $S^\perp$.}
+\captionof{figure}{Because $TS^\perp\subseteq S^\perp$, the restriction $T_1=T|_{S^\perp}$
+maps the invariant subspace $S^\perp$ into itself, and the square commutes:
+$T\circ i=i\circ T_1$.}
 \end{center}
 
 \begin{center}
@@ -46812,11 +46829,12 @@ $T\circ i$ landing back in $S^\perp$.}
   \draw[black!45] (-3.0,0.85)--(3.2,0.85);
   \node[font=\footnotesize] at (-1.9,0.42) {$S$ (eigenvectors)};
   % vertical S^perp axis
-  \draw[->,line width=0.9pt] (-0.9,0.85)--(-0.9,2.5) node[above]{$S^\perp$};
-  % the eigenvector found inside S^perp, with action of T_1
-  \draw[->,line width=1pt] (-0.9,0.85)--(-0.9,1.9) node[midway,left=1pt]{$\varphi$};
-  \draw[->,line width=0.9pt,black!70] (-0.9,1.55)--(0.3,1.55)
-    node[midway,above=1pt,font=\footnotesize]{$T_1$};
+  \draw[cxaxis] (-0.9,0.85)--(-0.9,2.7) node[above]{$S^\perp$};
+  % the eigenvector found inside S^perp, and its image T_1 phi = lambda phi on the same line
+  \draw[->,line width=1pt,black!55] (-0.9,0.85)--(-0.9,2.1) node[left=1pt,black]{$\varphi$};
+  \draw[->,line width=1pt] (-0.9,0.85)--(-0.9,1.45) node[midway,left=1pt]{$\lambda\varphi$};
+  \draw[->,line width=0.7pt,black!70] (-0.8,2.05) to[bend left=60]
+    node[right=1pt,font=\footnotesize]{$T_1$} (-0.8,1.5);
   \node[font=\footnotesize,fill=white,inner sep=1pt] at (1.7,1.9)
     {$T_1=T|_{S^\perp}$};
   \node[font=\footnotesize,fill=white,inner sep=1pt] at (1.55,1.25)
@@ -46890,8 +46908,8 @@ the bound is attained, confirming $\norm\ell=\norm g$. \checkmark
 The spectral theorem needs \emph{both} hypotheses. Drop symmetry and an operator may have no
 real eigenvalues (a rotation); drop compactness and a symmetric operator may have no
 eigenvectors at all (multiplication by $x$, the worked example above). Compactness is what
-forces the eigenvalues to accumulate only at $0$ and the eigenspaces to be
-finite-dimensional.
+forces the eigenvalues to accumulate only at $0$ and the eigenspaces of nonzero eigenvalues
+to be finite-dimensional.
 \end{pitfall}
 
 \begin{exers}{Exercises (Stein, Ch.4).}
@@ -46912,7 +46930,7 @@ a strong limit of finite-rank operators.
 \item An operator $T$ is an \emph{isometry} if $\norm{Tf}=\norm f$ for all $f$. (a) Show an
 isometry satisfies $\inner{Tf}{Tg}=\inner f g$ and hence $T^*T=I$. (b) If $T$ is a
 surjective isometry, then $T$ is unitary and $TT^*=I$. (c) Give an isometry that is not
-unitary. (d) Show that if $T^*T$ is unitary then $T$ is an isometry. [Hint: use
+unitary. (d) Show that if $T^*T$ is unitary then $T$ is an isometry. [Hint for (a): use
 $\inner{Tf}{Tf}=\inner f f$ with $f$ replaced by $f\pm g$ and $f\pm ig$.]
 \item Suppose $\set{T_k}$ are bounded with $\norm{T_k}\le1$ and $T_kT_j^*=T_k^*T_j=0$ for
 $k\neq j$. Let $S_N=\sum_{k=-N}^N T_k$. Show $S_N(f)$ converges for every $f$, and if $T(f)$
@@ -46935,12 +46953,13 @@ $\Ltwo(0,\infty)$ with $\norm T\le1$. [Hint: use the previous exercise with a su
 \item Let $H=\Ltwo(B)$, $B$ the unit ball in $\Rd$, and $K$ measurable on $B\times B$ with
 $\abs{K(x,y)}\le A\abs{x-y}^{-d+\alpha}$ for some $\alpha>0$. Define $Tf(x)=\int_B
 K(x,y)f(y)\,dy$. (a) Prove $T$ is bounded on $H$. (b) Prove $T$ is compact. (c) Note $T$ is
-Hilbert--Schmidt iff $\alpha>d/2$. [Hint for (b): truncate $K$ to $K_n=K\cdot\ind{\set{\abs
+Hilbert--Schmidt if $\alpha>d/2$, and that for $K(x,y)=\abs{x-y}^{-d+\alpha}$ this condition
+is also necessary. [Hint for (b): truncate $K$ to $K_n=K\cdot\ind{\set{\abs
 {x-y}\ge1/n}}$; each $T_n$ is compact and $\norm{T_n-T}\to0$.]
 \item Let $T$ be compact and $\lambda\neq0$. (a) Show the range of $\lambda I-T$ is closed.
 [Hint: if $g_j=(\lambda I-T)f_j\to g$, one may assume $f_j\in V_\lambda^\perp$ where
 $V_\lambda=\ker(\lambda I-T)$; then $\set{f_j}$ is bounded.] (b) Show by example this may
-fail when $\lambda=0$. (c) Show $\lambda I-T$ is onto iff $\ker(\lambda I-T^*)$ is trivial.
+fail when $\lambda=0$. (c) Show $\lambda I-T$ is onto iff $\ker(\conj\lambda I-T^*)$ is trivial.
 \item Let $H=\Ltwo([-\pi,\pi])$ with $[-\pi,\pi]$ as the circle, and fix a bounded sequence
 $\set{\lambda_n}$. Define $Tf\sim\sum_n\lambda_na_ne^{inx}$ when $f\sim\sum_n a_ne^{inx}$ (a
 Fourier multiplier operator). (a) Show $T$ is bounded with $\norm T=\sup_n\abs{\lambda_n}$.
@@ -46952,7 +46971,8 @@ extended with period $2\pi$. For $f\in\Lone([-\pi,\pi])$ extended periodically, 
 $Tf(x)=\frac1{2\pi}\int_{-\pi}^\pi K(x-y)f(y)\,dy$. (a) Show $F=Tf$ is absolutely
 continuous, and if $\int_{-\pi}^\pi f=0$ then $F'(x)=if(x)$ a.e. (b) Show $f\mapsto Tf$ is
 compact and symmetric on $\Ltwo([-\pi,\pi])$. (c) Prove $\varphi\in\Ltwo$ is an eigenfunction
-iff $\varphi=e^{inx}$ ($n\neq0$, eigenvalue $1/n$) or $\varphi=1$ (eigenvalue $0$). (d)
+iff $\varphi$ is a nonzero multiple of $e^{inx}$ for some $n\neq0$ (eigenvalue $1/n$) or of $1$
+(eigenvalue $0$). (d)
 Deduce $\set{e^{inx}}_{n\in\Z}$ is an orthonormal basis of $\Ltwo([-\pi,\pi])$. (Recall
 $K(x)\sim\sum_{n\neq0}\frac{e^{inx}}n$.)
 \item Consider $T:\Ltwo([0,1])\to\Ltwo([0,1])$, $T(f)(t)=tf(t)$. (a) Prove $T$ is bounded
@@ -46960,9 +46980,10 @@ with $T=T^*$ but $T$ is not compact. (b) Show $T$ has no eigenvectors.
 \item Let $H$ have basis $\set{\varphi_k}_{k\ge1}$ and define $T(\varphi_k)=\frac1k
 \varphi_{k+1}$. Verify $T$ is compact but has no eigenvectors.
 \item Let $K$ be a real symmetric Hilbert--Schmidt kernel, $T$ the (compact, symmetric)
-operator it defines, $\set{\varphi_k}$ eigenvectors with eigenvalues $\lambda_k$. Then:
+operator it defines, $\set{\varphi_k}$ an orthonormal basis of eigenvectors with eigenvalues
+$\lambda_k$. Then:
 (a) $\sum_k\abs{\lambda_k}^2<\infty$; (b) $K(x,y)\sim\sum_k\lambda_k\varphi_k(x)
-\conj{\varphi_k(y)}$ in the basis $\set{\varphi_k(x)\conj{\varphi_k(y)}}$; (c) a compact
+\conj{\varphi_k(y)}$ in the basis $\set{\varphi_k(x)\conj{\varphi_j(y)}}_{k,j}$; (c) a compact
 symmetric $T$ is Hilbert--Schmidt iff $\sum_n\abs{\lambda_n}^2<\infty$ (eigenvalues counted
 with multiplicity).
 \item Variants of the spectral theorem. (a) If $T_1,T_2$ are symmetric compact operators
@@ -46989,24 +47010,26 @@ there is $L$ such that any interval of length $L$ contains an ``almost period'' 
 $\sup_x\abs{F(x+\tau)-F(x)}<\eps$. (d) Equivalently, $F\in AP$ iff every sequence of
 translates $F(x+h_n)$ has a uniformly convergent subsequence.
 \item (Fredholm alternative.) If $T$ is compact and $\lambda\neq0$, show (a) $\lambda I-T$ is
-injective iff $\lambda I-T^*$ is injective; (b) $\lambda I-T$ is injective iff it is
-surjective. (Combine with Exercise on the closed range above.)
+injective iff $\conj\lambda I-T^*$ is injective; (b) $\lambda I-T$ is injective iff it is
+surjective. (Combine with Exercise~12 above.)
 \item Show the identity on $\Ltwo(\Rd)$ cannot be written as an absolutely convergent
 integral operator: if $K$ is measurable on $\Rd\times\Rd$ and $Tf(x)=\int K(x,y)f(y)\,dy$
 converges a.e.\ for each $f\in\Ltwo$, then $Tf\neq f$ for some $f$. [Hint: otherwise for
 disjoint balls $B_1,B_2$ one gets $K=0$ a.e.\ on $B_1\times B_2$.]
-\item Suppose $\set{T_k}$ are bounded with $\norm{T_kT_j^*}\le a_{k-j}$ and $\norm{T_k^*T_j}
-\le a^*_{k-j}$ for positive $\set{a_n}$ with $\sum_{-\infty}^\infty a_n=A<\infty$. Then with
+\item Suppose $\set{T_k}$ are bounded with $\norm{T_kT_j^*}\le a_{k-j}^2$ and $\norm{T_k^*T_j}
+\le a_{k-j}^2$ for positive $\set{a_n}$ with $\sum_{-\infty}^\infty a_n=A<\infty$. Then with
 $S_N=\sum_{k=-N}^N T_k$, $S_N(f)$ converges for every $f$, and $T=\lim S_N$ satisfies $\norm
-T\le A$ (a generalization of the Cotlar--Stein type lemma).
+T\le A$ (the Cotlar--Stein lemma, generalizing Exercise~6 above).
 \item (Regular Sturm--Liouville operators.) On $[a,b]$ define $L(f)=f''-q(x)f$ for $f\in
 C^2([a,b])$, with $q$ continuous, real and $\ge0$; call $\varphi$ an eigenfunction with
 eigenvalue $\mu$ if $L\varphi=\mu\varphi$ and $\varphi(a)=\varphi(b)=0$. Show: (a) the
 eigenvalues $\mu$ are strictly negative and each eigenspace is one-dimensional; (b)
 eigenvectors for distinct eigenvalues are orthogonal in $\Ltwo([a,b])$; (c) with the Green's
 kernel $K(x,y)=\frac{\varphi_-(x)\varphi_+(y)}w$ for $x\le y$ and
-$\frac{\varphi_+(x)\varphi_-(y)}w$ for $y\le x$ (where $\varphi_\pm$ solve $L\varphi=0$ with
-the indicated endpoint conditions and $w$ is the nonzero Wronskian), the operator $Tf(x)
+$\frac{\varphi_+(x)\varphi_-(y)}w$ for $y\le x$ (where $\varphi_-,\varphi_+$ are nonzero
+solutions of $L\varphi=0$ with $\varphi_-(a)=0$, $\varphi_+(b)=0$, and
+$w=\varphi_-\varphi_+'-\varphi_-'\varphi_+$ is their Wronskian, a nonzero constant), the
+operator $Tf(x)
 =\int_a^b K(x,y)f(y)\,dy$ is Hilbert--Schmidt, symmetric, and $L(Tf)=f$; (d) hence each
 eigenvector of $T$ (eigenvalue $\lambda$) is an eigenvector of $L$ (eigenvalue $\mu=1/\lambda$),
 so the normalized eigenvectors of $L$ form a complete orthonormal set.
@@ -47016,9 +47039,9 @@ polynomial $\varphi_n(x)=\bigl(\frac{d}{dx}\bigr)^n(1-x^2)^n$, then $L\varphi_n=
 $\Ltwo([-1,1])$.
 \item The Hermite functions $h_k$ are defined by $\sum_{k\ge0}h_k(x)\frac{t^k}{k!}
 =e^{-(x^2/2-2tx+t^2)}$. (a) They satisfy $(x-\frac{d}{dx})h_k=h_{k+1}$ and
-$(x+\frac{d}{dx})h_k=h_{k-1}$ ($h_{-1}=0$); $h_0=e^{-x^2/2}$, $h_1=2xe^{-x^2/2}$, and
+$(x+\frac{d}{dx})h_k=2kh_{k-1}$ ($h_{-1}=0$); $h_0=e^{-x^2/2}$, $h_1=2xe^{-x^2/2}$, and
 $h_k=P_k(x)e^{-x^2/2}$ with $\deg P_k=k$. (b) The $h_k$ are eigenvectors of $L=-d^2/dx^2+x^2$
-with $Lh_k=(2k+1)h_k$; they are mutually orthogonal, $\int h_k^2=\pi^{1/2}2^kk!=c_k$, and the
+with $Lh_k=\lambda_kh_k$, $\lambda_k=2k+1$; they are mutually orthogonal, $\int h_k^2=\pi^{1/2}2^kk!=c_k$, and the
 normalized $H_k=c_k^{-1/2}h_k$ form a complete orthonormal sequence in $\Ltwo(\R)$ (since
 $\int fH_k=0$ for all $k$ forces $\int f(x)e^{-x^2/2+2tx}\,dx=0$ for all $t$). (c) With
 $K(x,y)=\sum_{k\ge0}\frac{H_k(x)H_k(y)}{\lambda_k}$ and $F=Tf=\int K(x,y)f(y)\,dy$, $T$ is a
@@ -47033,7 +47056,8 @@ compactness.
 \frac{k}{k+1}$, and explain why $T$ is bounded but not compact.
 \item For the Hilbert--Schmidt operator $Tf(x)=\int_0^1 xy\,f(y)\,dy$ on $\Ltwo([0,1])$,
 find the (single) nonzero eigenvalue and eigenfunction, and verify $\norm T$.
-\item Prove that a finite-rank operator is compact directly from the sequential definition.
+\item Prove that a bounded finite-rank operator is compact directly from the sequential
+definition.
 \item (Non-example.) Show the identity operator on $\Ltwo([0,1])$ is bounded and symmetric
 but not compact, by exhibiting a bounded sequence whose image has no convergent subsequence.
 \item Let $T$ be the right shift on $\ell^2(\N)$. Compute $T^*T$ and $TT^*$, and use them to
