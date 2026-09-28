@@ -31170,8 +31170,8 @@ an \emph{entire} $f$ of exponential type $2\pi M$ filling the whole plane (right
 An \emph{entire function} is a function holomorphic on all of $\C$. The guiding theme of
 the chapter is the tension between three questions: where can an entire function vanish,
 how fast can it grow, and to what extent do its zeros determine it. The bridge between
-\emph{growth} and \emph{zeros} is Jensen's formula, which equates the number of zeros in a
-disc with a logarithmic average of $|f|$ over the bounding circle. Throughout, $D_R$ and
+\emph{growth} and \emph{zeros} is Jensen's formula, which relates the zeros in a
+disc to a logarithmic average of $|f|$ over the bounding circle. Throughout, $D_R$ and
 $C_R$ denote the open disc and circle of radius $R$ centered at the origin, and we exclude
 the identically-zero function.
 
@@ -31187,7 +31187,7 @@ $z_1,\dots,z_N$ are the zeros of $f$ inside $D_R$ (counted with multiplicity), t
 \]
 \end{theorem}
 
-The right side has two competing pieces. Each factor $\log(|z_k|/R)$ is \emph{negative}
+The right side has two competing pieces. Each term $\log(|z_k|/R)$ is \emph{negative}
 (since $|z_k|<R$), and the more zeros crowd into the disc, the more negative the sum. The
 integral is the average of $\log|f|$ on $C_R$. Jensen's formula says these balance against
 the fixed number $\log|f(0)|$: a function cannot have many zeros inside $D_R$ unless it is
@@ -31202,7 +31202,7 @@ correspondingly large on $C_R$. This single identity is the quantitative form of
   \node[font=\footnotesize] at (1.55,1.55) {$C_R$};
   \node[pt,label={[font=\footnotesize]above right:$0$}] at (0,0) {};
   \node[zero,label={[font=\footnotesize]below:$z_1$}] at (0.7,0.5) {};
-  \node[zero,label={[font=\footnotesize]below:$z_2$}] at (-0.8,0.3) {};
+  \node[zero,label={[font=\footnotesize]above:$z_2$}] at (-0.8,0.3) {};
   \node[zero,label={[font=\footnotesize]above:$z_3$}] at (0.3,-1.0) {};
   \node[zero,label={[font=\footnotesize]above:$z_4$}] at (-0.5,-0.9) {};
 \end{tikzpicture}
@@ -31243,10 +31243,13 @@ in $\Omega$ and nowhere vanishing on $\overline{D_R}$. By Step 1 it suffices to 
 formula for $g$ and for each $z-z_j$.
 
 \emph{Step 3 (zero-free case).} Suppose $g$ vanishes nowhere on $\overline{D_R}$; we must
-show $\log|g(0)|=\frac1{2\pi}\int_0^{2\pi}\log|g(Re^{i\theta})|\,d\theta$. On a slightly
-larger disc (simply connected) write $g=e^h$ with $h$ holomorphic. Then $|g|=e^{\Re h}$, so
-$\log|g|=\Re h$ is harmonic, and the mean value property for harmonic functions gives the
-identity at once.
+show
+\[
+  \log|g(0)|=\frac1{2\pi}\int_0^{2\pi}\log|g(Re^{i\theta})|\,d\theta .
+\]
+On a slightly larger disc (simply connected) write $g=e^h$ with $h$ holomorphic. Then
+$|g|=e^{\Re h}$, so $\log|g|=\Re h$ is harmonic, and the mean value property for harmonic
+functions gives the identity at once.
 
 \emph{Step 4 (linear factors).} For $f(z)=z-w$ with $w\in D_R$ we must show
 \[
@@ -31277,8 +31280,8 @@ Everything else is bookkeeping that isolates the harmonic (zero-free) part from 
 explicit linear factors.
 \end{remark}
 
-\begin{wex}{Jensen for a monomial}
-Verify Jensen's formula directly for $f(z)=z^m+c$ on $D_R$ in the special case $f(z)=z-w$
+\begin{wex}{Jensen for a linear factor}
+Verify Jensen's formula directly on $D_R$ for the linear factor $f(z)=z-w$
 with a single zero $w$, $0<|w|<R$, by computing both sides.
 \wrec A linear factor; the boundary average is the case $N=1$ of Step 4.
 \wsol Here $f(0)=-w$, so $\log|f(0)|=\log|w|$. The single zero is $z_1=w$, giving the sum
@@ -31306,14 +31309,13 @@ $\log2\approx0.693$; at $a=\tfrac12$ it is $0$. \checkmark
   \draw[cxaxis] (-2.4,0)--(2.6,0) node[right]{$\Re z$};
   \draw[cxaxis] (0,-1.7)--(0,2.0) node[above]{$\Im z$};
   \draw[contour] (0,0) circle (1.4);
-  \node[font=\footnotesize] at (1.15,1.15) {$|z|=1$};
-  \node[zero,label={[font=\footnotesize]below right:$a_{\text{in}}$}] at (0.5,0.3) {};
+  \node[font=\footnotesize,anchor=south west] at (1.02,1.02) {$|z|=1$};
+  \node[zero,label={[font=\footnotesize]above right:$a_{\text{in}}$}] at (0.5,0.3) {};
   \node[zero,label={[font=\footnotesize]above right:$a_{\text{out}}$}] at (2.0,0.55) {};
-  \node[font=\footnotesize,align=center,fill=white,inner sep=2pt] at (0,-2.4)
-    {avg of $\log|e^{i\theta}-a|$\ $=0$ if $a$ inside,\ $=\log|a|$ if $a$ outside};
 \end{tikzpicture}
-\captionof{figure}{Boundary average of $\log|z-a|$ jumps from $0$ to $\log|a|$ as $a$
-crosses the unit circle. (Schematic.)}
+\captionof{figure}{Boundary average of $\log|z-a|$ over $|z|=1$: it is $0$ for $a$ inside
+and $\log|a|$ for $a$ outside the unit circle, changing continuously as $a$ crosses it.
+(Schematic.)}
 \end{center}
 
 \subsection*{The zero-counting function and the integrated form}
@@ -31331,14 +31333,14 @@ its modulus.
   \draw[curve] (1.2,1)--(2.5,1);
   \draw[curve] (2.5,2)--(4.0,2);
   \draw[curve] (4.0,3)--(5.0,3);
-  \node[opt] at (1.2,0) {}; \node[pt] at (1.2,1) {};
-  \node[opt] at (2.5,1) {}; \node[pt] at (2.5,2) {};
-  \node[opt] at (4.0,2) {}; \node[pt] at (4.0,3) {};
+  \node[pt] at (1.2,0) {}; \node[opt] at (1.2,1) {};
+  \node[pt] at (2.5,1) {}; \node[opt] at (2.5,2) {};
+  \node[pt] at (4.0,2) {}; \node[opt] at (4.0,3) {};
   \foreach \x/\l in {1.2/{|z_1|},2.5/{|z_2|},4.0/{|z_3|}}
     {\draw[dashed,black!40] (\x,0)--(\x,0.06); \node[font=\footnotesize] at (\x,-0.28){$\l$};}
 \end{tikzpicture}
-\captionof{figure}{The counting function $n(r)$ is a right-continuous nondecreasing step
-function, jumping at each $|z_k|$. (Schematic.)}
+\captionof{figure}{The counting function $n(r)$ is a left-continuous nondecreasing step
+function, jumping at each $|z_k|$ (a zero on $C_r$ is not counted in $n(r)$). (Schematic.)}
 \end{center}
 
 \begin{lemma}\label{l:nlog@c18}
@@ -31378,12 +31380,19 @@ literally converted a counting problem into a growth estimate.
 Let $f(z)=\sin\pi z$, whose zeros are the integers. Use $f(z)/z$ (to remove the zero at $0$)
 and the integrated formula to recover that $n(r)\approx 2r$.
 \wrec Integrated Jensen with a known boundary growth; compare the two sides asymptotically.
-\wsol The zeros of $\sin\pi z$ in $D_r$ are $0,\pm1,\dots,\pm\lfloor r\rfloor$, so
-$n(r)=2\lfloor r\rfloor+1\sim 2r$. Independently, $|\sin\pi z|\le e^{\pi|z|}$, so
-$\frac1{2\pi}\int_0^{2\pi}\log|f(Re^{i\theta})|\,d\theta\le\pi R+O(1)$, and the lower bound
-along the imaginary axis shows it is $\sim\pi R$. Thus $\int_0^R n(r)\frac{dr}{r}\sim\pi R$;
-differentiating, $n(R)/R\sim\pi\cdot\frac{d}{dR}(R)$ gives $n(R)\sim 2R$ after evaluating
-$\int_0^R 2\,dr=2R\sim\pi R/(\pi/2)$. \emph{Check.} For $R=10$, $n(10)=21\approx 2R=20$.
+\wsol The zeros of $\sin\pi z$ in $D_r$ ($r\notin\Z$) are $0,\pm1,\dots,\pm\lfloor r\rfloor$, so
+$n(r)=2\lfloor r\rfloor+1\sim 2r$. Independently, $|\sin\pi z|^2=\sin^2\pi x+\sinh^2\pi y$
+($z=x+iy$) gives $\sinh\pi|y|\le|\sin\pi z|\le\cosh\pi y$; so on $C_R$,
+$\log|f|=\pi R|\sin\theta|+O(1)$ except on short arcs near $\theta=0,\pi$, whose integrable
+logarithmic dips contribute $O(1)$. As $\frac1{2\pi}\int_0^{2\pi}\pi R|\sin\theta|\,d\theta=2R$,
+the boundary average of $\log|f|$ is $2R+O(1)$ (the cruder bound $|\sin\pi z|\le e^{\pi|z|}$
+gives only $\le\pi R$). For $F(z)=f(z)/z$, with $F(0)=\pi$ and $n_F=n-1$, the integrated
+formula thus gives $\int_0^R n_F(r)\frac{dr}{r}=2R+O(\log R)$. Since $n_F$ is nondecreasing,
+for each fixed $\lambda>1$ the number $n_F(R)\log\lambda$ lies between
+$\int_{R/\lambda}^{R}n_F(r)\frac{dr}{r}=2(1-\lambda^{-1})R+O(\log R)$ and
+$\int_R^{\lambda R}n_F(r)\frac{dr}{r}=2(\lambda-1)R+O(\log R)$; letting $\lambda\downarrow1$
+recovers $n_F(R)\sim2R$, i.e.\ $n(R)\sim2R$. \emph{Check.} For $R=10.5$, $n(10.5)=21=2R$, and
+numerically the boundary average of $\log|\sin\pi z|$ over $C_{10.5}$ is $\approx20.31=2R-0.69$.
 \checkmark
 \end{wex}
 
@@ -31433,7 +31442,7 @@ amount $\log(R/|z_k|)$ to a quantity bounded by the boundary size.
 \wsol Each zero $z_k\in D_{R/2}$ has $|z_k|<R/2$, so $\log(R/|z_k|)>\log 2$. By
 Corollary~\ref{c:jensen-int@c18},
 \[
-  N\log 2<\sum_{|z_k|<R/2}\log\frac{R}{|z_k|}\le\sum_{\text{all }z_k\in D_R}\log\frac{R}{|z_k|}
+  N\log 2\le\sum_{|z_k|<R/2}\log\frac{R}{|z_k|}\le\sum_{\text{all }z_k\in D_R}\log\frac{R}{|z_k|}
    =\frac1{2\pi}\int_0^{2\pi}\log|f(Re^{i\theta})|\,d\theta-\log|f(0)|\le\log\frac{M}{|f(0)|}.
 \]
 Hence $N\le\dfrac{\log(M/|f(0)|)}{\log 2}$. \emph{Check.} If $M=|f(0)|$ (so $f$ is constant
@@ -31451,9 +31460,9 @@ gives $\sum_{|z_k|<r}\log(r/|z_k|)=\frac1{2\pi}\int\log|f(re^{i\theta})|d\theta-
 \log M-\log|f(0)|$, where $M=\sup_{\Disc}|f|$. The right side is a constant independent of
 $r$; letting $r\uparrow1$, $\sum_k\log(1/|z_k|)\le\log(M/|f(0)|)<\infty$. Since
 $\log(1/|z_k|)=-\log|z_k|\ge1-|z_k|$ for $|z_k|<1$ (as $-\log t\ge1-t$), we get
-$\sum_n(1-|z_n|)\le\sum_n\log(1/|z_n|)<\infty$. \emph{Check.} For $f(z)=\prod(z-z_n)$ to be
-bounded the zeros must approach the boundary fast enough that $1-|z_n|$ is summable -- exactly
-the Blaschke condition. \checkmark
+$\sum_n(1-|z_n|)\le\sum_n\log(1/|z_n|)<\infty$. \emph{Check.} So the zeros of a bounded
+$f\not\equiv0$ must approach the boundary fast enough that $1-|z_n|$ is summable -- exactly
+the Blaschke condition; e.g.\ no such $f$ vanishes at every point $1-\frac1n$. \checkmark
 \end{wex}
 
 \begin{exers}{Exercises (Stein, Ch.5).}
@@ -31497,8 +31506,8 @@ the Blaschke condition. \checkmark
   identity with $\log|g(0)|$ on the left.
 \item \emph{(Diagram.)} Draw the circle $C_R$ with four zeros at radii
   $|z_k|=\tfrac{R}{4},\tfrac{R}{2},\tfrac{3R}{4},\tfrac{9R}{10}$ and, beside it, sketch the
-  step graph of $n(r)$ on $[0,R]$. Label the four jumps and shade the area
-  $\int_0^R n(r)\frac{dr}{r}$.
+  step graph of $n(r)$ on $[0,R]$. Label the four jumps and shade the region under the graph
+  of $n(r)/r$, whose area is $\int_0^R n(r)\frac{dr}{r}$.
 \item Let $B(z)=\prod_{k=1}^N\frac{z-z_k}{1-\bar z_k z}$ be a finite Blaschke product with
   $|z_k|<1$. Show $|B|=1$ on the unit circle and use this to re-derive Jensen's formula in
   $\Disc$ for a function $f$ with these zeros by considering $f/B$.
@@ -31530,8 +31539,8 @@ both the \emph{count} and the \emph{summability} of zeros.
 \begin{center}
 \begin{tikzpicture}
   \begin{axis}[width=9.2cm,height=5.6cm,domain=0:3.2,samples=120,
-     axis lines=left,xlabel={\footnotesize$\log r$},ylabel={\footnotesize$\log\log|f|$},
-     xlabel style={at={(axis description cs:0.5,-0.04)}},
+     axis lines=left,xlabel={\footnotesize$\log r$},ylabel={\footnotesize$\log\log M(r)$},
+     xlabel style={at={(axis description cs:0.5,-0.12)}},
      ylabel style={at={(axis description cs:-0.03,0.5)}},
      xmin=0,xmax=3.6,ymin=-0.6,ymax=7.2,
      xtick={1,2,3},ytick=\empty,xticklabel style={font=\footnotesize},
@@ -31546,9 +31555,9 @@ both the \emph{count} and the \emph{summability} of zeros.
     \legend{order $\rho=1$ (slope $1$),order $\rho=2$ (slope $2$)}
   \end{axis}
 \end{tikzpicture}
-\captionof{figure}{Order $\rho$ is the asymptotic slope of $\log\log|f|$ plotted against
-$\log r$: $\log\log|f(re^{i\theta})|\sim\rho\log r$, so larger order means a steeper line.
-(Schematic.)}
+\captionof{figure}{Order $\rho$ is the asymptotic slope of $\log\log M(r)$, where
+$M(r)=\max_{|z|=r}|f(z)|$, plotted against $\log r$: $\log\log M(r)\approx\rho\log r$, so larger
+order means a steeper line. (Schematic.)}
 \end{center}
 
 \begin{theorem}[Order controls zeros]\label{t:order-zeros@c18}
@@ -31563,7 +31572,7 @@ If $f$ is entire of order of growth $\le\rho$, then:
 \begin{proof}
 We may assume $f(0)\ne0$: if $f$ has a zero of order $\ell$ at $0$, replace $f$ by
 $F(z)=f(z)/z^\ell$, which changes $n(r)$ by the constant $\ell$ and keeps order $\le\rho$.
-This is the factorization $f=m_\ell\circ(z^\ell,F)$ through multiplication, with $F(0)\ne0$:
+This is the factorization $f=m\circ(z^\ell,F)$ through multiplication, with $F(0)\ne0$:
 \[\begin{tikzcd}[row sep=large, column sep=large]
 \C \arrow[r, "{(z^\ell,\,F)}"] \arrow[dr, "f"'] & \C\times\C \arrow[d, "m"] \\
  & \C
@@ -31613,11 +31622,11 @@ Define $f(z)=\cos z^{1/2}=\sum_{n=0}^\infty(-1)^n z^n/(2n)!$ (entire). Find its 
 the sharp summability of its zeros.
 \wrec The single-valued series defines an entire function; estimate $|f|$ termwise.
 \wsol Since $\cos w=\sum(-1)^n w^{2n}/(2n)!$, substituting $w^2=z$ gives the stated series,
-which converges everywhere, so $f$ is entire. Termwise, $|f(z)|\le\sum|z|^n/(2n)!\le
-\sum|z|^{n}/n!\cdot(\text{coeff})\le e^{|z|^{1/2}}$ after comparison with
-$\cosh|z|^{1/2}$; so order $\le1/2$. The zeros occur where $z^{1/2}=(n+\tfrac12)\pi$, i.e.\
-$z_n=((n+\tfrac12)\pi)^2\sim\pi^2 n^2$. Then $\sum|z_n|^{-s}\sim\pi^{-2s}\sum n^{-2s}<\infty$
-iff $2s>1$, i.e.\ $s>1/2$. So $\rho_f=1/2$ and the exponent of convergence is $1/2$, again
+which converges everywhere, so $f$ is entire. Termwise, $|f(z)|\le\sum|z|^n/(2n)!
+=\cosh|z|^{1/2}\le e^{|z|^{1/2}}$; so order $\le1/2$. The zeros occur where
+$z^{1/2}=(n+\tfrac12)\pi$, i.e.\ $z_n=((n+\tfrac12)\pi)^2\sim\pi^2 n^2$. Then
+$\sum|z_n|^{-s}\sim\pi^{-2s}\sum n^{-2s}<\infty$ iff $2s>1$, i.e.\ $s>1/2$. So $\rho_f=1/2$
+and the exponent of convergence is $1/2$, again
 sharp. \emph{Check.} $z_0=(\pi/2)^2\approx2.467$ and indeed $\cos\sqrt{z_0}=\cos(\pi/2)=0$.
 \checkmark
 \end{wex}
@@ -31655,15 +31664,15 @@ A natural question closes the loop: given a sequence $z_1,z_2,\dots$, is there a
 function vanishing exactly there? A necessary condition is that the zeros do not accumulate
 in $\C$, i.e.\ $|z_k|\to\infty$ (otherwise an interior accumulation point of zeros forces
 $f\equiv0$ by the identity theorem). Weierstrass proved this is also sufficient by inserting
-convergence-forcing exponential factors into the naive product $\prod(z-z_k)$. We develop
+convergence-forcing exponential factors into the naive product $\prod(1-z/z_k)$. We develop
 infinite products next, building to that construction.
 
 \begin{pitfall}
-Order $\le\rho$ gives $\sum|z_k|^{-s}<\infty$ only for $s>\rho$, never necessarily at
+Order $\le\rho$ gives $\sum|z_k|^{-s}<\infty$ only for $s>\rho$, not necessarily at
 $s=\rho$ itself. The examples $\sin\pi z$ ($\rho=1$, $\sum1/|n|$ diverges) and $\cos\sqrt z$
 ($\rho=1/2$, $\sum n^{-1}$ diverges) show the strict inequality is essential. Also, a
 finite exponent of convergence does \emph{not} force finite order: zeros can be sparse while
-$f$ still grows wildly via an $e^{g}$ factor with $g$ of high order.
+$f$ still grows wildly via an $e^{g}$ factor with $g$ not a polynomial (e.g.\ $g=e^z$).
 \end{pitfall}
 
 \subsection*{Further worked examples}
@@ -31680,23 +31689,24 @@ Stirling. The coefficient-order formula gives
    =\liminf_{n\to\infty}\frac{\alpha\,n\log n}{n\log n}=\alpha,
 \]
 so $\rho=1/\alpha$. Concretely, by the maximum-term heuristic $|f(z)|$ is governed by the
-largest term $|z|^n/(n!)^\alpha$; maximizing over $n$ gives $\log|f|\approx
-\frac{\alpha}{e}\,|z|^{1/\alpha}$, an order-$1/\alpha$ envelope. \emph{Check.} $\alpha=1$
-recovers $e^z$, order $1$; $\alpha=1/2$ gives $\sum z^n/\sqrt{n!}$, order $2$, matching the
-growth of $e^{z^2}$-type series. \checkmark
+largest term $|z|^n/(n!)^\alpha$; maximizing over $n$ (the maximum is near
+$n=|z|^{1/\alpha}$) gives $\log|f|\approx\alpha\,|z|^{1/\alpha}$, an order-$1/\alpha$
+envelope. \emph{Check.} $\alpha=1$ recovers $e^z$, order $1$; $\alpha=1/2$ gives
+$\sum z^n/\sqrt{n!}$, order $2$, matching the growth of $e^{z^2}$-type series. \checkmark
 \end{wex}
 
 \begin{wex}{Order of growth of $\cos\pi z$ and $e^{z^2}\sin z$}
 Compute the order of (a) $\cos\pi z$ and (b) $g(z)=e^{z^2}\sin z$.
 \wrec Order is the asymptotic exponent in $|f|\le Ae^{B|z|^\rho}$; for products, the order is
-the max of the factors' orders.
+at most the max of the factors' orders.
 \wsol (a) $\cos\pi z=\tfrac12(e^{i\pi z}+e^{-i\pi z})$ gives $|\cos\pi z|\le e^{\pi|z|}$, so
 order $\le1$; along $z=iy$, $|\cos(i\pi y)|=\cosh\pi y\sim\tfrac12 e^{\pi|y|}$ forces order
 $\ge1$. Thus $\rho=1$. (b) $|e^{z^2}|=e^{\Re(z^2)}\le e^{|z|^2}$ has order $2$, while
 $|\sin z|\le e^{|z|}$ has order $1$. A product satisfies $|g|\le e^{|z|^2}e^{|z|}\le
-e^{2|z|^2}$, so order $\le2$; along $z=x$ real, $|e^{x^2}\sin x|$ already grows like
-$e^{x^2}$, so order $\ge2$. Hence $\rho_g=2=\max(2,1)$. \emph{Check.} Multiplying by the
-lower-order factor $\sin z$ does not raise the order above $2$. \checkmark
+e\,e^{2|z|^2}$ (as $|z|\le1+|z|^2$), so order $\le2$; along $z=x$ real,
+$|e^{x^2}\sin x|$ already grows like $e^{x^2}$, so order $\ge2$. Hence $\rho_g=2=\max(2,1)$.
+\emph{Check.} Multiplying by the lower-order factor $\sin z$ does not raise the order above
+$2$. \checkmark
 \end{wex}
 
 \begin{wex}{Order of a Fourier-type integral}
@@ -31775,9 +31785,9 @@ $e^{e^z}$ -- order is not determined by zeros alone. \checkmark
   $\sigma=\inf\{s:\sum|z_k|^{-s}<\infty\}$ satisfies $\sigma\le\rho$, and construct (via a
   later Weierstrass product) a function with $\sigma<\rho$ by attaching an $e^{z^2}$ factor
   to $\sin\pi z$.
-\item Show that $\dfrac1{\Gamma(z)}$ (anticipating Ch.\,6) has order exactly $1$, given that
-  its zeros are $0,-1,-2,\dots$ and $\sum_{n\ge1}1/n^s<\infty$ iff $s>1$.
-\item \emph{(Non-example.)} Show that $f(z)=\sum_{n=0}^\infty z^n/n^{n}$ is entire but has
+\item Show that $\dfrac1{\Gamma(z)}$ (anticipating the next chapter) has order exactly $1$,
+  given that its zeros are $0,-1,-2,\dots$ and $\sum_{n\ge1}1/n^s<\infty$ iff $s>1$.
+\item \emph{(Non-example.)} Show that $f(z)=\sum_{n=0}^\infty z^n/2^{n^2}$ is entire but has
   order $0$, while $g(z)=\sum z^n/n!=e^z$ has order $1$; conclude that smaller coefficients
   mean smaller order, and that ``infinite order'' (as for $e^{e^z}$) is genuinely possible.
 \item \emph{(Diagram.)} On a single axis, plot $\log\log M(r)$ vs.\ $\log r$ (where
@@ -31984,28 +31994,29 @@ nonzero. Define the \emph{Weierstrass product}
 using the degree-$n$ canonical factor for the $n$th term. Fix $R>0$ and consider
 $|z|<R$. Split the factors by whether $|a_n|\le2R$ or $|a_n|>2R$; only finitely many are of
 the first kind (as $|a_n|\to\infty$), and that finite product contributes exactly the zeros
-$a_n$ with $|a_n|<R$. For $|a_n|\ge2R$ we have $|z/a_n|\le\tfrac12$, so Lemma~\ref{l:Ek-upper@c18}
+$a_n$ with $|a_n|<R$. For $|a_n|>2R$ we have $|z/a_n|\le\tfrac12$, so Lemma~\ref{l:Ek-upper@c18}
 gives
 \[
   |1-E_n(z/a_n)|\le c\,|z/a_n|^{n+1}\le c\,2^{-(n+1)},
 \]
 with $c$ independent of $n$. Since $\sum_n 2^{-(n+1)}<\infty$, Proposition~\ref{p:prod-hol@c18}
-shows $\prod_{|a_n|\ge2R}E_n(z/a_n)$ converges to a holomorphic function on $|z|<R$ that
+shows $\prod_{|a_n|>2R}E_n(z/a_n)$ converges to a holomorphic function on $|z|<R$ that
 vanishes nowhere there. Hence $f$ is holomorphic on $|z|<R$ with exactly the prescribed
 zeros; as $R$ is arbitrary, $f$ is the desired entire function.
 \end{proof}
 
 \begin{center}
-\begin{tikzpicture}[scale=1.0]
+\begin{tikzpicture}[scale=1.3]
   \draw[cxaxis] (-2.6,0)--(2.6,0) node[right]{$\Re z$};
   \draw[cxaxis] (0,-2.0)--(0,2.2) node[above]{$\Im z$};
   \draw[contour] (0,0) circle (1.0);
-  \node[font=\footnotesize] at (0.8,0.85){$|z|<R$};
+  \node[font=\footnotesize] at (1.06,1.06){$|z|<R$};
   \draw[dashed,black!45] (0,0) circle (2.0);
-  \node[font=\footnotesize] at (1.55,1.55){$|z|=2R$};
+  \node[font=\footnotesize,anchor=north west] at (1.45,-1.45){$|z|=2R$};
   \node[zero] at (0.4,0.2){}; \node[zero] at (-0.5,0.3){}; \node[zero] at (0.2,-0.6){};
   \node[zero] at (2.2,0.6){}; \node[zero] at (-2.1,-0.7){}; \node[zero] at (1.6,1.7){};
-  \node[font=\footnotesize] at (-1.4,1.7){$|a_n|\!>\!2R$: small factors};
+  \node[font=\footnotesize,align=right,anchor=south east] at (-1.45,1.45)
+    {$|a_n|\!>\!2R$:\\ factors near $1$};
 \end{tikzpicture}
 \captionof{figure}{Weierstrass split: finitely many zeros inside $|z|{<}R$; the far
 factors ($|a_n|{>}2R$) are uniformly close to $1$ and add no zeros. (Schematic.)}
@@ -32023,12 +32034,15 @@ $\pi\cot\pi z=\frac1z+\sum\frac{2z}{z^2-n^2}$, consistent. \checkmark
 \end{wex}
 
 \begin{wex}{Why the bare product $\prod(1-z/a_n)$ can diverge}
-Take $a_n=n$ and show $\prod_{n\ge1}(1-z/n)$ fails to converge, while inserting $e^{z/n}$
-repairs it.
-\wrec Test the necessary condition $\sum|a_n|<\infty$ of Proposition~\ref{p:prod-conv@c18}.
-\wsol With $a_n=1+z\cdot(-1/n)$... more directly, $\prod(1-z/n)$ has
-$\sum_n|z/n|=|z|\sum1/n=\infty$, so Proposition~\ref{p:prod-conv@c18} does not apply and indeed
-the partial products oscillate/diverge (their logs behave like $-z\sum1/n\to-\infty$). The
+Take $a_n=n$ and show $\prod_{n\ge1}(1-z/n)$ has no nonzero limit for any $z\ne0$, while
+inserting $e^{z/n}$ repairs it.
+\wrec Test the sufficient condition of Proposition~\ref{p:prod-conv@c18} on the terms $-z/n$.
+\wsol Here $\sum_n|z/n|=|z|\sum1/n=\infty$ for $z\ne0$, so Proposition~\ref{p:prod-conv@c18}
+does not apply, and indeed the product misbehaves: with $H_N=\sum_{n\le N}1/n\to\infty$,
+$\prod_{n\le N}(1-z/n)=e^{-zH_N}\prod_{n\le N}E_1(z/n)$, where the last product converges (see
+below) to a nonzero limit unless $z$ is a positive integer. As
+$|e^{-zH_N}|=e^{-H_N\Re z}$, the partial products tend to $0$ if $\Re z>0$, are unbounded if
+$\Re z<0$, and keep rotating if $\Re z=0$ -- never a nonzero limit. The
 factor $E_1(z/n)=(1-z/n)e^{z/n}$ has $1-E_1(z/n)=O(1/n^2)$, so $\sum|1-E_1(z/n)|<\infty$ and
 the corrected product converges. \emph{Check.} $\log E_1(z/n)=-\frac{z^2}{2n^2}+O(n^{-3})$,
 summable, confirming convergence. \checkmark
@@ -32045,8 +32059,8 @@ for a too-dense sequence makes the product diverge.
 \subsection*{Further worked examples}
 
 \begin{wex}{$\sum a_n$ versus $\prod(1+a_n)$ when $\sum|a_n|^2<\infty$}
-Suppose $\sum|a_n|^2<\infty$. Show $\prod(1+a_n)$ converges to a nonzero limit iff
-$\sum a_n$ converges.
+Suppose $\sum|a_n|^2<\infty$ and $a_n\ne-1$ for all $n$. Show $\prod(1+a_n)$ converges to a
+nonzero limit iff $\sum a_n$ converges.
 \wrec This is Stein's Exercise 7(a). Take logarithms and use the second-order expansion
 $\log(1+a_n)=a_n-\tfrac12 a_n^2+O(a_n^3)$, controlling the quadratic remainder by the
 hypothesis.
@@ -32054,10 +32068,10 @@ hypothesis.
 $b_n=a_n-\tfrac12 a_n^2+r_n$ with $|r_n|\le|a_n|^3\le|a_n|^2$ (since $|a_n|<1$). The series
 $\sum(-\tfrac12 a_n^2+r_n)$ converges absolutely because $\sum|a_n|^2<\infty$. Therefore
 $\sum b_n$ converges iff $\sum a_n$ converges, and $\prod(1+a_n)=e^{\sum b_n}$ converges to a
-nonzero limit precisely in that case. \emph{Check.} (b) $a_n=i/\sqrt n$ has $\sum a_n$
-divergent but if instead $a_n=(-1)^n/\sqrt n$ then $\sum a_n$ converges yet
-$\sum|a_n|^2=\sum1/n=\infty$, so the equivalence can fail without the $\ell^2$ hypothesis --
-illustrating parts (b),(c). \checkmark
+nonzero limit precisely in that case. \emph{Check.} Without the $\ell^2$ hypothesis the
+equivalence can fail: $a_n=i(-1)^n/\sqrt n$ has $\sum a_n$ convergent but
+$\sum|a_n|^2=\sum1/n=\infty$, and $\prod(1+a_n)$ diverges (part (b) of the next example).
+\checkmark
 \end{wex}
 
 \begin{wex}{Two divergence pathologies for products}
@@ -32065,15 +32079,15 @@ Construct (b) $\{a_n\}$ with $\sum a_n$ convergent but $\prod(1+a_n)$ divergent,
 $\prod(1+a_n)$ convergent but $\sum a_n$ divergent.
 \wrec These are Stein's Exercise 7(b),(c). When $\sum|a_n|^2=\infty$ the link between sum and
 product breaks; engineer the quadratic term to dominate.
-\wsol (b) Let $a_{2k-1}=\frac1{\sqrt k}$, $a_{2k}=-\frac1{\sqrt k}+\frac1k$. Then partial
-sums of $\sum a_n$ are $\sum_{k\le K}\frac1k$, which... instead take the cleaner classical
-choice $a_n=\frac{(-1)^{n}}{\sqrt n}$: $\sum a_n$ converges (alternating), but
+\wsol (b) Take $a_n=\frac{i(-1)^{n}}{\sqrt n}$: $\sum a_n$ converges (alternating), but
 $\log\prod(1+a_n)=\sum\!\big(a_n-\tfrac12 a_n^2+\cdots\big)$ has the divergent piece
-$-\tfrac12\sum\frac1n=-\infty$, so $\prod(1+a_n)\to0$ (divergent to $0$). (c) Take
+$-\tfrac12\sum a_n^2=\tfrac12\sum\frac1n=+\infty$; exactly, $|1+a_n|^2=1+\frac1n$ gives
+$\bigl|\prod_{n\le N}(1+a_n)\bigr|=\sqrt{N+1}\to\infty$, so the product diverges. (c) Take
 $a_{2k-1}=\frac1{\sqrt k}$ and $a_{2k}=\frac{-1/\sqrt k}{1+1/\sqrt k}$, so that
-$(1+a_{2k-1})(1+a_{2k})=1$ exactly; the partial products are bounded ($1$ after even stages),
-so $\prod(1+a_n)$ converges, yet $a_{2k-1}+a_{2k}=\frac1{\sqrt k}-\frac{1/\sqrt k}{1+1/\sqrt
-k}=\frac{1/k}{1+1/\sqrt k}\sim\frac1k$, so $\sum a_n=\infty$ diverges. \emph{Check.} In (c)
+$(1+a_{2k-1})(1+a_{2k})=1$ exactly; the partial products equal $1$ after even stages and
+$1+1/\sqrt k\to1$ after odd stages, so $\prod(1+a_n)$ converges (to $1$), yet
+$a_{2k-1}+a_{2k}=\frac1{\sqrt k}-\frac{1/\sqrt k}{1+1/\sqrt k}=\frac{1/k}{1+1/\sqrt k}
+\sim\frac1k$, so $\sum a_n=\infty$ diverges. \emph{Check.} In (c)
 the even partial products are identically $1\to1$ while $\sum a_n$ diverges like the harmonic
 series -- product convergence does not imply $\sum a_n$ convergence. \checkmark
 \end{wex}
@@ -32091,7 +32105,7 @@ $\sum_{n\ge1}\frac1{n^2}=\frac{\pi^2}6$. \emph{Check.} Numerically $\frac{\pi^2}
 1.6449$ and $1+\frac14+\frac19+\frac1{16}=1.4236$, climbing toward it. \checkmark
 \end{wex}
 
-\begin{wex}{A keyhole/contour evaluation linked to a product: $\int_0^\infty\frac{\log x}{1+x^2}\,dx$}
+\begin{wex}{An indented-contour evaluation linked to a product: $\int_0^\infty\frac{\log x}{1+x^2}\,dx$}
 Evaluate $\int_0^\infty\frac{\log x}{1+x^2}\,dx$ by a contour method, illustrating how the
 zeros $\pm i$ of $1+z^2$ drive a residue computation.
 \wrec A real integral with a logarithm; use a large semicircle in the upper half plane with a
@@ -32118,8 +32132,8 @@ independent proof it vanishes. \checkmark
   \draw[cxaxis] (0,-0.6)--(0,2.6) node[above]{$\Im z$};
   \draw[contour] (-2.2,0) -- (-0.3,0) arc(180:0:0.3) -- (2.2,0) arc(0:180:2.2);
   \node[pole,label={[font=\footnotesize]right:$i$}] at (0,1.0) {};
-  \node[font=\footnotesize] at (1.7,1.7) {$C_R$};
-  \node[font=\footnotesize] at (0.0,-0.35) {$\epsilon$};
+  \node[font=\footnotesize] at (1.25,2.2) {$C_R$};
+  \node[font=\footnotesize] at (0.3,-0.3) {$\epsilon$};
 \end{tikzpicture}
 \captionof{figure}{Indented upper semicircle for $\int_0^\infty\frac{\log x}{1+x^2}dx$:
 the only enclosed pole is the zero $z=i$ of $1+z^2$.}
@@ -32131,7 +32145,8 @@ the only enclosed pole is the zero $z=i$ of $1+z^2$.}
   \dfrac{2m\cdot2m}{(2m-1)(2m+1)}\cdots$. [Hint: use the product formula for $\sin z$ at
   $z=\pi/2$.]
 \item Establish the following properties of infinite products. (a) If $\sum|a_n|^2$
-  converges, then $\prod(1+a_n)$ converges to a nonzero limit iff $\sum a_n$ converges.
+  converges and no $a_n$ equals $-1$, then $\prod(1+a_n)$ converges to a nonzero limit iff
+  $\sum a_n$ converges.
   (b) Find $\{a_n\}$ with $\sum a_n$ convergent but $\prod(1+a_n)$ divergent. (c) Find
   $\{a_n\}$ with $\prod(1+a_n)$ convergent but $\sum a_n$ divergent.
 \item Prove that for every $z$ the product below converges, and
@@ -32148,9 +32163,10 @@ the only enclosed pole is the zero $z=i$ of $1+z^2$.}
   meromorphic $f$ whose only poles are at $\{a_n\}$ such that for each $n$,
   $f(z)-Q_n\!\bigl(\tfrac1{z-a_n}\bigr)$ is holomorphic near $a_n$ (prescribed principal
   parts). This is the Mittag-Leffler theorem.
-\item Given two countably infinite sequences $\{a_k\}_{k\ge0}$, $\{b_k\}_{k\ge0}$ with
-  $\lim_{k\to\infty}|a_k|=\infty$, one can always find an entire $F$ with $F(a_k)=b_k$ for
-  all $k$. (a) Given $n$ distinct $a_1,\dots,a_n$ and $n$ values $b_1,\dots,b_n$, construct
+\item Given two countably infinite sequences $\{a_k\}_{k\ge0}$, $\{b_k\}_{k\ge0}$ with the
+  $a_k$ distinct and $\lim_{k\to\infty}|a_k|=\infty$, one can always find an entire $F$ with
+  $F(a_k)=b_k$ for all $k$. (a) Given $n$ distinct $a_1,\dots,a_n$ and $n$ values
+  $b_1,\dots,b_n$, construct
   a polynomial $P$ of degree $\le n-1$ with $P(a_i)=b_i$. (b) Let $\{a_k\}_{k\ge0}$ be
   distinct with $a_0=0$, $\lim|a_k|=\infty$, and $E(z)$ a Weierstrass product for
   $\{a_k\}$; given $\{b_k\}$, show there exist integers $m_k\ge1$ such that
@@ -32175,8 +32191,7 @@ the only enclosed pole is the zero $z=i$ of $1+z^2$.}
   of degree from $\sum 1/n^s$.
 \item Construct an entire function vanishing exactly at $\{n^2:n\ge1\}$ with all multiplicities
   $1$, using degree-$0$ factors, and explain why $E_0$ suffices here but not for $a_n=n$.
-\item \emph{(Non-example.)} Show that the sequence $a_n=\log(n+1)$ does \emph{not} satisfy
-  $|a_n|\to\infty$ slowly enough... rather, show $a_n=\frac1n$ \emph{cannot} be the zero set
+\item \emph{(Non-example.)} Show that $a_n=\frac1n$ \emph{cannot} be the zero set
   of a nonzero entire function (it accumulates at $0$), and contrast with $a_n=n$ which can.
 \item \emph{(Diagram.)} Plot the zeros of the prescribed sequence $a_n=n+in$ in the plane,
   draw the disc $|z|<R$ and the auxiliary $|z|=2R$, and indicate which factors are ``near''
@@ -32270,9 +32285,10 @@ $\bigl|\prod_n E_k(z/a_n)\bigr|\ge e^{-c|z|^s}$ for all $|z|=r_m$.
 
 \begin{proof}
 Since $\sum|a_n|^{-k-1}<\infty$, pick $N$ with $\sum_{n\ge N}|a_n|^{-k-1}<\tfrac1{10}$. For
-consecutive integers $L,L+1$ there is $r\in[L,L+1]$ whose circle $|z|=r$ misses all
+consecutive large integers $L,L+1$ there is $r\in[L,L+1]$ whose circle $|z|=r$ misses all
 forbidden discs: otherwise the radial intervals $I_n=[\,|a_n|-|a_n|^{-k-1},\,|a_n|
-+|a_n|^{-k-1}\,]$ (each of length $2|a_n|^{-k-1}$) would cover $[L,L+1]$, forcing
++|a_n|^{-k-1}\,]$ (each of length $2|a_n|^{-k-1}$; for $L$ large only those with $n\ge N$
+meet $[L,L+1]$) would cover $[L,L+1]$, forcing
 $2\sum_{n\ge N}|a_n|^{-k-1}\ge1$, a contradiction. Apply Lemma~\ref{l:prod-lower@c18} on these
 circles.
 \end{proof}
@@ -32318,9 +32334,10 @@ $Cr^s$:
 \[
   |a_n|r^n=\Bigl|\frac1\pi\int_0^{2\pi}\bigl[u(re^{i\theta})-Cr^s\bigr]e^{-in\theta}\,
    d\theta\Bigr|\le\frac1\pi\int_0^{2\pi}\bigl[Cr^s-u(re^{i\theta})\bigr]\,d\theta
-   =2Cr^s-4\pi\,\Re(a_0)\cdot\tfrac1{...},
+   =2Cr^s-2\Re(a_0),
 \]
-more simply $|a_n|\le2Cr^{s-n}-2\Re(a_0)r^{-n}$. Letting $r\to\infty$ along the given
+using $\frac1{2\pi}\int_0^{2\pi}u(re^{i\theta})\,d\theta=\Re(a_0)$; so
+$|a_n|\le2Cr^{s-n}-2\Re(a_0)r^{-n}$. Letting $r\to\infty$ along the given
 sequence gives $a_n=0$ for $n>s$. Hence $\deg g\le s$.
 \end{proof}
 
@@ -32343,8 +32360,7 @@ circles $|z|=r_m$:
 \]
 so $\Re g(z)\le C|z|^s$ on these circles, with $s$ as close to $\rho_0$ as we like.
 By Lemma~\ref{l:realpart-poly@c18}, $g$ is a polynomial of degree $\le s$, hence of degree
-$\le k$ (as $g$ is a polynomial and $s<k+1$ can be taken arbitrarily close to $\rho_0\le k$
-... more precisely $\deg g\le\lfloor s\rfloor=k$). Writing $P=g$ completes the proof.
+$\le k$ (the degree is an integer and $s<k+1$). Writing $P=g$ completes the proof.
 \end{proof}
 
 \begin{wex}{Hadamard product for $e^z-1$}
@@ -32361,12 +32377,14 @@ $z^1$ coefficient: $e^{z/2}z\prod(1+\cdots)=z(1+z/2+\cdots)$, matching $e^z-1$. 
 
 \begin{wex}{Hadamard product for $\cos\pi z$}
 Find the Hadamard factorization of $f(z)=\cos\pi z$.
-\wrec Order $1$, $k=1$; the zeros are the half-integers, none at $0$, so $m=0$ and $P$
-constant.
+\wrec Order $1$, $k=1$; the zeros are the half-integers, none at $0$, so $m=0$, and
+evenness makes $P$ constant.
 \wsol $\cos\pi z$ has order $1$ and simple zeros at $z=\pm\tfrac12,\pm\tfrac32,\dots$, i.e.\
 $\pm\frac{2n+1}{2}$, with no zero at $0$. Pairing $\pm$ gives degree-$1$ exponentials
-cancelling, so $\cos\pi z=e^{P}\prod_{n\ge0}\bigl(1-\frac{4z^2}{(2n+1)^2}\bigr)$. Since
-$\cos0=1$ and the product at $z=0$ is $1$, $e^{P}=1$, i.e.\ $P=0$. Thus
+cancelling, so $\cos\pi z=e^{P(z)}\prod_{n\ge0}\bigl(1-\frac{4z^2}{(2n+1)^2}\bigr)$ with
+$\deg P\le1$. Both $\cos\pi z$ and the product are even, so $e^{P(z)}=e^{P(-z)}$, which
+kills the linear coefficient of $P$; since $\cos0=1$ and the product at $z=0$ is $1$,
+$e^{P}=1$, i.e.\ $P=0$. Thus
 $\cos\pi z=\prod_{n\ge0}\bigl(1-\frac{4z^2}{(2n+1)^2}\bigr)$. \emph{Check.} At
 $z=\tfrac12$ the $n=0$ factor is $1-4(\tfrac14)/1=0$, matching $\cos(\pi/2)=0$. \checkmark
 \end{wex}
@@ -32377,11 +32395,11 @@ $z=\tfrac12$ the $n=0$ factor is $1-4(\tfrac14)/1=0$, matching $\cos(\pi/2)=0$. 
     xlabel={\footnotesize$x$},ylabel={\footnotesize$y$},
     zlabel={\footnotesize$|\cos\pi z|$},zlabel style={rotate=-90},
     xtick={-1.5,-0.5,0.5,1.5},xticklabels={$-\tfrac32$,$-\tfrac12$,$\tfrac12$,$\tfrac32$},
-    ytick={-0.6,0,0.6},ztick={0,4,8},
+    ytick={-0.6,0,0.6},ztick={0,2,4},
     tick label style={font=\scriptsize},
-    enlargelimits=false,colormap/viridis,
-    zmin=0,zmax=8.5,
-    colorbar,colorbar style={width=6pt,font=\scriptsize,ytick={0,4,8}}]
+    enlargelimits=false,colormap={bw}{gray(0cm)=(0.1); gray(1cm)=(0.9)},
+    zmin=0,zmax=4,point meta min=0,point meta max=4,
+    colorbar,colorbar style={width=6pt,font=\scriptsize,ytick={0,1,2,3,4}}]
     % |cos(pi z)|^2 = cos^2(pi x) + sinh^2(pi y)  (exact identity)
     \addplot3[surf,domain=-1.7:1.7,y domain=-0.62:0.62,
        samples=50,samples y=33,shader=interp,z buffer=sort,line width=0.1pt]
@@ -32421,8 +32439,8 @@ zeros at $z=n^2\pi^2$. \checkmark
 \end{wex}
 
 \begin{pitfall}
-The degree of $P$ is $\le k=\lfloor\rho_0\rfloor$, not $\le\rho_0$; and the canonical factor
-degree is this same $k$. A common slip is to use degree $k=\rho_0$ when $\rho_0$ is an
+The degree of $P$ is $\le k=\lfloor\rho_0\rfloor$, and the canonical factor
+degree is this same $k$. A common slip is to take $k=\rho_0-1$ when $\rho_0$ is an
 integer --- the correct rule is $k\le\rho_0<k+1$, so for $\rho_0=1$ exactly, $k=1$. Also,
 $e^{P}$ contributes \emph{no zeros} but \emph{does} raise the order to $\max(\deg P,
 \text{exponent of convergence})$; the order is determined by both the zeros and $P$.
@@ -32439,19 +32457,20 @@ $P'$ and a second Hadamard factorization.
 polynomial. Then $f'=P'e^{P}$, whose zeros are exactly the zeros of $P'$. By hypothesis $f'$
 never vanishes, so $P'$ has no zeros; a polynomial with no zeros is a nonzero constant, so
 $\deg P'=0$, i.e.\ $\deg P\le1$. Write $P(z)=az+b$. (If $a=0$ then $f$ is constant, whose
-first derivative is $0\equiv$ vanishes everywhere -- excluded -- so $a\ne0$.) Hence
+first derivative $f'\equiv0$ vanishes everywhere -- excluded -- so $a\ne0$.) Hence
 $f(z)=e^{az+b}$, and indeed every $f^{(k)}=a^k e^{az+b}$ is zero-free. \emph{Check.}
 $f(z)=e^{z}$ works; $f(z)=e^{z^2}$ fails because $f'=2ze^{z^2}$ vanishes at $0$, consistent
 with $\deg P=2>1$. \checkmark
 \end{wex}
 
 \begin{wex}{An order-2 product with non-summable square reciprocals}
-Consider $F$ with zeros at $z=-in+m$ ($n\ge1$, $m\in\Z$, a lattice in the lower half plane).
+Consider $F(z)=\prod_{n=1}^\infty(1-e^{-2\pi n}e^{2\pi iz})$, whose zeros are $z=-in+m$
+($n\ge1$, $m\in\Z$, the lattice points in the lower half plane).
 Show $\sum|z_k|^{-2}=\infty$ but $\sum|z_k|^{-2-\epsilon}<\infty$, so $F$ has order $2$.
-\wrec This is Stein's Exercise 4 (a theta-type factor). Count lattice points in shells to
-test the borderline exponent $s=2$.
-\wsol The zeros $z=m-in$ ($n\ge1$, $m\in\Z$) form (most of) a two-dimensional lattice. The
-number of lattice points with $|z_k|\le R$ grows like the area, $\sim\pi R^2$, so
+\wrec This is Stein's Exercise 4 with $t=1$ (a theta-type factor). Count lattice points in
+shells to test the borderline exponent $s=2$.
+\wsol The zeros $z=m-in$ ($n\ge1$, $m\in\Z$) form the lower half of the lattice $\Z+i\Z$. The
+number of them with $|z_k|\le R$ grows like the area of a half-disc, $\sim\pi R^2/2$, so
 $n(R)\asymp R^2$ and the exponent of convergence is $2$. At the borderline,
 $\sum|z_k|^{-2}\asymp\int_1^\infty\frac{2\pi r\,dr}{r^2}=2\pi\int_1^\infty\frac{dr}r=\infty$,
 while $\sum|z_k|^{-2-\epsilon}\asymp\int_1^\infty r^{-1-\epsilon}\,dr<\infty$. Combined with
@@ -32475,7 +32494,7 @@ $(0,1)$ -- accounting for the one root found. \checkmark
 \end{wex}
 
 \begin{wex}{A Blaschke product: a bounded analogue of Weierstrass in the disc}
-For zeros $\{\alpha_n\}\subset\Disc$ with $\sum(1-|\alpha_n|)<\infty$, show the Blaschke
+For nonzero $\{\alpha_n\}\subset\Disc$ with $\sum(1-|\alpha_n|)<\infty$, show the Blaschke
 product $B(z)=\prod_n\frac{|\alpha_n|}{\alpha_n}\,\frac{\alpha_n-z}{1-\overline{\alpha_n}z}$
 converges to a holomorphic function on $\Disc$ with $|B|\le1$ and zeros exactly $\{\alpha_n\}$.
 \wrec This is Stein's Problem 2. Each factor is a disc automorphism of modulus $1$ on the
@@ -32486,8 +32505,8 @@ only zero in $\Disc$ is $\alpha_n$. A computation gives, for $|z|\le r<1$,
 $|1-B_n(z)|=\Big|\frac{(|\alpha_n|+\overline{\alpha_n}z)(1-|\alpha_n|)}{\alpha_n(1-
 \overline{\alpha_n}z)}\Big|\le\frac{1+r}{1-r}(1-|\alpha_n|)$. Since $\sum(1-|\alpha_n|)<\infty$,
 Proposition~\ref{p:prod-hol@c18} gives uniform convergence on $|z|\le r$ to a holomorphic $B$ with
-$|B|\le1$ and zeros precisely the $\alpha_n$. \emph{Check.} A single factor with
-$\alpha_n\to1$ degenerates ($1-|\alpha_n|\to0$) so the tail factors are $\approx1$, exactly
+$|B|\le1$ and zeros precisely the $\alpha_n$. \emph{Check.} As $|\alpha_n|\to1$ the factors
+degenerate ($1-|\alpha_n|\to0$) so the tail factors are $\approx1$, exactly
 the summability condition forced by Problem 1. \checkmark
 \end{wex}
 
@@ -32529,7 +32548,8 @@ poles. \checkmark
   polynomial $P$, and that its order equals $\deg P$. Deduce that $e^{\sqrt z}$ is not
   entire.
 \item Use Hadamard's theorem to show $e^z-z$ has infinitely many zeros, by ruling out the
-  finite-zero form $Q(z)e^{P(z)}$ on order grounds.
+  finite-zero form $Q(z)e^{P(z)}$ ($\deg P\le1$ by order) through its growth along the real
+  axis.
 \item Let $f$ be entire of order $\rho_0$ with $k=\lfloor\rho_0\rfloor$. Show that if $f$ has
   only finitely many zeros, then $f(z)=Q(z)e^{P(z)}$ with $Q$ a polynomial and $\deg P\le k$,
   and the order is exactly $\deg P$.
