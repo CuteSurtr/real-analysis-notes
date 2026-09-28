@@ -47089,14 +47089,15 @@ The Fourier transform of an integrable function on $\Rd$ is
   f(x)=\int_{\Rd}\hat f(\xi)\,e^{2\pi i x\cdot\xi}\,\dd\xi,
 \]
 the second formula being the inversion. On the Schwartz class $\mathcal S(\Rd)$ ---
-the smooth functions all of whose derivatives $x^\alpha(\partial/\partial x)^\beta f$
-stay bounded --- the transform is a bijection, inversion holds, and one has the
+the smooth functions $f$ for which every $x^\alpha(\partial/\partial x)^\beta f$
+stays bounded --- the transform is a bijection, inversion holds, and one has the
 \emph{Plancherel identity}
 \[
   \int_{\Rd}\abs{\hat f(\xi)}^2\,\dd\xi=\int_{\Rd}\abs{f(x)}^2\dx .
 \]
 The largest class for which the defining integral converges absolutely is $L^1(\Rd)$,
-where a relative inversion formula was proved in Chapter~2. The point of this section
+where a relative inversion formula (valid when also $\hat f\in L^1$) was proved in
+Theorem~\ref{t:inversion@c25}. The point of this section
 is the \emph{symmetry} between $f$ and $\hat f$ that the Schwartz class enjoys, now
 recovered on the Hilbert space $\Ltwo(\Rd)$. The idea is simple: $\mathcal S$ is dense
 in $\Ltwo$ and the transform preserves the $\Ltwo$-norm, so it extends by continuity to
@@ -47183,7 +47184,8 @@ with its unique continuous extension $\mathcal F$, which is a unitary isomorphis
 defined only on a dense subspace $D$ of a Banach/Hilbert space $X$, and want it on all of
 $X$.
 \begin{enumerate}
-\item Check $T:D\to Y$ is bounded: $\norm{Tx}\le C\norm x$ for $x\in D$ (here $C=1$).
+\item Check $T:D\to Y$ ($Y$ a Banach space) is bounded: $\norm{Tx}\le C\norm x$ for $x\in D$
+  (here $C=1$).
 \item For $x\in X$ pick $x_n\in D$ with $x_n\to x$. Then $\{Tx_n\}$ is Cauchy
   ($\norm{Tx_n-Tx_m}\le C\norm{x_n-x_m}$), so it converges; define $Tx=\lim Tx_n$.
 \item Independence of the sequence and linearity follow from boundedness; the bound
@@ -47245,21 +47247,21 @@ the textbook gap between $L^1$ and $\Ltwo$.
 \begin{wex}{Scaling and the dilation identity}
 For $f\in\Ltwo(\R)$ and $a>0$ let $f_a(x)=f(ax)$. Find $\widehat{f_a}$ and confirm
 Plancherel is consistent.
-\wrec Recognition: a dilation in $x$ becomes an inverse dilation plus a normalizing
+\wrec A dilation in $x$ becomes an inverse dilation plus a normalizing
 factor in $\xi$.
 \wsol Changing variables $u=ax$, $\widehat{f_a}(\xi)=\int f(ax)e^{-2\pi i x\xi}\dx
 =\tfrac1a\int f(u)e^{-2\pi i u\xi/a}\du=\tfrac1a\hat f(\xi/a)$. Then
 $\norm{\widehat{f_a}}_2^2=\tfrac1{a^2}\int\abs{\hat f(\xi/a)}^2\,\dd\xi
 =\tfrac1a\int\abs{\hat f}^2=\tfrac1a\norm f_2^2$, and directly
 $\norm{f_a}_2^2=\int\abs{f(ax)}^2\dx=\tfrac1a\norm f_2^2$. Equal. \emph{Check.} With
-$a=2$ both norms shrink by the same factor $1/2$, so the unitary identity survives
+$a=2$ both squared norms shrink by the same factor $1/2$, so the unitary identity survives
 scaling.
 \end{wex}
 
 \begin{wex}{Density via dominated convergence (the truncation step)}
 Show explicitly that the truncations $g_M$ of $f\in\Ltwo(\R)$ satisfy
 $\norm{f-g_M}_2\to0$, for $f(x)=e^{-\abs x}$.
-\wrec Recognition: apply the dominated convergence theorem to $\abs{f-g_M}^2$ as in
+\wrec Apply the dominated convergence theorem to $\abs{f-g_M}^2$ as in
 Lemma~\ref{l:schwartz-dense@c28}.
 \wsol Here $\abs f\le1$ everywhere, so the cap at level $M\ge1$ never triggers; thus
 $g_M(x)=f(x)$ for $\abs x\le M$ and $0$ beyond, and
@@ -47316,7 +47318,7 @@ $\Ltwo$-norm$^2$ equals the box's length $1$ (Plancherel).}
   Show there is $C$ with $\norm{f^{*}}_{\Ltwo}\le C\norm f_{\Ltwo}$ (so $f\mapsto f^{*}$,
   though nonlinear, is bounded on $\Ltwo$ --- unlike on $L^1$):
   (a) For each $\alpha>0$, $m(\set{f^{*}>\alpha})\le\frac{2A}\alpha\int_{\abs f>\alpha/2}\abs f\dx$
-  with $A=3^d$. [Split $f=f_1+f_2$, $f_1=f\ind{\abs f\ge\alpha/2}$, and note
+  with $A=3^d$. [Split $f=f_1+f_2$, $f_1=f\ind{\abs f>\alpha/2}$, and note
   $\set{f^{*}>\alpha}\subset\set{f_1^{*}>\alpha/2}$.]
   (b) $\int_{\Rd}\abs{f^{*}}^2\dx=2\int_0^\infty\alpha\,m(E_\alpha)\,\dd\alpha$,
   $E_\alpha=\set{f^{*}>\alpha}$.
@@ -47328,8 +47330,8 @@ $\Ltwo$-norm$^2$ equals the box's length $1$ (Plancherel).}
   both $\norm f_2^2$ and $\norm{\hat f}_2^2$ directly. (Answer: $\hat f(\xi)=\frac1\pi\frac1{1+\xi^2}$.)
 \item Let $f=\ind{[0,a]}$. Find $\hat f$ and use Plancherel to evaluate
   $\int_\R\frac{\sin^2(\pi a\xi)}{(\pi\xi)^2}\,\dd\xi$.
-\item Show the translation rule $\widehat{\tau_h f}(\xi)=e^{-2\pi i h\xi}\hat f(\xi)$ and the
-  modulation rule $\widehat{e^{2\pi i h x}f}(\xi)=\hat f(\xi-h)$, and confirm each is a
+\item Show the translation rule $\widehat{\tau_h f}(\xi)=e^{-2\pi i h\xi}\hat f(\xi)$, where
+  $\tau_hf(x)=f(x-h)$, and the modulation rule $\widehat{e^{2\pi i h x}f}(\xi)=\hat f(\xi-h)$, and confirm each is a
   unitary operation on $\Ltwo$ (norm-preserving).
 \item Prove the Parseval relation $\inner{\hat f}{\hat g}=\inner fg$ for $f,g\in\Ltwo$ by
   polarizing the Plancherel identity $\norm{\hat f}_2=\norm f_2$.
@@ -47342,8 +47344,8 @@ $\Ltwo$-norm$^2$ equals the box's length $1$ (Plancherel).}
 \item \emph{(Diagram.)} Sketch the graphs of $\ind{[-1/2,1/2]}$ and its transform
   $\operatorname{sinc}(\xi)=\sin(\pi\xi)/(\pi\xi)$ on the same axes, marking the zeros of the
   sinc at the nonzero integers, and indicate which area equals $\norm f_2^2$.
-\item Let $T_k f=f*k$ with $k\in L^1$. Show $\norm{T_k}_{\Ltwo\to\Ltwo}\le\norm{\hat k}_\infty$
-  and give a $k$ for which equality holds.
+\item Let $T_k f=f*k$ with $k\in L^1$. Show $\norm{T_k}_{\Ltwo\to\Ltwo}\le\norm{\hat k}_\infty$,
+  and then show that equality holds for every such $k$ (use the continuity of $\hat k$).
 \end{exers}
 
 
@@ -47406,25 +47408,25 @@ $\le2\delta\sup_{y>0}\int_\R\abs{F(x+iy)}^2\dx=2\delta\norm F^2_{H^2}$, giving t
 \begin{center}
 \begin{tikzpicture}[scale=1.25,line cap=round]
   % strip |y - eta| < delta centred at y = eta, lying strictly above the real axis
-  \def\eta{1.5}\def\del{0.7}
-  \fill[band] (-3.4,\eta-\del) rectangle (3.4,\eta+\del);
-  \draw[dgrid] (-3.4,\eta-\del)--(3.4,\eta-\del);
-  \draw[dgrid] (-3.4,\eta+\del)--(3.4,\eta+\del);
+  \def\etay{1.5}\def\del{0.7}
+  \fill[band] (-3.4,\etay-\del) rectangle (3.4,\etay+\del);
+  \draw[dgrid] (-3.4,\etay-\del)--(3.4,\etay-\del);
+  \draw[dgrid] (-3.4,\etay+\del)--(3.4,\etay+\del);
   % real axis (boundary of the upper half-plane)
   \draw[numln] (-3.6,0)--(3.6,0) node[right]{$\R$};
-  \node[font=\footnotesize,fill=white,inner sep=1pt] at (-2.55,\eta) {strip $\abs{y-\eta}<\delta$};
+  \node[font=\footnotesize,fill=white,inner sep=1pt] at (2.3,\etay) {strip $\abs{y-\eta}<\delta$};
   % the disc, tangent to both strip walls (radius = delta)
-  \draw[fill=black!16,line width=0.7pt] (0.5,\eta) circle (\del);
-  \node[pt] at (0.5,\eta){};
-  \node[font=\footnotesize] at (0.5,\eta)[above right=1pt]{$\zeta$};
-  \node[font=\footnotesize,fill=white,inner sep=0.5pt] at (0.5,\eta-0.34){$B_\delta(\zeta)$};
+  \draw[fill=black!16,line width=0.7pt] (0.5,\etay) circle (\del);
+  \node[pt] at (0.5,\etay){};
+  \node[font=\footnotesize] at (0.5,\etay)[left=1pt]{$\zeta$};
+  \node[font=\footnotesize,fill=white,inner sep=0.5pt] at (0.5,\etay-0.34){$B_\delta(\zeta)$};
   % radius marker
-  \draw[-{Stealth[length=1.6mm]}] (0.5,\eta)--($(0.5,\eta)+(35:\del)$);
-  \node[font=\footnotesize,fill=white,inner sep=0.5pt] at ($(0.5,\eta)+(35:0.42)$){$\delta$};
+  \draw[-{Stealth[length=1.6mm]}] (0.5,\etay)--($(0.5,\etay)+(35:\del)$);
+  \node[font=\footnotesize,fill=white,inner sep=0.5pt] at ($(0.5,\etay)+(35:0.42)$){$\delta$};
   % height of the centre above R
-  \draw[dgrid] (0.5,0)--(0.5,\eta-\del);
-  \draw[{Stealth[length=1.4mm]}-{Stealth[length=1.4mm]}] (-3.15,0)--(-3.15,\eta);
-  \node[font=\footnotesize,fill=white,inner sep=0.5pt] at (-3.15,\eta/2){$\eta$};
+  \draw[dgrid] (0.5,0)--(0.5,\etay-\del);
+  \draw[{Stealth[length=1.4mm]}-{Stealth[length=1.4mm]}] (-3.15,0)--(-3.15,\etay);
+  \node[font=\footnotesize,fill=white,inner sep=0.5pt] at (-3.15,0.4){$\eta$};
 \end{tikzpicture}
 \captionof{figure}{The disc $B_\delta(\zeta)$ (radius $\delta$, centre $\zeta$ at height
 $\eta>\delta$) sits inside a horizontal strip of the upper half-plane; averaging $F$ over
@@ -47450,8 +47452,8 @@ $\hat F_y(\xi)=\hat F_0(\xi)e^{-2\pi\xi y}$ for all $y>0$. Plancherel then gives
 $\int_\R\abs{F(x+iy)}^2\dx=\int_\R\abs{\hat F_0(\xi)}^2 e^{-4\pi\xi y}\,\dd\xi$, and the
 supremum over $y$ is finite, equal to $\norm F^2_{H^2}$. Finally $\hat F_0$ must vanish
 a.e.\ on $(-\infty,0)$: if not, $\abs{\hat F_0}\ge a$ on a set $E\subset(-\infty,-b)$ with
-$m(E)\ge c$, and then $\int\abs{\hat F_0}^2 e^{-4\pi\xi y}\,\dd\xi\ge a^2 c\,e^{4\pi b y}
-\to\infty$, contradicting boundedness. So $\hat F_0\in\Ltwo(0,\infty)$ and Fourier
+$m(E)\ge c$, for some $a,b,c>0$, and then $\int\abs{\hat F_0}^2 e^{-4\pi\xi y}\,\dd\xi\ge
+a^2 c\,e^{4\pi b y}\to\infty$ as $y\to\infty$, contradicting boundedness. So $\hat F_0\in\Ltwo(0,\infty)$ and Fourier
 inversion recovers $(\ast)$. The norm identity is what we computed.
 \end{proof}
 
@@ -47499,11 +47501,13 @@ $\widehat{Pf}=\chi_{(0,\infty)}\hat f$, i.e.\ the square commutes
 \begin{tikzpicture}[scale=1.0]
   \begin{axis}[width=9.6cm,height=5.4cm,axis lines=middle,xlabel={\footnotesize$x$},
     ylabel={\footnotesize$P_y(x)$},ticks=none,xmin=-3,xmax=3,ymin=0,ymax=1.25,
-    clip=false,samples=200,domain=-3:3,every axis y label/.style={at={(0.02,0.97)},anchor=south west}]
+    clip=false,samples=200,domain=-3:3,
+    every axis y label/.style={at={(axis cs:0,1.25)},anchor=south},
+    every axis x label/.style={at={(axis cs:3,0)},anchor=west}]
     \addplot[curve,black]{(1/pi)*0.3/(0.3*0.3+x*x)};
     \addplot[curve,black,dashed]{(1/pi)*0.8/(0.8*0.8+x*x)};
-    \node[font=\footnotesize,fill=white,inner sep=1pt] at (axis cs:1.25,0.78){$y$ small};
-    \node[font=\footnotesize,fill=white,inner sep=1pt] at (axis cs:1.85,0.27){$y$ larger};
+    \node[font=\footnotesize,fill=white,inner sep=1pt,anchor=west] at (axis cs:0.3,0.9){$y$ small};
+    \node[font=\footnotesize,fill=white,inner sep=1pt,anchor=south west] at (axis cs:1.0,0.2){$y$ larger};
   \end{axis}
 \end{tikzpicture}
 \captionof{figure}{The Poisson kernel $P_y$ concentrates at $0$ as $y\to0$ (an
@@ -47524,7 +47528,7 @@ multiplies by a $\set{0,1}$-valued function $\chi_E$.
 
 \begin{wex}{A concrete element of $H^2$}
 Show $F(z)=\dfrac1{z+i}$ belongs to $H^2(\R^2_+)$ and identify its spectrum $\hat F_0$.
-\wrec Recognition: write $F$ as $(\ast)$ via the identity
+\wrec Write $F$ as $(\ast)$ via the identity
 $\int_0^\infty e^{2\pi i\xi z}\,\dd\xi=\frac i{2\pi z}$.
 \wsol For $\Im z>0$, $\int_0^\infty e^{2\pi i\xi z}\,\dd\xi=\frac{i}{2\pi z}$, so
 $\frac1{z+i}=\frac{2\pi}{i}\int_0^\infty e^{2\pi i\xi(z+i)}\,\dd\xi
@@ -47538,16 +47542,20 @@ $y\to0$. Match.
 
 \begin{wex}{A NON-example: missing the quantitative bound}
 Let $F(z)=e^{i/z}/(z+i)$ on $\R^2_+$. Although $F(x+iy)\in\Ltwo(\R)$ for each $y\ge0$ and
-$F(z)\to0$ as $\abs z\to0$, show $F\notin H^2$.
+$F(z)\to0$ as $\abs z\to\infty$, show $F\notin H^2$.
 \wrec Membership in $H^2$ needs the \emph{sup over $y$} finite, not merely each slice in
 $\Ltwo$.
 \wsol Near $z=0$ within $\R^2_+$, $e^{i/z}=e^{i\bar z/\abs z^2}=e^{i x/\abs z^2}
 e^{y/\abs z^2}$, so $\abs{e^{i/z}}=e^{y/\abs z^2}$ blows up as $z\to0$ along rays into the
 half-plane. For small fixed $y$, $\int_\R\abs{F(x+iy)}^2\dx$ is finite, but the supremum
 over $y$ diverges because of the essential singularity feeding energy as the slice
-approaches the boundary near $0$. Hence $\norm F_{H^2}=\infty$ and $F\notin H^2$.
+approaches the boundary near $0$: for $0<y\le1$ and $\abs x\le y$ we have
+$\abs{e^{i/z}}^2=e^{2y/\abs z^2}\ge e^{1/y}$ and $\abs{z+i}^2\le5$, so
+$\int_\R\abs{F(x+iy)}^2\dx\ge\frac{2y}{5}e^{1/y}\to\infty$ as $y\to0$.
+Hence $\norm F_{H^2}=\infty$ and $F\notin H^2$.
 \emph{Check.} This is exactly why ``boundary values of holomorphic functions'' is not the
-same as $S$ without the $H^2$ growth restriction (Theorem~\ref{t:pw@c28}'s sup condition).
+same as $S$ without the $H^2$ growth restriction (the sup condition of
+Definition~\ref{d:hardy@c28}, on which Theorem~\ref{t:pw@c28} rests).
 \end{wex}
 
 \begin{wex}{The Poisson kernel integrates to one}
@@ -47564,7 +47572,7 @@ the kernel concentrates, the two defining features of an approximate identity.
 \begin{wex}{$H^2$ norm of a Poisson-extended box}
 Let $f=\ind{[0,1]}\in\Ltwo(\R)$ and $F=Pf$ projected to $H^2$, i.e.\ keep only the
 positive frequencies. Compute $\norm{Pf}_{\Ltwo}^2$.
-\wrec Recognition: the projection $P$ keeps the part of $\hat f$ on $(0,\infty)$; use
+\wrec The projection $P$ keeps the part of $\hat f$ on $(0,\infty)$; use
 Plancherel and the symmetry of $\abs{\hat f}$.
 \wsol $\hat f(\xi)=\int_0^1 e^{-2\pi i x\xi}\dx=\frac{1-e^{-2\pi i\xi}}{2\pi i\xi}$, and
 $\abs{\hat f(\xi)}=\abs{\hat f(-\xi)}$ (real $f$). Plancherel:
@@ -47588,18 +47596,25 @@ values.
 \end{wex}
 
 \begin{wex}{Orthonormal expansion in $H^2$}
-Using the isometry $H^2(\R^2_+)\cong\Ltwo(0,\infty)$, expand the element $F$ with spectrum
+Using the isometry $H^2(\R^2_+)\cong\Ltwo(0,\infty)$, take the element $F$ with spectrum
 $\hat F_0(\xi)=2\sqrt\pi\,e^{-2\pi\xi}\ind{(0,\infty)}$ and compute $\norm F_{H^2}$ and
-$\inner{F}{G}$ where $\hat G_0(\xi)=2\sqrt\pi\,\xi\, e^{-2\pi\xi}\ind{(0,\infty)}\cdot c$.
-\wrec Recognition: inner products in $H^2$ are inner products of spectra in $\Ltwo(0,\infty)$
+$\inner{F}{G}$ where $\hat G_0(\xi)=2\sqrt\pi\,\xi\, e^{-2\pi\xi}\ind{(0,\infty)}\cdot c$,
+with $c>0$ chosen so that $\norm G_{H^2}=1$; then expand $G$ along $F$.
+\wrec Inner products in $H^2$ are inner products of spectra in $\Ltwo(0,\infty)$
 by Theorem~\ref{t:pw@c28}.
 \wsol $\norm F_{H^2}^2=\norm{\hat F_0}_{\Ltwo(0,\infty)}^2
 =\int_0^\infty 4\pi e^{-4\pi\xi}\,\dd\xi=4\pi\cdot\frac1{4\pi}=1$, so $\norm F_{H^2}=1$ (a
-unit vector). Choosing the normalizing $c$ so $\norm{\hat G_0}=1$, the overlap is
-$\inner FG=\int_0^\infty\hat F_0(\xi)\overline{\hat G_0(\xi)}\,\dd\xi$, a one-dimensional
-integral of elementary exponentials. \emph{Check.} $\norm F_{H^2}=1$ matches the direct
-half-plane computation $\sup_y\int_\R\abs{F(x+iy)}^2\dx$; transferring to the spectrum side
-turned a holomorphic problem into a Gamma-type integral.
+unit vector). Next $\norm{\hat G_0}^2=4\pi c^2\int_0^\infty\xi^2e^{-4\pi\xi}\,\dd\xi
+=\frac{8\pi c^2}{(4\pi)^3}=\frac{c^2}{8\pi^2}$, so the normalizing constant is
+$c=2\sqrt2\,\pi$, and the overlap is
+$\inner FG=\int_0^\infty\hat F_0(\xi)\overline{\hat G_0(\xi)}\,\dd\xi
+=4\pi c\int_0^\infty\xi e^{-4\pi\xi}\,\dd\xi=\frac{c}{4\pi}=\frac1{\sqrt2}$. Since this is
+real, $G=\frac1{\sqrt2}F+G^\perp$ with $G^\perp\perp F$ and
+$\norm{G^\perp}_{H^2}^2=1-\frac12=\frac12$. \emph{Check.} By $(\ast)$,
+$F(z)=2\sqrt\pi\int_0^\infty e^{2\pi i\xi(z+i)}\,\dd\xi=\frac{i}{\sqrt\pi\,(z+i)}$, and
+directly $\int_\R\abs{F(x+iy)}^2\dx=\frac1\pi\cdot\frac{\pi}{y+1}=\frac1{y+1}$, whose
+supremum over $y>0$ is $1=\norm F_{H^2}^2$; transferring to the spectrum side
+turned a holomorphic problem into Gamma-type integrals.
 \end{wex}
 
 \begin{center}
@@ -47622,9 +47637,9 @@ $R\to\infty$ by the $O(1/(1+x^2))$ decay.}
 \item Let $F(z)$ be a bounded holomorphic function in the upper half-plane. Show in two
   ways that $\lim_{y\to0}F(x+iy)$ exists for a.e.\ $x$: (a) using that $F(z)/(z+i)\in H^2(\R^2_+)$;
   (b) noting $G(z)=F\bigl(i\frac{1-z}{1+z}\bigr)$ is a bounded holomorphic function on the
-  unit disc and applying the disc Fatou theorem.
+  unit disc and applying the disc Fatou theorem in its non-tangential form.
 \item Consider $F(z)=e^{i/z}/(z+i)$ in the upper half-plane. Note $F(x+iy)\in\Ltwo(\R)$ for
-  each $y>0$ and $y=0$, and $F(z)\to0$ as $\abs z\to0$. Nevertheless $F\notin H^2(\R^2_+)$.
+  each $y>0$ and $y=0$, and $F(z)\to0$ as $\abs z\to\infty$. Nevertheless $F\notin H^2(\R^2_+)$.
   Explain why.
 \item For $a<b$ let $S_{a,b}=\set{z=x+iy:a<y<b}$ and let $H^2(S_{a,b})$ consist of
   holomorphic $F$ on the strip with $\norm F^2=\sup_{a<y<b}\int_\R\abs{F(x+iy)}^2\dx<\infty$;
@@ -47639,10 +47654,10 @@ $R\to\infty$ by the $O(1/(1+x^2))$ decay.}
   [Prove $\abs{f(z)}\le\frac{c}{d(z,\Omega^c)}\norm f$ with $c=\pi^{-1/2}$ via the
   mean-value property, so a Cauchy sequence converges uniformly on compacta.]
 \item Continuing, prove: (a) if $\set{\varphi_n}_{n\ge0}$ is an orthonormal basis of $H$,
-  then $\sum_n\abs{\varphi_n(z)}^2\le c^2/d(z,\Omega^c)$; (b) the \emph{Bergman kernel}
+  then $\sum_n\abs{\varphi_n(z)}^2\le c^2/d(z,\Omega^c)^2$; (b) the \emph{Bergman kernel}
   $B(z,w)=\sum_n\varphi_n(z)\overline{\varphi_n(w)}$ converges absolutely on
   $\Omega\times\Omega$ and is independent of the basis; (c) $B$ is characterized by: the
-  operator $Tf(z)=\int_\Omega B(z,w)f(w)\,\dd u\,\dd v$ is the orthogonal projection of
+  operator $Tf(z)=\int_\Omega B(z,w)f(w)\,\dd u\,\dd v$ ($w=u+iv$) is the orthogonal projection of
   $\Ltwo(\Omega)$ onto $H$; (d) for $\Omega=\Disc$, $f\in H$ iff $f(z)=\sum a_n z^n$ with
   $\sum\abs{a_n}^2(n+1)^{-1}<\infty$, $\set{z^n\sqrt{(n+1)/\pi}}$ is an orthonormal basis,
   and $B(z,w)=\frac1{\pi(1-z\bar w)^2}$.
@@ -47657,10 +47672,10 @@ $R\to\infty$ by the $O(1/(1+x^2))$ decay.}
   $v(x,y)=(Hf*P_y)(x)$. Prove: (a) $F=u+iv$ is analytic in $\R^2_+$, so $u,v$ are conjugate
   harmonic with $f=\lim_{y\to0}u$, $Hf=\lim_{y\to0}v$; (b) $F(z)=\frac1{\pi i}\int_\R\frac{f(t)}{t-z}\dt$;
   (c) $v=f*Q_y$, $Q_y(x)=\frac1\pi\frac{x}{x^2+y^2}$ the conjugate Poisson kernel.
-  [Use $\frac1{\pi z}=P_y(x)+iQ_y(x)$.]
+  [Use $\frac{i}{\pi z}=P_y(x)+iQ_y(x)$ for $z=x+iy$.]
 \item Show that $\bigset{\frac1{\pi^{1/2}(i+z)}\bigl(\frac{i-z}{i+z}\bigr)^n}_{n\ge0}$ is an
-  orthonormal basis of $H^2(\R^2_+)$. (Recall the corresponding boundary system is an
-  orthonormal basis of $\Ltwo(\R)$.) [It suffices to show that $F\in H^2$ with
+  orthonormal basis of $H^2(\R^2_+)$. (Recall the corresponding boundary system indexed
+  by all $n\in\Z$ is an orthonormal basis of $\Ltwo(\R)$.) [It suffices to show that $F\in H^2$ with
   $\int_\R F(x)\frac{(x+i)^n}{(x-i)^{n+1}}\dx=0$ for all $n\ge0$ forces $F=0$; by the Cauchy
   integral formula $F^{(n)}(i)=0$ for all $n$.]
 \end{exers}
@@ -47683,8 +47698,8 @@ $R\to\infty$ by the $O(1/(1+x^2))$ decay.}
 \item Show directly that $\set{f\in\Ltwo(\R):\hat f=0 \text{ a.e.\ on }(-\infty,0)}$ is a
   closed subspace of $\Ltwo(\R)$, and that the projection onto it is the multiplier
   $\chi_{(0,\infty)}$.
-\item Confirm $\int_\R P_y(t)\dt=1$ and $\int_\R Q_y(t)^2\dt=\infty$ where
-  $Q_y(x)=\frac1\pi\frac{x}{x^2+y^2}$; explain why $Q_y\notin\Ltwo$ but $Q_y$ still defines
+\item Confirm $\int_\R P_y(t)\dt=1$ and $\int_\R\abs{Q_y(t)}\dt=\infty$ where
+  $Q_y(x)=\frac1\pi\frac{x}{x^2+y^2}$; explain why $Q_y\notin L^1$ but $Q_y$ still defines
   the conjugate Poisson integral on $\Ltwo$ data.
 \item For real $f\in\Ltwo(\R)$, prove $\norm{Pf}_2^2=\tfrac12\norm f_2^2$ where $P$ projects
   onto positive frequencies, using that $\abs{\hat f}$ is even.
@@ -47698,8 +47713,9 @@ $R\to\infty$ by the $O(1/(1+x^2))$ decay.}
 \item \emph{(Diagram.)} Draw the upper half-plane with two horizontal lines $\Im z=y_1$,
   $\Im z=y_2$ and the rectangular contour used in the proof of Theorem~\ref{t:pw@c28}; annotate
   why the vertical sides contribute nothing in the limit.
-\item Verify the multiplier of $H^2=\tfrac12(I+iH)$ composed with itself: show
-  $P^2=P$ and $P^{*}=P$ directly from $m_P=\chi_{(0,\infty)}$.
+\item Verify the multiplier of $P=\tfrac12(I+iH)$ (the projection onto $H^2$ boundary
+  values) composed with itself: show $P^2=P$ and $P^{*}=P$ directly from
+  $m_P=\chi_{(0,\infty)}$.
 \end{exers}
 
 
@@ -47733,7 +47749,7 @@ Solving $Lu=f$ becomes the algebraic $\hat u=\hat f/P$ where $P\ne0$.}
 For an open $\Omega\subseteq\Rd$ let $C_0^\infty(\Omega)$ be the smooth, compactly
 supported functions in $\Omega$. The \emph{formal adjoint} of $L$ is
 \[
-  L^{*}=\sum_{\abs\alpha\le n}(-1)^{\abs\alpha}a_\alpha
+  L^{*}=\sum_{\abs\alpha\le n}(-1)^{\abs\alpha}\overline{a_\alpha}
   \Bigl(\frac{\partial}{\partial x}\Bigr)^\alpha,
 \]
 characterized by $(L\varphi,\psi)=(\varphi,L^{*}\psi)$ for all
@@ -47748,7 +47764,8 @@ An ordinary ($C^n$) solution is always a weak solution, by integration by parts.
 
 The adjoint identity is integration by parts done $\abs\alpha$ times: for $L=\partial/\partial x_j$
 the boundary terms vanish because $\psi$ has compact support, giving
-$\int(\partial_j\varphi)\psi=-\int\varphi\,\partial_j\psi$; iterate and use linearity.
+$\int(\partial_j\varphi)\psi=-\int\varphi\,\partial_j\psi$; iterate and use linearity
+(the conjugate-linearity of $(\cdot,\cdot)$ in its second slot produces the $\overline{a_\alpha}$).
 
 \begin{lemma}[Density of test functions]\label{l:c0-dense@c28}
 $C_0^\infty(\Omega)$ is dense in $\Ltwo(\Omega)$.
@@ -47767,7 +47784,7 @@ $\Omega$.
     ylabel={\footnotesize$u$},ticks=none,xmin=-3.4,xmax=3.4,ymin=-0.2,ymax=1.32,
     clip=false,samples=2,domain=-3:3,every axis y label/.style={at={(0.5,1.0)},anchor=south}]
     \addplot[curve,black] coordinates {(-3,0)(-1,0)(0,1)(1,0)(3,0)};
-    \node[font=\footnotesize,fill=white,inner sep=1pt] at (axis cs:0,1.16) {$u(x,0)=f$ (plucked string)};
+    \node[font=\footnotesize,anchor=west] at (axis cs:0.15,1.02) {$u(x,0)=f$ (plucked string)};
   \end{axis}
 \end{tikzpicture}
 \captionof{figure}{d'Alembert's $u(x,t)=\tfrac12[f(x+t)+f(x-t)]$ for a piecewise-linear
@@ -47782,7 +47799,7 @@ exactly the a.e.\ derivative of the absolutely continuous representative.
 \end{remark}
 
 \begin{theorem}[Solvability by a bounded operator]\label{t:solvability@c28}
-Let $\Omega$ be a bounded open subset of $\Rd$ and $L$ a constant-coefficient operator.
+Let $\Omega$ be a bounded open subset of $\Rd$ and $L\ne0$ a constant-coefficient operator.
 There is a bounded linear operator $K$ on $\Ltwo(\Omega)$ such that for every
 $f\in\Ltwo(\Omega)$, $u=Kf$ is a weak solution of $Lu=f$.
 \end{theorem}
@@ -47843,12 +47860,12 @@ $\abs{F(0)}^2\le\abs{\widetilde P(0)F(0)}^2\le\frac1{2\pi}\int_0^{2\pi}
   \fill[black!5] (0,0) circle (1);
   \draw[contour] (0,0) circle (1);
   \node[zero] at (0.45,0.35) {};
-  \node[font=\footnotesize,fill=white,inner sep=0.5pt] at (0.45,0.35)[above right=0pt]{$\beta$};
+  \node[font=\footnotesize] at (0.45,0.35)[above right=1.5pt]{$\beta$};
   \node[zero] at (-0.3,-0.55){};
-  \node[font=\footnotesize,fill=white,inner sep=0.5pt] at (-0.3,-0.55)[below left=-1pt]{$\beta'$};
-  \node[pole] at (1.35,0.6) {};
-  \node[font=\footnotesize,fill=white,inner sep=0.5pt] at (1.35,0.6)[above=1pt]{$\alpha$};
-  \node[font=\footnotesize,fill=white,inner sep=0.5pt] at (-0.62,0.78){$\abs z=1$};
+  \node[font=\footnotesize] at (-0.3,-0.55)[left=2pt]{$\beta'$};
+  \node[zero] at (1.35,0.6) {};
+  \node[font=\footnotesize] at (1.35,0.6)[above right=1.5pt]{$\alpha$};
+  \node[font=\footnotesize,anchor=south east] at (135:1.03){$\abs z=1$};
   \node[font=\footnotesize] at (0.0,-0.78){$\abs\beta<1$};
 \end{tikzpicture}
 \captionof{figure}{Blaschke factors move inside-roots ($\abs\beta<1$) without changing
@@ -47857,14 +47874,14 @@ Lemma~\ref{l:blaschke@c28}. (Schematic.)}
 \end{center}
 
 \begin{proof}[Proof of Lemma~\ref{l:key-estimate@c28} (one dimension)]
-Normalize so $L^{*}=\sum_{0\le k\le n}(-1)^k a_k(\partial/\partial x)^k$ with
-$a_n=(2\pi i)^{-n}$, and let $Q(\xi)=\sum(-1)^k a_k(2\pi i\xi)^k$ be the adjoint's
+Normalize so $L^{*}=\sum_{0\le k\le n}(-1)^k\overline{a_k}(\partial/\partial x)^k$ with
+$a_n=(2\pi i)^{-n}$, and let $Q(\xi)=\sum(-1)^k\overline{a_k}(2\pi i\xi)^k$ be the adjoint's
 characteristic polynomial (monic of degree $n$ after the normalization), so
 $\widehat{L^{*}\psi}=Q(\xi)\hat\psi(\xi)$. If $f\in\Ltwo$ is supported in $[-M,M]$ then
 $\hat f$ extends to an entire function of $\zeta=\xi+i\eta$, and Plancherel for fixed
 $\eta$ gives
 $\int_\R\abs{\hat f(\xi+i\eta)}^2\,\dd\xi\le e^{4\pi M\abs\eta}\int_\R\abs{f}^2$.
-Choose $\Omega\subset[-M,M]$. With $\eta=\sin\theta$ and a translation by $\cos\theta$,
+Choose $M$ with $\Omega\subset[-M,M]$. With $\eta=\sin\theta$ and a translation by $\cos\theta$,
 \[
   \int_\R\abs{Q(\xi+\cos\theta+i\sin\theta)\hat\psi(\xi+\cos\theta+i\sin\theta)}^2\,\dd\xi
   \le e^{4\pi M}\int_\R\abs{L^{*}\psi}^2 .
@@ -47875,9 +47892,9 @@ Apply Lemma~\ref{l:blaschke@c28} with $F(z)=\hat\psi(\xi+z)$ and $Q(\xi+z)$ in p
 Integrate in $\xi$,
 interchange the $\xi,\theta$ integrations, translate, and use the displayed bound:
 $\norm{\hat\psi}_{\Ltwo(\R)}^2\le e^{4\pi M}\int_\R\abs{L^{*}\psi}^2$, which by Plancherel
-is the claim. The $d$-dimensional case rotates coordinates so that
-$Q(\xi)=(2\pi i)^{-n}\xi_1^n+\sum_{j<n}\xi_1^j q_j(\xi')$ and repeats the one-variable
-argument in $\xi_1$.
+is the claim. The $d$-dimensional case rotates coordinates and normalizes so that
+$Q(\xi)=\xi_1^n+\sum_{j<n}\xi_1^j q_j(\xi')$ is monic in $\xi_1$, and repeats the
+one-variable argument in $\xi_1$.
 \end{proof}
 
 \begin{method}{Using a coercive adjoint estimate to solve $Lu=f$ weakly}
@@ -47909,16 +47926,17 @@ $\Delta$ is elliptic.
 For $L=d/dx$ on $(0,1)$ show the absolutely continuous $u(x)=x$ has weak derivative $f=1$.
 \wrec Verify (W) directly: $(f,\psi)=(u,L^{*}\psi)$ with $L^{*}=-d/dx$.
 \wsol $L^{*}=-d/dx$. For $\psi\in C_0^\infty(0,1)$,
-$(u,L^{*}\psi)=\int_0^1 x\,(-\psi'(x))\dx=-[x\psi]_0^1+\int_0^1\psi\dx=\int_0^1\psi\dx$,
+$(u,L^{*}\psi)=\int_0^1 x\,(-\overline{\psi'(x)})\dx=-[x\bar\psi]_0^1+\int_0^1\bar\psi\dx
+=\int_0^1\bar\psi\dx$,
 the boundary term vanishing as $\psi(0)=\psi(1)=0$. And
-$(f,\psi)=\int_0^1 1\cdot\psi\dx$. Equal, so $u'=1$ weakly. \emph{Check.} $u(x)=x$ is
+$(f,\psi)=\int_0^1 1\cdot\bar\psi\dx$. Equal, so $u'=1$ weakly. \emph{Check.} $u(x)=x$ is
 absolutely continuous with classical derivative $1$ a.e., matching the
 weak$=$absolutely-continuous principle.
 \end{wex}
 
 \begin{wex}{The mean-value inequality $\abs{F(0)}^2\le$ average}
 Prove the $P\equiv1$ case of Lemma~\ref{l:blaschke@c28} for $F(z)=\sum_{k\ge0}c_k z^k$.
-\wrec Recognition: expand and use orthogonality of $e^{ik\theta}$ on the circle.
+\wrec Expand and use orthogonality of $e^{ik\theta}$ on the circle.
 \wsol
 \begin{align*}
 \frac1{2\pi}\int_0^{2\pi}\abs{F(e^{i\theta})}^2\,\dd\theta
@@ -47958,15 +47976,17 @@ demands the principal symbol vanish only at the origin.
 \begin{wex}{Failure of the global estimate on $\Rd$ for $L=\partial/\partial x_1$}
 Show $\norm u_{\Ltwo(\Rd)}\le c\norm{Lu}_{\Ltwo(\Rd)}$ fails for $L=\partial/\partial x_1$
 on $\Rd$ ($d\ge1$).
-\wrec Recognition: the global estimate holds iff $\abs{P(\xi)}\ge c>0$ everywhere
-(Exercise~12b); test $P$ at its zeros.
+\wrec The global estimate holds iff $\abs{P(\xi)}\ge c>0$ everywhere
+(Exercise~1(b) below); test $P$ at its zeros.
 \wsol Here $P(\xi)=2\pi i\xi_1$, so $\abs{P(\xi)}=2\pi\abs{\xi_1}\to0$ as $\xi_1\to0$. Pick
 $\hat u$ concentrated near $\xi_1=0$: e.g.\ $\hat u_\eps(\xi)=\eps^{-1/2}\phi(\xi_1/\eps)\rho(\xi')$
 with $\phi,\rho$ fixed bumps. Then $\norm{u_\eps}_2$ stays $\approx1$ while
 $\norm{Lu_\eps}_2^2=\int\abs{2\pi\xi_1}^2\abs{\hat u_\eps}^2=O(\eps^2)\to0$. So the ratio
-$\norm{u}/\norm{Lu}\to\infty$: no uniform $c$. \emph{Check.} This is the unbounded-domain
-counterpart of why $L=\partial/\partial x_1$ is not elliptic --- its symbol vanishes on a
-whole hyperplane, killing coercivity.
+$\norm{u}/\norm{Lu}\to\infty$: no uniform $c$. \emph{Check.} Only a lower bound for
+$\abs P$ matters here, not ellipticity: for $d=1$ the operator $d/dx$ is elliptic, yet the
+estimate fails since $P(0)=0$. On a bounded $\Omega$, by contrast,
+Lemma~\ref{l:key-estimate@c28} (applied to $L^{*}$, whose adjoint is $L$) gives the
+estimate for every $L\ne0$.
 \end{wex}
 
 \begin{center}
@@ -47985,18 +48005,20 @@ touching $0$ only at $\xi=0$ --- elliptic.}
 
 \begin{exers}{Exercises (Stein, Ch.5).}
 \item Whether the inequality $\norm u_{\Ltwo(\Omega)}\le c\norm{L(u)}_{\Ltwo(\Omega)}$ can
-  hold for unbounded $\Omega$: (a) for $d\ge2$ and each constant-coefficient $L$, exhibit
+  hold for unbounded $\Omega$: (a) for $d\ge2$ and each constant-coefficient $L\ne0$, exhibit
   unbounded connected open $\Omega$ for which it holds for all $u\in C_0^\infty(\Omega)$.
-  (b) Show $\norm u_{\Ltwo(\Rd)}\le c\norm{L(u)}_{\Ltwo(\Rd)}$ for all $u\in C_0^\infty(\Rd)$
-  iff $\abs{P(\xi)}\ge c>0$ for all $\xi$, $P$ the characteristic polynomial of $L$.
+  (b) Show that there is a $c$ with $\norm u_{\Ltwo(\Rd)}\le c\norm{L(u)}_{\Ltwo(\Rd)}$ for all
+  $u\in C_0^\infty(\Rd)$ iff there is a $c'>0$ with $\abs{P(\xi)}\ge c'$ for all $\xi$, $P$ the
+  characteristic polynomial of $L$.
   [For (a) try $L=(\partial/\partial x_1)^n$ and a strip $\set{-1<x_1<1}$.]
-\item Let $L$ be a constant-coefficient operator. Show that when $d\ge2$ the linear space
+\item Let $L$ be a constant-coefficient operator of order $n\ge1$. Show that when $d\ge2$ the linear space
   of $C^\infty(\Rd)$ solutions of $L(u)=0$ is not finite-dimensional. [Consider the zeros
   $\zeta\in\Cd$ of $P(\zeta)$.]
 \item Suppose $F,G$ are integrable on a bounded interval $[a,b]$. Show $G$ is the weak
   derivative of $F$ iff $F$ can be corrected on a null set to be absolutely continuous with
   $F'(x)=G(x)$ a.e. [If $G$ is the weak derivative, use an approximation to obtain
-  $\int_a^b G\varphi=-\int_a^b F\varphi'$ for the trapezoidal cutoff $\varphi$ in Figure~9.]
+  $\int_a^b G\varphi=-\int_a^b F\varphi'$ for the trapezoidal cutoff $\varphi$ that vanishes
+  off $(s,t)\subset(a,b)$, equals $1$ on $[s+\eps,t-\eps]$ and is linear in between.]
 \item Consider the operator $L=\sum_{\abs\alpha\le n}a_\alpha(\partial/\partial x)^\alpha$
   with $P(\xi)=\sum a_\alpha(2\pi i\xi)^\alpha$. Call $L$ \emph{elliptic} if
   $\abs{P(\xi)}\ge c\abs\xi^n$ for some $c>0$ and all large $\abs\xi$. (a) Check $L$ is
@@ -48012,14 +48034,14 @@ touching $0$ only at $\xi=0$ --- elliptic.}
   for the heat-type operator $L=\partial/\partial t-\Delta_x$ on $\R^{1+d}$, and identify
   the zero set of $P$.
 \item Show $L^{*}=(-1)^n L$ when $L$ is homogeneous of order $n$ in $\partial/\partial x_1$
-  alone, and write $L^{*}$ explicitly for $L=\partial^3/\partial x_1^3$.
+  alone with a real coefficient, and write $L^{*}$ explicitly for $L=\partial^3/\partial x_1^3$.
 \item Verify the adjoint identity $(L\varphi,\psi)=(\varphi,L^{*}\psi)$ for
   $L=\partial^2/\partial x^2$ on $\R$ and $\varphi,\psi\in C_0^\infty(\R)$, by integrating by
   parts twice.
 \item For $u(x)=\abs x$ on $(-1,1)$, find the weak derivative and show it equals
-  $\operatorname{sign}(x)$, an absolutely continuous antiderivative argument.
-\item Show that the Cantor function (devil's staircase) $c(x)$ on $[0,1]$ has weak derivative
-  $0$ in the sense of distributions restricted to $\Ltwo$ \emph{fails} to recover $c$ ---
+  $\operatorname{sign}(x)$ by an absolutely continuous antiderivative argument.
+\item Show that the a.e.\ derivative $0$ of the Cantor function (devil's staircase) $c(x)$ on
+  $[0,1]$ is \emph{not} its weak derivative (indeed $c$ has no weak derivative in $\Ltwo$) ---
   i.e.\ $c$ is \emph{not} the absolutely continuous integral of its a.e.\ derivative $0$ ---
   and reconcile this with the weak-derivative characterization (the obstruction is the
   singular part). [State precisely why $c$ is continuous, nondecreasing, with $c'=0$ a.e.\
@@ -48059,21 +48081,23 @@ $U|_{\partial\Omega}=f$, then $u$ is harmonic in $\Omega$.
 \end{proposition}
 
 \begin{proof}
-With $\langle F,G\rangle=\int_\Omega(\partial_1F\,\partial_1G+\partial_2F\,\partial_2G)$
+With $\langle F,G\rangle=\int_\Omega(\partial_1F\,\overline{\partial_1G}+\partial_2F\,\overline{\partial_2G})$
 we have $D(u)=\langle u,u\rangle$. For any $v\in C^2$ with $v|_{\partial\Omega}=0$ and all
 $\eps$, $D(u+\eps v)\ge D(u)$ since $u+\eps v$ shares the boundary data. Expanding,
 $D(u+\eps v)=D(u)+\eps^2D(v)+\eps\langle u,v\rangle+\eps\langle v,u\rangle$, so
 $\eps^2D(v)+2\eps\Re\langle u,v\rangle\ge0$ for all real $\eps$, forcing
 $\Re\langle u,v\rangle=0$; the perturbation $u+i\eps v$ gives $\Im\langle u,v\rangle=0$.
 Thus $\langle u,v\rangle=0$, and integration by parts yields
-$0=\langle u,v\rangle=-\int_\Omega(\Delta u)v$ for all such $v$, hence $\Delta u=0$.
+$0=\langle u,v\rangle=-\int_\Omega(\Delta u)\bar v$ for all such $v$, hence $\Delta u=0$.
 \end{proof}
 
 \begin{remark}[Weierstrass's and Hadamard's objections]
 Two gaps undermined the naive argument. \emph{Weierstrass:} a minimizer need not exist.
 Minimizing $D(\varphi)=\int_{-1}^1\abs{x\varphi'(x)}^2\dx$ over $C^1$ with
-$\varphi(\pm1)=\pm1$ has infimum $0$ (take $\varphi_\eps$ that switches near $0$ over a
-window of width $\eps$, giving $D(\varphi_\eps)\le2\eps M^2\to0$), yet $D=0$ forces
+$\varphi(\pm1)=\pm1$ has infimum $0$ (take $\varphi_\eps$ that switches near $0$ over the
+window $[-\eps,\eps]$ of width $2\eps$ with $\abs{x\varphi_\eps'}\le M$ there, e.g.\
+$\varphi_\eps(x)=\sin(\pi x/2\eps)$ and $M=\pi/2$, giving $D(\varphi_\eps)\le2\eps M^2\to0$),
+yet $D=0$ forces
 $\varphi'\equiv0$, i.e.\ $\varphi$ constant, which cannot meet the boundary data --- no
 winner. \emph{Hadamard:} $D(u)$ can be infinite even when a harmonic solution exists, so
 the implied competition may have no qualified competitors at all.
@@ -48083,15 +48107,15 @@ the implied competition may have no qualified competitors at all.
 \begin{tikzpicture}[scale=1.0]
   \begin{axis}[width=9.6cm,height=5.2cm,axis lines=middle,xlabel={\footnotesize$x$},
     ylabel={\footnotesize$\varphi_\eps$},ticks=none,xmin=-1.35,xmax=1.35,ymin=-1.32,ymax=1.32,
-    clip=false,samples=2,xtick={-1,1},xticklabels={$-1$,$1$},
+    clip=false,samples=2,xmajorticks=true,xtick={-1,1},xticklabels={$-1$,$1$},
     every axis y label/.style={at={(0.5,1.0)},anchor=south east}]
-    \addplot[curve,black] coordinates {(-1.2,-1)(-0.18,-1)};
+    \addplot[curve,black] coordinates {(-1,-1)(-0.18,-1)};
     \addplot[curve,black,domain=-0.18:0.18,samples=60]{sin(deg(x/0.18*pi/2))};
-    \addplot[curve,black] coordinates {(0.18,1)(1.2,1)};
+    \addplot[curve,black] coordinates {(0.18,1)(1,1)};
     \draw[dashed,black!50] (axis cs:-0.18,-1.32)--(axis cs:-0.18,1.32);
     \draw[dashed,black!50] (axis cs:0.18,-1.32)--(axis cs:0.18,1.32);
-    \draw[{Stealth[length=1.4mm]}-{Stealth[length=1.4mm]}] (axis cs:-0.18,-0.62)--(axis cs:0.18,-0.62);
-    \node[font=\footnotesize,fill=white,inner sep=1pt] at (axis cs:0,-0.62){width $2\eps$};
+    \draw[{Stealth[length=1.4mm]}-{Stealth[length=1.4mm]}] (axis cs:-0.18,-1.16)--(axis cs:0.18,-1.16);
+    \node[font=\footnotesize,anchor=west] at (axis cs:0.2,-1.16){width $2\eps$};
   \end{axis}
 \end{tikzpicture}
 \captionof{figure}{Weierstrass's near-minimizers $\varphi_\eps$: energy
@@ -48139,16 +48163,16 @@ the boundary and using continuity, the max is also attained on $\partial\Omega$.
 \begin{tikzpicture}[scale=1.35,line cap=round]
   \draw[fill=black!6,line width=0.7pt] plot[smooth cycle,tension=0.8]
     coordinates {(-2,0.2)(-1.1,1.5)(0.9,1.6)(2.1,0.4)(1.3,-1.4)(-0.7,-1.3)};
-  \node[font=\footnotesize] at (1.6,1.15){$\Omega$};
+  \node[font=\footnotesize] at (1.35,1.0){$\Omega$};
   \draw[line width=1pt] (0,0) circle (0.85);
-  \node[font=\footnotesize,fill=white,inner sep=0.5pt] at (-0.5,0.55){$B$};
+  \node[font=\footnotesize] at (-0.4,0.4){$B$};
   \draw[-{Stealth[length=1.8mm]}] (0,0)--(35:0.85);
-  \node[font=\footnotesize,fill=white,inner sep=0.5pt] at (35:0.5)[above left=-2pt]{$r$};
+  \node[font=\footnotesize] at (35:0.45)[above left=1pt]{$r$};
   \node[pt] at (0,0){};
-  \node[font=\footnotesize,fill=white,inner sep=0.5pt] at (0,0)[below=1pt]{$x_0$};
+  \node[font=\footnotesize] at (0,0)[below=2pt]{$x_0$};
 \end{tikzpicture}
 \captionof{figure}{Mean-value property: $u(x_0)$ equals the average of $u$ over any
-ball $B\subset\Omega$ centered at $x_0$; this forces the maximum to the boundary.
+ball $B$ centered at $x_0$ with $\closure B\subset\Omega$; this forces the maximum to the boundary.
 (Schematic.)}
 \end{center}
 
@@ -48171,8 +48195,10 @@ cancel.
 
 \begin{proof}[Proof sketch of Theorem~\ref{t:mvp@c28}, harmonic $\Rightarrow$ MVP]
 Apply Lemma~\ref{l:green@c28} with $u$ harmonic and the test functions $v=1$, $v=\abs x^2$,
-and $v=\abs x^{2-d}$ ($d\ge3$, or $\log\abs x$ for $d=2$), together with cutoffs
-$\eta^+_\eps,\eta_\eps$ supported in shells near $\abs x=1$ and near the origin. With
+and $v=\abs x^{2-d}$ ($d\ge3$, or $\log\abs x$ for $d=2$), together with radial cutoffs
+$\eta^+_\eps\in C_0^\infty(B)$ (equal to $1$ for $\abs x\le1-\eps$) and $\eta_\eps$
+(Figure~\ref{fig:cutoff@c28}), whose gradients are supported in shells near $\abs x=1$ and
+near the origin. With
 $v=1$ ($\Delta v=0$) one gets $\int_B\nabla u\cdot\nabla\eta^+_\eps=0$; with
 $v=\abs x^2$ ($\Delta v=2d$) one extracts $d\int_B u=-\lim_\eps\int_B u(x\cdot\nabla\eta^+_\eps)$;
 with the fundamental solution $v$ (harmonic off $0$) the shell terms reproduce
@@ -48186,10 +48212,11 @@ the unit ball, and scaling/translating gives it for all balls.
   \begin{axis}[width=9.8cm,height=4.6cm,axis lines=middle,xlabel={\footnotesize$\abs x$},
     ylabel={\footnotesize$\eta_\eps$},ticks=none,xmin=0,xmax=1.18,ymin=-0.12,ymax=1.22,
     clip=false,samples=2,every axis y label/.style={at={(0.02,1.0)},anchor=south west}]
-    \addplot[curve,black,domain=0:0.18,samples=40]{0.5-0.5*cos(deg(x/0.18*pi))};
+    \addplot[curve,black] coordinates {(0,0)(0.09,0)};
+    \addplot[curve,black,domain=0.09:0.18,samples=40]{0.5-0.5*cos(deg((x-0.09)/0.09*pi))};
     \addplot[curve,black] coordinates {(0.18,1)(0.82,1)};
-    \addplot[curve,black,domain=0.82:1,samples=40]{0.5+0.5*cos(deg((x-0.82)/0.18*pi))};
-    \addplot[curve,black] coordinates {(1,0)(1.12,0)};
+    \addplot[curve,black,domain=0.82:0.91,samples=40]{0.5+0.5*cos(deg((x-0.82)/0.09*pi))};
+    \addplot[curve,black] coordinates {(0.91,0)(1.12,0)};
     \draw[dashed,black!50](axis cs:0.18,0)--(axis cs:0.18,1);
     \draw[dashed,black!50](axis cs:0.82,0)--(axis cs:0.82,1);
     \node[font=\footnotesize,fill=white,inner sep=1pt] at (axis cs:0.18,-0.09){$\eps$};
@@ -48198,8 +48225,8 @@ the unit ball, and scaling/translating gives it for all balls.
   \end{axis}
 \end{tikzpicture}
 \captionof{figure}{The radial cutoff $\eta_\eps$: it is $1$ on the shell
-$\eps\le\abs x\le1-\eps$, with $\abs{\nabla\eta_\eps}=O(1/\eps)$ near $\abs x=0$ and
-$\abs x=1$.}
+$\eps\le\abs x\le1-\eps$ and $0$ for $\abs x\le\eps/2$ and for $\abs x\ge1-\eps/2$, with
+$\abs{\nabla\eta_\eps}=O(1/\eps)$ near $\abs x=0$ and $\abs x=1$.}\label{fig:cutoff@c28}
 \end{center}
 
 \begin{corollary}\label{c:smooth-limit@c28}
@@ -48215,7 +48242,7 @@ it to $u$, so $u$ is harmonic by Theorem~\ref{t:mvp@c28}.
 
 \subsection*{Dirichlet's principle, rigorously}
 
-Equip $C^1(\closure\Omega)$ with $\langle u,v\rangle=\int_\Omega\nabla u\cdot\nabla v$,
+Equip $C^1(\closure\Omega)$ with $\langle u,v\rangle=\int_\Omega\nabla u\cdot\overline{\nabla v}$,
 norm $\norm u^2=\langle u,u\rangle$. Since $\norm u=0$ iff $u$ is constant on components,
 pass to equivalence classes modulo such constants: a pre-Hilbert space $H_0$ with
 completion $H$.
@@ -48281,7 +48308,8 @@ sequence $\{F_n\}$ of smooth functions on $\Rd$.
 \end{lemma}
 
 \begin{proof}
-First extend $f$ continuously to $\Rd$ (Tietze): using $g(x)=\frac{d(x,K_0)}{d(x,K_0)+d(x,K_1)}$
+First extend $f$ continuously to $\Rd$ (Tietze; it suffices to treat real $f$ with
+$0\le f\le1$): using $g(x)=\frac{d(x,K_0)}{d(x,K_0)+d(x,K_1)}$
 to separate disjoint compacts, build $G=\sum_n G_n$ with
 $0\le f-\sum_{k\le N}G_k\le(2/3)^N$ on $\Gamma$ and $0\le G_N\le\frac13(2/3)^{N-1}$, so
 $G$ is continuous with $G|_\Gamma=f$. Then regularize: $F_\eps=G*\varphi_\eps$ is smooth
@@ -48313,36 +48341,41 @@ then for $v\in C^1(\closure\Omega)$ with $v|_{\partial\Omega}=0$,
 \begin{tikzpicture}[scale=1.5,line cap=round]
   \draw[fill=black!6,line width=0.7pt] plot[smooth cycle,tension=0.75]
     coordinates {(-2.3,0.2)(-1.2,1.5)(1.0,1.6)(2.3,0.3)(1.2,-1.4)(-1.0,-1.2)};
-  \node[font=\footnotesize] at (1.8,1.15){$\Omega$};
-  % boundary point x at the lower boundary; triangle pokes OUTSIDE (downward)
-  \coordinate (x) at (-0.35,-1.27);
+  \node[font=\footnotesize] at (1.5,0.85){$\Omega$};
+  % boundary point x ON the lower boundary curve (the boundary point nearest to z);
+  % triangle pokes OUTSIDE (downward)
+  \coordinate (x) at (-0.35,-1.445);
   \fill[black!20,draw=black,line width=0.5pt]
     (x)--($(x)+(-118:1.05)$)--($(x)+(-62:1.05)$)--cycle;
-  \node[font=\footnotesize] at ($(x)+(-90:0.6)$){$T$};
+  \node[font=\footnotesize] at ($(x)+(-90:0.65)$){$T$};
   \node[pt] at (x){};
-  \node[font=\footnotesize,fill=white,inner sep=0.5pt] at (x)[above right=1pt]{$x$};
-  % interior point z, two concentric discs
-  \coordinate (z) at (-0.1,0.05);
-  \def\ra{0.42}\def\rb{0.85}
+  \node[font=\footnotesize] at ($(x)+(-0.18,-0.1)$){$x$};
+  % interior point z with delta=d(z,boundary)=|z-x|=0.6; discs of radii
+  % c1*delta=0.3 < delta < c2*delta=1.0 (so the dashed disc crosses the boundary)
+  \coordinate (z) at (-0.185,-0.868);
+  \def\ra{0.3}\def\rb{1.0}
   \draw[dashed,line width=0.7pt] (z) circle (\rb);
   \draw[line width=0.9pt] (z) circle (\ra);
   \node[pt] at (z){};
-  \node[font=\footnotesize,fill=white,inner sep=0.5pt] at (z)[above right=1pt]{$z$};
-  \node[font=\footnotesize,fill=white,inner sep=0.5pt] at ($(z)+(0,-\ra-0.16)$){$B_{c_1\delta}(z)$};
-  \node[font=\footnotesize,fill=white,inner sep=0.5pt] at ($(z)+(0.62,0.62)$){$B_{c_2\delta}(z)$};
-  % vertical chords from the small disc continuing down to the boundary
-  \foreach \xx in {-0.32,-0.1,0.12}{
+  \node[font=\footnotesize] at (z)[right=1pt]{$z$};
+  \node[font=\footnotesize,anchor=south] at ($(z)+(0,\ra+0.02)$){$B_{c_1\delta}(z)$};
+  \node[font=\footnotesize,anchor=south west] at ($(z)+(40:\rb)$){$B_{c_2\delta}(z)$};
+  % vertical chords from the small disc down to the boundary curve, inside the dashed disc
+  % (end heights = the boundary curve at x = -0.285, -0.135, 0.015)
+  \foreach \dx/\yb in {-0.1/-1.463,0.05/-1.499,0.2/-1.527}{
     \draw[-{Stealth[length=1.4mm]},black!75,line width=0.5pt]
-      (\xx,{0.05-\ra*sqrt(1-((\xx+0.1)/\ra)^2)+0.02}) -- (\xx,-1.18);}
+      ({-0.185+\dx},{-0.868-sqrt(\ra*\ra-(\dx)*(\dx))}) -- ({-0.185+\dx},\yb);}
 \end{tikzpicture}
 \captionof{figure}{The outside-triangle condition: at each boundary point $x$ a
-congruent triangle $T$ pokes outside $\Omega$, so vertical chords through
-$B_{c_1\delta}(z)$ (heavy disc) run down to $\partial\Omega$. (Schematic.)}
+congruent triangle $T$ pokes outside $\Omega$; here $x$ is the boundary point nearest $z$,
+so $\delta=\abs{z-x}$. Vertical chords through $B_{c_1\delta}(z)$ (heavy disc) run down to
+$\partial\Omega$ inside $B_{c_2\delta}(z)$ (dashed). (Schematic.)}
 \end{center}
 
 \begin{proof}[How the proposition yields the theorem]
 We may take $f=F|_{\partial\Omega}$ with $F\in C^1$. The minimizers $u_n=F-v_n$ converge
-to $u=F-v$ harmonic, and (32) holds for $v=F-u$. Fix $y\in\partial\Omega$ and let
+to $u=F-v$ harmonic, and the estimate of Proposition~\ref{p:local-poincare@c28} holds for
+$v=F-u$ (it holds for each $v_n$ and passes to the limit). Fix $y\in\partial\Omega$ and let
 $z\to y$ in $\Omega$, $\delta=d(z,\partial\Omega)\le\abs{z-y}\to0$. Comparing disc
 averages $\operatorname{Av}(F)(z)$ and $\operatorname{Av}(u)(z)$ over $B_{c_1\delta}(z)$,
 Cauchy--Schwarz and the proposition give
@@ -48356,7 +48389,7 @@ continuously, completing existence.
 \begin{remark}
 Polygonal, Lipschitz, or $C^1$ boundaries satisfy the outside-triangle condition; the
 punctured disc does \emph{not}, and indeed its Dirichlet problem is not solvable in
-general (Exercise~19). The condition is sufficient but not necessary.
+general (Exercise~1(b) below). The condition is sufficient but not necessary.
 \end{remark}
 
 \begin{wex}{Harmonicity of $\log\abs x$ in the plane}
@@ -48375,7 +48408,7 @@ only at $a=0$, consistent with the logarithm (not a power) being the fundamental
 \begin{wex}{Maximum principle bounds a solution}
 Suppose $u$ is harmonic in the unit disc, continuous on its closure, with
 $u(e^{i\theta})=\cos\theta$ on the boundary. Bound $\abs{u}$ inside and identify $u$.
-\wrec Recognition: the maximum principle bounds $\abs u$ by its boundary max; harmonic
+\wrec The maximum principle bounds $\abs u$ by its boundary max; harmonic
 extension of $\cos\theta$ is explicit.
 \wsol By Corollary~\ref{c:maxprinc@c28}, $\max_{\closure\Disc}\abs u=\max_\theta\abs{\cos\theta}=1$,
 so $\abs u\le1$ throughout. The harmonic function matching $\cos\theta=\Re(e^{i\theta})$ on
@@ -48398,15 +48431,17 @@ $L^2/\pi^2$ is the first Dirichlet eigenvalue's reciprocal.
 \end{wex}
 
 \begin{wex}{Hadamard's divergent Dirichlet integral}
-For $f_\alpha(\theta)=\sum_{n\ge0}2^{-n\alpha}e^{i2^n\theta}$ on the circle, the harmonic
+For $f_\alpha(\theta)=\sum_{n\ge0}2^{-n\alpha}e^{i2^n\theta}$ on the circle ($\alpha>0$, so
+the series converges uniformly and $f_\alpha$ is continuous), the harmonic
 extension is $u(r,\theta)=\sum_{n\ge0}r^{2^n}2^{-n\alpha}e^{i2^n\theta}$. Show $D(u)=\infty$
 for $\alpha\le1/2$.
-\wrec Recognition: compute $D(u)$ in polar coordinates via Parseval on each Fourier mode.
+\wrec Compute $D(u)$ in polar coordinates via Parseval on each Fourier mode.
 \wsol In polar form $\abs{\nabla u}^2=\abs{u_r}^2+r^{-2}\abs{u_\theta}^2$. Parseval on
-the $\theta$-integral leaves
-\[D_\rho=\int_0^\rho\sum_n 2^{2n+1}2^{-2n\alpha}r^{2^{n+1}-1}\dd r
-=\sum_n\rho^{2^{n+1}}2^n 2^{-2n\alpha}\]
-over the disc of radius $\rho$. As $\rho\to1$ the
+the $\theta$-integral leaves, for the Dirichlet integral $D_\rho$ over the disc of radius
+$\rho$,
+\[\frac{D_\rho}{2\pi}=\int_0^\rho\sum_n 2^{2n+1}2^{-2n\alpha}r^{2^{n+1}-1}\dd r
+=\sum_n\rho^{2^{n+1}}2^n 2^{-2n\alpha}.\]
+As $\rho\to1$ the
 $n$-th term tends to $2^{n(1-2\alpha)}$, whose sum diverges when $1-2\alpha\ge0$, i.e.\
 $\alpha\le1/2$. \emph{Check.} For $\alpha\le1/2$ the energy is infinite even though the
 Poisson integral $u$ solves the problem --- exactly Hadamard's point that competitors may
@@ -48416,10 +48451,10 @@ not qualify.
 \begin{wex}{A NON-solvable Dirichlet problem: the punctured disc}
 Explain why $\Delta u=0$ on $D^{*}=\set{0<\abs z<1}$ with $u=0$ on $\abs z=1$ and $u=1$ at
 the puncture has no solution, contrasting the outside-triangle condition.
-\wrec Recognition: a removable-singularity/maximum-principle obstruction; the domain fails
+\wrec A removable-singularity/maximum-principle obstruction; the domain fails
 the geometric hypothesis.
-\wsol If $u$ were harmonic on $D^{*}$, continuous up to $\set0$ with $u(0)=1$, then $u$ is
-bounded near $0$, hence (Exercise~19a) extends harmonically across $0$ to the full disc.
+\wsol If $u$ were harmonic on $D^{*}$, continuous up to $\set0$ with $u(0)=1$, then, being
+continuous at $0$, $u$ is harmonic on the full disc (Exercise~1(a) below).
 But then $u$ is harmonic on $\Disc$, $=0$ on $\partial\Disc$, so by the maximum principle
 $u\equiv0$, contradicting $u(0)=1$. So no solution exists. \emph{Check.} The isolated
 boundary point $0$ admits no exterior triangle (the complement is just a point), so
@@ -48436,14 +48471,14 @@ Theorem~\ref{t:outside-tri@c28} does not apply --- and indeed solvability fails.
       {x*x-y*y};
   \end{axis}
 \end{tikzpicture}
-\captionof{figure}{The harmonic saddle $u=x_1^2-x_2^2=\Re(z^2)$: $\Delta u=0$, so it
-equals its average on every disc; no interior strict max or min.}
+\captionof{figure}{The harmonic saddle $u=x_1^2-x_2^2=\Re(z^2)$: $\Delta u=0$, so its value
+at the center of every disc equals its average over the disc; no interior strict max or min.}
 \end{center}
 
 \begin{wex}{Mean-value property on a concrete harmonic function}
 Verify the mean-value property for $u(x_1,x_2)=x_1 x_2$ on a disc of radius $r$ centered at
 $(a,b)$.
-\wrec Recognition: $u=\Im(z^2)/2$ is harmonic; check $u(\text{center})$ equals the disc
+\wrec $u=\Im(z^2)/2$ is harmonic; check $u(\text{center})$ equals the disc
 average directly.
 \wsol $\Delta(x_1x_2)=0$, so $u$ is harmonic. The average over $B_r(a,b)$ is
 $\frac1{\pi r^2}\int_{B_r}(a+s_1)(b+s_2)\,\dd s$ where $s=(s_1,s_2)$ ranges over the disc of
@@ -48456,33 +48491,35 @@ cross-term integral vanishing is the geometric reason.
 
 \begin{center}
 \begin{tikzpicture}[scale=1.5,line cap=round]
-  % triangle T with vertex at origin, opening up-right; its two sides bound a wedge
-  \fill[black!8] (0,0)--(3.4,1.55)--(3.4,-0.1)--cycle;
-  \draw[line width=0.8pt] (0,0)--(3.4,1.55);
-  \draw[line width=0.8pt] (0,0)--(3.4,-0.1);
+  % isosceles triangle T with vertex at the origin, legs of length 3.5 in the directions
+  % 0 and 26 degrees (opening up-right); T lies outside Omega
+  \fill[black!8] (0,0)--(26:3.5)--(3.5,0)--cycle;
+  \draw[line width=0.8pt] (0,0)--(26:3.5);
+  \draw[line width=0.8pt] (0,0)--(3.5,0);
   \node[opt] at (0,0){};
-  \node[font=\footnotesize,fill=white,inner sep=0.5pt] at (0,0)[left=2pt]{$0$ (vertex)};
-  \node[font=\footnotesize] at (2.0,0.55){$T$};
-  \node[font=\footnotesize] at (3.4,1.55)[above right=-1pt]{upper side of $T$};
-  % interior point z with the small disc B_{c1 delta}
-  \coordinate (z) at (1.7,1.05);
-  \def\ra{0.4}
+  \node[font=\footnotesize] at (0,0)[left=2pt]{$0$ (vertex)};
+  \node[font=\footnotesize] at (2.75,0.55){$T$};
+  \node[font=\footnotesize] at (26:3.5)[above right=-1pt]{upper side of $T$};
+  % point z of Omega above T; the disc B_{c1 delta}(z) lies in Omega, clear of T
+  % (distance from z to the upper side = 0.60 > radius 0.3)
+  \coordinate (z) at (1.7,1.5);
+  \def\ra{0.3}
   \draw[fill=black!16,line width=0.85pt] (z) circle (\ra);
   \node[pt] at (z){};
-  \node[font=\footnotesize,fill=white,inner sep=0.5pt] at (z)[above right=1pt]{$z$};
-  \node[font=\footnotesize,fill=white,inner sep=0.5pt] at ($(z)+(0.18,\ra+0.2)$){$B_{c_1\delta}(z)$};
+  \node[font=\footnotesize] at (z)[right=1pt]{$z$};
+  \node[font=\footnotesize,anchor=south] at ($(z)+(0,\ra+0.12)$){$B_{c_1\delta}(z)$};
   % rectangle R spanning the disc horizontally, reaching down to the lower side of T
-  \def\xl{1.3}\def\xr{2.1}
-  \draw[dashed,line width=0.7pt] (\xl,1.45) rectangle (\xr,0.022);
-  \node[font=\footnotesize,fill=white,inner sep=0.5pt] at (\xl,1.45)[left=1pt]{$R$};
-  % vertical chords through the disc continuing down to the lower side of T
-  \foreach \xx in {1.45,1.7,1.95}{
+  \def\xl{1.35}\def\xr{2.05}
+  \draw[dashed,line width=0.7pt] (\xl,{1.5+\ra+0.05}) rectangle (\xr,0);
+  \node[font=\footnotesize] at (\xl,{1.5+\ra+0.05})[left=1pt]{$R$};
+  % vertical chords through the disc, crossing T down to its lower side
+  \foreach \xx in {1.5,1.7,1.9}{
     \draw[-{Stealth[length=1.4mm]},black!75,line width=0.5pt]
-      (\xx,{1.05-\ra*sqrt(1-((\xx-1.7)/\ra)^2)+0.02}) -- (\xx,{(-0.1/3.4)*\xx+0.03});}
+      (\xx,{1.5-sqrt(\ra*\ra-(\xx-1.7)*(\xx-1.7))}) -- (\xx,0);}
 \end{tikzpicture}
 \captionof{figure}{Placing the rectangle $R$ (Proposition~\ref{p:local-poincare@c28}):
-vertical chords through $B_{c_1\delta}(z)$ continue down to meet the lower side of $T$,
-hence $\partial\Omega$. (Schematic.)}
+vertical chords through $B_{c_1\delta}(z)$ (which lies in $\Omega$, clear of $T$) run down
+through $T$ to its lower side, hence meet $\partial\Omega$ inside $R$. (Schematic.)}
 \end{center}
 
 \begin{exers}{Exercises (Stein, Ch.5).}
@@ -48512,7 +48549,7 @@ hence $\partial\Omega$. (Schematic.)}
   the Dirichlet problem is solvable: there is a conformal map $\Phi$ of $\Disc$ onto $\Omega$
   extending to a continuous bijection $\closure\Disc\to\closure\Omega$.
 \item Consider the two plane domains with a cusp: Domain~I has a smooth boundary except for
-  an inside cusp; Domain~II is similar but with an outside cusp. Both fall within Problem~3,
+  an inside cusp; Domain~II is similar but with an outside cusp. Both fall within Problem~2,
   so the Dirichlet problem is solvable in each. However, II satisfies the outside-triangle
   condition while I does not.
 \end{exers}
@@ -48528,7 +48565,7 @@ hence $\partial\Omega$. (Schematic.)}
   $v(x)=x(1-x)$ on $(0,1)$ (which vanishes at both endpoints) and compare to the diameter
   bound $c_\Omega\le1$.
 \item Compute the Dirichlet integral $D(u)$ of the harmonic $u(r,\theta)=r^n\cos n\theta$
-  over the disc of radius $\rho<1$ and show it is finite, contrasting Hadamard's divergent
+  over the disc of radius $\rho<1$ and show it stays bounded as $\rho\to1$, contrasting Hadamard's divergent
   example.
 \item Show that a polygonal domain satisfies the outside-triangle condition, while the slit
   disc $\Disc\setminus[0,1)$ requires care; state which boundary points are problematic.
