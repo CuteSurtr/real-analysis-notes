@@ -13311,9 +13311,9 @@ $\imp$ pointwise, never the reverse.
   \begin{scope}[shift={(7,0)}]
     \draw[numln] (0,0)--(4.4,0) node[right]{\footnotesize $x$};
     \draw[numln] (0,0)--(0,2.7) node[above]{\footnotesize $y$};
-    % band of width 2eps around f
-    \fill[band] plot[smooth] coordinates {(0,0.5)(1.5,0.7)(2.5,2.0)(4,2.4)}
-      -- plot[smooth] coordinates {(4,1.9)(2.5,1.5)(1.5,0.2)(0,0.0)} -- cycle;
+    % band of width 2eps around f: the curve f shifted up and down by eps=0.25
+    \fill[band] (0,0.5) .. controls (1.5,0.7) and (2.5,2.0) .. (4,2.4)
+      -- (4,1.9) .. controls (2.5,1.5) and (1.5,0.2) .. (0,0.0) -- cycle;
     \draw[curve] (0,0.25) .. controls (1.5,0.45) and (2.5,1.75) .. (4,2.15)
       node[right=-1pt]{\footnotesize $f$};
     \draw[curve,densely dashed] (0,0.35) .. controls (1.5,0.4) and (2.5,1.85) .. (4,2.05);
@@ -13321,8 +13321,8 @@ $\imp$ pointwise, never the reverse.
       graph of $f_n$ lies in the\\ $\eps$-tube about $f$};
   \end{scope}
 \end{tikzpicture}
-\captionof{figure}{Uniform convergence means the graph of $f_n$ eventually fits inside an
-$\eps$-thick tube wrapped around the graph of $f$.}
+\captionof{figure}{Uniform convergence means the graph of $f_n$ eventually fits inside the
+tube of vertical radius $\eps$ wrapped around the graph of $f$.}
 \end{center}
 
 \subsection*{The sup-norm and the $M_n$ test}
@@ -13396,10 +13396,10 @@ $f_n(x_n)=\tfrac12$, frozen away from $f(x_n)=0$. \checkmark
    xtick={0,0.5,1},ytick={0,0.5,1},samples=80,domain=0:1,
    legend style={font=\tiny,at={(0.03,0.97)},anchor=north west,draw=none}]
   \addplot[curve,domain=0:1]{x^1};   \addlegendentry{$n=1$}
-  \addplot[curve,domain=0:1]{x^2};   \addlegendentry{$n=2$}
-  \addplot[curve,domain=0:1]{x^5};   \addlegendentry{$n=5$}
-  \addplot[curve,domain=0:1]{x^15};  \addlegendentry{$n=15$}
-  \addplot[curve,domain=0:1]{x^50};  \addlegendentry{$n=50$}
+  \addplot[curve,dashed,domain=0:1]{x^2};   \addlegendentry{$n=2$}
+  \addplot[curve,dotted,domain=0:1]{x^5};   \addlegendentry{$n=5$}
+  \addplot[curve,dashdotted,domain=0:1]{x^15};  \addlegendentry{$n=15$}
+  \addplot[curve,black!45,domain=0:1]{x^50};  \addlegendentry{$n=50$}
   \addplot[only marks,mark=*,mark size=1.6pt] coordinates {(1,1)};
   \addplot[only marks,mark=o,mark size=1.6pt] coordinates {(1,0)};
 \end{axis}
@@ -13410,13 +13410,14 @@ never flattens, so $M_n=1$ for all $n$.}
 \end{center}
 
 \begin{wex}{A moving bump: the integral is lost}
-Let $f_n(x)=n^2x$ on $[0,\tfrac1n]$, $f_n(x)=n^2(\tfrac2n-x)$ on $[\tfrac1n,\tfrac2n]$, and
-$f_n(x)=0$ on $[\tfrac2n,1]$ (a triangular spike of height $n$ over $[0,2/n]$; B\&S 8.2.1(c)).
+For $n\ge2$ let $f_n(x)=n^2x$ on $[0,\tfrac1n]$, $f_n(x)=n^2(\tfrac2n-x)$ on
+$[\tfrac1n,\tfrac2n]$, and $f_n(x)=0$ on $[\tfrac2n,1]$ (a triangular spike of height $n$ over
+$[0,2/n]$; B\&S 8.2.1(c)).
 \wrec Sequence with a parameter-driven spike; compare $\lim\int$ with $\int\lim$.
-\wsol For each fixed $x\in[0,1]$: once $n>2/x$ the spike has slid left of $x$, so
-$f_n(x)=0$; hence $f_n(x)\to0$ pointwise and the limit is $f\equiv0$. But each spike is a
-triangle of base $2/n$ and height $n$, so $\int_0^1 f_n=\tfrac12\cdot\tfrac2n\cdot n=1$ for
-all $n$. Therefore
+\wsol We have $f_n(0)=0$ for all $n$. For each fixed $x\in(0,1]$: once $n>2/x$ the spike has
+slid left of $x$, so $f_n(x)=0$; hence $f_n(x)\to0$ pointwise and the limit is $f\equiv0$.
+But each spike is a triangle of base $2/n$ and height $n$, so
+$\int_0^1 f_n=\tfrac12\cdot\tfrac2n\cdot n=1$ for all $n\ge2$. Therefore
 \[
   \lim_{n\to\infty}\int_0^1 f_n = 1 \;\neq\; 0 = \int_0^1\Bigl(\lim_n f_n\Bigr).
 \]
@@ -13431,9 +13432,9 @@ base shrinks. \checkmark
    axis lines=left,xlabel={\footnotesize $x$},ylabel={\footnotesize $y$},
    xtick={0,0.5,1},ytick={1,2,3,4},
    legend style={font=\tiny,at={(0.97,0.97)},anchor=north east,draw=none}]
-  \addplot[curve] coordinates {(0,0)(0.5,1)(1.0,0)};       \addlegendentry{$n=1$}
-  \addplot[curve] coordinates {(0,0)(0.25,2)(0.5,0)(1,0)}; \addlegendentry{$n=2$}
-  \addplot[curve] coordinates {(0,0)(0.125,4)(0.25,0)(1,0)}; \addlegendentry{$n=4$}
+  \addplot[curve] coordinates {(0,0)(0.5,2)(1,0)};                  \addlegendentry{$n=2$}
+  \addplot[curve,dashed] coordinates {(0,0)(0.33333,3)(0.66667,0)(1,0)}; \addlegendentry{$n=3$}
+  \addplot[curve,dotted] coordinates {(0,0)(0.25,4)(0.5,0)(1,0)};   \addlegendentry{$n=4$}
 \end{axis}
 \end{tikzpicture}
 \captionof{figure}{Moving bump $f_n$. Each triangle has area $1$, yet $f_n(x)\to0$ at every fixed
@@ -13536,9 +13537,9 @@ $0$, so $s(0)=0$. Thus
 \]
 which is \emph{discontinuous} at $0$. Each partial sum $s_N$ is continuous (a finite sum of
 continuous terms), so by the contrapositive of Theorem~\ref{t:unif-cont@c8} the convergence
-\emph{cannot} be uniform on any set containing $0$. \emph{Check.} The partial-sum remainder
-at small $x$ is $\frac{x^2}{(1+x^2)^{N+1}}\cdot\frac{1+x^2}{x^2}=(1+x^2)^{-N}$ times
-$1+x^2$; near $x=0$ this stays close to $1$ for every fixed $N$, so $\norm{s-s_N}\ge1
+\emph{cannot} be uniform on any interval containing $0$. \emph{Check.} The partial-sum remainder
+at small $x\neq0$ is $\frac{x^2}{(1+x^2)^{N+1}}\cdot\frac{1+x^2}{x^2}=(1+x^2)^{-N}$;
+near $x=0$ this stays close to $1$ for every fixed $N$, so $\norm{s-s_N}\ge1
 \not\to0$. \checkmark
 \end{wex}
 
@@ -13596,7 +13597,8 @@ $1+x^2$; near $x=0$ this stays close to $1$ for every fixed $N$, so $\norm{s-s_N
 \item Assume $\seq{f_n}$ is a sequence of monotonically increasing functions on $\R$ with
   $0\le f_n(x)\le1$ for all $x,n$. (a) Prove there is a function $f$ and a subsequence
   $\seq{f_{n_k}}$ with $f(x)=\lim_k f_{n_k}(x)$ for every $x\in\R$ (Helly's selection
-  theorem). (b) If, moreover, $f$ is continuous, prove $f_{n_k}\to f$ uniformly on $\R$.
+  theorem). (b) If, moreover, $f$ is continuous, prove $f_{n_k}\to f$ uniformly on compact
+  subsets of $\R$.
 \item Let $f$ be a continuous real function on $\R$ with $0\le f(t)\le1$, $f(t+2)=f(t)$ for
   every $t$, and $f(t)=0$ for $0\le t\le\tfrac13$, $f(t)=1$ for $\tfrac23\le t\le1$. Put
   $\Phi(t)=(x(t),y(t))$ where $x(t)=\sum_{n=1}^\infty 2^{-n}f(3^{2n-1}t)$ and
@@ -13627,8 +13629,8 @@ $1+x^2$; near $x=0$ this stays close to $1$ for every fixed $N$, so $\norm{s-s_N
   $f\in\mathscr{A}$, $\int_0^{2\pi} f(e^{i\theta})e^{i\theta}\,\dd\theta=0$, and this persists
   in the closure.)
 \item Assume $f\in\mathscr{R}(\alpha)$ on $[a,b]$, and prove that there are polynomials $P_n$
-  with $\displaystyle\lim_{n\to\infty}\int_a^b\abs{f-P_n}^2\,\dd\alpha=0$. (Compare Exercise
-  12 of Chapter 6.)
+  with $\displaystyle\lim_{n\to\infty}\int_a^b\abs{f-P_n}^2\,\dd\alpha=0$. (Compare Rudin
+  Exercise 6.12.)
 \item Put $P_0=0$ and define, for $n=0,1,2,\dots$,
   $P_{n+1}(x)=P_n(x)+\tfrac12\bigl(x^2-P_n(x)^2\bigr)$. Prove that $\lim_n P_n(x)=\abs x$
   uniformly on $[-1,1]$. (This permits a proof of Stone--Weierstrass without first proving
@@ -13788,7 +13790,7 @@ and the two are equal:
 By the Cauchy criterion (Thm.~\ref{t:cauchy-unif@c8}) and $\abs{A_m-A_n}\le\norm{f_m-f_n}_E$
 (let $x\to x_0$ inside $\abs{f_m(x)-f_n(x)}\le\norm{f_m-f_n}_E$), $\seq{A_n}$ is Cauchy, so
 $A_n\to A$ for some $A$. Fix $\eps>0$. Choose $n$ so large that $\norm{f_n-f}_E<\eps/3$ and
-$\abs{A_n-A}<\eps/3$. With $n$ fixed, choose a neighborhood of $x_0$ on which
+$\abs{A_n-A}<\eps/3$. With $n$ fixed, choose a punctured neighborhood of $x_0$ on which
 $\abs{f_n(x)-A_n}<\eps/3$. For $x$ in that neighborhood (and in $E$),
 \[
   \abs{f(x)-A}\le\abs{f(x)-f_n(x)}+\abs{f_n(x)-A_n}+\abs{A_n-A}<\eps .
@@ -13800,13 +13802,13 @@ Theorem~\ref{t:unif-cont@c8} is the special case $A_n=f_n(x_0)$ (continuity of e
 equality becomes $\lim_{x\to x_0}f(x)=f(x_0)$, i.e.\ $f$ is continuous at $x_0$.
 
 \begin{wex}{Limits that refuse to commute}
-Let $f_n(x)=\dfrac{1}{1+(x-n)^2}$ on $\R$... instead consider the cleaner double sequence
-$a_{m,n}=\dfrac{m}{m+n}$.
+Consider the double sequence $a_{m,n}=\dfrac{m}{m+n}$ ($m,n\in\N$).
 \wrec ``Do these iterated limits agree?'' --- check whether convergence in one index is
 uniform in the other.
 \wsol $\lim_{n}\lim_{m}a_{m,n}=\lim_n 1=1$, while $\lim_{m}\lim_{n}a_{m,n}=\lim_m 0=0$. The
 two iterated limits differ. The obstruction is exactly that $a_{m,n}\to0$ in $n$ is
-\emph{not} uniform in $m$: at $n$ fixed and $m=n$, $a_{n,n}=\tfrac12\not\to0$. Uniform
+\emph{not} uniform in $m$: for every $n$ the choice $m=n$ gives $a_{n,n}=\tfrac12$, so
+$\sup_m a_{m,n}\ge\tfrac12\not\to0$. Uniform
 convergence is precisely what Theorem~\ref{t:interchange@c8} needs to forbid this. \emph{Check.}
 On the diagonal $a_{n,n}=\tfrac12$, wedged between the two limits $0$ and $1$. \checkmark
 \end{wex}
@@ -13871,11 +13873,13 @@ convergence.
 \end{proof}
 
 \begin{pitfall}
-All three hypotheses of Dini are essential. Drop \emph{compactness}: $f_n(x)=x/n$ decreases
-to $0$ on $[0,\infty)$ but $\norm{f_n}=\infty$. Drop \emph{continuity of the limit}:
+All four hypotheses of Dini are essential. Drop \emph{compactness}: $f_n(x)=x/n$ decreases
+to $0$ on $[0,\infty)$ but $\norm{f_n}=\infty$. Drop \emph{continuity of the $f_n$}: $f_n=1$
+on $(0,\tfrac1n)$ and $f_n=0$ elsewhere on $[0,1]$ decreases to the continuous limit $0$, not
+uniformly. Drop \emph{continuity of the limit}:
 $f_n(x)=x^n$ decreases on $[0,1]$ to the discontinuous step, not uniformly. Drop
 \emph{monotonicity}: the moving bump of \S1 converges pointwise to a continuous limit on
-the compact $[0,1]$, but not uniformly. Dini buys uniformity only when all three hold.
+the compact $[0,1]$, but not uniformly. Dini buys uniformity only when all four hold.
 \end{pitfall}
 
 \subsection*{Further worked examples}
@@ -13891,13 +13895,14 @@ monotonically to $0$. The set $[0,a]$ is compact, so Dini (Thm.~\ref{t:dini@c8})
 convergence. Directly: $M_n=\sup_{[0,a]}x^n=a^n\to0$, confirming it. On $[0,1]$ the limit is
 the discontinuous step, so the \emph{continuity-of-limit} hypothesis fails and Dini does not
 apply --- and indeed $M_n=1\not\to0$ there. \emph{Check.} The only thing that changed from
-\S1's failure is shaving off the point $x=1$ where the limit jumps; that restores both Dini's
-hypothesis and uniformity. \checkmark
+\S1's failure is shaving off a neighborhood $(a,1]$ of the point $x=1$ where the limit jumps;
+that restores both Dini's hypothesis and uniformity. \checkmark
 \end{wex}
 
 \begin{wex}{The interchange theorem evaluating an iterated limit}
-Use uniform convergence to compute $\displaystyle\lim_{x\to0^+}\ \lim_{n\to\infty}
-\frac{n x}{n x+1}$ and confirm the order of limits may be swapped here.
+Let $f_n(x)=\dfrac{nx}{nx+1}$ for $x\ge0$. Compute
+$\displaystyle\lim_{x\to0^+}\ \lim_{n\to\infty}f_n(x)$ and use uniform convergence to decide
+where the order of the two limits may be swapped.
 \wrec Two nested limits; check uniform convergence in $n$ to license
 Theorem~\ref{t:interchange@c8}.
 \wsol Inner limit: for fixed $x>0$, $\frac{nx}{nx+1}\to1$; at $x=0$ it is $0$. So the inner
@@ -13910,12 +13915,12 @@ indeed the convergence in $n$ is not uniform near $0$ ($M_n=\sup_{x>0}|1-\frac{n
 \frac{n\delta}{n\delta+1}$ and the interchange theorem gives
 $\lim_{x\to\delta^+}\lim_n f_n=\lim_n A_n=1$, a legitimate swap. \emph{Check.} The swap is
 valid exactly where convergence is uniform ($x$ bounded away from $0$) and fails exactly
-where it is not ($x\to0^+$), precisely as Theorem~\ref{t:interchange@c8} predicts. \checkmark
+where it is not ($x\to0^+$), consistent with Theorem~\ref{t:interchange@c8}. \checkmark
 \end{wex}
 
 \begin{wex}{A uniform limit that is continuous but not differentiable}
 Let $f_n(x)=\sqrt{x^2+\tfrac1n}$ on $[-1,1]$. Find the uniform limit and observe what
-continuity does (and does not) survive.
+regularity does (and does not) survive.
 \wrec Explicit sequence converging uniformly; apply Thm.~\ref{t:unif-cont@c8} and note its
 limits.
 \wsol Pointwise, $f_n(x)\to\sqrt{x^2}=\abs x=:f(x)$. The gap is
@@ -13995,8 +14000,8 @@ into ``has a continuous limit''. \checkmark
   of continuous functions converging to a continuous limit, but the convergence is not
   uniform on $[0,\infty)$.
 \item Give an example of a decreasing sequence $\seq{f_n}$ of continuous functions on
-  $[0,\infty)$ that converges to a continuous limit, but the convergence is not uniform on
-  $[0,\infty)$.
+  $[0,1)$ that converges to a continuous limit, but the convergence is not uniform on
+  $[0,1)$.
 \end{exers}
 
 \begin{exers}{Additional exercises.}
@@ -14008,7 +14013,7 @@ into ``has a continuous limit''. \checkmark
 \item (Interchange of limits.) For $a_{m,n}=\dfrac{n}{m+n}$ compute both iterated limits and
   reconcile the disagreement with the failure of uniform convergence.
 \item Prove that the uniform limit of a sequence of functions, each bounded by its own
-  constant $M_n$ with $\sup_n M_n<\infty$, is bounded. Where does the argument use
+  constant $M_n$ (the $M_n$ may be unbounded in $n$), is bounded. Where does the argument use
   uniformity?
 \item (Non-example for Dini.) Exhibit a monotone-in-$n$, pointwise-convergent sequence of
   continuous functions on the \emph{non-compact} $[0,\infty)$ whose limit is continuous but
@@ -14032,7 +14037,7 @@ Recall the moving bump showed $\lim\int f_n\neq\int\lim f_n$ under mere pointwis
 convergence. Uniform convergence forbids exactly this.
 
 \begin{theorem}[Term-by-term integration; Rudin 7.16, B\&S 8.2.4]\label{t:integrate@c8}
-Let $f_n$ be Riemann (or Riemann--Stieltjes, w.r.t.\ a monotone $\alpha$) integrable on
+Let $f_n$ be Riemann (or Riemann--Stieltjes, w.r.t.\ a monotonically increasing $\alpha$) integrable on
 $[a,b]$ and suppose $f_n\to f$ uniformly on $[a,b]$. Then $f$ is integrable and
 \[
   \int_a^b f\,\dd\alpha \;=\; \lim_{n\to\infty}\int_a^b f_n\,\dd\alpha .
@@ -14057,7 +14062,7 @@ integrable and $\int_a^b s=\sum_{k=1}^\infty\int_a^b g_k$.
 \end{corollary}
 
 \begin{remark}
-The hypothesis is sufficient but stators away from optimal. B\&S record the \emph{Bounded
+The hypothesis is sufficient but far from optimal. B\&S record the \emph{Bounded
 Convergence Theorem}: if $f_n\to f$ pointwise with all $f_n,f\in\mathscr{R}[a,b]$ and a single
 bound $\abs{f_n}\le B$, then $\int f_n\to\int f$ even without uniformity. Rudin notes the same
 phenomenon (Exercise 7.12) and points to the Lebesgue dominated convergence theorem as the
@@ -14097,7 +14102,7 @@ First, $\seq{f_n}$ is uniformly Cauchy. By the Mean Value Theorem applied to $f_
 any $x,t\in[a,b]$ there is $\xi$ between them with
 $(f_m-f_n)(x)-(f_m-f_n)(t)=(x-t)(f_m'-f_n')(\xi)$, so
 \[
-  \abs{(f_m-f_n)(x)-(f_m-f_n)(t)}\le(b-a)\,\norm{f_m'-f_n'}_{[a,b]}.
+  \abs{(f_m-f_n)(x)-(f_m-f_n)(t)}\le\abs{x-t}\,\norm{f_m'-f_n'}_{[a,b]}\le(b-a)\,\norm{f_m'-f_n'}_{[a,b]}.
 \]
 Taking $t=x_0$ and using $\abs{f_m(x)-f_n(x)}\le\abs{f_m(x_0)-f_n(x_0)}+(b-a)\norm{f_m'-f_n'}$,
 both terms are small for large $m,n$ (the first because $\seq{f_n(x_0)}$ converges, the second
@@ -14106,7 +14111,7 @@ $f_n\to f$ uniformly for some $f$.
 
 Now fix $c\in[a,b]$ and define, for $x\neq c$,
 $\varphi_n(x)=\dfrac{f_n(x)-f_n(c)}{x-c}$ and $\varphi(x)=\dfrac{f(x)-f(c)}{x-c}$. The
-displayed MVT bound gives $\abs{\varphi_m(x)-\varphi_n(x)}\le\norm{f_m'-f_n'}_{[a,b]}$, so
+displayed MVT bound (with $t=c$) gives $\abs{\varphi_m(x)-\varphi_n(x)}\le\norm{f_m'-f_n'}_{[a,b]}$, so
 $\seq{\varphi_n}$ is uniformly Cauchy on the punctured interval and $\varphi_n\to\varphi$
 uniformly there. Each $\lim_{x\to c}\varphi_n(x)=f_n'(c)$ exists; by the interchange theorem
 (Thm.~\ref{t:interchange@c8}),
@@ -14170,8 +14175,8 @@ $\gamma_n=0$. For $n=m$: by the no-integer-between choice, $\varphi$ is affine w
 $\pm1$ across $[4^m x,4^m(x+\delta_m)]$, so $\abs{\gamma_m}=4^m$. For $n<m$: the
 $1$-Lipschitz bound gives $\abs{\gamma_n}\le 4^n$. Now
 \[
-  \abs[\bigg]{\frac{f(x+\delta_m)-f(x)}{\delta_m}}
-  =\abs[\bigg]{\sum_{n=0}^{m}\Bigl(\tfrac34\Bigr)^n\gamma_n}
+  \biggl|\frac{f(x+\delta_m)-f(x)}{\delta_m}\biggr|
+  =\biggl|\sum_{n=0}^{m}\Bigl(\tfrac34\Bigr)^n\gamma_n\biggr|
   \ \ge\ 3^m-\sum_{n=0}^{m-1}3^n
   = 3^m-\frac{3^m-1}{2}=\frac{3^m+1}{2}.
 \]
@@ -14182,24 +14187,18 @@ bounded). Since $x$ was arbitrary, $f$ is nowhere differentiable.
 
 \begin{center}
 \begin{tikzpicture}
-\begin{axis}[width=11.6cm,height=5.2cm,xmin=0,xmax=1,ymin=0,ymax=2.1,
+\begin{axis}[width=11.6cm,height=5.2cm,xmin=0,xmax=1,ymin=0,ymax=2.4,
    axis lines=left,xlabel={\footnotesize $x$},ylabel={\footnotesize partial sums of $f$},
    xtick={0,0.25,0.5,0.75,1},ytick={0,0.5,1,1.5,2},
    legend style={font=\tiny,at={(0.5,1.02)},anchor=south,legend columns=3,draw=none},
-   samples=801,domain=0:1]
-  % sawtooth phi via triangle wave: phi(t)=|t - 2*round(t/2)| ... use abs of asin(sin)
-  \addplot[curve]
-    {(0.75)^0*( (2/pi)*abs(asin(sin(deg(pi*(4^0*x)))))*(180/180) )};
+   samples=1025,domain=0:1,
+   declare function={sawt(\t)=abs(\t-2*round(\t/2));}]
+  % sawtooth phi(t)=|t - 2*round(t/2)| = distance from t to the nearest even integer
+  \addplot[curve,densely dotted] {sawt(x)};
   \addlegendentry{$S_0$}
-  \addplot[curve]
-    {(0.75)^0*( (2/pi)*abs(asin(sin(deg(pi*(4^0*x))))) )
-    +(0.75)^1*( (2/pi)*abs(asin(sin(deg(pi*(4^1*x))))) )};
+  \addplot[curve,dashed] {sawt(x)+0.75*sawt(4*x)};
   \addlegendentry{$S_1$}
-  \addplot[curve]
-    {(0.75)^0*( (2/pi)*abs(asin(sin(deg(pi*(4^0*x))))) )
-    +(0.75)^1*( (2/pi)*abs(asin(sin(deg(pi*(4^1*x))))) )
-    +(0.75)^2*( (2/pi)*abs(asin(sin(deg(pi*(4^2*x))))) )
-    +(0.75)^3*( (2/pi)*abs(asin(sin(deg(pi*(4^3*x))))) )};
+  \addplot[curve] {sawt(x)+0.75*sawt(4*x)+0.5625*sawt(16*x)+0.421875*sawt(64*x)};
   \addlegendentry{$S_3$}
 \end{axis}
 \end{tikzpicture}
@@ -14210,7 +14209,7 @@ every point (so no derivative survives).}
 \end{center}
 
 \begin{remark}
-Weierstrass's original example (B\&S 6.1) is $\sum 2^{-k}\cos(3^k x)$, of the same flavor:
+A Weierstrass-type example (B\&S 6.1) is $\sum 2^{-k}\cos(3^k x)$, of the same flavor:
 geometric decay of amplitude ($2^{-k}$) against geometric growth of frequency ($3^k$), with
 the frequency winning fast enough to destroy differentiability while the amplitude decays
 fast enough to preserve continuity. Such functions are now known to be the ``typical''
@@ -14231,8 +14230,8 @@ $u=1-x^2$, $\dd u=-2x\,\dd x$:
   \int_0^1 n x(1-x^2)^n\,\dd x=\frac n2\int_0^1 u^n\,\dd u=\frac{n}{2(n+1)}\to\frac12 .
 \]
 So $\lim_n\int_0^1 f_n=\tfrac12\neq 0=\int_0^1\lim_n f_n$. The hypothesis of
-Theorem~\ref{t:integrate@c8} fails: the peak of $f_n$ is at $x_n$ with $1-x_n^2=\frac{1}{n+1}$,
-height $f_n(x_n)\approx\frac{n}{\sqrt{n+1}}\cdot e^{-1}\to\infty$, so $M_n\to\infty$ and the
+Theorem~\ref{t:integrate@c8} fails: the peak of $f_n$ is at $x_n$ with $1-x_n^2=\frac{2n}{2n+1}$,
+height $f_n(x_n)\approx\sqrt{\frac n2}\cdot e^{-1/2}\to\infty$, so $M_n\to\infty$ and the
 convergence is wildly non-uniform. \emph{Check.} Like the moving bump of \S1, a thin tall
 spike near $x=0$ carries a fixed amount of area ($\to\tfrac12$) while the pointwise limit is
 $0$. \checkmark
@@ -14251,8 +14250,8 @@ convergence on $[0,\tfrac12]$. By Corollary~\ref{c:series-int@c8},
   =\sum_{k\ge0}\frac{(-1)^k}{2k+1}\Bigl(\tfrac12\Bigr)^{2k+1}.
 \]
 \emph{Check.} The left side is $\arctan x\big|_0^{1/2}=\arctan\tfrac12\approx0.4636$, and the
-first three terms $\tfrac12-\tfrac1{24}+\tfrac1{160}=0.46458\dots$ already match to three
-places. \checkmark
+first three terms $\tfrac12-\tfrac1{24}+\tfrac1{160}=0.46458\dots$ already agree with it to
+within $10^{-3}$. \checkmark
 \end{wex}
 
 \begin{wex}{Differentiation that is NOT licensed}
@@ -14265,8 +14264,10 @@ of $f_n$.
 $(\lim f_n)'=0$. But $f_n'(x)=\frac{1-nx^2}{(1+nx^2)^2}$, so $f_n'(0)=1$ for every $n$, hence
 $\lim_n f_n'(0)=1\neq0=(\lim_n f_n)'(0)$. Theorem~\ref{t:diff@c8} fails to apply because
 $\seq{f_n'}$ does \emph{not} converge uniformly (uniform convergence of the $f_n$ themselves
-is irrelevant, exactly the \S1/\S3 warning). \emph{Check.} $\norm{f_n'}_\R\ge f_n'(0)=1$ for
-all $n$, so $\seq{f_n'}$ cannot even be uniformly Cauchy. \checkmark
+is irrelevant, exactly the \S1/\S3 warning). \emph{Check.} $f_n'(0)=1$ while $f_n'(x)\to0$ for
+each $x\neq0$: the pointwise limit of the continuous $f_n'$ is discontinuous at $0$, so by
+Theorem~\ref{t:unif-cont@c8} the sequence $\seq{f_n'}$ cannot converge uniformly (equivalently,
+cannot be uniformly Cauchy) near $0$. \checkmark
 \end{wex}
 
 \begin{exers}{Additional exercises.}
@@ -14277,7 +14278,7 @@ all $n$, so $\seq{f_n'}$ cannot even be uniformly Cauchy. \checkmark
   $f\in\mathscr{R}[0,1]$, yet $\int_0^1 f_n\not\to\int_0^1 f$, demonstrating that pointwise
   convergence alone fails Theorem~\ref{t:integrate@c8}.
 \item Let $f_n(x)=\dfrac{\sin(nx)}{n}$. Show $f_n\to0$ uniformly but $f_n'$ does not converge
-  at $x=0$; reconcile with Theorem~\ref{t:diff@c8}.
+  at $x=\pi$; reconcile with Theorem~\ref{t:diff@c8}.
 \item Suppose $f_n\to f$ and $f_n'\to g$ both uniformly on $[a,b]$, with $f_n$ differentiable.
   Prove $f'=g$. (This is the ``clean'' special case where you assume both convergences.)
 \item Show $\displaystyle\lim_{n\to\infty}\int_0^1 \frac{nx}{1+n^2x^3}\dx$ can be computed,
@@ -14334,7 +14335,7 @@ Then $\sum f_n$ converges \emph{uniformly} (and absolutely) on $E$.
 Use the Cauchy criterion for series (Thm.~\ref{t:cauchy-unif@c8}, remark). For $m>n$ and any
 $x\in E$,
 \[
-  \abs[\Big]{\sum_{k=n+1}^{m} f_k(x)}\le\sum_{k=n+1}^{m}\abs{f_k(x)}\le\sum_{k=n+1}^{m}M_k .
+  \Bigl|\sum_{k=n+1}^{m} f_k(x)\Bigr|\le\sum_{k=n+1}^{m}\abs{f_k(x)}\le\sum_{k=n+1}^{m}M_k .
 \]
 Since $\sum M_k$ converges, its tails $\sum_{k=n+1}^m M_k$ are $<\eps$ for all $m>n\ge N(\eps)$
 (Cauchy criterion for the numerical series $\sum M_k$). The right side is independent of $x$,
@@ -14345,7 +14346,7 @@ so the partial sums of $\sum f_k$ are uniformly Cauchy, hence converge uniformly
 \emph{Recognition trigger.} You must prove a \emph{series} of functions converges uniformly
 on a set $E$ (often to then integrate/differentiate term by term).
 \begin{enumerate}
-\item \textbf{Bound each term off $x$.} Find $M_n=\sup_{x\in E}\abs{f_n(x)}$, or any
+\item \textbf{Bound each term uniformly in $x$.} Find $M_n=\sup_{x\in E}\abs{f_n(x)}$, or any
   convenient upper bound $\abs{f_n(x)}\le M_n$ valid for \emph{all} $x\in E$.
 \item \textbf{Test the numerical series $\sum M_n$.} Use $p$-series, ratio, root, or
   comparison. If $\sum M_n<\infty$, the original series converges uniformly on $E$. Done.
@@ -14383,11 +14384,14 @@ series $-\ln2$; the $M$-test missed it because it discards the sign cancellation
 \begin{tikzpicture}
 \begin{axis}[width=10.8cm,height=5.0cm,xmin=-3.3,xmax=3.3,ymin=-1.3,ymax=1.3,
    axis lines=middle,xlabel={\footnotesize $x$},ylabel={},
-   xtick={-3.14,0,3.14},xticklabels={$-\pi$,$0$,$\pi$},ytick={-1,1},
-   samples=300,domain=-3.3:3.3,
-   legend style={font=\tiny,at={(0.02,0.02)},anchor=south west,draw=none}]
-  \addplot[curve]{sin(deg(x))};                          \addlegendentry{$N=1$}
-  \addplot[curve]{sin(deg(x))+sin(deg(2*x))/4};          \addlegendentry{$N=2$}
+   xlabel style={at={(current axis.right of origin)},anchor=west},
+   xtick={0,3.14159},xticklabels={$0$,$\pi$},ytick={-1,1},
+   extra x ticks={-3.14159},extra x tick labels={$-\pi$},
+   extra x tick style={tick label style={anchor=south,yshift=1pt}},
+   samples=300,domain=-pi:pi,
+   legend style={font=\tiny,at={(0.02,0.98)},anchor=north west,draw=none}]
+  \addplot[curve,densely dotted]{sin(deg(x))};           \addlegendentry{$N=1$}
+  \addplot[curve,dashed]{sin(deg(x))+sin(deg(2*x))/4};   \addlegendentry{$N=2$}
   \addplot[curve]{sin(deg(x))+sin(deg(2*x))/4+sin(deg(3*x))/9+sin(deg(4*x))/16
     +sin(deg(5*x))/25+sin(deg(6*x))/36};                 \addlegendentry{$N=6$}
 \end{axis}
@@ -14462,8 +14466,8 @@ converges --- exactly the ``undetermined at $\abs x=R$'' caveat. \checkmark
    legend style={font=\tiny,at={(0.02,0.98)},anchor=north west,draw=none}]
   % partial sums of geometric-derived ln(1+x)?  show 1/(1-x) partial sums approaching target
   \addplot[densely dashed,curve,domain=-0.95:0.95]{1/(1-x)};   \addlegendentry{$1/(1-x)$}
-  \addplot[curve,domain=-0.95:0.95]{1+x};                       \addlegendentry{$N=1$}
-  \addplot[curve,domain=-0.95:0.95]{1+x+x^2+x^3};               \addlegendentry{$N=3$}
+  \addplot[curve,densely dotted,domain=-0.95:0.95]{1+x};        \addlegendentry{$N=1$}
+  \addplot[curve,dashdotted,domain=-0.95:0.95]{1+x+x^2+x^3};    \addlegendentry{$N=3$}
   \addplot[curve,domain=-0.95:0.95]{1+x+x^2+x^3+x^4+x^5+x^6+x^7};\addlegendentry{$N=7$}
 \end{axis}
 \end{tikzpicture}
@@ -14634,7 +14638,7 @@ $\delta=\eps/L$.
      .. controls (\xz+0.8,\yz-0.05) and (4.2,0.7) .. (5.4,0.5);
   \draw[curve] (0,0.4) .. controls (1.5,1.0) and (\xz-0.5,\yz-0.2) .. (\xz,\yz-0.1)
      .. controls (\xz+0.8,\yz) and (4.2,1.5) .. (5.4,1.2);
-  \node[font=\footnotesize,align=center] at (4.0,2.75)
+  \node[font=\footnotesize,align=left,anchor=west] at (5.75,1.5)
     {one $\delta$-column forces all\\ members into one $\eps$-row};
 \end{tikzpicture}
 \captionof{figure}{Equicontinuity at $x_0$: a single width-$2\delta$ vertical band confines
@@ -14711,11 +14715,12 @@ Thus $\seq{g_k}$ is uniformly Cauchy on $K$; by completeness of $\mathscr{C}(K)$
 
 \emph{Converse.} If $f_n\to f$ uniformly, the $f_n$ are uniformly bounded (Rudin 7, Ex.~1),
 and equicontinuity follows from the $\eps/3$-argument: $f$ is uniformly continuous on compact
-$K$, and $\norm{f_n-f}_K<\eps/3$ for large $n$ pushes a single $\delta$ onto all $f_n$.
+$K$, and $\norm{f_n-f}_K<\eps/3$ for $n\ge N$ pushes a single $\delta$ onto all $f_n$ with
+$n\ge N$; shrinking $\delta$ covers the finitely many (uniformly continuous) $f_1,\dots,f_{N-1}$.
 \end{proof}
 
 \begin{center}
-\begin{tikzcd}[row sep=large,column sep=large]
+\begin{tikzcd}[row sep=large,column sep=7.5em]
 \text{pointwise bounded} \arrow[r,Rightarrow,"\text{B-W + diagonal}"]
   & \text{ptwise conv.\ on dense } E \arrow[d,Rightarrow,"\text{equicontinuity}"]\\
 \text{equicontinuous} \arrow[r,Rightarrow,"+\text{ compact }K"']
@@ -14759,7 +14764,9 @@ point the slope $f_n'(x)=n\cos(nx)$ blows up with $n$, so no single $\delta$ con
 members. To see no convergent subsequence exists, note $\int_0^\pi\sin^2(nx)\,\dx=\frac\pi2$
 for all $n$, while $\int_0^\pi\sin(nx)\sin(mx)\,\dx=0$ for $n\neq m$; hence for any $n\neq m$,
 $\int_0^\pi(\sin nx-\sin mx)^2\,\dx=\pi$, so $\norm{f_n-f_m}_{[0,\pi]}^2\ge\frac1\pi\cdot\pi=1$
-is bounded below, and no subsequence can be uniformly Cauchy. \emph{Check.} The missing
+is bounded below, and no subsequence can be uniformly Cauchy. No subsequence converges even
+pointwise: otherwise $(f_{n_k}-f_{n_{k+1}})^2\to0$ pointwise with bound $4$, and bounded
+convergence (\S3) would force its integral, which is $\pi$, to tend to $0$. \emph{Check.} The missing
 hypothesis is precisely \emph{equicontinuity}; uniform boundedness alone is the function-space
 analogue of a bounded-but-not-precompact set. \checkmark
 \end{wex}
@@ -14804,7 +14811,7 @@ $n$); combined with a uniform sup bound it is the textbook trigger for Arzela--A
 
 
 \section{The Stone--Weierstrass Theorem}
-\subsection*{Weierstrass: polynomials are dense in $C[a,b]$}
+\subsection*{Weierstrass: polynomials are dense in $\mathscr{C}[a,b]$}
 
 The crown of the chapter is that the most familiar functions --- polynomials --- can
 approximate \emph{every} continuous function on a closed interval, uniformly. We give
@@ -14848,17 +14855,22 @@ bootstrapped without Theorem~\ref{t:weier@c8}.
    axis lines=left,xlabel={\footnotesize $x$},ylabel={\footnotesize $y$},
    xtick={0,0.5,1},ytick={0,0.5,1},samples=200,domain=0:1,
    legend style={font=\tiny,at={(0.5,1.02)},anchor=south,legend columns=4,draw=none}]
-  % target: a tent function; approx by Bernstein-like smooth polynomials
+  % target: a tent function f; the curves are its Bernstein polynomials B_n(f)
   \addplot[densely dashed,thick] coordinates {(0,0)(0.5,1)(1,0)};   \addlegendentry{target $f$}
-  % Bernstein B_n of tent: approximate with smooth bumps of increasing sharpness
-  \addplot[curve]{4*x*(1-x)};                       \addlegendentry{$n=2$}
-  \addplot[curve]{1-(2*x-1)^2*(1+0.5*(2*x-1)^2)/1.5};\addlegendentry{$n=6$}
-  \addplot[curve]{1-abs(2*x-1)^1.4};                \addlegendentry{$n=20$}
+  \addplot[curve,densely dotted]{2*x*(1-x)};                       \addlegendentry{$n=2$}
+  \addplot[curve,dashdotted]{2*x*(1-x)^5+10*x^2*(1-x)^4+20*x^3*(1-x)^3+10*x^4*(1-x)^2
+    +2*x^5*(1-x)};                                                  \addlegendentry{$n=6$}
+  \addplot[curve]{2*x*(1-x)^19+38*x^2*(1-x)^18+342*x^3*(1-x)^17+1938*x^4*(1-x)^16
+    +7752*x^5*(1-x)^15+23256*x^6*(1-x)^14+54264*x^7*(1-x)^13+100776*x^8*(1-x)^12
+    +151164*x^9*(1-x)^11+184756*x^10*(1-x)^10+151164*x^11*(1-x)^9+100776*x^12*(1-x)^8
+    +54264*x^13*(1-x)^7+23256*x^14*(1-x)^6+7752*x^15*(1-x)^5+1938*x^16*(1-x)^4
+    +342*x^17*(1-x)^3+38*x^18*(1-x)^2+2*x^19*(1-x)};              \addlegendentry{$n=20$}
 \end{axis}
 \end{tikzpicture}
-\captionof{figure}{Polynomials closing uniformly on a continuous (here piecewise-linear) target.
-As $n$ grows the smooth polynomial graphs press into the corner of the tent; the sup-distance
-$\norm{f-P_n}\to0$. No polynomial equals $f$, yet they crowd arbitrarily close.}
+\captionof{figure}{Bernstein polynomials $B_n(f)$ closing uniformly on a continuous (here
+piecewise-linear) target. As $n$ grows the smooth polynomial graphs press into the corner of
+the tent; the sup-distance $\norm{f-B_n(f)}\to0$. No polynomial equals $f$, yet they crowd
+arbitrarily close.}
 \end{center}
 
 \subsection*{Algebras, separation, and Stone's theorem}
@@ -14903,7 +14915,7 @@ $\max(f,g)=\tfrac12(f+g+\abs{f-g})$ and $\min(f,g)=\tfrac12(f+g-\abs{f-g})$: it 
 \emph{Step 2 (two-point interpolation).} Separation $+$ vanishing-nowhere $\imp$ for any two
 points $x\neq y$ and any target values $\alpha,\beta$ there is $h\in\mathscr{A}$ with
 $h(x)=\alpha$, $h(y)=\beta$. (Take $g$ separating $x,y$ and $u,v\in\mathscr{A}$ nonzero at
-$x,y$; a suitable linear combination hits the prescribed values.)
+$x,y$; a suitable linear combination of $gu,u,gv,v$ hits the prescribed values.)
 
 \emph{Step 3 (local then global).} Given $f\in\mathscr{C}(K)$ and $\eps>0$: for each pair
 $x,y$ choose $h_{x,y}\in\mathscr{A}$ agreeing with $f$ at $x$ and $y$. Fixing $x$ and varying
@@ -14931,7 +14943,7 @@ real theorem, and the complex result follows.
 \end{remark}
 
 \begin{wex}{Even functions and $\cos$}
-Show that the algebra generated by $\cos x$ is dense in the continuous \emph{even}
+Show that the algebra generated by $\set{1,\cos x}$ is dense in the continuous \emph{even}
 $2\pi$-periodic functions on $[-\pi,\pi]$ (equivalently $\mathscr{C}[-1,1]$ via $t=\cos x$).
 \wrec ``Is this subalgebra dense?'' --- check the Stone--Weierstrass hypotheses on the right
 compact set.
