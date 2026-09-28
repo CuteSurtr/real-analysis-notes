@@ -42031,21 +42031,22 @@ functions supported on a set of finite measure, then for \emph{non-negative} mea
 functions (possibly extended-valued and unbounded), and finally for a general integrable
 function $f$ by splitting $f=f^+-f^-$. Throughout, \emph{every function is assumed
 measurable}; this is the standing hypothesis that makes each stage work. The payoff,
-collected in this section, is a trio of convergence theorems --- bounded convergence,
-Fatou, monotone convergence, and (in the next section) dominated convergence --- that let
+collected in this section, consists of four convergence theorems --- bounded convergence,
+Fatou, monotone convergence, and dominated convergence --- that let
 us interchange limit and integral under hypotheses far weaker than uniform convergence.
 
 \begin{center}
 \begin{tikzcd}[row sep=large, column sep=large]
-\text{Simple} \arrow[r, hook] \arrow[drrr, "\int"', bend right=12] &
-\text{Bounded, fin. supp.} \arrow[r, hook] \arrow[drr, "\int"'] &
-f\ge0 \text{ meas.} \arrow[r, hook] \arrow[dr, "\int"] &
+\text{Simple} \arrow[r, squiggly] \arrow[drrr, "\int"', bend right=12] &
+\text{Bounded, fin. supp.} \arrow[r, squiggly] \arrow[drr, "\int"'] &
+f\ge0 \text{ meas.} \arrow[r, squiggly] \arrow[dr, "\int"] &
 f\in\Lone \arrow[d, "\int"] \\
 & & & \Rext
 \end{tikzcd}
-\captionof{figure}{Each stage extends the integral functional $\int$ along an inclusion of
-function classes; the extended $\int$ agrees with the previous one on the smaller class
-(the triangles commute), so a single functional $\int:\Lone\to\Rext$ results.}
+\captionof{figure}{The four stages of the construction. Each stage defines $\int$ on a new
+class of functions and agrees with the earlier stages on the functions they share, so
+together they give a single integral, with values in $[0,\infty]$ for measurable $f\ge0$
+and finite values on $\Lone$.}
 \end{center}
 
 \subsection*{Stage one: simple functions}
@@ -42114,7 +42115,8 @@ $\int\varphi=\sum_j a_j^*\Leb(E_j^*)=\sum_k a_k\sum_{E_j^*\subset E_k}\Leb(E_j^*
 a_k\Leb(E_k)$. Now (ii) follows from (i) applied to any representations of $\varphi,\psi$;
 (iii) uses $\ind{E\cup F}=\ind E+\ind F$; (iv) applies the canonical-form definition to the
 nonnegative simple function $\psi-\varphi$; and (v) uses
-$\abs\varphi=\sum_k\abs{a_k}\ind{E_k}$ and the scalar triangle inequality.
+$\abs\varphi=\sum_k\abs{a_k}\ind{E_k}$ for a disjoint representation and the scalar triangle
+inequality.
 \end{proof}
 
 \begin{wex}{Integral is independent of the chosen representation}
@@ -42143,7 +42145,7 @@ $f$ is \emph{supported on $E$} if $f=0$ off $E$. We now integrate bounded measur
 with $\Leb(\supp f)<\infty$.
 \end{definition}
 
-By Theorem~4.2 of Chapter~1 (Ch.~24), a function bounded by $M$ and supported on $E$ is a
+By Theorem~\ref{t:approx@c24}, a function bounded by $M$ and supported on $E$ is a
 pointwise limit of simple functions $\varphi_n$, each bounded by $M$ and supported on $E$.
 The next lemma --- whose engine is Egorov's theorem (convergence is ``nearly uniform'') ---
 shows the integrals $\int\varphi_n$ converge to a value independent of the approximating
@@ -42209,9 +42211,11 @@ $\lim_n\int f_n=\int\lim_n f_n$: a license to interchange limit and integral.
 \begin{tikzpicture}[scale=1.0]
   \draw[numln](-0.3,0)--(4.3,0) node[right]{$x$};
   \draw[numln](0,-0.3)--(0,3.2) node[above]{$f_n$};
-  % spike that gets taller and narrower: area constant = 1
-  \draw[curve](0,0)--(0.2,0)--(0.2,3.0)--(0.5,3.0)--(0.5,0)--(4,0);
-  \node[font=\footnotesize] at (1.2,2.7){$f_n=n\,\ind{(0,1/n)}$};
+  % spike that gets taller and narrower: height n over (0,1/n), area constant = 1
+  \draw[curve](0,3.0)--(0.3,3.0)--(0.3,0)--(4,0);
+  \node[font=\footnotesize,left] at (0,3.0){$n$};
+  \node[font=\footnotesize,below] at (0.3,-0.05){$1/n$};
+  \node[font=\footnotesize,anchor=west] at (0.45,2.75){$f_n=n\,\ind{(0,1/n)}$};
   \node[font=\footnotesize,align=left] at (2.6,1.4)
     {$f_n\to0$ pointwise,\\ but $\int f_n=1\not\to0$:\\ no uniform bound $M$,\\
      so BCT does not apply.};
@@ -42223,8 +42227,8 @@ bound $M$. Mass ``leaks to infinity'' in height.}
 \begin{wex}{Where BCT applies and where it does not}
 On $E=[0,1]$ let $f_n(x)=x^n$. Show $\int_0^1 f_n\to0$ via BCT. Then explain why the spike
 $g_n=n\,\ind{(0,1/n)}$ is \emph{not} covered.
-\wrec A limit-integral interchange; verify the three BCT hypotheses (common bound, finite-
-measure support, a.e.\ limit).
+\wrec A limit-integral interchange; verify the three BCT hypotheses (common bound,
+finite-measure support, a.e.\ limit).
 \wsol For $f_n=x^n$: each $\abs{f_n}\le1=M$, all supported on $[0,1]$ (finite measure), and
 $f_n(x)\to0$ for $x\in[0,1)$ while $f_n(1)=1$ --- so $f_n\to0$ a.e. BCT gives
 $\int_0^1 x^n\,dx\to0$. \emph{Check.} Directly $\int_0^1 x^n=\frac1{n+1}\to0$. For $g_n$:
@@ -42267,7 +42271,7 @@ gives $\int^L_{[a,b]}\varphi_k\to\int^L_{[a,b]}f$, which equals $\int^R_{[a,b]}f
     \draw[numln](-0.2,0)--(3.9,0) node[right]{\footnotesize$x$};
     \draw[numln](0,-0.2)--(0,2.95) node[above]{\footnotesize$y$};
     \draw[curve,smooth,samples=120,domain=0:3.4] plot(\x,{\fx});
-    \node[font=\footnotesize] at (1.7,-0.55){Riemann: vertical columns};
+    \node[font=\footnotesize] at (1.7,-0.85){Riemann: vertical columns};
   \end{scope}
   % ---------- Lebesgue: horizontal layers over the range ----------
   \begin{scope}[shift={(5.4,0)}]
@@ -42315,12 +42319,12 @@ $f$ integrable then $f<\infty$ a.e.; \textup{(vi)} if $\int f=0$ then $f=0$ a.e.
 \begin{proof}
 Only (i) needs work. ``$\ge$'': if $\varphi\le f,\ \psi\le g$ are bounded with finite-measure
 support then $\varphi+\psi\le f+g$, so $\int f+\int g=\sup(\int\varphi+\int\psi)\le\int(f+g)$.
-``$\le$'': given $\eta\le f+g$ bounded with finite support, set $\eta_1=\min(f,\eta)$ and
-$\eta_2=\eta-\eta_1$; then $\eta_1\le f$, $\eta_2\le g$, both bounded with finite support, and
-$\int\eta=\int\eta_1+\int\eta_2\le\int f+\int g$; take $\sup$ over $\eta$. For (v), with
-$E_k=\set{f\ge k}$ we get $\int f\ge k\,\Leb(E_k)$, so $\Leb(E_k)\to0$; as
-$E_k\downarrow E_\infty=\set{f=\infty}$, $\Leb(E_\infty)=0$. Part (vi) is the observation
-after the BCT: $E_k=\set{f\ge1/k}$ has $k^{-1}\Leb(E_k)\le\int f=0$, so $\Leb(E_k)=0$ for
+``$\le$'': given $\eta\le f+g$ bounded with finite-measure support, set $\eta_1=\min(f,\eta)$
+and $\eta_2=\eta-\eta_1$; then $\eta_1\le f$, $\eta_2\le g$, both bounded with finite-measure
+support, and $\int\eta=\int\eta_1+\int\eta_2\le\int f+\int g$; take $\sup$ over $\eta$. For
+(v), with $E_k=\set{f\ge k}$ we get $\int f\ge k\,\Leb(E_k)$, so $\Leb(E_k)\to0$; as
+$E_k\downarrow E_\infty=\set{f=\infty}$, $\Leb(E_\infty)=0$. For (vi),
+$E_k=\set{f\ge1/k}$ has $k^{-1}\Leb(E_k)\le\int f=0$, so $\Leb(E_k)=0$ for
 all $k$ and $\set{f>0}=\bigcup_k E_k$ is null.
 \end{proof}
 
@@ -42330,7 +42334,8 @@ or off to infinity). The correct general statements only assert an \emph{inequal
 require \emph{monotonicity}.
 
 \begin{lemma}[Fatou]\label{t:fatou@c25}
-If $f_n\ge0$ are measurable and $f_n\to f$ a.e.\ (or more generally for $\liminf$), then
+If $f_n\ge0$ are measurable and $f_n\to f$ a.e.\ (or, more generally, $f=\liminf_n f_n$),
+then
 \[
   \int f\le\liminf_{n\to\infty}\int f_n.
 \]
@@ -42371,7 +42376,7 @@ Immediate from Corollary~\ref{c:fatoubdd@c25} since $f_n\le f$.
   \foreach \a/\h in {0.5/0.844, 1.0/1.577, 1.5/2.294, 2.0/2.294, 2.5/1.577, 3.0/0.844}{
     \fill[black!10] (\a,0) rectangle (\a+0.5,\h);}
   % f_1 (coarser, darker, drawn on top): lower sums on width-1.0 bases over [0.5,3.5];
-  % strictly below f_2 on each base, so f_1 <= f_2 <= f everywhere.
+  % never above f_2 (equal to it on [0.5,1], [1.5,2.5], [3,3.5]), so f_1 <= f_2 <= f.
   \foreach \a/\h in {0.5/0.844, 1.5/2.294, 2.5/0.844}{
     \fill[black!28] (\a,0) rectangle (\a+1.0,\h);}
   \draw[numln](-0.3,0)--(4.7,0) node[right]{$x$};
@@ -42379,7 +42384,7 @@ Immediate from Corollary~\ref{c:fatoubdd@c25} since $f_n\le f$.
   \draw[curve,smooth,samples=120,domain=0:4] plot(\x,{\fb});
   \node[font=\footnotesize] at (3.55,1.55){$f$};
   \node[font=\footnotesize,fill=white,inner sep=1pt] at (0.9,0.42){$f_1$};
-  \node[font=\footnotesize,fill=white,inner sep=1pt] at (1.75,1.05){$f_2$};
+  \node[font=\footnotesize,fill=white,inner sep=1pt] at (1.25,1.21){$f_2$};
 \end{tikzpicture}
 \captionof{figure}{Monotone convergence: lower-sum simple functions $f_1\le f_2\le\cdots$
 rise to $f$ (the coarser $f_1$ in dark grey, the finer $f_2$ in light grey, both under the
@@ -42423,11 +42428,11 @@ $a<1$; $\int_1^\infty x^{-a}dx$ converges iff $a>1$ --- matching $a<d$ and $a>d$
 
 \begin{wex}{The kernel $\abs x^{-d-1}$ outside a ball}
 Show $f(x)=\abs x^{-d-1}$ (for $x\neq0$) satisfies $\int_{\abs x\ge\eps}f\le C/\eps$.
-\wrec A dyadic-shell estimate using dilation invariance of $\Leb$; the model computation
-behind approximations to the identity.
+\wrec A dyadic-shell estimate using the dilation law $\Leb(\delta E)=\delta^d\Leb(E)$; the
+model computation behind approximations to the identity.
 \wsol Let $A_k=\set{2^k\eps<\abs x\le 2^{k+1}\eps}$ and dominate $f$ on $A_k$ by
-$(2^k\eps)^{-d-1}$. Since $A_k$ is the dilate of $\set{1<\abs x<2}$ by $2^k\eps$,
-$\Leb(A_k)=(2^k\eps)^d\,\Leb(A)$ with $A=\set{1<\abs x<2}$. Hence
+$(2^k\eps)^{-d-1}$. Since $A_k$ is the dilate of $\set{1<\abs x\le2}$ by $2^k\eps$,
+$\Leb(A_k)=(2^k\eps)^d\,\Leb(A)$ with $A=\set{1<\abs x\le2}$. Hence
 $\int_{\abs x\ge\eps}f\le\sum_{k\ge0}\frac{\Leb(A_k)}{(2^k\eps)^{d+1}}
 =\Leb(A)\sum_{k\ge0}\frac{(2^k\eps)^d}{(2^k\eps)^{d+1}}
 =\frac{\Leb(A)}{\eps}\sum_{k\ge0}2^{-k}=\frac{2\Leb(A)}{\eps}=\frac C\eps$. \emph{Check.}
@@ -42458,8 +42463,9 @@ the origin (where $a=d+1>d$).
   \draw[cxaxis](0,-2.7)--(0,2.7) node[above]{\footnotesize$x_2$};
   % labels (placed clear of the shading)
   \node[font=\footnotesize,fill=white,inner sep=1pt] at (1.05,1.05){$A_k$};
-  \node[font=\scriptsize,fill=white,inner sep=0.5pt] at (1.45,-0.0){$2^{-k}$};
-  \node[font=\scriptsize,fill=white,inner sep=0.5pt] at (0.72,-0.0){$2^{-k-1}$};
+  % radii: inner circle r=1.0 is |x|=2^{-k-1}, outer circle r=2.0 is |x|=2^{-k}
+  \node[font=\scriptsize,fill=white,inner sep=0.5pt,anchor=north west] at (1.0,-0.04){$2^{-k-1}$};
+  \node[font=\scriptsize,fill=white,inner sep=0.5pt,anchor=north west] at (2.0,-0.04){$2^{-k}$};
 \end{tikzpicture}
 \captionof{figure}{A dyadic annulus $A_k=\set{2^{-k-1}<\abs x\le2^{-k}}$ and its covering
 by small cubes: $\Leb(A_k)\asymp2^{-kd}$ drives the geometric-series test for integrability
@@ -42482,8 +42488,8 @@ integrability nor the value, so we freely treat $f$ as defined only a.e.
 
 \begin{proposition}\label{p:genlinear@c25}
 The Lebesgue integral of integrable functions is linear, additive, monotone, and satisfies
-$\abs{\int f}\le\int\abs f$. The integrable functions on $E$ form a vector space (over $\R$
-or $\C$).
+$\abs{\int f}\le\int\abs f$. The integrable functions on a measurable set $E$ form a vector
+space (over $\R$ or $\C$).
 \end{proposition}
 
 \begin{proposition}[Absolute continuity of the integral]\label{p:abscont@c25}
@@ -42506,10 +42512,11 @@ $\int\abs{f_n-f}\to0$, hence $\int f_n\to\int f$.
 \end{theorem}
 
 \begin{proof}
-For $N\ge0$ let $E_N=\set{\abs x\le N,\ g(x)\le N}$. Given $\eps>0$, by absolute
-continuity (the first part of Prop.~\ref{p:abscont@c25} applied to $g$) choose $N$ with
-$\int_{E_N^c}g<\eps$. On $E_N$ the functions $f_n$ are bounded (by $N$) and supported on a
-finite-measure set, so the BCT gives $\int_{E_N}\abs{f_n-f}<\eps$ for large $n$. Then
+For $N\ge0$ let $E_N=\set{\abs x\le N,\ g(x)\le N}$. Given $\eps>0$, since
+$g\ind{E_N}\nearrow g$ a.e.\ ($g$ is finite a.e.), the MCT (as in the proof of
+Prop.~\ref{p:abscont@c25}(i)) gives $N$ with $\int_{E_N^c}g<\eps$. On $E_N$ the functions
+$f_n$ are bounded (by $N$) and supported on a finite-measure set, so the BCT gives
+$\int_{E_N}\abs{f_n-f}<\eps$ for large $n$. Then
 \[
   \int\abs{f_n-f}=\int_{E_N}\abs{f_n-f}+\int_{E_N^c}\abs{f_n-f}
    \le\eps+2\int_{E_N^c}g\le\eps+2\eps=3\eps
@@ -42615,13 +42622,14 @@ then $f=0$ a.e.
 \item (Canonical form) Find the canonical form and the integral of
 $\varphi=3\ind{[0,2]}-\ind{[1,3]}+2\ind{[2,4]}$ on $\R$.
 
-\item Compute $\lim_{n\to\infty}\int_0^1\frac{nx}{1+n^2x^2}\,dx$ by recognizing the
+\item Compute $\lim_{n\to\infty}\int_0^1\frac{n}{1+n^2x^2}\,dx$ by recognizing the
 antiderivative; then explain why neither the MCT nor a single dominating $g$ controls the
-family $\frac{nx}{1+n^2x^2}$ pointwise near $0$.
+family $\frac{n}{1+n^2x^2}$ pointwise near $0$.
 
 \item Use the MCT to evaluate $\int_0^1\sum_{n=1}^\infty x^n\,dx$ and confirm it equals
-$\sum_{n=1}^\infty\frac1{n+1}=\infty$? No --- compute correctly $\sum_{n=1}^\infty\frac1{n(n+1)}$
-by writing $\int_0^1 x^{n-1}\,dx$, and reconcile.
+$\sum_{n=1}^\infty\frac1{n+1}=\infty$. Then compute $\sum_{n=1}^\infty\frac1{n(n+1)}$ by
+writing $\frac1{n(n+1)}=\int_0^1 x^{n-1}(1-x)\,dx$ and integrating term by term, and
+reconcile the answer with the telescoping sum $\sum_n\big(\frac1n-\frac1{n+1}\big)$.
 
 \item (DCT) Show $\lim_{n\to\infty}\int_0^\infty\big(1+\frac xn\big)^{-n}\sin(x/n)\,dx=0$
 by exhibiting an integrable dominating function and passing to the limit.
@@ -42684,10 +42692,12 @@ $\Lone$ is a normed vector space, and the distance $d(f,g)=\norm{f-g}$ measures 
     {1.5+0.45*sin(deg(1.4*x))+0.25*cos(deg(0.9*x))};
   % shade the area between the two graphs = L^1 distance
   \addplot[black!12] fill between[of=fcurve and gcurve];
-  \node[font=\footnotesize] at (axis cs:4.2,0.75){$f$};
-  \node[font=\footnotesize] at (axis cs:4.2,2.15){$g$};
-  \node[font=\footnotesize,anchor=west] at (axis cs:1.0,1.35)
-    {$\displaystyle\norm{f-g}_{\Lone}=\int\abs{f-g}$};
+  % labels at the right ends of the curves: f(4.5)=0.91, g(4.5)=1.35
+  \node[font=\footnotesize,anchor=west] at (axis cs:4.5,0.91){$f$};
+  \node[font=\footnotesize,anchor=west] at (axis cs:4.5,1.35){$g$};
+  % formula in the empty upper right (g <= 1.51 for x >= 2.1)
+  \node[font=\footnotesize] at (axis cs:3.2,2.2)
+    {shaded area $=\norm{f-g}_{\Lone}=\int\abs{f-g}$};
 \end{axis}
 \end{tikzpicture}
 \captionof{figure}{The $L^1$ distance is the shaded total area between the two graphs;
@@ -42727,8 +42737,8 @@ sequence (the ``typewriter'' sequence below). Only a subsequence is guaranteed.
 
 \begin{wex}{The typewriter sequence: $\Lone$ convergence without a.e.\ convergence}
 On $[0,1]$ let $I_n$ run through $[0,1],[0,\tfrac12],[\tfrac12,1],[0,\tfrac13],\dots$
-(dyadic-then-triadic blocks of shrinking length) and $f_n=\ind{I_n}$. Show $f_n\to0$ in
-$\Lone$ but $f_n(x)\not\to0$ for any $x$.
+(generation $k$ consists of the $k$ intervals $[\frac{j-1}k,\frac jk]$ of length $1/k$) and
+$f_n=\ind{I_n}$. Show $f_n\to0$ in $\Lone$ but $f_n(x)\not\to0$ for any $x$.
 \wrec An illustration of Corollary~\ref{c:l1subseq@c25}'s sharpness: norm convergence forces
 only a subsequence to converge pointwise.
 \wsol $\norm{f_n}_{\Lone}=\Leb(I_n)\to0$ as the blocks shrink, so $f_n\to0$ in $\Lone$. But
@@ -42753,11 +42763,13 @@ Each of the following is dense in $\Lone(\Rd)$: \textup{(i)} simple functions;
 
 \begin{proof}
 Reduce to $f\ge0$ (treat $f^\pm$ and real/imaginary parts separately). (i) Simple
-$\varphi_k\nearrow f$ exist (Ch.~1, Thm.~4.1); MCT (or DCT) gives $\norm{f-\varphi_k}\to0$.
+$\varphi_k\nearrow f$ exist (Theorem~\ref{t:approx@c24}); MCT (or DCT) gives
+$\norm{f-\varphi_k}\to0$.
 (ii) By (i) it suffices to approximate $\ind E$ ($\Leb E<\infty$) by a step function;
 choose almost-disjoint rectangles $R_j$ with $\Leb(E\triangle\bigcup_{j\le M}R_j)\le2\eps$
-(Ch.~1), so $\psi=\sum_j\ind{R_j}$ has $\norm{\ind E-\psi}_{\Lone}<2\eps$. (iii) By (ii)
-it suffices to handle $\ind R$ for a rectangle; in one dimension take a piecewise-linear
+(Theorem~\ref{t:reg@c24}(iv), refining the cubes), so $\psi=\sum_j\ind{R_j}$ has
+$\norm{\ind E-\psi}_{\Lone}\le2\eps$. (iii) By (ii) it suffices to handle $\ind R$ for a
+rectangle; in one dimension take a piecewise-linear
 ``trapezoid'' $g$ equal to $1$ on $[a,b]$, $0$ outside $[a-\eps,b+\eps]$, and linear on the
 ramps, so $\norm{\ind{[a,b]}-g}_{\Lone}<2\eps$; in $\Rd$ take a product of such bumps.
 \end{proof}
@@ -42827,7 +42839,7 @@ If $f\in\Lone(\Rd)$ then $\norm{f_h-f}_{\Lone}\to0$ as $h\to0$.
 
 \begin{proof}
 By density (the method above) pick continuous compactly supported $g$ with
-$\norm{f-g}<\eps$. Then $f_h-f=(g_h-g)+(f_h-g_h)-(f-g)$; the outer terms have norm
+$\norm{f-g}<\eps$. Then $f_h-f=(g_h-g)+(f_h-g_h)-(f-g)$; the last two terms have norm
 $\norm{f-g}<\eps$ each (using $\norm{f_h-g_h}=\norm{f-g}$ by translation invariance), and
 $\norm{g_h-g}=\int\abs{g(x-h)-g(x)}\dx\to0$ as $h\to0$ since $g$ is uniformly continuous
 with compact support. Hence $\norm{f_h-f}<3\eps$ for $\abs h$ small.
@@ -42839,11 +42851,11 @@ $f_h(x)\not\to f(x)$ at the discontinuities $x=0,1$.
 \wrec An instance of Prop.~\ref{p:l1cont@c25}: $L^1$ continuity holds despite pointwise
 failure on a null set.
 \wsol For $0<h<1$, $f_h=\ind{[h,1+h]}$, so $f_h-f$ equals $-1$ on $[0,h)$ and $+1$ on
-$(1,1+h]$, hence $\norm{f_h-f}_{\Lone}=2\abs h\to0$. Yet at $x=1$: $f(1)=1$ while
-$f_h(1)=\ind{[h,1+h]}(1)=1$, and just past, $f(1^+)=0$ but $f_h(1^+)=1$ for small $h$ ---
-pointwise the translate jumps. \emph{Check.} The discrepancy lives on the two intervals of
-total length $2\abs h$, a null set in the limit; norm convergence sees only area, so it is
-unaffected.
+$(1,1+h]$, hence $\norm{f_h-f}_{\Lone}=2\abs h\to0$ (the same for $-1<h<0$). Yet
+$f_h(0)=\ind{[h,1+h]}(0)=0$ for every $0<h<1$ while $f(0)=1$, and likewise
+$f_h(1)=0\neq1=f(1)$ for $-1<h<0$ --- pointwise the translate jumps. \emph{Check.} The
+discrepancy lives on the two intervals of total length $2\abs h$, a null set in the limit;
+norm convergence sees only area, so it is unaffected.
 \end{wex}
 
 \begin{wex}{Tchebyshev's inequality}
@@ -42894,8 +42906,8 @@ mode of convergence to the other.
 \end{pitfall}
 
 \begin{exers}{Exercises (Stein, Ch.2).}
-\item In analogy to Proposition 2.5, prove that if $f$ is integrable on $\Rd$ and
-$\delta>0$, then $f(\delta x)$ converges to $f(x)$ in the $L^1$-norm as $\delta\to1$.
+\item In analogy to Proposition~\ref{p:l1cont@c25}, prove that if $f$ is integrable on
+$\Rd$ and $\delta>0$, then $f(\delta x)$ converges to $f(x)$ in the $L^1$-norm as $\delta\to1$.
 
 \item Suppose $f$ is integrable on $(-\pi,\pi]$ and extended periodically to $\R$ with
 period $2\pi$. Show $\int_{-\pi}^\pi f(x)\,dx=\int_I f(x)\,dx$ for any interval $I$ of length
@@ -42930,7 +42942,7 @@ $\Lone(\R)$ unless zero), while polynomials \emph{are} dense in $\Lone[0,1]$. Ex
 difference.
 
 \item (Translation continuity) For $f=\ind{[0,1]}$ compute $\norm{f_h-f}_{\Lone}$ exactly
-as a function of $h$ and confirm Proposition 2.5 ($\to0$ as $h\to0$).
+as a function of $h$ and confirm Proposition~\ref{p:l1cont@c25} ($\to0$ as $h\to0$).
 
 \item Prove that if $f_n\to f$ in $\Lone$ and $g_n\to g$ in $\Lone$ with $g_n,g$ uniformly
 bounded, then $\int f_n g_n\to\int fg$. (Hint: split and use boundedness plus $L^1$
@@ -42943,15 +42955,15 @@ $\set{f_n}$ is Cauchy in $\Lone[0,1]$ and identify its limit.
 exist at every point, and name the theorem guaranteeing a convergent subsequence.
 
 \item (Diagram) Draw two graphs $f,g$ on $[0,1]$ and shade the region whose area equals
-$\norm{f-g}_{\Lone}$; explain why pointwise closeness is neither necessary nor sufficient
-for small $L^1$ distance.
+$\norm{f-g}_{\Lone}$; explain why pointwise convergence is neither necessary nor sufficient
+for convergence in $\Lone$.
 
 \item Using the layer-cake formula, show $\norm f_{\Lone}=\int_0^\infty\Leb\set{\abs f>
 \alpha}\,d\alpha$, and use it to recompute $\int_0^1 x^{-1/2}\,dx$.
 \end{exers}
 
 
-\section{Fubini's Theorem}
+\section{Fubini's Theorem}\label{sec:fubini@c25}
 Fubini's theorem justifies computing a $d$-dimensional integral by iterating
 lower-dimensional ones, in either order. Writing $\Rd=\R^{d_1}\times\R^{d_2}$ with
 $d=d_1+d_2$, a point is $(x,y)$ and the central objects are \emph{slices}: the $y$-slice
@@ -42969,11 +42981,11 @@ measurability holds for \emph{almost every} slice, and that is enough.
   \node[font=\footnotesize] at (2.0,1.7){$E$};
   \draw[dashed](0,2.0)--(4.2,2.0);
   \node[font=\footnotesize,left] at (0,2.0){$y$};
-  \draw[very thick] (1.05,2.0)--(3.15,2.0);
-  \node[font=\footnotesize] at (3.6,2.2){$E^y$};
+  \draw[very thick] (0.75,2.0)--(3.56,2.0);
+  \node[font=\footnotesize] at (3.95,2.22){$E^y$};
   \draw[dashed](2.4,0)--(2.4,3.2);
   \node[font=\footnotesize,below] at (2.4,0){$x$};
-  \draw[very thick] (2.4,0.62)--(2.4,2.82);
+  \draw[very thick] (2.4,0.55)--(2.4,2.9);
   \node[font=\footnotesize] at (2.7,0.4){$E_x$};
 \end{tikzpicture}
 \captionof{figure}{Slices of $E\subseteq\R^{d_1}\times\R^{d_2}$: the horizontal slice
@@ -42987,7 +42999,7 @@ $E^y=\iota_y^{-1}(E)$, and the projection $\pi_2(x,y)=y$ has $\pi_2^{-1}(y)$ as 
 \begin{center}
 \begin{tikzcd}[row sep=large, column sep=large]
 E^y \arrow[r, hook] \arrow[d, hook] & E \arrow[d, hook] \\
-\pi_2^{-1}(y) \arrow[r, hook, "\iota_y"', "\sim"] & \Rd \arrow[d, "\pi_2", two heads] \\
+\pi_2^{-1}(y) \arrow[r, hook, "\iota_y"'] & \Rd \arrow[d, "\pi_2", two heads] \\
 & \R^{d_2}
 \end{tikzcd}
 \captionof{figure}{The slice $E^y=\iota_y^{-1}(E)$ as the preimage of $E$ under the inclusion
@@ -43034,10 +43046,12 @@ so the iterated integral is $\abs{Q_1}\,\abs{Q_2}=\abs E$;
 (c) $E$ a finite union of closed cubes with disjoint interiors: a linear combination of
 cases (a),(b), so Step~1 applies;
 (d) $E$ open of finite measure: write $E=\bigcup_j Q_j$ as an almost-disjoint countable
-union of closed cubes (Ch.~1) and let $f_k=\sum_{j\le k}\ind{Q_j}\nearrow\ind E$; Step~2
+union of closed cubes (Theorem~\ref{t:opend@c24}) and let
+$f_k=\ind{Q_1\cup\dots\cup Q_k}\nearrow\ind E$ (each $f_k\in\mathcal F$ by (c)); Step~2
 applies;
-(e) $E$ a $G_\delta$ of finite measure: $E=\bigcap_k\tilde O_k$; replacing by
-$O_k=\tilde O_0\cap\bigcap_{j\le k}\tilde O_j$ gives open finite-measure sets
+(e) $E$ a $G_\delta$ of finite measure: $E=\bigcap_{k\ge1}\tilde O_k$ with $\tilde O_k$ open;
+replacing by $O_k=\tilde O_0\cap\bigcap_{1\le j\le k}\tilde O_j$, where $\tilde O_0\supseteq E$
+is open with $\Leb(\tilde O_0)<\infty$, gives open finite-measure sets
 $O_k\searrow E$, so $\ind{O_k}\searrow\ind E$ and Step~2 applies.
 
 \emph{Step 4 (null sets).} If $\Leb(E)=0$, choose a $G_\delta$ set $G\supseteq E$ with
@@ -43066,7 +43080,7 @@ measurable on $\R^{d_1}$, $y\mapsto\int_{\R^{d_1}}f^y\dx$ is measurable, and
 \end{theorem}
 
 \begin{proof}
-Truncate: $f_k=f\,\ind{\set{\abs{(x,y)}<k,\ f<k}}$ is integrable, so Fubini applies and
+Truncate: $f_k=\min(f,k)\,\ind{\set{\abs{(x,y)}<k}}$ is integrable, so Fubini applies and
 gives a null $E_k$ off which $f_k^y$ is measurable. Off $E=\bigcup_k E_k$ (null) all
 $f_k^y$, hence $f^y=\lim_k f_k^y$, are measurable. Since $f_k^y\nearrow f^y$, the MCT gives
 $\int_{\R^{d_1}}f_k^y\nearrow\int_{\R^{d_1}}f^y$, and a further MCT plus Fubini's identity
@@ -43084,8 +43098,8 @@ sign (so you cannot iterate blindly).
 \item Now apply \emph{Fubini} to $f$ itself: the iterated integrals of $f$ exist, agree in
   either order, and equal $\int_{\Rd}f$.
 \end{enumerate}
-Skipping step~1 is the classic error: Exercise~17 exhibits $f$ whose two iterated integrals
-differ ($0$ vs.\ $s$), precisely because $\iint\abs f=\infty$.
+Skipping step~1 is the classic error: Exercise~4 below (Stein, Ch.~2, Exercise~17) exhibits
+$f$ whose two iterated integrals differ ($0$ vs.\ $s$), precisely because $\iint\abs f=\infty$.
 \end{method}
 
 \begin{corollary}[Measure by slicing]\label{c:slicemeasure@c25}
@@ -43106,7 +43120,8 @@ measurable iff $A$ is measurable in $\R^{d+1}$, and in that case $\int_{\Rd}f=\L
 \end{corollary}
 
 \begin{proof}
-If $f$ is measurable then $F(x,y)=y-f(x)$ is measurable on $\R^{d+1}$ (Cor.~3.7), so
+If $f$ is measurable then $F(x,y)=y-f(x)$ is measurable on $\R^{d+1}$ (Stein, Ch.~2,
+Cor.~3.7), so
 $A=\set{y\ge0}\cap\set{F\le0}$ is measurable. Conversely, the slice
 $A_x=[0,f(x)]$ has $\Leb(A_x)=f(x)$, measurable by Cor.~\ref{c:slicemeasure@c25}; and
 $\Leb(A)=\int\Leb(A_x)\dx=\int f$.
@@ -43121,10 +43136,10 @@ $\Leb(A)=\int\Leb(A_x)\dx=\int f$.
     \clip[smooth,samples=50,domain=0.2:4.6] plot(\x,{1.8*exp(-0.4*(\x-2)*(\x-2))+0.3}) |- (0.2,0);
     \fill[band] (0,0) rectangle (5,3);
   \end{scope}
-  \node[font=\footnotesize] at (2.0,0.7){$A$};
+  \node[font=\footnotesize] at (1.3,1.35){$A$};
   \node[font=\footnotesize] at (4.0,1.6){$y=f(x)$};
-  \draw[dashed](2.6,0)--(2.6,{1.8*exp(-0.4*0.36)+0.3});
-  \draw[brc](2.75,0)--(2.75,{1.8*exp(-0.4*0.36)+0.3}) node[midway,right=2pt]{\footnotesize$A_x=[0,f(x)]$};
+  \draw[dashed](2.9,0)--(2.9,{1.8*exp(-0.4*0.81)+0.3});
+  \draw[brc](2.77,0)--(2.77,{1.8*exp(-0.4*0.81)+0.3}) node[midway,left=2pt]{\footnotesize$A_x=[0,f(x)]$};
 \end{tikzpicture}
 \captionof{figure}{$\int f=\Leb(A)$, the measure of the subgraph; the vertical slice
 $A_x=[0,f(x)]$ has length $f(x)$, recovering the integral by Corollary~\ref{c:slicemeasure@c25}.
@@ -43151,10 +43166,10 @@ With $f(x,y)=\frac{x^2-y^2}{(x^2+y^2)^2}$ on $(0,1)^2$, show the two iterated in
 differ, and identify why Fubini does not apply.
 \wrec A NON-example probing the integrability hypothesis; compute both iterations and check
 $\iint\abs f$.
-\wsol Since $\partial_y\frac{-y}{x^2+y^2}=\frac{x^2-y^2}{(x^2+y^2)^2}$,
-$\int_0^1 f\,\dd y=\big[\frac{-y}{x^2+y^2}\big]_0^1=\frac{-1}{x^2+1}$, so
-$\int_0^1\!\int_0^1 f\,\dd y\,\dx=-\int_0^1\frac{\dd x}{1+x^2}=-\frac\pi4$. By the antisymmetry
-$f(x,y)=-f(y,x)$, reversing the order gives $+\frac\pi4$. They differ, so $f\notin\Lone$.
+\wsol Since $\partial_y\frac{y}{x^2+y^2}=\frac{x^2-y^2}{(x^2+y^2)^2}$,
+$\int_0^1 f\,\dd y=\big[\frac{y}{x^2+y^2}\big]_0^1=\frac{1}{x^2+1}$, so
+$\int_0^1\!\int_0^1 f\,\dd y\,\dx=\int_0^1\frac{\dd x}{1+x^2}=\frac\pi4$. By the antisymmetry
+$f(x,y)=-f(y,x)$, reversing the order gives $-\frac\pi4$. They differ, so $f\notin\Lone$.
 \emph{Check.} Indeed $\int_0^1\!\int_0^1\abs f\,\dd y\,\dx=\infty$ (the singularity at the
 origin is non-integrable), so Tonelli's finiteness test fails and Fubini is inapplicable
 --- exactly as the method warns.
@@ -43172,12 +43187,12 @@ integrand is positive and singular only at the corner $(1,1)$; the convergent su
 $\zeta(2)=\pi^2/6$ confirms integrability and the value.
 \end{wex}
 
-\begin{wex}{Convolution stays in $\Lone$: $\norm{f*g}_{\Lone}\le\norm f_{\Lone}\norm g_{\Lone}$}
+\begin{wex}{Convolution stays in $\Lone$: $\norm{f*g}_{\Lone}\le\norm f_{\Lone}\norm g_{\Lone}$}\label{wex:young@c25}
 For $f,g\in\Lone(\R^d)$ show $f*g$ is defined a.e., lies in $\Lone$, and satisfies the norm
 bound (Young's inequality, the $L^1$ case).
 \wrec A Tonelli-then-Fubini argument on the double integral defining the convolution norm.
-\wsol The function $(x,y)\mapsto f(x-y)g(y)$ is measurable on $\R^{2d}$ (Cor.~3.7 and
-Prop.~3.9). By Tonelli,
+\wsol The function $(x,y)\mapsto f(x-y)g(y)$ is measurable on $\R^{2d}$ (Stein, Ch.~2,
+Cor.~3.7 and Prop.~3.9). By Tonelli,
 $\iint\abs{f(x-y)}\,\abs{g(y)}\,\dd y\,\dd x=\int\abs{g(y)}\Big(\int\abs{f(x-y)}\,\dd x\Big)\dd y
 =\int\abs{g(y)}\,\norm f_{\Lone}\,\dd y=\norm f_{\Lone}\norm g_{\Lone}<\infty$,
 using translation invariance for the inner integral. Finiteness shows $f(x-y)g(y)$ is
@@ -43193,7 +43208,7 @@ measurable $f$.
 \wrec A Corollary~\ref{c:slicemeasure@c25} argument: every vertical slice of the graph is a
 single point.
 \wsol $\Gamma$ is measurable (it is $\set{F=0}$ for $F(x,y)=y-f(x)$, measurable by
-Cor.~3.7). Its vertical slice is $\Gamma_x=\set{f(x)}$, a single point, so
+Stein, Ch.~2, Cor.~3.7). Its vertical slice is $\Gamma_x=\set{f(x)}$, a single point, so
 $\Leb(\Gamma_x)=0$ for every $x$. By Cor.~\ref{c:slicemeasure@c25},
 $\Leb(\Gamma)=\int_{\Rd}\Leb(\Gamma_x)\dx=\int_{\Rd}0\,\dx=0$. \emph{Check.} The line
 $y=x$ in $\R^2$ has zero area, consistent with $\Gamma$ always being negligible regardless
@@ -43210,7 +43225,8 @@ so Tonelli permits interchanging the iterated sums: $\sum_j\sum_k c_{jk}=\sum_k\
 (both equal the total mass). For the signed counterexample, take the array with $c_{jj}=1$,
 $c_{j,j+1}=-1$, else $0$: then $\sum_k c_{jk}=0$ for each $j$, so $\sum_j\sum_k c_{jk}=0$,
 whereas $\sum_j c_{jk}=1$ for $k=1$ (only $c_{11}$) and $0$ otherwise, giving
-$\sum_k\sum_j c_{jk}=1$. \emph{Check.} The discrepancy $0\neq1$ mirrors Exercise~17; here
+$\sum_k\sum_j c_{jk}=1$. \emph{Check.} The discrepancy $0\neq1$ mirrors Exercise~4 below
+(Stein, Ch.~2, Exercise~17); here
 $\sum_{j,k}\abs{c_{jk}}=\infty$, so the absolute (Tonelli) hypothesis fails exactly as
 required.
 \end{wex}
@@ -43232,7 +43248,7 @@ measurable. [Hint: in $\R^2$ take $A=\set0\times[0,1]$ and $B=N\times\set0$ with
 nonmeasurable.]
 
 \item We saw that $\Leb(B)=v_d r^d$ for a ball $B$ of radius $r$ in $\Rd$, with $v_d=\Leb(B_1)$.
-Evaluate $v_d$: (a) for $d=2$, prove via Corollary 3.8 that $v_2=2\int_{-1}^1(1-x^2)^{1/2}dx$,
+Evaluate $v_d$: (a) for $d=2$, prove via Corollary~\ref{c:subgraph@c25} that $v_2=2\int_{-1}^1(1-x^2)^{1/2}dx$,
 hence $v_2=\pi$; (b) show $v_d=2v_{d-1}\int_0^1(1-x^2)^{(d-1)/2}dx$; (c) conclude
 $v_d=\pi^{d/2}/\Gamma(d/2+1)$.
 
@@ -43250,7 +43266,7 @@ with every $E^y$ Borel is a $\sigma$-algebra containing the open sets.]
 
 \item Suppose $f,g$ are measurable on $\Rd$. (a) Prove $f(x-y)g(y)$ is measurable on
 $\R^{2d}$. (b) If $f,g$ are integrable on $\Rd$, show $f(x-y)g(y)$ is integrable on
-$\R^{2d}$. (c) Show $(f*g)(x)=\int f(x-y)g(y)\,dy$ is well-defined for a.e.\ $x$. (d) Show
+$\R^{2d}$. (c) In that case show $(f*g)(x)=\int f(x-y)g(y)\,dy$ is well-defined for a.e.\ $x$. (d) Show
 $f*g$ is integrable when $f,g$ are, with $\norm{f*g}_{\Lone}\le\norm f_{\Lone}\norm
 g_{\Lone}$, equality when $f,g\ge0$.
 \end{exers}
@@ -43258,18 +43274,20 @@ g_{\Lone}$, equality when $f,g\ge0$.
 \begin{exers}{Problems (Stein, Ch.2).}
 \item (Linear changes of variable) For a measurable $E\subseteq\Rd$ and a linear $L$ of
 $\Rd$, $L(E)$ is measurable, and $\Leb(L(E))=\abs{\det L}\,\Leb(E)$; in particular $\Leb$ is
-rotation-invariant. Prove this with Fubini: (a) for $d=2$ and $L$ strictly upper triangular
+rotation-invariant. Prove this with Fubini: (a) for $d=2$ and $L$ unit upper triangular
 ($x'=x+ay,\,y'=y$), $\Leb(L(E))=\iint\ind E(x-ay,y)\,dx\,dy=\Leb(E)$ by translation
-invariance; (b) similarly for strictly lower triangular $L$; in general write $L=L_1\Delta
-L_2$ with $L_j$ strictly triangular and $\Delta$ diagonal, giving
-$\Leb(L(E))=\abs{\det L}\,\Leb(E)$.
+invariance; (b) similarly for unit lower triangular $L$; in general, for $\det L\neq0$, write
+$L=PL_1\Delta L_2$ with $P$ a permutation of the coordinates, $L_1,L_2$ unit lower and upper
+triangular, and $\Delta$ diagonal, giving $\Leb(L(E))=\abs{\det L}\,\Leb(E)$ (if $\det L=0$,
+$L(E)$ lies in a hyperplane, a null set).
 
 \item There is an ordering $\prec$ of $\R$ such that for each $y$ the set $\set{x:x\prec y}$
 is at most countable. The existence depends on the continuum hypothesis. [Hint: let $\prec$
 be a well-ordering of $\R$ and consider $X=\set{y:\set{x:x\prec y}\text{ uncountable}}$; if
 nonempty, take its least element and apply the continuum hypothesis.] Use such an ordering
 to build a nonmeasurable $E\subseteq[0,1]^2$ whose slices satisfy $\Leb(E^y)=0$ and
-$\Leb(E_x)=1$ for all $x,y$, contradicting Corollary 3.3 (so $E$ cannot be measurable).
+$\Leb(E_x)=1$ for all $x,y\in[0,1]$, contradicting Corollary~\ref{c:slicemeasure@c25} (so $E$
+cannot be measurable).
 \end{exers}
 
 \begin{exers}{Additional exercises.}
@@ -43281,21 +43299,21 @@ so Fubini applies directly), reducing to a one-variable integral.
 \item (Order matters) For $f(x,y)=\frac{x-y}{(x+y)^3}$ on $(0,1)^2$, compute both iterated
 integrals, show they disagree, and verify $\iint\abs f=\infty$ so that Fubini does not apply.
 
-\item (Slicing) Use Corollary 3.3 to compute the area of the region
+\item (Slicing) Use Corollary~\ref{c:slicemeasure@c25} to compute the area of the region
 $\set{(x,y):0\le x\le1,\ 0\le y\le x^2}$ by integrating the lengths of vertical slices.
 
-\item Prove that if $E\subseteq\R^2$ has $\Leb(E^y)=0$ for a.e.\ $y$, then $\Leb(E)=0$.
+\item Prove that if a measurable $E\subseteq\R^2$ has $\Leb(E^y)=0$ for a.e.\ $y$, then $\Leb(E)=0$.
 Where is measurability of $E$ used?
 
 \item (Product measure) Show $\Leb(\,[0,1]\times C\,)=0$ where $C$ is the Cantor set, two
-ways: by Proposition 3.6 and by slicing.
+ways: by Proposition~\ref{p:product@c25} and by slicing.
 
 \item (Convolution) For $f=g=\ind{[0,1]}$ compute $f*g$ explicitly and verify
 $\norm{f*g}_{\Lone}=\norm f_{\Lone}\norm g_{\Lone}=1$ (the nonnegative equality case).
 
 \item (Non-example / diagram) Sketch the set $E=[0,1]\times N$ (with $N$ nonmeasurable) and
 explain pictorially why every horizontal slice $E^y$ is measurable while $E$ is not, so
-Corollary 3.3 cannot be reversed.
+Corollary~\ref{c:slicemeasure@c25} cannot be reversed.
 
 \item Prove the discrete Fubini failure: construct a doubly indexed array $c_{jk}$ with
 $\sum_j\sum_k c_{jk}\neq\sum_k\sum_j c_{jk}$ and identify the divergent
@@ -43305,7 +43323,7 @@ $\sum\abs{c_{jk}}$.
 
 \section{Approximations to the Identity and a Fourier Inversion Formula}
 The Fourier transform on $\Lone$ turns convolution into multiplication and connects to a
-family of \emph{good kernels} (approximations to the identity). We prove that $\hat f$ is
+family of \emph{good kernels}, loosely called approximations to the identity. We prove that $\hat f$ is
 continuous and bounded, establish the $\Lone$ inversion formula via the modulated Gaussian
 kernel, and record the multiplication formula. Along the way we meet good kernels concretely
 and, as a self-similar counterpoint, the Cantor set and its devil's-staircase function ---
@@ -43343,15 +43361,16 @@ evade this by inserting a Gaussian regularizer and letting it tend to a Dirac-li
 \subsection*{Good kernels (approximations to the identity)}
 
 \begin{definition}\label{d:goodkernel@c25}
-A family $\set{K_\delta}_{\delta>0}$ on $\Rd$ is an \emph{approximation to the identity}
-(good kernel) if
+A family $\set{K_\delta}_{\delta>0}$ on $\Rd$ is a family of \emph{good kernels} if
 \textup{(i)} $\int_{\Rd}K_\delta=1$;
 \textup{(ii)} $\int_{\Rd}\abs{K_\delta}\le C$ uniformly in $\delta$; and
 \textup{(iii)} for each $\eta>0$, $\int_{\abs y>\eta}\abs{K_\delta(y)}\,dy\to0$ as
 $\delta\to0$.
 \end{definition}
 
-The Gaussian kernel $K_\delta(x)=\delta^{-d/2}e^{-\pi\abs x^2/\delta}$ is the model example.
+Good kernels are often loosely called approximations to the identity;
+Definition~\ref{d:approxid@c26} reserves that name for families satisfying stronger pointwise
+bounds. The Gaussian kernel $K_\delta(x)=\delta^{-d/2}e^{-\pi\abs x^2/\delta}$ is the model example.
 As $\delta\to0$ it concentrates all its unit mass near the origin, behaving like a Dirac
 spike, so convolution $f*K_\delta$ smooths $f$ while converging back to $f$.
 
@@ -43370,7 +43389,7 @@ spike, so convolution $f*K_\delta$ smooths $f$ while converging back to $f$.
   % small delta (s=0.2): peak 1.9947 -- dotted
   \draw[curve,dotted,smooth,samples=200,domain=-2:2]
     plot(\x,{1.99471*exp(-\x*\x/0.08)});
-  \node[font=\footnotesize,anchor=west] at (0.62,0.40){large $\delta$};
+  \node[font=\footnotesize,anchor=west] at (0.92,0.42){large $\delta$};
   \node[font=\footnotesize,anchor=west] at (0.34,1.02){medium $\delta$};
   \node[font=\footnotesize,anchor=west] at (0.20,1.95){small $\delta$};
   \node[font=\footnotesize,anchor=east] at (-0.55,1.35){$\int K_\delta=1$ always};
@@ -43429,8 +43448,9 @@ If $f\in\Lone(\Rd)$ and $\hat f\equiv0$, then $f=0$ a.e.
 & \Lone &
 \end{tikzcd}
 \captionof{figure}{Fourier inversion on the class where $\hat f\in\Lone$: the inverse
-transform $\vee$ (defined by the inversion integral, dashed since it is built only here)
-recovers $f$ a.e., so $\vee\circ\wedge=\id$ and the triangle commutes.}
+transform $\vee$ (defined by the inversion integral; dashed since, as a map into $\Lone$, it
+is defined only on the transforms $\hat f$ of this class) recovers $f$ a.e., so
+$\vee\circ\wedge=\id$ and the triangle commutes.}
 \end{center}
 
 \begin{wex}{The Gaussian is its own Fourier transform}
@@ -43443,7 +43463,7 @@ kernel at $\delta=1$.
 =e^{-\pi\xi^2}$, since $\int_\R e^{-\pi u^2}du=1$ and the contour shift is justified by
 analyticity/decay. Thus $\hat f=f$. \emph{Check.} $f$ and $\hat f$ are both in $\Lone$, so
 Theorem~\ref{t:inversion@c25} applies and indeed
-$\int\hat f(\xi)e^{2\pi ix\xi}d\xi=\overline{\hat{\hat f}}(\cdots)=f(x)$ everywhere (here
+$\int\hat f(\xi)e^{2\pi ix\xi}d\xi=\hat f(-x)=f(x)$ everywhere (here
 $f$ is already continuous). The fixed-point property anchors the Gaussian as the canonical
 approximation to the identity.
 \end{wex}
@@ -43451,7 +43471,7 @@ approximation to the identity.
 \begin{wex}{Convolution theorem $\widehat{f*g}=\hat f\,\hat g$}
 For $f,g\in\Lone(\Rd)$ prove $\widehat{f*g}=\hat f\,\hat g$ pointwise.
 \wrec A Fubini computation interchanging the convolution and Fourier integrals.
-\wsol By Wex on Young's inequality, $f*g\in\Lone$, so $\widehat{f*g}$ is defined. Then
+\wsol By Worked Example~\ref{wex:young@c25}, $f*g\in\Lone$, so $\widehat{f*g}$ is defined. Then
 \[
   \widehat{f*g}(\xi)=\int\Big(\int f(x-y)g(y)\,dy\Big)e^{-2\pi ix\cdot\xi}\,dx
   =\int g(y)\Big(\int f(x-y)e^{-2\pi ix\cdot\xi}\,dx\Big)dy,
@@ -43497,7 +43517,7 @@ with $\set{0,1}^{\N}$ via base-$3$ digits $0,2$).
 \begin{tikzpicture}[yscale=0.6,xscale=0.95]
   % C0 .. C4 : at each stage every filled interval loses its open middle third.
   % positions in width-9 units; bar height 0.32, rows 1 apart.
-  \foreach \k in {0,1,2,3,4}{ \node[font=\footnotesize,left] at (-0.3,-\k){$C_{\k}$}; }
+  \foreach \k in {0,1,2,3,4}{ \node[font=\footnotesize,left] at (-0.3,-\k+0.16){$C_{\k}$}; }
   % C0
   \fill[black] (0,0) rectangle (9,0.32);
   % C1
@@ -43553,7 +43573,7 @@ continuous --- all its increase is concentrated on the null set $C$.
     (0.8889,0.7500)--(0.9259,0.8750)--(0.9630,0.8750)--(1.0000,1.0000);
   % brace UNDER the longest tread, with its label clear of the curve
   \draw[brc] (0.6667,0.44)--(0.3333,0.44)
-     node[midway,below=2pt,font=\scriptsize]{flat on $(\tfrac13,\tfrac23)$};
+     node[midway,below=5pt,xshift=1.5pt,font=\scriptsize,fill=white,inner sep=1pt]{flat on $(\tfrac13,\tfrac23)$};
 \end{tikzpicture}
 \captionof{figure}{The devil's staircase $\mathcal C$ (level-$3$ approximation): continuous,
 nondecreasing, $\mathcal C'=0$ a.e.\ (flat on every deleted middle third), yet climbs from
@@ -43569,7 +43589,7 @@ scaling.
 For a self-similar set with $N$ copies at ratio $r$, the dimension $s$ satisfies
 $N r^s=1$, i.e.\ $2\cdot(1/3)^s=1$, giving $3^s=2$ and $s=\log2/\log3\approx0.6309$.
 \emph{Check.} Covering $C$ by the $2^n$ level-$n$ intervals of length $3^{-n}$ gives an
-$s$-dimensional content $\sum 2^n(3^{-n})^s=2^n3^{-ns}=(2\cdot3^{-s})^n=1^n=1$, neither $0$
+$s$-dimensional content $\sum_I\abs I^s=2^n(3^{-n})^s=2^n3^{-ns}=(2\cdot3^{-s})^n=1^n=1$, neither $0$
 nor $\infty$ --- the hallmark of the correct dimension $s$.
 \end{wex}
 
@@ -43599,7 +43619,7 @@ distance from $f$ to the subspace.
   % the closed subspace M drawn as a plane (parallelogram in perspective)
   \fill[band] (0,0) -- (4,0) -- (5.0,1.1) -- (1.0,1.1) -- cycle;
   \draw[black!45] (0,0) -- (4,0) -- (5.0,1.1) -- (1.0,1.1) -- cycle;
-  \node[font=\footnotesize,black!60] at (4.35,0.28){$M$};
+  \node[font=\footnotesize,black!60] at (3.8,0.25){$M$};
   % common base point (origin) in the plane
   \coordinate (O) at (1.6,0.45);
   % foot of the perpendicular: Pf lies IN the plane
@@ -43616,7 +43636,7 @@ distance from $f$ to the subspace.
   \node[font=\footnotesize,right=2pt] at ($(PF)!0.5!(F)$){$f-Pf$};
   % right-angle mark at the foot PF, in the plane of (O->PF) and (PF->F)
   \draw[line width=0.6pt]
-    ($(PF)+(-0.16,-0.04)$) -- ($(PF)+(-0.12,0.16)$) -- ($(PF)+(0.04,0.20)$);
+    ($(PF)+(-0.156,-0.037)$) -- ($(PF)+(-0.093,0.110)$) -- ($(PF)+(0.063,0.147)$);
 \end{tikzpicture}
 \captionof{figure}{Orthogonal projection onto a closed subspace: $Pf$ is the nearest point
 of $M$ to $f$, and the residual $f-Pf$ is orthogonal to $M$ (right angle at the foot).
@@ -43652,14 +43672,14 @@ $\delta(x)=d(x,F)=\inf\set{\abs{x-y}:y\in F}$. Consider $I(x)=\int_\R\frac{\delt
 \abs{x-y}$. (b) Show $I(x)=\infty$ for each $x\notin F$. (c) Show $I(x)<\infty$ for a.e.\
 $x\in F$. [Hint for (c): investigate $\int_F I(x)\,dx$.]
 
-\item (Fourier transform; cf.\ Exercise on convolution.) For $f\in\Lone(\Rd)$ define
+\item (Fourier transform; cf.\ Exercise~6 of \S\ref{sec:fubini@c25} on convolution.) For $f\in\Lone(\Rd)$ define
 $\hat f(\xi)=\int f(x)e^{-2\pi ix\cdot\xi}\,dx$. Check $\hat f$ is bounded and continuous,
 and prove $\widehat{f*g}(\xi)=\hat f(\xi)\hat g(\xi)$ for $f,g\in\Lone$.
 
 \item Prove that if $f\in\Lone(\Rd)$ and $\hat f(\xi)=\int f(x)e^{-2\pi ix\cdot\xi}\,dx$,
 then $\hat f(\xi)\to0$ as $\abs\xi\to\infty$ (the Riemann--Lebesgue lemma). [Hint: write
 $\hat f(\xi)=\frac12\int[f(x)-f(x-\xi')]e^{-2\pi ix\cdot\xi}\,dx$ with
-$\xi'=\frac{\xi}{2\abs\xi^2}$ and use Proposition 2.5.]
+$\xi'=\frac{\xi}{2\abs\xi^2}$ and use Proposition~\ref{p:l1cont@c25}.]
 
 \item As an application of the Fourier transform, show there is no $I\in\Lone(\Rd)$ with
 $f*I=f$ for all $f\in\Lone(\Rd)$.
@@ -43726,7 +43746,7 @@ of the form $a+bx$, and verify the residual is orthogonal to $1$ and to $x$.
 $f=\ind{[-1,1]}$, $\hat f(\xi)=\frac{\sin(2\pi\xi)}{\pi\xi}$ decays only like $1/\abs\xi$,
 hence $\hat f\notin\Lone(\R)$; explain why this blocks naive inversion.
 
-\item (Uniqueness) Using Corollary 4.3, prove that if $f,g\in\Lone$ have $\hat f=\hat g$,
+\item (Uniqueness) Using Corollary~\ref{c:ftunique@c25}, prove that if $f,g\in\Lone$ have $\hat f=\hat g$,
 then $f=g$ a.e.
 \end{exers}
 
