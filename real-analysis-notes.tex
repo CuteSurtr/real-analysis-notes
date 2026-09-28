@@ -15092,11 +15092,11 @@ separate, delicate question (Abel's theorem below handles one case).
     \fill[band] (-2.4,-2.0) rectangle (2.4,2.0);
   \end{scope}
   \draw[curve] (0,0) circle (1.6);
-  \draw[densely dashed] (0,0)--(1.131,1.131) node[midway,above left]{\footnotesize $R$};
+  \draw[densely dashed] (0,0)--(-1.131,-1.131) node[midway,above left]{\footnotesize $R$};
   \node at (0.0,0.55) {\footnotesize converges};
   \node at (0.0,0.20) {\footnotesize (absolutely)};
-  \node[align=center,font=\footnotesize] at (2.0,1.7) {diverges};
-  \node[font=\footnotesize] at (1.45,-1.45) {$\abs z=R$: ?};
+  \node[lblnode] at (2.0,1.7) {diverges};
+  \node[lblnode] at (1.75,-1.72) {$\abs z=R$: ?};
 \end{tikzpicture}
 \captionof{figure}{Inside the open disc the series converges absolutely; outside it diverges;
 on the circle the behaviour is undecided by $R$ alone.}
@@ -15107,7 +15107,7 @@ When $\lim\abs{c_{n+1}/c_n}$ exists it equals $1/R$ as well (ratio test), and is
 easier to compute. The $\limsup$ root form is the one that \emph{always} works.
 \end{remark}
 
-\begin{wex}{Three radii from the formula}
+\begin{wex}{Three radii from the formula}\label{wex:radii@c9}
 Find $R$ for (a) $\sum z^n/n!$, (b) $\sum n!\,z^n$, (c) $\sum z^n/n$.
 \wrec ``Compute a radius'': use ratio when terms have factorials, root otherwise.
 \wsol (a) $\abs{c_{n+1}/c_n}=\dfrac{n!}{(n+1)!}=\dfrac1{n+1}\to0$, so $1/R=0$, $R=\infty$:
@@ -15143,7 +15143,7 @@ shrink to a closed subdisc before invoking uniformity.
 \subsection*{Term-by-term differentiation}
 
 \begin{theorem}[Differentiation of power series, Rudin 8.1]\label{t:termdiff@c9}
-Suppose $f(x)=\sum_{n=0}^\infty c_n x^n$ converges for $\abs x<R$. Then $f$ is
+Suppose $f(x)=\sum_{n=0}^\infty c_n x^n$ has radius of convergence $R>0$. Then $f$ is
 differentiable on $(-R,R)$, the differentiated series
 \[
   \sum_{n=1}^\infty n\,c_n x^{n-1}
@@ -15165,7 +15165,7 @@ uniformly in $y$ on $\abs y\le\rho$, so we may pass $y\to x$ term by term: each 
 tends to $n c_n x^{n-1}$, giving $f'(x)=g(x)$.
 \end{proof}
 
-\begin{corollary}[Infinite differentiability and Taylor coefficients, Rudin 8.4]\label{c:taylor@c9}
+\begin{corollary}[Infinite differentiability and Taylor coefficients, Rudin, Corollary to 8.1]\label{c:taylor@c9}
 A power series $f(x)=\sum c_n x^n$ with $R>0$ has derivatives of every order on $(-R,R)$,
 each obtained by differentiating term by term, and
 \[
@@ -15244,7 +15244,7 @@ The second piece is $<\eps/2$. The first is $(1-x)$ times a fixed finite sum, he
 for $x$ close enough to $1$. Thus $\abs{f(x)-s}<\eps$ near $x=1^-$.
 \end{proof}
 
-\begin{wex}{Abel summing the alternating harmonic and Leibniz series}
+\begin{wex}{Abel summing the alternating harmonic and Leibniz series}\label{wex:abel@c9}
 Evaluate $\sum_{n\ge1}\frac{(-1)^{n-1}}{n}$ and $\sum_{n\ge0}\frac{(-1)^n}{2n+1}$.
 \wrec ``Sum a conditionally convergent series whose generating function is known'': form
 the power series, identify the closed form on $(-1,1)$, then let $x\to1^-$ (Abel).
@@ -15267,7 +15267,7 @@ $\C$ the two notions coincide, which is one reason complex analysis is so rigid.
 
 \subsection*{Further worked examples}
 
-\begin{wex}{Radius from a boundary that mixes ratio and root}
+\begin{wex}{Two radii that mix ratio and root}
 Find the radius of convergence of (a) $\sum \dfrac{(2n)!}{(n!)^2}z^n$, (b)
 $\sum \dfrac{n^n}{n!}z^n$.
 \wrec ``Compute a radius'': factorials and $n^n$ both surrender to the ratio test, with
@@ -15313,7 +15313,7 @@ term by term (Thm.~\ref{t:termdiff@c9}) gives $\frac1{(1-x)^2}=\sum_{n\ge1}n x^{
   $f$ at $0$ is identically $0$, yet $f\ne0$.)
 \item Let $a_{ij}$ be the entry in the $i$-th row, $j$-th column of the array
   \[
-    a_{ij}=\begin{cases} -1, & i<j,\\ 0, & i=j,\\ 2^{\,j-i}, & i>j.\end{cases}
+    a_{ij}=\begin{cases} 0, & i<j,\\ -1, & i=j,\\ 2^{\,j-i}, & i>j.\end{cases}
   \]
   Prove that $\sum_i\sum_j a_{ij}=-2$ while $\sum_j\sum_i a_{ij}=0$. (The two iterated sums
   of a non-absolutely-summable double array need not agree.)
@@ -15383,8 +15383,8 @@ For $z\in\C$ define
 \[
   E(z)=\exp(z)=\sum_{n=0}^\infty \frac{z^n}{n!}.
 \]
-By Worked Example~9.1.4 this series has radius $R=\infty$, so $E$ is defined and (on $\R$)
-infinitely differentiable everywhere.
+By Worked Example~\ref{wex:radii@c9}(a) this series has radius $R=\infty$, so $E$ is defined
+and (on $\R$) infinitely differentiable everywhere.
 \end{definition}
 
 \begin{theorem}[Addition formula, Rudin 8.6]\label{t:expadd@c9}
@@ -15426,20 +15426,21 @@ $x$, consistent with the rational case.
 \begin{center}
 \begin{tikzpicture}[scale=0.95]
   \begin{axis}[
-    width=10cm,height=7cm,
+    width=8.5cm,height=8.5cm,
+    axis equal image,
     axis lines=middle,
     xlabel={$x$},ylabel={$y$},
-    xmin=-3.2,xmax=3.2,ymin=-3.2,ymax=6.2,
-    xtick={-3,-2,-1,1,2,3},ytick={-3,-2,-1,1,2,3,4,5,6},
+    xmin=-3.2,xmax=6.2,ymin=-3.2,ymax=6.2,
+    xtick={-2,2,4,6},ytick={-2,2,4,6},
     samples=120,
-    legend pos=north west,legend style={font=\footnotesize,draw=none,fill=none},
+    legend pos=south east,legend style={font=\footnotesize,draw=none,fill=none},
     every axis plot/.append style={line width=1pt},
   ]
-    \addplot[domain=-3:1.82,black] {exp(x)};
+    \addplot[domain=-3.2:1.82,black] {exp(x)};
     \addlegendentry{$y=e^x$}
-    \addplot[domain=0.05:6,black,dashed] {ln(x)};
+    \addplot[domain=-3.2:1.82,black,dashed] ({exp(x)},{x}); % the mirror image (e^t,t)
     \addlegendentry{$y=\log x$}
-    \addplot[domain=-3:6,black!45,densely dotted] {x};
+    \addplot[domain=-3.2:6.2,black!45,densely dotted] {x};
     \addlegendentry{$y=x$}
   \end{axis}
 \end{tikzpicture}
@@ -15548,7 +15549,7 @@ $e\approx2.71828$. \checkmark
 
 \begin{wex}{$\log$ as an area: monotonicity bounds for the harmonic numbers}
 From $\log y=\int_1^y dt/t$, prove $\dfrac1{n+1}<\log\!\bigl(1+\tfrac1n\bigr)<\dfrac1n$ and
-deduce $\log(n+1)<1+\tfrac12+\cdots+\tfrac1n<1+\log n$.
+deduce $\log(n+1)<1+\tfrac12+\cdots+\tfrac1n<1+\log n$ for $n\ge2$.
 \wrec ``Turn a log identity into estimates'': bound the integrand $1/t$ above and below on
 the interval of integration.
 \wsol On $[n,n+1]$ the decreasing integrand $1/t$ satisfies $\tfrac1{n+1}\le\tfrac1t\le
@@ -15557,10 +15558,11 @@ interval,
 \[
   \frac1{n+1}<\int_n^{n+1}\frac{dt}{t}=\log(n+1)-\log n=\log\!\Bigl(1+\frac1n\Bigr)<\frac1n.
 \]
-Summing the left inequality for $k=1,\dots,n$ telescopes to $\log(n+1)<\sum_{k=1}^n\frac1k$;
-summing the right inequality $\log(1+\tfrac1k)<\tfrac1k$ for $k=1,\dots,n-1$ gives
-$\log n<\sum_{k=1}^{n-1}\frac1k$, i.e.\ $\sum_{k=1}^n\frac1k<1+\log n$. \emph{Check.} At
-$n=4$, $\log5\approx1.609<1+\tfrac12+\tfrac13+\tfrac14=2.083<1+\log4\approx2.386$. \checkmark
+Summing the right inequality $\log(1+\tfrac1k)<\tfrac1k$ for $k=1,\dots,n$ telescopes to
+$\log(n+1)<\sum_{k=1}^n\frac1k$; summing the left inequality $\tfrac1{k+1}<\log(1+\tfrac1k)$
+for $k=1,\dots,n-1$ gives $\sum_{k=2}^{n}\frac1k<\log n$, i.e.\ $\sum_{k=1}^n\frac1k<1+\log n$.
+\emph{Check.} At $n=4$, $\log5\approx1.609<1+\tfrac12+\tfrac13+\tfrac14=2.083<1+\log4\approx2.386$.
+\checkmark
 \end{wex}
 
 \begin{wex}{A growth-rate limit and a non-example}
@@ -15570,9 +15572,9 @@ power'' as stated, yet still equals $0$.
 \wrec ``Compare logs/powers/exponentials'': reduce each to the master limit
 $x^n/e^x\to0$ (Thm.~\ref{t:expgrowth@c9}) by a substitution.
 \wsol For the first, put $x=e^{u}$ so $\log x=u\to\infty$ and the ratio is
-$u^3/e^{0.01u}=10^{6}\cdot (0.01u)^3/e^{0.01u}\cdot\!$const form $\to0$ by
-Thm.~\ref{t:expgrowth@c9}; so the limit is $0$. The second has $e^{\sqrt x}$, not $e^x$, so the
-theorem does not apply \emph{directly}. Substitute $s=\sqrt x$, $x=s^2$: the ratio becomes
+$u^3/e^{0.01u}=10^{6}\cdot (0.01u)^3/e^{0.01u}\to0$ by Thm.~\ref{t:expgrowth@c9} (with
+$n=3$, in the variable $0.01u\to\infty$); so the limit is $0$. The second has $e^{\sqrt x}$,
+not $e^x$, so the theorem does not apply \emph{directly}. Substitute $s=\sqrt x$, $x=s^2$: the ratio becomes
 $s^{20}/e^{s}\to0$ again by Thm.~\ref{t:expgrowth@c9} with $n=20$. \emph{Check.} Both limits are
 $0$; the point is that any \emph{positive} power of $\log$ over any \emph{positive} power of
 $x$ tends to $0$, and any power over $e^{(\text{any positive power})}$ does too --- after the
@@ -15585,16 +15587,19 @@ right substitution. \checkmark
     width=10.5cm,height=6.2cm,
     axis lines=middle,
     xlabel={$x$},ylabel={$y$},
-    xmin=0,xmax=8.5,ymin=0,ymax=60,
-    xtick={2,4,6,8},ytick={20,40,60},
+    xmin=0,xmax=12.5,ymin=0,ymax=250,
+    xtick={2,4,6,8,10,12},ytick={50,100,150,200,250},
     samples=120,
     legend pos=north west,legend style={font=\footnotesize,draw=none,fill=none},
     every axis plot/.append style={line width=1pt},
   ]
-    \addplot[black,domain=0:8.2]{exp(x/2)};
+    \addplot[black,domain=0:11.04]{exp(x/2)};
     \addlegendentry{$y=e^{x/2}$}
-    \addplot[black,dashed,domain=0:7.7]{x*x};
+    \addplot[black,dashed,domain=0:12.2]{x*x};
     \addlegendentry{$y=x^2$}
+    % the curves cross again at x=8.613... (e^{x/2}=x^2), after which e^{x/2} stays ahead
+    \node[pt] at (axis cs:8.613,74.19) {};
+    \node[font=\footnotesize,anchor=north west] at (axis cs:8.7,72) {$x\approx8.61$};
   \end{axis}
 \end{tikzpicture}
 \captionof{figure}{Even the slow exponential $e^{x/2}$ eventually overtakes the power $x^2$ and
@@ -15612,7 +15617,7 @@ then pulls away without bound: $x^n/e^x\to0$ for every fixed $n$ (Theorem~\ref{t
   \frac{x^{n-1}}{(n-1)!}+\frac{e^a x^n}{n!}.$
 \item Show that if $n\ge2$ then
   $\displaystyle0<e-\bigl(1+1+\tfrac1{2!}+\cdots+\tfrac1{n!}\bigr)<\frac1{n!}\cdot\frac
-  {e}{n+1}<\frac1{n\cdot n!}$, and use this to prove that $e$ is irrational.
+  {e}{n+1}<\frac1{n!}$, and use this to prove that $e$ is irrational.
 \item If $x\ge0$ and $n\in\N$, show
   $\displaystyle\frac1{1+x}=1-x+x^2-\cdots+(-x)^{n-1}+\frac{(-x)^n}{x+1}$, and deduce
   $\displaystyle\log(1+x)=x-\frac{x^2}2+\frac{x^3}3-\cdots+(-1)^{n-1}\frac{x^n}n+
@@ -15721,8 +15726,9 @@ $C^2+S^2$ is the constant $C(0)^2+S(0)^2=1$.
 \begin{remark}[The B\&S existence argument]
 Bartle--Sherbert prove from scratch that functions $C,S$ with $C''=-C$, $S''=-S$ and the
 stated initial data \emph{exist and are unique}, by the Picard-type integral recursion
-$s_{n+1}(x)=\int_0^x c_n,\ c_{n+1}(x)=1-\int_0^x s_n$ (B\&S 8.4.1, our Exercise B8.4.6). The
-series above are exactly the limits of that recursion, so the two constructions coincide.
+$s_n(x)=\int_0^x c_n,\ c_{n+1}(x)=1-\int_0^x s_n$ (B\&S 8.4.1; our Exercise B8.4.6 runs the
+same recursion with $+$ in place of $-$, for the hyperbolic functions). The series above are
+exactly the limits of that recursion, so the two constructions coincide.
 \end{remark}
 
 \subsection*{Defining $\pi$ analytically}
@@ -15735,11 +15741,12 @@ $\pi/2:=\min\set{x>0\st C(x)=0}$.
 \begin{proof}
 $C(0)=1>0$. We show $C(2)<0$. Group the alternating series at $x=2$:
 \[
-  C(2)=1-\frac{2^2}{2!}+\frac{2^4}{4!}-\frac{2^6}{6!}+\cdots
-  =\Bigl(1-2\Bigr)+\Bigl(\frac{16}{24}-\frac{64}{720}\Bigr)+\cdots .
+  C(2)=1-\frac{2^2}{2!}+\frac{2^4}{4!}-\frac{2^6}{6!}+\frac{2^8}{8!}-\cdots
+  =\Bigl(1-2+\frac{16}{24}\Bigr)-\Bigl(\frac{64}{720}-\frac{256}{40320}\Bigr)-\cdots .
 \]
-The terms $\dfrac{2^{4k}}{(4k)!}$ and $\dfrac{2^{4k+2}}{(4k+2)!}$ pair into negative blocks
-beyond the first; carefully, $C(2)<1-2+\tfrac{2}{3}=-\tfrac13<0$. By continuity and the
+The terms $2^{2n}/(2n)!$ decrease for $n\ge1$, so each later block
+$\dfrac{2^{4k+2}}{(4k+2)!}-\dfrac{2^{4k+4}}{(4k+4)!}$ ($k\ge1$) is positive and enters with a
+minus sign; hence $C(2)<1-2+\tfrac{2}{3}=-\tfrac13<0$. By continuity and the
 intermediate value theorem $C$ has a root in $(0,2)$; the set of positive roots is closed
 and bounded below by $0$ (no root in a neighborhood of $0$ since $C(0)=1$), so it has a least
 element $\pi/2\in(0,2)$.
@@ -15790,10 +15797,10 @@ counterclockwise.
   \def\t{55}
   \draw[densely dashed] (0,0)--(\t:1);
   \node[pt] at (\t:1) {};
-  \node[above right,font=\footnotesize] at (\t:1) {$(\cos t,\sin t)$};
+  \node[lblnode,above right=2pt] at (\t:1) {$(\cos t,\sin t)$};
   % arc from (1,0) to point, thick to show arc length = t
   \draw[line width=1.4pt] (0:1) arc (0:\t:1);
-  \node[font=\footnotesize] at (27:1.18) {arc $=t$};
+  \node[lblnode,anchor=west] at (27:1.05) {arc $=t$};
   % angle marker
   \draw (0.28,0) arc (0:\t:0.28);
   \node[font=\footnotesize] at (\t/2:0.42) {$t$};
@@ -15834,19 +15841,25 @@ circular.
     width=10.5cm,height=5.2cm,
     axis lines=middle,
     xlabel={$x$},ylabel={$y$},
-    xmin=-7,xmax=7,ymin=-0.4,ymax=1.2,
+    xmin=-7.8,xmax=7.8,ymin=-0.4,ymax=1.2,
     xtick={-6.2832,-3.1416,3.1416,6.2832},
-    xticklabels={$-2\pi$,$-\pi$,$\pi$,$2\pi$},
+    xticklabel=\empty,
     ytick={1},
+    yticklabel style={anchor=south east},
     samples=200,
     every axis plot/.append style={line width=1pt},
   ]
-    \addplot[black,domain=-7:-0.0001]{sin(deg(x))/x};
-    \addplot[black,domain=0.0001:7]{sin(deg(x))/x};
+    % 200 samples on [-7,7] never hit x=0 (step 14/199)
+    \addplot[black,domain=-7:7]{sin(deg(x))/x};
     \node[pt] at (axis cs:0,1) {};
+    % tick labels on the side of each zero where the curve is above the axis
+    \node[below left] at (axis cs:-6.2832,0) {$-2\pi$};
+    \node[below right] at (axis cs:-3.1416,0) {$-\pi$};
+    \node[below left] at (axis cs:3.1416,0) {$\pi$};
+    \node[below right] at (axis cs:6.2832,0) {$2\pi$};
   \end{axis}
 \end{tikzpicture}
-\captionof{figure}{The function $\dfrac{\sin x}{x}$ extends continuously to the value $1$ at
+\captionof{figure}{The function $(\sin x)/x$ extends continuously to the value $1$ at
 $x=0$: dividing the sine series by $x$ leaves the power series
 $1-\tfrac{x^2}{6}+\tfrac{x^4}{120}-\cdots$, whose value at $0$ is $1$.}
 \end{center}
@@ -15861,8 +15874,8 @@ to the limit term by term (legal inside the radius of convergence).
   \frac{\sin x}{x}=\frac1x\sum_{n\ge0}\frac{(-1)^n x^{2n+1}}{(2n+1)!}
   =\sum_{n\ge0}\frac{(-1)^n x^{2n}}{(2n+1)!}=1-\frac{x^2}{6}+\frac{x^4}{120}-\cdots,
 \]
-a power series ($R=\infty$) hence continuous, so its value at $x\to0$ is the constant term
-$1$. Similarly $1-\cos x=\sum_{n\ge1}\frac{(-1)^{n-1}x^{2n}}{(2n)!}
+a power series ($R=\infty$) hence continuous, so its limit as $x\to0$ is its value at $0$, the
+constant term $1$. Similarly $1-\cos x=\sum_{n\ge1}\frac{(-1)^{n-1}x^{2n}}{(2n)!}
 =\frac{x^2}{2}-\frac{x^4}{24}+\cdots$, so $\frac{1-\cos x}{x^2}=\frac12-\frac{x^2}{24}+
 \cdots\to\frac12$. \emph{Check.} At $x=0.1$, $\sin(0.1)/0.1=0.99833\ldots\approx1$ and
 $(1-\cos0.1)/0.01=0.49958\ldots\approx\tfrac12$. \checkmark
@@ -15889,10 +15902,10 @@ Show $\sin$ takes the value $0$ infinitely often and is not injective on $\R$, s
 $\arcsin$ requires a restricted domain.
 \wrec ``Periodicity blocks global invertibility'': use the zeros of $S$ and $2\pi$-periodicity
 (Thm.~\ref{t:period@c9}) to exhibit repeated values.
-\wsol By Theorem~\ref{t:period@c9}, $S(\pi/2)=1$, $S(\pi)=S(\pi/2+\pi/2)=C(\pi/2)\cdot0+\cdots$;
-more directly $S(0)=0$ and, since $S$ is $2\pi$-periodic and odd, $S(k\pi)=0$ for every
-integer $k$ (each $S(n\pi)$ equals $S((n-2)\pi)$ down to $S(0)=0$ or $S(\pi)$, and
-$S(\pi)=2S(\pi/2)C(\pi/2)=2\cdot1\cdot0=0$ by the addition formula). Thus $\sin$ hits $0$ at
+\wsol By Theorem~\ref{t:period@c9}, $S(\pi/2)=1$ and $C(\pi/2)=0$, so the addition formula
+gives $S(\pi)=S(\pi/2+\pi/2)=2S(\pi/2)C(\pi/2)=2\cdot1\cdot0=0$. Also $S(0)=0$, and since $S$
+is $2\pi$-periodic and odd, $S(k\pi)=0$ for every integer $k$ (each $S(n\pi)$ equals
+$S((n-2)\pi)$, down to $S(0)=0$ or $S(\pi)=0$). Thus $\sin$ hits $0$ at
 all $x=k\pi$, infinitely many points, so it is not injective. Restricting to
 $[-\pi/2,\pi/2]$, where $S'=C>0$ except at the endpoints, makes $\sin$ strictly increasing
 and invertible; that restriction defines $\arcsin$. \emph{Check.} $\sin0=\sin\pi=\sin2\pi=0$
@@ -15968,7 +15981,7 @@ $\abs{P(z)}<\abs{a_0}=\abs{P(0)}$.
 
 \begin{proof}
 Choose $w$ with $a_k w^k=-a_0$; such a $w$ exists because every complex number has a $k$-th
-root (take $a_k w^k=-a_0$, i.e.\ $w$ a $k$-th root of $-a_0/a_k$, available by the polar
+root (take for $w$ a $k$-th root of $-a_0/a_k$, available by the polar
 form and Theorem~\ref{t:circle@c9}). For $0<t<1$,
 \[
   P(tw)=a_0+a_k t^k w^k+\sum_{j>k}a_j t^j w^j
@@ -16001,7 +16014,7 @@ so there is $R$ with $\abs{P(z)}>\abs{P(0)}$ for $\abs z>R$. On the closed disc 
 of $R$ this is a \emph{global} minimum: $\abs{P(z_0)}\le\abs{P(z)}$ for all $z$.
 
 \emph{Step 2: the minimum value is $0$.} Suppose not, $P(z_0)\ne0$. Expand
-$Q(\zeta)=P(z_0+\zeta)=P(z_0)+a_k\zeta^k+\cdots$ in powers of $\zeta$, where $a_k$ is the
+$Q(\zeta)=P(z_0+\zeta)=P(z_0)+b_k\zeta^k+\cdots$ in powers of $\zeta$, where $b_k$ is the
 first nonzero coefficient after the constant $P(z_0)\ne0$ ($Q$ is nonconstant since $P$ is,
 so such $k$ exists). By the Downhill Lemma~\ref{l:downhill@c9} applied to $Q$, there is $\zeta$
 with $\abs{Q(\zeta)}<\abs{P(z_0)}$, i.e.\ $\abs{P(z_0+\zeta)}<\abs{P(z_0)}$ ---
@@ -16015,23 +16028,25 @@ $P(z)=(z-r_1)P_1(z)$ with $\deg P_1=n-1$; induct.
 \begin{tikzpicture}[scale=0.95]
   \begin{axis}[
     width=10.5cm,height=6.6cm,
-    view={35}{30},
+    view={20}{30},
     xlabel={$\Re z$},ylabel={$\Im z$},zlabel={$|P(z)|$},
-    domain=-1.5:1.5,y domain=-1.5:1.5,
-    samples=24,samples y=24,
+    domain=-1:1,y domain=0:1,
+    samples=21,samples y=11,
     xtick=\empty,ytick=\empty,ztick=\empty,
     colormap={bw}{gray(0cm)=(0.85); gray(1cm)=(0.35)},
     z buffer=sort,
   ]
-    % |z^2 - 0.25| : a "modulus surface" with two zeros (a saddle-bowl)
+    % |z^2 - 0.25| over Im z >= 0: the front edge is the real-axis slice |x^2 - 1/4|,
+    % touching 0 at the two zeros x = -1/2, 1/2 (grid nodes) with a saddle between them
     \addplot3[surf,shader=faceted,line width=0.2pt,faceted color=black!40,
               fill opacity=0.85]
       {sqrt( (x*x - y*y - 0.25)^2 + (2*x*y)^2 )};
   \end{axis}
 \end{tikzpicture}
-\captionof{figure}{The modulus surface $\abs{P(z)}$ for $P(z)=z^2-\tfrac14$. It cannot have a
+\captionof{figure}{The modulus surface $\abs{P(z)}$ for $P(z)=z^2-\tfrac14$, drawn over
+$\Im z\ge0$ (the other half is its mirror image). It cannot have a
 \emph{positive} local minimum: at any point with $P\ne0$ one can step downhill (Lemma
-9.4.1). The only minima touch height $0$ --- the roots $z=\pm\tfrac12$.}
+9.4.1). The only minima touch height $0$ --- the roots $z=\pm\tfrac12$ on the front edge.}
 \end{center}
 
 \begin{remark}[Why ``no positive local minimum'' is the whole story]
@@ -16050,7 +16065,7 @@ the minima are the cube roots of unity.
 \wsol The roots of $z^3=1$ are $1,\ \omega,\ \omega^2$ with $\omega=E(2\pi i/3)=-\tfrac12+
 \tfrac{\sqrt3}{2}i$. At each, $\abs P=0$, the global minimum. At the center $z=0$,
 $\abs{P(0)}=1>0$; the Downhill Lemma says we can decrease $\abs P$ by moving in a direction
-$w$ with $w^3=-(-1)/1=1$ misread --- here $a_0=-1$, $a_3=1$, so we need $w^3=-a_0/a_3=1$, e.g.\
+$w$ with $w^3=-a_0/a_3$; here $a_0=-1$, $a_3=1$, so we need $w^3=1$, e.g.\
 $w=1$, and indeed $\abs{P(t)}=\abs{t^3-1}=1-t^3<1$ for small $t>0$. The descent leads toward
 the root $z=1$. \emph{Check.} The three roots are equally spaced on the unit circle, the
 fixed points of the descent. \checkmark
@@ -16115,13 +16130,13 @@ exactly the obstruction the complex proof removes. \checkmark
     \node[pt] at ({72*\k}:1) {};
     \draw[densely dotted] (0,0)--({72*\k}:1);
   }
-  \node[right,font=\footnotesize] at (0:1) {$1$};
+  \node[below right,font=\footnotesize] at (0:1) {$1$};
   \node[above,font=\footnotesize] at (72:1) {$\zeta$};
   \node[above left,font=\footnotesize] at (144:1) {$\zeta^2$};
 \end{tikzpicture}
 \captionof{figure}{The five solutions of $z^5=1$ are equally spaced on the unit circle at angles
 $2\pi k/5$. The FTA guarantees exactly $n$ roots (with multiplicity) for any degree-$n$
-polynomial; here they are the values $E(2\pi i k/5)$.}
+polynomial; here they are the values $\zeta^k=E(2\pi i k/5)$, $k=0,\dots,4$.}
 \end{center}
 
 \begin{exers}{Exercises (Rudin, Ch.8 -- winding numbers and the FTA).}
@@ -16138,7 +16153,7 @@ polynomial; here they are the values $E(2\pi i k/5)$.}
   \emph{winding number} of $\gamma$ about $0$.
 \item Let $\gamma$ be as above and assume in addition that the range of $\gamma$ does not
   meet the negative real axis. Prove $\operatorname{Ind}(\gamma)=0$. (Hint: for
-  $0<c<\infty$, $\operatorname{Ind}(\gamma+c)$ is a continuous integer-valued function of
+  $0\le c<\infty$, $\operatorname{Ind}(\gamma+c)$ is a continuous integer-valued function of
   $c$, and $\to0$ as $c\to\infty$.)
 \item Suppose $\gamma_1,\gamma_2$ are curves as above with
   $\abs{\gamma_1(t)-\gamma_2(t)}<\abs{\gamma_1(t)}$ for $a\le t\le b$. Prove
@@ -16154,7 +16169,7 @@ polynomial; here they are the values $E(2\pi i k/5)$.}
 \item Let $f$ be a continuous complex function on $\C$, and suppose there is a positive
   integer $n$ and $c\ne0$ with $\lim_{\abs z\to\infty} z^{-n}f(z)=c$. Prove that $f(z)=0$
   for at least one $z\in\C$. (This generalizes the Fundamental Theorem of Algebra,
-  Theorem~9.4.3; for $\gamma_r(t)=f(re^{it})$ show $\operatorname{Ind}(\gamma_0)=0$,
+  Theorem~\ref{t:fta@c9}; for $\gamma_r(t)=f(re^{it})$ show $\operatorname{Ind}(\gamma_0)=0$,
   $\operatorname{Ind}(\gamma_r)=n$ for large $r$, and $\operatorname{Ind}(\gamma_r)$ is
   continuous in $r$ --- a contradiction since $n>0$.)
 \item Let $D$ be the closed unit disc and $g:D\to T$ a continuous map into the unit circle
@@ -16174,18 +16189,18 @@ polynomial; here they are the values $E(2\pi i k/5)$.}
 \item Show directly that $z^2+1=0$ has the roots $\pm i$, and that $z^2+z+1=0$ has roots
   $E(\pm2\pi i/3)$; mark all of these on the unit circle.
 \item Prove that a polynomial of degree $n\ge1$ with complex coefficients has exactly $n$
-  roots counted with multiplicity, using Theorem~9.4.3 and induction on the degree.
+  roots counted with multiplicity, using Theorem~\ref{t:fta@c9} and induction on the degree.
 \item Prove that a real polynomial of odd degree has at least one real root (a) from the
   Intermediate Value Theorem, and (b) by pairing complex roots into conjugate pairs.
 \item (Non-example.) Show that the field $\R$ is \emph{not} algebraically closed by
   exhibiting a real polynomial with no real root, and explain why the minimum-modulus proof
-  of Theorem~9.4.3 genuinely uses $\C$ (where does ``every number has a $k$-th root'' enter?).
+  of Theorem~\ref{t:fta@c9} genuinely uses $\C$ (where does ``every number has a $k$-th root'' enter?).
 \item (Diagram.) For $P(z)=z^2-1$, sketch the level idea: indicate on the plane the two
   roots $\pm1$ and describe, in words tied to Lemma~9.4.1, why $\abs P$ has no positive local
   minimum --- i.e.\ from any non-root you can step so that $\abs P$ decreases.
 \item Suppose $P$ is a complex polynomial with $\abs{P(z)}\ge1$ for all $z\in\C$. Prove $P$
   is constant. (This is a baby Liouville-type statement; combine the EVT minimum with
-  Theorem~9.4.3.)
+  Theorem~\ref{t:fta@c9}.)
 \item (Harder.) Carry out the downhill step explicitly for $P(z)=z^3+z+1$ at the point
   $z_0=0$: find the lowest-order nonconstant term, choose a descent direction $w$, and
   verify $\abs{P(tw)}<\abs{P(0)}=1$ for small $t>0$.
@@ -16216,7 +16231,7 @@ Orthonormality of $\set{e^{inx}/\sqrt{2\pi}}$ is the computation
 $\int_{-\pi}^{\pi}e^{inx}e^{-imx}\dx=\int_{-\pi}^\pi e^{i(n-m)x}\dx$, which is $2\pi$ if
 $n=m$ and $\bigl[\frac{e^{i(n-m)x}}{i(n-m)}\bigr]_{-\pi}^\pi=0$ if $n\ne m$ (periodicity).
 
-\begin{definition}[Fourier coefficients, Rudin 8.11]\label{d:fourier@c9}
+\begin{definition}[Fourier coefficients, Rudin 8.10]\label{d:fourier@c9}
 Given an orthonormal system $\set{\phi_n}$ and $f$ (Riemann-integrable, possibly complex) on
 $[a,b]$, the \emph{Fourier coefficients} of $f$ are
 \[
@@ -16286,7 +16301,7 @@ in mean square:
 and consequently \emph{Parseval's identity} holds:
 \[
   \frac1{2\pi}\int_{-\pi}^\pi\abs{f(x)}^2\dx=\sum_{n=-\infty}^\infty\abs{c_n}^2
-  =\frac{a_0^2}4+\frac12\sum_{n=1}^\infty(a_n^2+b_n^2).
+  =\frac{\abs{a_0}^2}4+\frac12\sum_{n=1}^\infty\bigl(\abs{a_n}^2+\abs{b_n}^2\bigr).
 \]
 \end{theorem}
 
@@ -16297,7 +16312,7 @@ by the Stone--Weierstrass / Fej\'er theorem trigonometric polynomials are unifor
 trigonometric polynomial $t$ with $\norm{f-t}^2<\eps$; by best approximation
 (Thm.~\ref{t:bestapprox@c9}) the Fourier sum $s_N$ does at least as well for $N$ past the degree
 of $t$, giving $\norm{f-s_N}^2<\eps$. Parseval is then Bessel's inequality forced to
-equality by $\norm{f-s_N}\to0$, since $\norm{f-s_N}^2=\norm f^2-\sum_{-N}^N\abs{c_n}^2$.
+equality by $\norm{f-s_N}\to0$, since $\norm{f-s_N}^2=\norm f^2-2\pi\sum_{-N}^N\abs{c_n}^2$.
 \end{proof}
 
 \begin{theorem}[A pointwise convergence theorem, Rudin 8.14]\label{t:ptwise@c9}
@@ -16332,7 +16347,7 @@ $\frac4{\pi n}$ for odd $n$ and $0$ for even $n$. Hence
   f(x)=\frac4\pi\sum_{k=0}^\infty\frac{\sin\bigl((2k+1)x\bigr)}{2k+1}.
 \]
 At $x=\pi/2$, $f=1$ and $\sin((2k+1)\pi/2)=(-1)^k$, so $1=\frac4\pi\sum\frac{(-1)^k}{2k+1}$,
-i.e.\ $\sum\frac{(-1)^k}{2k+1}=\frac\pi4$. \emph{Check.} Recovers Worked Example 9.1.6 by a
+i.e.\ $\sum\frac{(-1)^k}{2k+1}=\frac\pi4$. \emph{Check.} Recovers Worked Example~\ref{wex:abel@c9} by a
 different route. \checkmark
 \end{wex}
 
@@ -16343,15 +16358,21 @@ different route. \checkmark
     axis lines=middle,
     xlabel={$x$},ylabel={},
     xmin=-3.5,xmax=3.5,ymin=-1.6,ymax=1.6,
-    xtick={-3.1416,0,3.1416},xticklabels={$-\pi$,$0$,$\pi$},
-    ytick={-1,1},
+    xtick={0,3.1416},xticklabels={$0$,$\pi$},
+    % labels -pi and -1 on the side of the axis away from the curves
+    extra x ticks={-3.1416},extra x tick labels={$-\pi$},
+    extra x tick style={xticklabel style={anchor=south,yshift=0.5ex}},
+    ytick={1},
+    extra y ticks={-1},
+    extra y tick style={yticklabel style={anchor=west,xshift=0.5ex}},
     samples=400,
     legend pos=north west,legend style={font=\footnotesize,draw=none,fill=none},
     every axis plot/.append style={line width=0.9pt},
   ]
     % target square wave
     \addplot[black,dashed,domain=-3.1416:0]{-1};
-    \addplot[black,dashed,domain=0:3.1416]{1};
+    \addlegendentry{$f=\operatorname{sgn}x$}
+    \addplot[black,dashed,domain=0:3.1416,forget plot]{1};
     % partial sum N=1 (k=0)
     \addplot[black!45,domain=-3.1416:3.1416]
       {(4/pi)*(sin(deg(x)))};
@@ -16382,7 +16403,7 @@ hypothesis (Thm.~\ref{t:ptwise@c9}).
 Apply Parseval's identity to the square wave $f=\operatorname{sgn}(x)$ to evaluate
 $\sum_{k\ge0}\dfrac1{(2k+1)^2}$.
 \wrec ``Sum of squared coefficients'': Parseval (Thm.~\ref{t:l2@c9}) equates the mean square of
-$f$ to $\sum(a_n^2+b_n^2)/2$.
+$f$ to $\frac{a_0^2}4+\sum_{n\ge1}(a_n^2+b_n^2)/2$.
 \wsol From the worked example above, $b_n=\frac4{\pi n}$ for odd $n$, else $0$ (and all
 $a_n=0$). Parseval in real form reads $\frac1\pi\int_{-\pi}^\pi f^2\,dx=\sum_{n\ge1}b_n^2$.
 The left side is $\frac1\pi\int_{-\pi}^\pi 1\,dx=2$. The right side is
@@ -16432,14 +16453,15 @@ $a_2^2$, the energy of the dropped mode. \checkmark
     width=11cm,height=5.4cm,
     axis lines=middle,
     xlabel={$x$},ylabel={},
-    xmin=-3.5,xmax=3.5,ymin=-0.3,ymax=2.0,
+    xmin=-3.5,xmax=3.5,ymin=-0.8,ymax=10.8,
     xtick={-3.1416,0,3.1416},xticklabels={$-\pi$,$0$,$\pi$},
-    ytick={1,2},
+    ytick={2,4,6,8,10},
     samples=400,
-    legend pos=north east,legend style={font=\footnotesize,draw=none,fill=none},
+    legend style={at={(axis cs:0.15,10.6)},anchor=north west,
+      font=\footnotesize,draw=none,fill=none},
     every axis plot/.append style={line width=0.9pt},
   ]
-    % target parabola x^2 (clipped to ymax)
+    % target parabola x^2 over the whole period
     \addplot[black,dashed,domain=-3.1416:3.1416]{x*x};
     \addlegendentry{$y=x^2$}
     % Fourier partial sum pi^2/3 + 4 sum (-1)^n cos nx /n^2, N=4
@@ -16455,7 +16477,7 @@ terms already track the parabola closely, with no Gibbs overshoot.}
 \end{center}
 
 \begin{exers}{Exercises (Rudin, Ch.8 -- Fourier series).}
-\item Suppose $0<\delta<\pi$, $f(x)=1$ if $\abs x<\delta$, $f(x)=0$ if
+\item Suppose $0<\delta<\pi$, $f(x)=1$ if $\abs x\le\delta$, $f(x)=0$ if
   $\delta<\abs x\le\pi$, and $f(x+2\pi)=f(x)$. (a) Compute the Fourier coefficients of $f$.
   (b) Conclude $\displaystyle\sum_{n=1}^\infty\frac{\sin(n\delta)}n=\frac{\pi-\delta}2$ for
   $0<\delta<\pi$. (c) Deduce from Parseval's theorem that
@@ -16516,7 +16538,7 @@ terms already track the parabola closely, with no Gibbs overshoot.}
 \item (Harder.) Using the Dirichlet kernel
   $D_N(t)=\dfrac{\sin((N+\frac12)t)}{\sin(t/2)}$, show $\frac1{2\pi}\int_{-\pi}^\pi
   D_N(t)\dt=1$, and outline how the Dini/Lipschitz pointwise convergence theorem
-  (Thm.~9.5.8) follows.
+  (Thm.~\ref{t:ptwise@c9}) follows.
 \end{exers}
 
 
@@ -16564,17 +16586,19 @@ $\Gamma(1)=\int_0^\infty e^{-t}\dt=1$. By induction $\Gamma(n+1)=n\cdot
     width=11cm,height=6.6cm,
     axis lines=middle,
     xlabel={$x$},ylabel={$y$},
+    y label style={at={(axis description cs:0,1)},anchor=south},
     xmin=0,xmax=5.2,ymin=0,ymax=10,
     xtick={1,2,3,4,5},ytick={1,2,4,6,8,10},
     samples=200,
-    legend pos=north west,legend style={font=\footnotesize,draw=none,fill=none},
+    legend style={at={(axis cs:0.8,9.8)},anchor=north west,
+      font=\footnotesize,draw=none,fill=none},
     every axis plot/.append style={line width=1pt},
   ]
-    % Gamma(x) on (0.3, 4.6) via the Lanczos-free direct: use tgamma not available;
-    % approximate Gamma with exp/ln through Stirling-quality is messy, so plot a
-    % smooth interpolant through the factorial nodes for illustration.
-    \addplot[black,domain=0.35:4.55,samples=200]
-      { exp( (x-1)*ln(x-1+0.000001) - (x-1) + 0.5*ln(2*pi*(x-1)+1.7) ) };
+    % Gamma(x) = Gamma(x+6)/(x(x+1)...(x+5)), with Stirling's series for log Gamma(x+6)
+    % (relative error < 1e-6 on the plotted range; Gamma(x) -> infinity as x -> 0+)
+    \addplot[black,domain=0.09:4.6,samples=200]
+      { exp( (x+5.5)*ln(x+6) - (x+6) + 0.918939 + 1/(12*(x+6)) - 1/(360*(x+6)^3) )
+        / ( x*(x+1)*(x+2)*(x+3)*(x+4)*(x+5) ) };
     \addlegendentry{$y=\Gamma(x)$}
     % factorial nodes (n,(n-1)!): (1,1),(2,1),(3,2),(4,6),(5,24->offscale)
     \node[pt] at (axis cs:1,1) {};
@@ -16582,13 +16606,13 @@ $\Gamma(1)=\int_0^\infty e^{-t}\dt=1$. By induction $\Gamma(n+1)=n\cdot
     \node[pt] at (axis cs:3,2) {};
     \node[pt] at (axis cs:4,6) {};
     \node[above right,font=\footnotesize] at (axis cs:1,1) {$(1,0!)$};
-    \node[above right,font=\footnotesize] at (axis cs:2,1) {$(2,1!)$};
-    \node[above right,font=\footnotesize] at (axis cs:3,2) {$(3,2!)$};
+    \node[below right,font=\footnotesize] at (axis cs:2,1) {$(2,1!)$};
+    \node[above left,font=\footnotesize] at (axis cs:3,2) {$(3,2!)$};
     \node[above left,font=\footnotesize] at (axis cs:4,6) {$(4,3!)$};
   \end{axis}
 \end{tikzpicture}
 \captionof{figure}{$\Gamma$ passes through the factorial points $(n,(n-1)!)$ and interpolates
-them smoothly. (Curve drawn from a Stirling-type approximant for illustration.)}
+them smoothly.}
 \end{center}
 
 \subsection*{Log-convexity and the Bohr--Mollerup characterization}
@@ -16626,13 +16650,14 @@ $\Gamma$ is the \emph{unique} function $f:(0,\infty)\to(0,\infty)$ satisfying al
 \begin{proof}[Proof sketch]
 $\Gamma$ has all three (Thms.~\ref{t:gammafunc@c9},~\ref{t:gammalog@c9}). Conversely, (1)--(2) pin
 $f$ on the integers ($f(n+1)=n!$) and (3) squeezes $f$ in between: for $0<x\le1$ and large
-$n$, convexity of $\log f$ on the points $n,\ n+x,\ n+1$ gives, after using
-$f(n+1)=n!$ and $f(n+x)=(n-1+x)\cdots x\,f(x)$, the bounds
+$n$, convexity of $\log f$ on the points $n-1,\ n,\ n+x,\ n+1$ (slopes of chords increase)
+gives, after using $f(n+1)=n!$ and $f(n+x)=(n-1+x)\cdots x\,f(x)$, the bounds
 \[
-  \frac{n!\,n^x}{x(x+1)\cdots(x+n)}\Bigl(\tfrac{n}{n+1}\Bigr)^{?}\le f(x)\le
+  \frac{(n-1)!\,(n-1)^x}{x(x+1)\cdots(x+n-1)}\le f(x)\le
   \frac{n!\,n^x}{x(x+1)\cdots(x+n)}\cdot\frac{n+x}{n},
 \]
-and both bounds converge to the \emph{Gauss limit}
+and both bounds (the left one is the same quotient with $n-1$ in place of $n$) converge to
+the \emph{Gauss limit}
 $\displaystyle\lim_{n\to\infty}\frac{n!\,n^x}{x(x+1)\cdots(x+n)}$, forcing $f(x)=\Gamma(x)$.
 The functional equation then extends uniqueness to all $x>0$.
 \end{proof}
@@ -16710,13 +16735,14 @@ log-convexity, infinitely many ``factorial interpolants'' exist.
     width=9.5cm,height=5.0cm,
     axis lines=middle,
     xlabel={$t$},ylabel={$y$},
-    xmin=0,xmax=1.05,ymin=0,ymax=1.0,
-    xtick={0.5,1},ytick={0.5,1},
+    xmin=0,xmax=1.05,ymin=0,ymax=2.3,
+    xtick={0.5,1},ytick={1,2},
     samples=120,
-    legend pos=north east,legend style={font=\footnotesize,draw=none,fill=none},
+    legend style={at={(axis cs:0.08,2.25)},anchor=north west,
+      font=\footnotesize,draw=none,fill=none},
     every axis plot/.append style={line width=1pt},
   ]
-    % Beta(2,2) density shape t(1-t), scaled; and Beta(4,2): t^3(1-t)
+    % Beta(2,2) density 6t(1-t) (max 3/2); Beta(4,2) density 20t^3(1-t) (max 135/64 at t=3/4)
     \addplot[black,domain=0:1]{6*x*(1-x)};
     \addlegendentry{$\propto t(1-t)$}
     \addplot[black,dashed,domain=0:1]{20*x*x*x*(1-x)};
@@ -16724,8 +16750,8 @@ log-convexity, infinitely many ``factorial interpolants'' exist.
   \end{axis}
 \end{tikzpicture}
 \captionof{figure}{Integrands $t^{p-1}(1-t)^{q-1}$ of the Beta integral on $[0,1]$ (here
-normalized to unit area). The total area is exactly $B(p,q)=\Gamma(p)\Gamma(q)/\Gamma(p+q)$;
-unequal $p,q$ skew the bump toward the larger exponent.}
+normalized to unit area). Before normalization the area is exactly
+$B(p,q)=\Gamma(p)\Gamma(q)/\Gamma(p+q)$; unequal $p,q$ skew the bump toward the larger exponent.}
 \end{center}
 
 \begin{wex}{A Gaussian moment integral via $\Gamma$}
@@ -16739,8 +16765,9 @@ into a $\Gamma$ integral.
 \]
 Using $\Gamma(\tfrac52)=\tfrac34\sqrt\pi$ from the half-integer worked example, the value is
 $\tfrac12\cdot\tfrac34\sqrt\pi=\tfrac{3\sqrt\pi}{8}$. \emph{Check.} Numerically
-$\frac{3\sqrt\pi}{8}\approx0.6647$; this is also $\frac{3}{4}\cdot\frac{\sqrt\pi}{2}$, the
-fourth moment $\frac{\sqrt\pi}{2}\cdot\frac{3}{4}$ of the half-line Gaussian. \checkmark
+$\frac{3\sqrt\pi}{8}\approx0.6647$; this is also $\frac{\sqrt\pi}{2}\cdot\frac{3}{4}$, the
+mass $\int_0^\infty e^{-x^2}dx=\frac{\sqrt\pi}{2}$ times the fourth moment $3\sigma^4=\frac34$
+of a centered normal law with $\sigma^2=\frac12$. \checkmark
 \end{wex}
 
 \begin{wex}{Evaluating a Beta integral numerically}
@@ -16758,9 +16785,8 @@ Directly: $\int_0^1 x^3(1-2x+x^2)dx=\int_0^1(x^3-2x^4+x^5)dx=\tfrac14-\tfrac25+\
 \end{wex}
 
 \begin{wex}{A non-example: the factorial alone does not pin down $\Gamma$}
-Define $H(x)=\Gamma(x)\bigl(1+\tfrac12\sin(2\pi x)\cdot 0\bigr)$ --- more honestly, let
-$H(x)=\Gamma(x)\,e^{c\sin(2\pi x)}$ for a small constant $c>0$. Show $H$ still satisfies
-$H(n+1)=n!$ on integers and $H(x+1)=x\,H(x)\cdot[\text{a }1\text{-periodic factor}]$, yet
+Let $H(x)=\Gamma(x)\,e^{c\sin(2\pi x)}$ for a small constant $c>0$. Show $H$ still satisfies
+$H(n+1)=n!$ on integers and $H(x+1)=x\,H(x)$, yet
 $H\ne\Gamma$; identify which Bohr--Mollerup hypothesis $H$ violates.
 \wrec ``Test the uniqueness hypotheses'': perturb $\Gamma$ by a $1$-periodic factor and check
 which of (1)--(3) breaks.
@@ -16771,15 +16797,16 @@ x\Gamma(x)p(x)=x H(x)$ --- the functional equation (1) and normalization (2) bot
 What fails is \emph{log-convexity} (3): $\log H=\log\Gamma+c\sin(2\pi x)$, and the wiggling
 sine term destroys convexity for any $c>0$. By Bohr--Mollerup (Thm.~\ref{t:bohr@c9}) only the
 log-convex interpolant is $\Gamma$, so $H\ne\Gamma$. \emph{Check.} $\frac{d^2}{dx^2}\log H=
-(\log\Gamma)''-c(2\pi)^2\sin(2\pi x)$, which is negative wherever $\sin(2\pi x)$ is large and
-positive --- not convex. \checkmark
+(\log\Gamma)''-c(2\pi)^2\sin(2\pi x)$, which is negative at the points $x=k+\frac14$ for all
+large $k$ (there $\sin(2\pi x)=1$, while $(\log\Gamma)''(x)=\sum_{m\ge0}(x+m)^{-2}\to0$ as
+$x\to\infty$) --- not convex. \checkmark
 \end{wex}
 
 \begin{exers}{Exercises (Rudin, Ch.8 -- Stirling and the Gamma function).}
 \item (A good elementary approximation to Stirling's formula.) For $m=1,2,3,\dots$ define
   $f(x)=(m+1-x)\log m+(x-m)\log(m+1)$ if $m\le x\le m+1$, and define
-  $g(x)=\dfrac xm-1+\log m$ if $m-\tfrac12\le x\le m+\tfrac12$. Draw the graphs of $f$ and
-  $g$, note $f(x)<\log x<g(x)$ for $x>1$, and that
+  $g(x)=\dfrac xm-1+\log m$ if $m-\tfrac12\le x<m+\tfrac12$. Draw the graphs of $f$ and
+  $g$, note $f(x)\le\log x\le g(x)$ for $x\ge1$, and that
   $\int_1^n f(x)\dx=\log(n!)-\tfrac12\log n$. Integrating $\log x$ over $[1,n]$, conclude
   $\tfrac78<\log(n!)-(n+\tfrac12)\log n+n<1$ for $n=2,3,\dots$, and hence
   $\displaystyle e^{7/8}<\frac{n!}{(n/e)^n\sqrt n}<e$.
@@ -16805,7 +16832,7 @@ positive --- not convex. \checkmark
   $\Gamma(\tfrac72)$ in closed form using $\Gamma(\tfrac12)=\sqrt\pi$ and the functional
   equation.
 \item (Diagram.) Plot the factorial nodes $(1,0!),(2,1!),(3,2!),(4,3!)$ and sketch a smooth
-  increasing curve through them representing $\Gamma(x)$; mark where the curve dips to its
+  curve through them representing $\Gamma(x)$; mark where the curve dips to its
   minimum on $(0,\infty)$ and note $\Gamma(x)\to\infty$ as $x\to0^+$.
 \item (Non-example.) Let $h(x)=\Gamma(x)\,p(x)$ with $p$ a positive $1$-periodic function
   satisfying $p\equiv1$ on $\Z$ (e.g.\ $p(x)=1+\tfrac12\sin^2(\pi x)$). Show $h$ satisfies
@@ -16815,8 +16842,8 @@ positive --- not convex. \checkmark
   $1/p+1/q=1$, and state the AM--GM special case that follows from log-convexity.
 \item Use the Beta function $B(p,q)=\Gamma(p)\Gamma(q)/\Gamma(p+q)$ to evaluate
   $\int_0^1\sqrt{t(1-t)}\dt$ and $\int_0^{\pi/2}\sin^4\theta\cos^2\theta\,d\theta$.
-\item (Harder.) Use Stirling's formula to find $\lim_{n\to\infty}\dfrac{(2n)!}{4^n(n!)^2
-  \sqrt{\pi n}}$ and $\lim_{n\to\infty}\dfrac{n!\,e^n}{n^{n}\sqrt n}$, identifying each
+\item (Harder.) Use Stirling's formula to find $\lim_{n\to\infty}\dfrac{(2n)!\,
+  \sqrt{\pi n}}{4^n(n!)^2}$ and $\lim_{n\to\infty}\dfrac{n!\,e^n}{n^{n}\sqrt n}$, identifying each
   limiting constant.
 \end{exers}
 
