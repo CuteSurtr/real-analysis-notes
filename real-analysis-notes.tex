@@ -2831,7 +2831,7 @@ with these properties is a \emph{distance function}.
 
 The triangle inequality is the workhorse: every estimate ``$d(p,q)$ is small'' is built by
 routing through an intermediate point $r$ and adding two small distances. The definiteness
-clause (b) is what distinguishes a metric from a \emph{semimetric}, where one only requires
+clause of (a) is what distinguishes a metric from a \emph{semimetric}, where one only requires
 $d(p,p)=0$ but allows distinct points at distance $0$ (B\&S 11.4.13); we will always assume
 a genuine metric.
 
@@ -2850,7 +2850,7 @@ exploit constantly via the \emph{relative} topology (\S3.2).
 \item \textbf{The real line $\R$} with $d(x,y)=\abs{x-y}$. Axiom (c) is the triangle
   inequality for absolute value, $\abs{x-y}\le\abs{x-z}+\abs{z-y}$.
 \item \textbf{Euclidean space $\Rk$} with $d(\mathbf x,\mathbf y)=\abs{\mathbf x-\mathbf y}
-  =\bigl(\sum_{j=1}^k (x_j-y_j)^2\bigr)^{1/2}$. The triangle inequality here is the
+  =\bigl(\sum_{j=1}^k (x_j-y_j)^2\bigr)^{1/2}$. The triangle inequality here follows from the
   Cauchy--Schwarz inequality (Rudin 1.37); $\R^2$ is the complex plane.
 \item \textbf{The taxicab and sup metrics on $\Rk$}:
   $d_1(\mathbf x,\mathbf y)=\sum_j\abs{x_j-y_j}$ and
@@ -2877,9 +2877,9 @@ triangle inequality, handled by cases.
 ``$p\neq q$'' is symmetric. (c) Fix $p,q,r$. If $p=q$ then $d(p,q)=0\le$ anything. If $p\neq
 q$ then $d(p,q)=1$; but $p\neq q$ forces $r\neq p$ or $r\neq q$ (else $p=r=q$), so
 $d(p,r)+d(r,q)\ge1=d(p,q)$. \emph{Check.} The largest possible distance is $1$, so the
-triangle inequality can never fail by more than the slack $1+1\ge1$. Every singleton ball
-$B(p,\tfrac12)=\set p$, which already hints (Worked Example~\ref{wex:disc-open@c3}) that
-\emph{every} subset is open.
+triangle inequality could fail only if $d(p,r)=d(r,q)=0$, i.e.\ $p=r=q$, and then $d(p,q)=0$
+as well. Every singleton ball $B(p,\tfrac12)=\set p$, which already hints (Worked
+Example~\ref{wex:disc-open@c3}) that \emph{every} subset is open.
 \end{wex}
 
 \subsection*{Balls, neighborhoods, bounded sets, diameter}
@@ -2913,7 +2913,7 @@ because it lets us say ``$E$ is a neighborhood of $p$'' without fixing a radius.
   \node[pt,label={[font=\footnotesize]below right:$p$}] at (0,0) {};
   \draw[-{Stealth[length=2mm]},line width=0.7pt] (0,0)--(1.4,0);
   \node[font=\footnotesize,fill=white,inner sep=1pt] at (0.7,0.18) {$r$};
-  \node[pt,fill=black] (q) at (0.6,0.8) {};
+  \node[pt,fill=black] (q) at (-0.95,0.6) {};
   \node[font=\footnotesize,right=1pt of q] {$q$, $d(p,q)<r$};
   \node[font=\footnotesize] at (0,-1.75) {$B(p,r)\subseteq\R^2$ (boundary excluded)};
   % number-line ball
@@ -2940,7 +2940,8 @@ near-extremal pair.
 $\R^k$ take $x=p+(r-\delta)\mathbf u$, $y=p-(r-\delta)\mathbf u$ for a unit vector $\mathbf
 u$; then $d(x,y)=2(r-\delta)\to2r$, so the sup is $2r$. \emph{Non-Euclidean check:} in the
 discrete metric with $r=2$, $B(p,2)=X$ but any two distinct points are at distance $1$, so
-$\diam B(p,2)\le1<4=2r$. The clean formula $\diam=2r$ is special to $\R^k$.
+$\diam B(p,2)\le1<4=2r$. The clean formula $\diam=2r$ holds in $\R^k$ but not in metric
+spaces in general.
 \end{wex}
 
 \begin{wex}{The three metrics on $\R^2$ give nested balls}
@@ -2962,17 +2963,17 @@ x,\abs y)<1}$ is the open axis-aligned square $(-1,1)^2$. Since $\max\le\sqrt{x^
   \draw[numln] (0,-1.35)--(0,1.45) node[above,font=\footnotesize]{$y$};
   % d_infty square
   \draw[line width=1pt] (-1,-1) rectangle (1,1);
-  \node[font=\footnotesize] at (1.05,1.18) {$d_\infty$};
+  \node[font=\footnotesize] at (1.26,1.2) {$d_\infty$};
   % euclidean circle
   \draw[line width=1pt,dashed] (0,0) circle (1);
-  \node[font=\footnotesize] at (0.78,0.78) {$d$};
+  \node[font=\footnotesize] at (0.84,0.84) {$d$};
   % d_1 diamond
   \draw[line width=1pt] (1,0)--(0,1)--(-1,0)--(0,-1)--cycle;
-  \node[font=\footnotesize] at (0.42,0.42) {$d_1$};
+  \node[font=\footnotesize] at (0.33,0.33) {$d_1$};
   \node[pt] at (0,0) {};
 \end{tikzpicture}
 \captionof{figure}{Unit balls at the origin: diamond ($d_1$) $\subseteq$ disk ($d$) $\subseteq$
-square ($d_\infty$). All three metrics induce the same open sets (\S3.2).}
+square ($d_\infty$). All three metrics induce the same open sets.}
 \end{center}
 
 \begin{method}{Verifying that a candidate $d$ is a metric}
@@ -2999,14 +3000,15 @@ $x=0,r=1,y=2$: $d_1(0,2)=4$ while $d_1(0,1)+d_1(1,2)=1+1=2<4$. So $d_1$ is \emph
 metric. $d_2$: positivity/definiteness and symmetry are clear. For the triangle inequality,
 $\sqrt{\abs{x-y}}\le\sqrt{\abs{x-z}+\abs{z-y}}\le\sqrt{\abs{x-z}}+\sqrt{\abs{z-y}}$, using
 $\abs{x-y}\le\abs{x-z}+\abs{z-y}$ and $\sqrt{a+b}\le\sqrt a+\sqrt b$ (square both sides:
-$a+b\le a+b+2\sqrt{ab}$). So $d_2$ \emph{is} a metric. \emph{Check.} $d_2(0,4)=2=
-d_2(0,1)+d_2(1,4)=1+\sqrt3\approx2.73$? Indeed $2\le2.73$, consistent.
+$a+b\le a+b+2\sqrt{ab}$). So $d_2$ \emph{is} a metric. \emph{Check.} $d_2(0,4)=2\le
+d_2(0,1)+d_2(1,4)=1+\sqrt3\approx2.73$, consistent.
 \end{wex}
 
 \begin{pitfall}
 ``One set, many metrics.'' The same underlying set carries genuinely different metrics, and
-which one you use changes what ``small distance'' means --- but, as we will see in \S3.2, the
-metrics $d,d_1,d_\infty$ on $\R^k$ all produce the \emph{same} open sets, so they are
+which one you use changes what ``small distance'' means --- but the metrics $d,d_1,d_\infty$
+on $\R^k$ all produce the \emph{same} open sets (since $d_\infty\le d\le d_1\le k\,d_\infty$,
+every ball for one of them contains a concentric ball for each of the others), so they are
 interchangeable for topology. By contrast the $d_\infty$ and $L^1$ metrics on $C[0,1]$ give
 \emph{different} topologies (uniform vs.\ mean convergence). Never assume two metrics agree
 topologically; check.
@@ -3015,7 +3017,8 @@ topologically; check.
 \subsection*{Further worked examples}
 
 \begin{wex}{The reverse triangle inequality}
-In any metric space $(X,d)$ prove $\abs{d(p,r)-d(q,r)}\le d(p,q)$ for all $p,q,r$.
+In any metric space $(X,d)$, prove that $\abs{d(p,r)-d(q,r)}\le d(p,q)$ for all
+$p,q,r\in X$.
 \wrec Trigger: an estimate \emph{lower}-bounding a distance. The reverse triangle inequality
 is the standard consequence of axiom (c) applied twice, with the two points swapped.
 \wsol By the triangle inequality, $d(p,r)\le d(p,q)+d(q,r)$, so $d(p,r)-d(q,r)\le d(p,q)$.
@@ -3026,7 +3029,7 @@ together say $-d(p,q)\le d(p,r)-d(q,r)\le d(p,q)$, i.e.\ $\abs{d(p,r)-d(q,r)}\le
 $x\mapsto d(x,r)$ is therefore $1$-Lipschitz, hence continuous --- a fact used constantly.
 \end{wex}
 
-\begin{wex}{A formula that fails definiteness, and one that fails the triangle law}
+\begin{wex}{A formula that fails definiteness, and one that is a bounded metric}
 On $\R$ decide whether $\rho(x,y)=\abs{x^2-y^2}$ and $\sigma(x,y)=\abs{x-y}/(1+\abs{x-y})$
 are metrics.
 \wrec Trigger: ``is this a metric?''. Run the verification method: definiteness is the usual
@@ -3080,9 +3083,9 @@ sets as $\abs{x-y}$ yet makes the whole line bounded --- boundedness is not topo
   $\abs{d(p,r)-d(r,q)}\le d(p,q)$.
 \item Compute the diameter of the unit square $[0,1]^2\subseteq\R^2$ under each of the three
   metrics $d$, $d_1$, $d_\infty$. (Answers: $\sqrt2$, $2$, $1$.)
-\item (Non-example.) Show that $\sigma(x,y)=\abs{x}+\abs{y}$ for $x\neq y$ and
-  $\sigma(x,x)=0$ is \emph{not} a metric on $\R$ by exhibiting a failure of the triangle
-  inequality, and identify which other axiom it also breaks.
+\item (Post office metric.) Show that $\sigma(x,y)=\abs{x}+\abs{y}$ for $x\neq y$ and
+  $\sigma(x,x)=0$ \emph{is} a metric on $\R$ (every trip is routed through $0$): verify the
+  triangle inequality by cases.
 \item Let $(X,d)$ be a metric space. Prove that $\rho(x,y)=\dfrac{d(x,y)}{1+d(x,y)}$ is also a
   metric on $X$, and that $\rho(x,y)<1$ always. (So every metric space carries a
   topologically equivalent bounded metric.)
@@ -3121,7 +3124,7 @@ The words \emph{open} and \emph{closed} are not opposites. In any space, $\es$ a
 \emph{both} open and closed; many sets (e.g.\ $[0,1)\subseteq\R$) are \emph{neither}. ``Not
 open'' does not mean ``closed.''
 
-\begin{theorem}[Every neighborhood is open; Rudin 2.19]\label{t:ball-open@c3}
+\begin{theorem}[Every $r$-neighborhood is open; Rudin 2.19]\label{t:ball-open@c3}
 Every open ball $N_r(p)$ is an open set.
 \end{theorem}
 
@@ -3140,15 +3143,16 @@ N_r(p)$ and $q$ is interior. As $q$ was arbitrary, $N_r(p)$ is open.
   \draw[line width=0.9pt] (0,0) circle (1.5);
   \node[pt,label={[font=\footnotesize]below:$p$}] at (0,0) {};
   \node[pt] (q) at (0.95,0.55) {};
-  \node[font=\footnotesize,above right=-1pt of q] {$q$};
-  \draw[dashed] (q) circle (0.41);
+  \node[font=\footnotesize,left=1pt of q] {$q$};
+  \pgfmathsetmacro\hq{1.5-sqrt(0.95^2+0.55^2)}% h = r - d(p,q)
+  \draw[dashed] (q) circle (\hq);
   \draw[-{Stealth[length=1.6mm]}] (0,0)--(1.5,0);
   \node[font=\footnotesize,fill=white,inner sep=1pt] at (0.75,-0.16) {$r$};
-  \draw[-{Stealth[length=1.6mm]}] (q)--($(q)+(0.41,0)$);
+  \draw[-{Stealth[length=1.6mm]}] (q)--($(q)+(\hq,0)$);
   \node[font=\footnotesize,fill=white,inner sep=1pt] at ($(q)+(0.2,0.15)$) {$h$};
-  \node[font=\footnotesize,align=center] at (0,-1.95)
-    {$h=r-d(p,q)>0$, so $N_h(q)\subseteq N_r(p)$: every point of a ball is interior.};
 \end{tikzpicture}
+\captionof{figure}{With $h=r-d(p,q)>0$ we get $N_h(q)\subseteq N_r(p)$: every point of a ball
+is interior.}
 \end{center}
 
 \begin{wex}{In the discrete metric every set is open (and closed)}\label{wex:disc-open@c3}
@@ -3171,9 +3175,11 @@ $E$ is open iff $E^c$ is closed; equivalently $F$ is closed iff $F^c$ is open.
 \end{theorem}
 
 \begin{proof}
-Suppose $E^c$ is closed, i.e.\ $(E^c)^c=E$ \dots\ we argue directly. Let $E$ be open and let
-$x$ be a limit point of $E^c$ (\S3.3 notion, but we only need: every neighborhood of $x$
-meets $E^c$). If $x\in E$, openness gives a ball $B(x,r)\subseteq E$, disjoint from $E^c$, so
+Since $E^c$ is closed iff $(E^c)^c=E$ is open, this is immediate from the definition. It is
+instructive to argue directly with the limit-point description of closed sets
+(Theorem~\ref{t:closed-iff-lim@c3}). Let $E$ be open and let $x$ be a limit point of $E^c$
+(\S3.3 notion, but we only need: every neighborhood of $x$ meets $E^c$). If $x\in E$,
+openness gives a ball $B(x,r)\subseteq E$, disjoint from $E^c$, so
 $x$ is \emph{not} a limit point of $E^c$ --- contradiction; hence $x\in E^c$. So $E^c$
 contains its limit points, i.e.\ is closed. Conversely if $E^c$ is closed and $x\in E$, then
 $x\notin E^c$ and $x$ is not a limit point of $E^c$, so some ball $B(x,r)$ misses $E^c$,
@@ -3213,6 +3219,8 @@ of opens, or union of closeds, can land anywhere.
 \end{pitfall}
 
 \begin{center}
+\begin{minipage}{\linewidth}% keeps the figure and its caption on one page
+\centering
 \begin{tikzpicture}[scale=1.0]
   \foreach \n/\y in {1/0, 2/-0.55, 3/-1.1}{
     \pgfmathsetmacro\hw{1/\n}
@@ -3228,6 +3236,7 @@ of opens, or union of closeds, can land anywhere.
 \end{tikzpicture}
 \captionof{figure}{Shrinking open intervals $G_n=(-\tfrac1n,\tfrac1n)$ intersect to the single
 point $\set0$: an infinite intersection of open sets need not be open.}
+\end{minipage}
 \end{center}
 
 \subsection*{Open and closed sets in $\R$}
@@ -3321,12 +3330,13 @@ contrasting with the shrinking-interval pitfall.
 \wrec Trigger: test the sharpness of Theorem~\ref{t:open-closed-ops@c3}(c). The theorem
 \emph{guarantees} openness only for finite intersections; it does not \emph{forbid} an
 infinite intersection from being open.
-\wsol Take $G_n=(-1-\tfrac1n,\,1+\tfrac1n)$, a decreasing nest of open intervals. Their
-intersection is $\bigcap_{n\ge1}G_n=[-1,1]$? No: each $G_n$ strictly contains $[-1,1]$, and
-a point $x$ lies in every $G_n$ iff $\abs x<1+\tfrac1n$ for all $n$, i.e.\ iff
-$\abs x\le1$. So $\bigcap_n G_n=[-1,1]$, which is \emph{closed}, not open --- the nest
-collapses onto the boundary. To get an \emph{open} infinite intersection instead, take the
-constant family $G_n=(0,1)$ for all $n$: the intersection is $(0,1)$, open. \emph{Check.}
+\wsol A first try fails: for the decreasing nest $G_n=(-1-\tfrac1n,\,1+\tfrac1n)$, a point $x$
+lies in every $G_n$ iff $\abs x<1+\tfrac1n$ for all $n$, i.e.\ iff $\abs x\le1$. So
+$\bigcap_n G_n=[-1,1]$, which is \emph{closed}, not open --- the nest collapses onto the
+boundary. To get an \emph{open} infinite intersection instead, remove the integers one at a
+time: $G_n=\R\setminus\set{1,\dots,n}$ is open (a union of $n+1$ open intervals), and
+$\bigcap_n G_n=\R\setminus\N=(-\infty,1)\cup\bigcup_{k\ge1}(k,k+1)$ is a union of open
+intervals, hence open (and nonempty). \emph{Check.}
 The lesson is that an infinite intersection of opens \emph{may} be open or closed or
 neither; finiteness in Theorem~\ref{t:open-closed-ops@c3}(c) is what makes openness automatic,
 and its absence makes the outcome case-by-case.
@@ -3364,8 +3374,8 @@ $(\floor{x},\floor{x}+1)$.
   $E^\circ$ is the closure of the complement of $E$. (e) Do $E$ and $\closure E$ always have
   the same interiors? (f) Do $E$ and $E^\circ$ always have the same closures?
 \item Prove that every closed set in a separable metric space is the union of a (possibly
-  empty) perfect set and a set which is at most countable. (Corollary: every countable closed
-  set in $\R^k$ has isolated points.) [Hint: use the condensation-point exercise.]
+  empty) perfect set and a set which is at most countable. (Corollary: every nonempty countable
+  closed set in $\R^k$ has isolated points.) [Hint: use the condensation-point exercise.]
 \item Prove that every open set in $\R^1$ is the union of an at most countable collection of
   disjoint segments. [Hint: use separability of $\R$.]
 \item Imitate the proof that nonempty perfect sets are uncountable to prove Baire's theorem
@@ -3469,31 +3479,35 @@ points of $E$. In particular a finite set has no limit points.
 
 \begin{proof}
 Suppose some neighborhood $N$ of $p$ met $E$ in only finitely many points $q_1,\dots,q_n$
-distinct from $p$. Put $r=\min_{1\le m\le n}d(p,q_m)>0$ (a finite minimum of positive
-numbers). Then $N_r(p)$ contains no point $q\neq p$ of $E$, contradicting that $p$ is a limit
-point.
+distinct from $p$, and let $B(p,s)\subseteq N$. Put $r=\min\set{s,d(p,q_1),\dots,d(p,q_n)}>0$
+(a finite minimum of positive numbers). Then $N_r(p)\subseteq N$ contains no point $q\neq p$
+of $E$, contradicting that $p$ is a limit point.
 \end{proof}
 
 \begin{center}
 \begin{tikzpicture}[scale=1.0]
-  \draw[numln] (-0.4,0)--(4.6,0) node[right,font=\footnotesize]{$\R$};
+  \draw[numln] (-1.8,0)--(4.6,0) node[right,font=\footnotesize]{$\R$};
   % points 1/n accumulating at 0
   \foreach \k in {1,2,3,4,5,6}{
     \pgfmathsetmacro\x{4/\k}
     \node[pt] at (\x,0) {};
+  }
+  \foreach \k in {7,...,40}{
+    \pgfmathsetmacro\x{4/\k}
+    \node[circle,fill=black,inner sep=0.7pt] at (\x,0) {};
   }
   \node[pt,fill=white,draw,line width=0.8pt] (zero) at (0,0) {};
   \node[font=\footnotesize,below] at (0,-0.06) {$0$ (limit pt, $\notin E$)};
   \node[font=\footnotesize,below] at (4,-0.06) {$1$};
   \node[font=\footnotesize,below] at (2,-0.06) {$\tfrac12$};
   % shrinking neighborhoods of 0
-  \foreach \r/\yy in {1.5/0.45, 0.85/0.78, 0.45/1.05}{
+  \foreach \r/\yy in {1.5/0.45, 0.85/0.85, 0.45/1.25}{
     \draw[band,draw=black!40] (-\r,\yy-0.05) rectangle (\r,\yy+0.05);
     \node[opt,scale=0.7] at (-\r,\yy){}; \node[opt,scale=0.7] at (\r,\yy){};
   }
   \node[font=\footnotesize,right] at (1.55,0.45) {$N_{r_1}(0)$};
-  \node[font=\footnotesize,right] at (0.9,0.78) {$N_{r_2}(0)$};
-  \node[font=\footnotesize,right] at (0.5,1.05) {$N_{r_3}(0)$};
+  \node[font=\footnotesize,right] at (0.9,0.85) {$N_{r_2}(0)$};
+  \node[font=\footnotesize,right] at (0.5,1.25) {$N_{r_3}(0)$};
 \end{tikzpicture}
 \captionof{figure}{$E=\set{1/n}$ has the one limit point $0$. Shrinking neighborhoods of $0$ each
 still capture infinitely many $1/n$; every point of $E$ is isolated.}
@@ -3515,11 +3529,12 @@ Hence $\closure E$ is the \emph{smallest} closed set containing $E$.
 \end{theorem}
 
 \begin{proof}
-(a) Let $p\in(\closure E)^c$, so $p\notin E$ and $p\notin E'$; thus some neighborhood $N$ of
-$p$ contains no point of $E$ (other than $p$, which is excluded). Then $N$ also contains no
-limit point of $E$: if $q\in N$ then $N$ is a neighborhood of $q$ missing $E\setminus\set
-q$, so $q\notin E'$. Hence $N\subseteq(\closure E)^c$, proving $(\closure E)^c$ open and
-$\closure E$ closed. (b) If $\closure E=E$ then $E$ is closed by (a); if $E$ is closed then
+(a) Let $p\in(\closure E)^c$, so $p\notin E$ and $p\notin E'$; thus some ball $N=B(p,s)$
+contains no point of $E$ (other than $p$, which is excluded). Then $N$ also contains no
+limit point of $E$: if $q\in N$ then $N$, being open (Theorem~\ref{t:ball-open@c3}), is a
+neighborhood of $q$ missing $E\setminus\set q$, so $q\notin E'$. Hence
+$N\subseteq(\closure E)^c$, proving $(\closure E)^c$ open and $\closure E$ closed.
+(b) If $\closure E=E$ then $E$ is closed by (a); if $E$ is closed then
 $E'\subseteq E$ (it contains its limit points, \S3.2 / Theorem~\ref{t:closed-iff-lim@c3}), so
 $\closure E=E\cup E'=E$. (c) If $F$ is closed and $E\subseteq F$ then $E'\subseteq F'\subseteq
 F$, so $\closure E=E\cup E'\subseteq F$.
@@ -3536,13 +3551,13 @@ If $E$ is closed and $p$ is a limit point with $p\notin E$, then $p\in E^c$ open
 ball $B(p,r)\subseteq E^c$ misses $E$ --- contradicting $p\in E'$; hence $E'\subseteq E$.
 Conversely if $E'\subseteq E$ and $p\in E^c$, then $p$ is not a limit point, so a ball
 $B(p,r)$ misses $E$, i.e.\ $B(p,r)\subseteq E^c$; so $E^c$ is open and $E$ closed. The
-sequential form is equivalent because a cluster point is exactly a limit of a nonconstant
-sequence from $E$ (B\&S 4.1.2).
+sequential form is equivalent because a cluster point of $E$ is exactly a limit of a sequence
+from $E$ whose terms all differ from it (B\&S 4.1.2).
 \end{proof}
 
 \begin{theorem}[Sup and inf lie in a closed set; Rudin 2.28, B\&S Ex.~11.1.18]\label{t:sup-closed@c3}
 If $\es\neq E\subseteq\R$ is bounded above and $y=\sup E$, then $y\in\closure E$. Hence if $E$
-is closed, $\sup E\in E$ (and likewise $\inf E\in E$).
+is closed, $\sup E\in E$ (and likewise $\inf E\in E$ when $E$ is bounded below).
 \end{theorem}
 
 \begin{proof}
@@ -3593,8 +3608,8 @@ isolated as a set.
 \wsol Since $E\subseteq\closure E\subseteq E\cup E'$ and limit points only depend on
 arbitrarily-close companions, one shows $(\closure E)'=E'$ (a limit point of $\closure E$ is
 approached by points of $E$, possibly via nearby limit points). But $E$ and $E'$ can differ:
-let $E=\set{1/n\st n\in\N}$. Then $E'=\set0$, and $(E')'=\es$ (a single point has no limit
-points), while $E'=\set0\neq\es=(E')'$. \emph{Check.} So applying $'$ is not idempotent in
+let $E=\set{1/n\st n\in\N}$. Then $E'=\set0$, while $(E')'=\es$ (a single point has no limit
+points), so $E'\neq(E')'$. \emph{Check.} So applying $'$ is not idempotent in
 general; iterating can strip points (here $E\to\set0\to\es$).
 \end{wex}
 
@@ -3622,8 +3637,9 @@ accumulating at each desired point.
 \]
 $E\subseteq[0,3]$ is bounded. Each center $0,1,2$ is a limit point (its sequence converges to
 it), and no other point is: away from $\set{0,1,2}$ the set is locally finite. So
-$E'=\set{0,1,2}$, three points. \emph{Check.} None of $0,1,2$ lies in $E$, illustrating again
-that limit points need not be members. Replace ``three'' by a sequence of centers and you get
+$E'=\set{0,1,2}$, three points. \emph{Check.} $0\notin E$ (while $1=\tfrac11$ and
+$2=1+\tfrac11$ do lie in $E$), illustrating again that limit points need not be members.
+Replace ``three'' by a convergent sequence of centers and take the closure, and you get
 Rudin Ex.~13's compact set with countably many limit points.
 \end{wex}
 
@@ -3714,26 +3730,28 @@ The quantifier structure is the whole game. To prove $K$ \emph{compact} you must
 suffices to exhibit \emph{one} open cover with no finite subcover.
 
 \begin{example}[B\&S 11.2.3]
-$[0,1)$ is not compact: the cover $G_n=(-1,1-\tfrac1n)$, $n\in\N$, has union $[0,1)$ but any
-finite subfamily has union $(-1,1-\tfrac1m)$ for the largest $m$, missing points near $1$.
-Likewise $(0,1)$ is not compact via $G_n=(\tfrac1n,1)$. Every finite set \emph{is} compact:
-cover each of its points by one set of the cover.
+$[0,1)$ is not compact: the cover $G_n=(-1,1-\tfrac1n)$, $n\in\N$, has union
+$(-1,1)\supseteq[0,1)$ but any finite subfamily has union $(-1,1-\tfrac1m)$ for the largest
+$m$, missing points near $1$. Likewise $(0,1)$ is not compact via $G_n=(\tfrac1n,1)$. Every
+finite set \emph{is} compact: cover each of its points by one set of the cover.
 \end{example}
 
 \begin{center}
-\begin{tikzpicture}[scale=1.0]
-  \draw[numln] (-0.6,0)--(5.2,0) node[right,font=\footnotesize]{$\R$};
+\begin{tikzpicture}[x=3.5cm,y=1cm]
+  \draw[numln] (-1.2,0)--(1.3,0) node[right,font=\footnotesize]{$\R$};
+  \draw[tick] (-1,0.07)--(-1,-0.07); \node[font=\footnotesize,below] at (-1,-0.05){$-1$};
   \node[pt] at (0,0){}; \node[font=\footnotesize,below] at (0,-0.05){$0$};
-  \node[opt] at (4,0){}; \node[font=\footnotesize,below] at (4,-0.05){$1$};
+  \node[opt] at (1,0){}; \node[font=\footnotesize,below] at (1,-0.05){$1$};
   % cover of [0,1) by (-1, 1-1/n): draw three growing intervals
-  \foreach \r/\yy/\lab in {2.0/0.4/{G_2}, 2.8/0.75/{G_3}, 3.4/1.1/{G_4}}{
-    \draw[band,draw=black!45] (-0.45,\yy-0.05) rectangle (\r,\yy+0.05);
+  \foreach \r/\yy/\lab in {0.5/0.4/{G_2}, 0.6667/0.75/{G_3}, 0.75/1.1/{G_4}}{
+    \draw[band,draw=black!45] (-1,\yy-0.05) rectangle (\r,\yy+0.05);
+    \node[opt,scale=0.7] at (-1,\yy){};
     \node[opt,scale=0.7] at (\r,\yy){};
     \node[font=\footnotesize,right] at (\r,\yy) {$\lab$};
   }
-  \node[font=\footnotesize,align=center] at (2.0,-0.55)
-    {no finite subfamily reaches up to $1$: $[0,1)$ is not compact};
 \end{tikzpicture}
+\captionof{figure}{The sets $G_2,G_3,G_4$ of the cover $G_n=(-1,1-\tfrac1n)$ of $[0,1)$: no
+finite subfamily reaches up to $1$, so $[0,1)$ is not compact.}
 \end{center}
 
 \subsection*{Compactness is absolute, and forces closed + bounded}
@@ -3822,8 +3840,8 @@ is a closed interval, a $2$-cell a closed rectangle).
 \end{definition}
 
 \begin{theorem}[Nested intervals / cells; Rudin 2.38--2.39, B\&S 2.5.2]\label{t:nested@c3}
-If $\set{I_n}$ are intervals (or $k$-cells) with $I_n\supseteq I_{n+1}$, then
-$\bigcap_n I_n\neq\es$.
+If $\set{I_n}$ are closed bounded intervals $[a_n,b_n]$ (or $k$-cells) with
+$I_n\supseteq I_{n+1}$, then $\bigcap_n I_n\neq\es$.
 \end{theorem}
 
 \begin{proof}
@@ -3850,19 +3868,19 @@ subcover of $I_n$, contradicting (i).
 
 \begin{center}
 \begin{tikzpicture}[scale=1.7]
-  % bisection of a 2-cell
-  \draw[line width=0.9pt] (0,0) rectangle (1.6,1.2);
+  % bisection of a 2-cell; shade the chosen quadrant I_1 and its chosen quarter I_2 first
+  \fill[band] (0.8,0.6) rectangle (1.6,1.2);
+  \fill[black!18] (1.2,0.9) rectangle (1.6,1.2);
   \draw[dashed] (0.8,0)--(0.8,1.2);
   \draw[dashed] (0,0.6)--(1.6,0.6);
-  % shade the chosen quadrant I_1
-  \fill[band] (0.8,0.6) rectangle (1.6,1.2);
-  \node[font=\footnotesize] at (1.2,0.9) {$I_1$};
   % second bisection inside I_1
   \draw[dashed,black!60] (1.2,0.6)--(1.2,1.2);
   \draw[dashed,black!60] (0.8,0.9)--(1.6,0.9);
-  \fill[black!18] (1.2,0.9) rectangle (1.6,1.2);
-  \node[font=\footnotesize] at (1.4,1.05) {$I_2$};
-  \node[pt,scale=0.8] at (1.45,1.07) {};
+  \draw[line width=0.9pt] (0,0) rectangle (1.6,1.2);
+  \node[font=\footnotesize] at (1.0,0.75) {$I_1$};
+  \node[font=\footnotesize] at (1.31,1.05) {$I_2$};
+  \node[pt,scale=0.8] (xs) at (1.5,1.1) {};
+  \draw[line width=0.4pt] (xs)--(1.75,1.32) node[right,font=\footnotesize,inner sep=1pt] {$x^*$};
   \node[font=\footnotesize,right] at (1.62,0) {$\diam I_n=2^{-n}\diam I\to0$};
 \end{tikzpicture}
 \captionof{figure}{Repeated bisection of a $2$-cell: the ``bad'' subcell shrinks to a point
@@ -3885,7 +3903,7 @@ Theorem~\ref{t:bw-compact@c3}. \textbf{(c)$\Rightarrow$(a):} If $E$ were unbound
 $x_n\in E$ with $\abs{x_n}>n$; then $\set{x_n}$ is infinite with no limit point, against (c).
 If $E$ were not closed, take a limit point $x_0\notin E$ and $x_n\in E$ with
 $\abs{x_n-x_0}<\tfrac1n$; then $\set{x_n}$ is infinite, has $x_0$ as its only limit point in
-$\Rk$, and $x_0\notin E$, so $E$ has no limit point in $E$ from this set --- against (c).
+$\Rk$, and $x_0\notin E$, so $\set{x_n}$ has no limit point in $E$ --- against (c).
 \end{proof}
 
 \begin{remark}[The hypotheses are sharp]
@@ -3998,8 +4016,8 @@ because closedness is preserved by arbitrary intersection.
 \end{wex}
 
 \begin{wex}{A continuous image of a compact set is compact}
-Let $f:K\to\R$ be continuous on a compact $K\subseteq\Rk$. Show $f(K)$ is compact, and
-deduce $f$ attains a maximum and minimum (the Extreme Value Theorem).
+Let $f:K\to\R$ be continuous on a nonempty compact $K\subseteq\Rk$. Show $f(K)$ is compact,
+and deduce $f$ attains a maximum and minimum (the Extreme Value Theorem).
 \wrec Trigger: ``compactness under a continuous map.'' Pull an open cover of $f(K)$ back
 through $f$ to an open cover of $K$ (preimages of opens are open), extract a finite subcover,
 push forward.
@@ -4038,8 +4056,8 @@ continuous $f(x)=1/x$ has image $(1,\infty)$, neither bounded nor attaining a ma
   rational radius centered at points of a countable dense set.]
 \item Let $X$ be a metric space in which every infinite subset has a limit point. Prove that
   $X$ is separable. [Hint: fix $\delta>0$; pick $x_1$, and having chosen $x_1,\dots,x_j$,
-  choose $x_{j+1}$ with $d(x_i,x_{j+1})>\delta$ if possible. Show the process stops, so $X$
-  is covered by finitely many $\delta$-balls; take $\delta=1/n$.]
+  choose $x_{j+1}$ with $d(x_i,x_{j+1})\ge\delta$ for all $i\le j$, if possible. Show the
+  process stops, so $X$ is covered by finitely many $\delta$-balls; take $\delta=1/n$.]
 \item Prove that every compact metric space $K$ has a countable base, and is therefore
   separable. [Hint: for each $n$, finitely many balls of radius $1/n$ cover $K$.]
 \item Let $X$ be a metric space in which every infinite subset has a limit point. Prove that
@@ -4102,7 +4120,7 @@ continuous $f(x)=1/x$ has image $(1,\infty)$, neither bounded nor attaining a ma
   in $\R^k$ has nonempty intersection, and show the conclusion fails for nested nonempty
   \emph{closed} (unbounded) sets.
 \item Prove that every sequence in a compact set $K\subseteq\R$ has a convergent subsequence
-  with limit in $K$, and use this to show $\sup K\in K$.
+  with limit in $K$, and use this to show $\sup K\in K$ when $K\neq\es$.
 \item Let $K\subseteq\R$ be compact and $f:K\to\R$ continuous. Prove $f$ is uniformly
   continuous on $K$ (compactness proof, not the interval proof).
 \item Show that if $K$ is compact and $\set{F_\alpha}$ is a family of closed sets with
@@ -4131,9 +4149,10 @@ $[a,b]$ with $a<b$, and hence $\R$ itself, is uncountable.
 \begin{proof}
 Since each point of $P$ is a limit point, $P$ is infinite. Suppose for contradiction $P$ were
 countable, $P=\set{x_1,x_2,x_3,\dots}$. Build neighborhoods $V_n$ as follows. Take any
-$V_1$ with $\closure{V_1}\cap P\neq\es$. Given $V_n$ with $\closure{V_n}\cap P\neq\es$: since
-every point of $P$ is a limit point, the open set $V_n$ contains a point of $P$, around which
-we can choose $V_{n+1}$ with
+$V_1$ with $V_1\cap P\neq\es$. Given $V_n$ with $V_n\cap P\neq\es$: since every point of $P$
+is a limit point of $P$, the open set $V_n$ contains infinitely many points of $P$
+(Theorem~\ref{t:inf-many@c3}), hence one other than $x_n$, around which we can choose
+$V_{n+1}$ with
 \[
   \text{(i) } \closure{V_{n+1}}\subseteq V_n,\quad
   \text{(ii) } x_n\notin\closure{V_{n+1}},\quad
@@ -4166,7 +4185,7 @@ $E_n\supseteq E_{n+1}$. The \emph{Cantor set} is
 \end{definition}
 
 \begin{center}
-\begin{tikzpicture}[x=10cm,y=1.0]
+\begin{tikzpicture}[x=10cm,y=1cm]
   \def\h{0.26}
   % stage 0
   \fill[band] (0,0) rectangle (1,\h);
@@ -4228,21 +4247,27 @@ $1$ in base $3$.
 to have $a_1=1$); inductively $x\in P$ iff it has a ternary expansion using only digits
 $0,2$. The map $\psi(\sum a_n3^{-n})=\sum(a_n/2)2^{-n}$ sends $P$ \emph{onto} $[0,1]$ (every
 binary expansion is hit), so $\abs P\ge\abs{[0,1]}$; hence $P$ is uncountable. \emph{Check.}
-This matches Theorem~\ref{t:cantor-props@c3}(c). The endpoints $2k/3^n$ are the ``rational''
-members; but $P$ has continuum-many points, vastly more than its endpoints.
+This matches Theorem~\ref{t:cantor-props@c3}(c). The endpoints (numbers of the form $k/3^n$)
+are only countably many; but $P$ has continuum-many points, vastly more than its endpoints.
 \end{wex}
 
 \begin{wex}{A perfect set in $\R$ containing no rational (Rudin Ex.~18)}
 Is there a nonempty perfect set in $\R$ with no rational points?
 \wrec ``Build a perfect set avoiding a countable set'': mimic the Cantor construction but
 center the removed gaps on rationals.
-\wsol Yes. Run a Cantor-style construction on $[0,1]$ but at each stage remove an open middle
-gap chosen to contain a prescribed rational (enumerate $\Q\cap[0,1]=\set{q_1,q_2,\dots}$ and
-ensure $q_k$ is deleted by stage $k$, shrinking gaps so positive length survives). The
-intersection $P$ of the nested closed stages is nonempty, closed, and perfect (same
-endpoint argument as the Cantor set), yet contains no rational. \emph{Check.} A translated/scaled
-``fat Cantor set'' arranged to swallow each rational works; perfectness only needs the
-self-accumulation of surviving endpoints, independent of which gaps were removed.
+\wsol Yes. Fix irrationals $a<b$, enumerate $\Q\cap[a,b]=\set{q_1,q_2,\dots}$, and run a
+Cantor-style construction on $F_0=[a,b]$: at stage $k$, if $q_k$ has not been deleted yet, it
+lies in the interior of one of the finitely many closed intervals of $F_{k-1}$, and we delete
+from that interval an open gap centered at $q_k$ whose radius is \emph{irrational} and so
+small that the closed gap lies in the interior of that interval. Then every endpoint of every
+stage is irrational and is never deleted later. The intersection $P$ of the nested closed
+stages $F_k$ is nonempty and closed, and contains no rational ($q_k$ is gone by stage $k$). It
+is perfect by the endpoint argument used for the Cantor set: for $x\in P$ the intervals of
+$F_k$ containing $x$ decrease to a closed interval inside $P$, which must be $\set x$ since
+$P$ contains no rational; so for large $k$ such an interval lies in any given segment around
+$x$, and one of its endpoints is a point of $P$ other than $x$. \emph{Check.} The irrational
+endpoints are essential: in the middle-thirds construction every endpoint $k/3^n$ survives
+into $P$, so gaps with rational endpoints (or the start $[0,1]$) would leave rationals in $P$.
 \end{wex}
 
 \begin{pitfall}
@@ -4290,7 +4315,7 @@ $P$ (measure $0$), this $F$ has \emph{positive} measure $\tfrac12$ yet still con
 interval --- ``nowhere dense'' does not imply ``measure zero.''
 \end{wex}
 
-\begin{wex}{A perfect set need not be all-limit-points without closedness}
+\begin{wex}{Every point a limit point, yet not perfect}
 Give a set every point of which is a limit point of the set, but which is \emph{not} perfect,
 and explain which axiom of Definition~\ref{d:perfect@c3} fails.
 \wrec Trigger: a NON-example probing the definition of perfect. Perfect requires \emph{both}
@@ -4302,7 +4327,8 @@ limit point $\tfrac{1}{\sqrt2}\approx0.707$ (or any irrational in $(0,1)$, or th
 $0,1$) is not in $E$. So $E$ fails the closedness clause and is not perfect; indeed
 $\closure E=[0,1]\neq E$. \emph{Check.} The genuinely perfect set ``closest'' to $E$ is its
 closure $[0,1]$, which \emph{is} perfect. Perfectness is the conjunction $E=\closure E=E'$;
-here $E=E'$ holds but $E\neq\closure E$, so the conjunction fails.
+here $E\subseteq E'$ holds (in fact $E'=[0,1]$) but $E\neq\closure E$, so the conjunction
+fails.
 \end{wex}
 
 \begin{exers}{Exercises (Rudin, Ch.2).}
@@ -4313,8 +4339,8 @@ here $E=E'$ holds but $E\neq\closure E$, so the conjunction fails.
 
 \begin{exers}{Additional exercises.}
 \item Show that $[0,1]$ is perfect, and that $\R^k$ is perfect.
-\item Prove that a finite set is never perfect, and that a nonempty perfect set is always
-  infinite (indeed uncountable).
+\item Prove that a nonempty finite set is never perfect, and that a nonempty perfect set is
+  always infinite (indeed uncountable, if it lies in $\R^k$).
 \item Verify the total-length computation for the Cantor set:
   $\sum_{n\ge0}\dfrac{2^n}{3^{n+1}}=1$, and conclude the Cantor set has measure zero.
 \item Show that the Cantor set is \emph{nowhere dense}: $\interior{\closure P}=\es$.
@@ -4327,8 +4353,8 @@ here $E=E'$ holds but $E\neq\closure E$, so the conjunction fails.
 \item (Diagram.) Draw the first four stages $E_0,\dots,E_3$ of the middle-thirds construction
   as a stacked bar figure, labeling the surviving endpoints $0,\tfrac13,\tfrac23,1$ and the
   lengths $3^{-n}$.
-\item Show that the endpoints of the removed intervals (numbers $2k/3^n$) are dense in the
-  Cantor set but form only a countable subset of it.
+\item Show that the endpoints of the removed intervals (numbers of the form $k/3^n$) are dense
+  in the Cantor set but form only a countable subset of it.
 \item Using the ternary characterization, decide whether $\tfrac14$ belongs to the Cantor
   set. [Hint: $\tfrac14=(0.\overline{02})_3$.]
 \item Prove that the Cantor set is homeomorphic to $\set{0,2}^\N$ with the product topology
@@ -4436,8 +4462,8 @@ $\R^k$ analogue of ``intervals are connected.''
 \item \textbf{In $\R^k$:} to prove connectedness, exhibit a path or a convex/segment
   structure and reduce to the $\R^1$ case; to disprove, split $E$ into two nonempty pieces
   lying in disjoint open sets (a separation).
-\item \textbf{Bookkeeping:} ``separated'' means closures don't meet, strictly stronger than
-  ``disjoint.'' Check closures, not just the sets.
+\item \textbf{Bookkeeping:} ``separated'' means neither set meets the closure of the other,
+  strictly stronger than ``disjoint.'' Check closures, not just the sets.
 \end{enumerate}
 \end{method}
 
@@ -4451,9 +4477,9 @@ set whose interior is two disjoint open disks.
 \begin{pitfall}
 Connectedness is about the \emph{absence of a separation}, not about path-joining --- though
 in $\R^k$ open connected sets are also path-connected, in general metric spaces the two
-notions differ. And remember separation requires \emph{closures} to be disjoint: $[0,1]$ and
-$(1,2)$ are disjoint but their union $[0,2)$ minus nothing is still connected precisely
-because $1$ glues them. Always test with closures.
+notions differ. And remember separation requires each set to miss the \emph{closure} of the
+other: $[0,1]$ and $(1,2)$ are disjoint, but their union $[0,2)$ is connected precisely
+because $1\in[0,1]$ lies in the closure of $(1,2)$ and glues them. Always test with closures.
 \end{pitfall}
 
 \subsection*{Further worked examples}
@@ -4466,7 +4492,7 @@ $\eqv$ interval $\eqv$ has the intermediate-value property.
 \wsol (a) \emph{Disconnected}: $\tfrac32\notin E$ lies between $1\in E$ and $2\in E$, a gap;
 explicitly $E=([0,1])\cup([2,3])$ is a separation (closures $[0,1]$ and $[2,3]$ are
 disjoint). (b) \emph{Disconnected}: $2$ is isolated, and any $z\in(1,2)$ is a gap between
-$1$ and $2$. (c) \emph{Connected}: $[0,2)$ is an interval, so the IVP holds vacuously --- no
+$1$ and $2$. (c) \emph{Connected}: $[0,2)$ is an interval, so the IVP holds --- no
 internal point is missing. (d) \emph{Disconnected}: $0\notin E$ separates $E$ into
 $(-\infty,0)$ and $(0,\infty)$, whose closures $(-\infty,0]$ and $[0,\infty)$ meet only at
 $0\notin E$, so they are separated within $E$. \emph{Check.} Exactly the interval (c) is
@@ -4508,18 +4534,16 @@ disconnected. The single point $1$ is exactly what decides the two cases.
 \begin{tikzpicture}[scale=1.0]
   % top: separated open intervals -> disconnected
   \draw[numln] (-0.4,0.9)--(5.4,0.9) node[right,font=\footnotesize]{$\R$};
-  \fill[band] (0.5,0.81) rectangle (2,0.99);
-  \node[opt] at (0.5,0.9){}; \node[opt] at (2,0.9){};
-  \fill[band] (2.6,0.81) rectangle (4.5,0.99);
-  \node[opt] at (2.6,0.9){}; \node[opt] at (4.5,0.9){};
+  \fill[band] (0.5,0.81) rectangle (4.5,0.99);
+  \node[opt] at (0.5,0.9){}; \node[opt] at (2.5,0.9){}; \node[opt] at (4.5,0.9){};
   \node[font=\footnotesize] at (2.5,1.35)
     {$(0,1)\cup(1,2)$: separated, \emph{disconnected}};
   % bottom: the gluing point joins them -> connected
   \draw[numln] (-0.4,-0.4)--(5.4,-0.4) node[right,font=\footnotesize]{$\R$};
   \fill[band] (0.5,-0.49) rectangle (4.5,-0.31);
-  \node[pt] at (2.55,-0.4){};
+  \node[pt] at (2.5,-0.4){};
   \node[opt] at (0.5,-0.4){}; \node[opt] at (4.5,-0.4){};
-  \node[font=\footnotesize] at (2.55,-0.82)
+  \node[font=\footnotesize] at (2.5,-0.82)
     {gluing point included $\Rightarrow$ \emph{connected}};
 \end{tikzpicture}
 \captionof{figure}{Removing the shared point $1$ separates the interval into two pieces; keeping
@@ -4535,11 +4559,11 @@ present.}
   uncountable. [Hint: use (c).]
 \item Are closures and interiors of connected sets always connected? (Look at subsets of
   $\R^2$.)
-\item Let $A$ and $B$ be separated subsets of some $\R^n$; suppose $a\in A$, $b\in B$, and
+\item Let $A$ and $B$ be separated subsets of some $\R^k$; suppose $a\in A$, $b\in B$, and
   define $p(t)=(1-t)a+tb$ for $t\in\R^1$. Put $A_0=p^{-1}(A)$, $B_0=p^{-1}(B)$ (so $t\in A_0$
   iff $p(t)\in A$). (a) Prove $A_0$ and $B_0$ are separated subsets of $\R^1$. (b) Prove there
   exists $t_0\in(0,1)$ with $p(t_0)\notin A\cup B$. (c) Prove that every convex subset of
-  $\R^n$ is connected.
+  $\R^k$ is connected.
 \end{exers}
 
 \begin{exers}{Additional exercises.}
