@@ -1187,7 +1187,8 @@ In an ordered field:
 \end{theorem}
 
 \begin{proof}
-\textbf{(a)} Add $-x$ to $x>0$ using (O1): $0=x+(-x)>0+(-x)=-x$.
+\textbf{(a)} Add $-x$ to $x>0$ using (O1): $0=x+(-x)>0+(-x)=-x$. Conversely, adding $x$ to
+$-x<0$ gives $0<x$.
 \textbf{(b)} $y<z$ gives $z-y>0$ (add $-y$). If $x>0$, (O2) gives $x(z-y)>0$, i.e.\
 $xz-xy>0$, i.e.\ $xy<xz$. If $x<0$ then $-x>0$ by (a), so $(-x)(z-y)>0$, i.e.\
 $xy-xz>0$, i.e.\ $xz<xy$.
@@ -1200,7 +1201,7 @@ From $x<y$ multiply by the positive $\tfrac{1}{xy}$: $\tfrac1y<\tfrac1x$.
 \begin{pitfall}
 The sign-flip in (b) is the single most common error in elementary analysis: multiplying or
 dividing an inequality by a \emph{negative} quantity reverses it. ``$-2x<6$'' becomes
-``$x>-3$,'' not ``$x<-3$.'' Likewise $a<b$ does \emph{not} give $1/a<1/b$ in general ---
+``$x>-3$,'' not ``$x<-3$.'' Likewise $a<b$ does \emph{not} give $1/a>1/b$ in general ---
 only when $a,b$ have the same sign (Theorem~\ref{t:orderrules@c2}(d)). When you cannot pin the
 sign of a factor, split into cases.
 \end{pitfall}
@@ -1257,7 +1258,7 @@ denominator.
 and denominator have opposite signs: (i) $x-1<0$, $x+2>0$ gives $-2<x<1$; (ii) $x-1>0$,
 $x+2<0$ is impossible. So the solution is $(-2,1)$. \emph{Check.} $x=0$ gives
 $\tfrac12<1$ \checkmark; $x=-2$ is excluded (division by $0$); $x=2$ gives
-$\tfrac53<1$ false. \checkmark
+$\tfrac54<1$ false. \checkmark
 \end{wex}
 
 \begin{wex}{The AM--GM inequality for two terms (B\&S 2.1.13)}
@@ -1303,7 +1304,7 @@ $\sqrt2$ should be --- $A$ is bounded above in $\Q$ yet has no least upper bound
 $\Q$. Repairing this hole is the completeness axiom of \S2.3.
 \end{remark}
 
-The same proof, with ``even'' replaced by ``divisible by $p$,'' shows $\sqrt{n}\notin\Q$
+The same proof, with ``even'' replaced by ``divisible by a suitable prime,'' shows $\sqrt{n}\notin\Q$
 whenever $n$ is not a perfect square (Exercises). So the rationals are riddled with holes;
 the reals fill every one.
 
@@ -1444,6 +1445,7 @@ inequality below as a statement about distance is the fastest route to fluency.
   \node[pt,label={below:$b$}] at (3,0) {};
   \draw[brc] (-2.5,0.35)--(3,0.35) node[midway,above=4pt]{$\abs{a-b}=\dist(a,b)$};
 \end{tikzpicture}
+\captionof{figure}{The distance between $a$ and $b$ on the real line is $\abs{a-b}$.}
 \end{center}
 
 \begin{theorem}[Basic properties, B\&S 2.2.2--2.2.3]\label{t:absprops@c2}
@@ -1497,27 +1499,27 @@ interval of radius $\eps$ centered at $a$.
 \begin{tikzpicture}[scale=0.95]
   \begin{axis}[
     width=10cm,height=5.6cm,
-    axis lines=middle,
-    xtick={-1,1,3}, xticklabels={$a-\eps$,$a$,$a+\eps$},
-    ytick={1.4}, yticklabels={$\eps$},
-    xmin=-3.2,xmax=5.2,ymin=-0.4,ymax=3.0,
+    axis lines=middle, axis on top,
+    xtick={1,3,5}, xticklabels={$a-\eps$,$a$,$a+\eps$},
+    ytick={2}, yticklabels={$\eps$},
+    xmin=-0.8,xmax=7.2,ymin=-0.4,ymax=3.4,
     xlabel={$x$}, ylabel={$y$}, clip=false,
   ]
-    % V graph y=|x-1|
-    \addplot[curve,domain=-3:5,samples=2]{abs(x-1)};
-    \node at (4.4,2.9) {$y=\abs{x-a}$};
-    % eps band
-    \addplot[band,draw=none,domain=-1:3,samples=2]
-      {1.4} \closedcycle;
-    \draw[dashed] (axis cs:-1,0)--(axis cs:-1,1.4);
-    \draw[dashed] (axis cs:3,0)--(axis cs:3,1.4);
-    \draw[dashed] (axis cs:-1,1.4)--(axis cs:3,1.4);
+    % eps band [a-eps,a+eps] x [0,eps]  (here a=3, eps=2)
+    \addplot[band,draw=none,domain=1:5,samples=2]
+      {2} \closedcycle;
+    % V graph y=|x-3|, sampled at the vertex
+    \addplot[curve,samples at={0.2,3,5.8}]{abs(x-3)};
+    \node[anchor=west] at (axis cs:5.8,2.8) {$y=\abs{x-a}$};
+    \draw[dashed] (axis cs:1,0)--(axis cs:1,2);
+    \draw[dashed] (axis cs:5,0)--(axis cs:5,2);
+    \draw[dashed] (axis cs:0,2)--(axis cs:5,2);
     % the interval on the x-axis
-    \draw[line width=1.4pt] (axis cs:-1,0)--(axis cs:3,0);
-    \node[fill=white,inner sep=1pt] at (axis cs:1,-0.27)
-      {\footnotesize $\abs{x-a}<\eps\ \eqv\ x\in(a-\eps,\,a+\eps)$};
+    \draw[line width=1.4pt] (axis cs:1,0)--(axis cs:5,0);
   \end{axis}
 \end{tikzpicture}
+\captionof{figure}{The V-graph $y=\abs{x-a}$ lies below height $\eps$ exactly over
+$(a-\eps,a+\eps)$: $\abs{x-a}<\eps\eqv x\in(a-\eps,a+\eps)$.}
 \end{center}
 
 \begin{definition}[$\eps$-neighborhood, B\&S 2.2.7]\label{d:nbhd@c2}
@@ -1531,14 +1533,14 @@ For $a\in\R$ and $\eps>0$, the \emph{$\eps$-neighborhood} of $a$ is
 \begin{center}
 \begin{tikzpicture}[scale=1.0]
   \draw[numln] (-4.6,0)--(4.6,0) node[right]{$\R$};
+  \draw[band] (-2.2,-0.12) rectangle (2.2,0.12);
+  \draw[line width=1.2pt] (-2.2,0)--(2.2,0);
   \node[pt,label={below:$a$}] at (0,0) {};
   \node[opt,label={below:$a-\eps$}] at (-2.2,0) {};
   \node[opt,label={below:$a+\eps$}] at (2.2,0) {};
-  \draw[band] (-2.2,-0.12) rectangle (2.2,0.12);
-  \draw[line width=1.2pt] (-2.2,0)--(2.2,0);
   \draw[brc] (0,0.35)--(2.2,0.35) node[midway,above=4pt]{\footnotesize $\eps$};
-  \node[font=\footnotesize] at (0,0.95) {$V_\eps(a)=(a-\eps,a+\eps)$ (endpoints excluded)};
 \end{tikzpicture}
+\captionof{figure}{The $\eps$-neighborhood $V_\eps(a)=(a-\eps,a+\eps)$ (endpoints excluded).}
 \end{center}
 
 The key fact, the bridge to limits, is that a point pinned inside \emph{every} neighborhood
@@ -1581,10 +1583,10 @@ Solve $\abs{x+1}+\abs{x-2}=7$.
 $-3<-1$). \emph{Region $-1\le x\le2$:} $(x+1)-(x-2)=3\neq7$, no solution. \emph{Region
 $x>2$:} $(x+1)+(x-2)=2x-1=7\imp x=4$ (valid, $4>2$). Solution $\set{-3,4}$. \emph{Check.}
 $x=-3$: $\abs{-2}+\abs{-5}=2+5=7$ \checkmark; $x=4$: $5+2=7$ \checkmark. (Geometrically: the
-points whose distances to $-1$ and $2$ sum to $7$, on a segment of length $3$.)
+points whose distances to $-1$ and $2$, the ends of a segment of length $3$, sum to $7$.)
 \end{wex}
 
-\begin{wex}{An equation with moduli on both sides}
+\begin{wex}{An equation with a modulus on one side}
 Solve $2x-1=\abs{x-5}$.
 \wrec One side a modulus; either case-split or square (squaring may add spurious roots, so
 verify).
@@ -1715,26 +1717,26 @@ $\min S$.
 
 \begin{center}
 \begin{tikzpicture}[scale=1.0]
-  \draw[numln] (-4.8,0)--(4.8,0) node[right]{$\R$};
+  \draw[numln] (-4.8,0)--(6.3,0) node[right]{$\R$};
+  % upper bounds ray (drawn first, so the points stay on top)
+  \draw[band] (3,-0.13) rectangle (6,0.13);
+  \node[font=\footnotesize,align=center] at (5.35,-0.55) {upper\\bounds};
   % set S = scattered points up to alpha
   \foreach \x in {-3.6,-3.0,-2.1,-1.4,-0.5,0.4,1.2,1.9,2.4,2.75}{
     \node[pt] at (\x,0) {};}
   \node[pt,label={below:$\alpha=\sup S$}] at (3,0) {};
   % the set bracket
   \draw[brc] (-3.6,0.3)--(3,0.3) node[midway,above=4pt]{\footnotesize $S$ (lies at or left of $\alpha$)};
-  % upper bounds ray
-  \draw[band] (3,-0.13) rectangle (4.6,0.13);
-  \node[font=\footnotesize,align=center] at (3.85,-0.55) {upper\\bounds};
   % an arbitrary upper bound u to the right
-  \node[opt,label={above:$u$}] at (3.9,0) {};
-  \draw[-{Stealth[length=2mm]}] (3.05,0.0) to[bend left=30] (3.8,0.05);
-  \node[font=\footnotesize] at (3.5,0.6) {$\alpha\le u$};
+  \node[opt,label={below:$u$}] at (4.4,0) {};
+  \draw[-{Stealth[length=2mm]}] (3.12,0.16) to[bend left=35]
+    node[midway,above,font=\footnotesize]{$\alpha\le u$} (4.32,0.16);
 \end{tikzpicture}\captionof{figure}{$\sup S$ is the leftmost point of the shaded ray of upper bounds: it sits at
 the right edge of $S$ and is $\le$ every other upper bound.}
 \end{center}
 
 The supremum need \emph{not} belong to $S$. For $S=(0,1)$, $\sup S=1\notin S$; for
-$S=(0,1]$, $\sup S=1\in S=\max S$. ``Least upper bound'' and ``maximum'' coincide only when
+$S=(0,1]$, $\sup S=\max S=1\in S$. ``Least upper bound'' and ``maximum'' coincide only when
 the bound is attained.
 
 \begin{proposition}[Two-condition test, B\&S 2.3.4]\label{p:suptest@c2}
@@ -1828,8 +1830,10 @@ $\inf S$, proving the two forms of Theorem~\ref{t:completeness@c2} equivalent.
   \node[font=\footnotesize] at (-2.2,0.45) {$-S$};
   \node[opt,label={below:$\sup(-S)$}] at (-1.4,0) {};
   \draw[<->,dashed] (-1.4,0.7) to[bend left=18] (1.4,0.7);
-  \node[font=\footnotesize] at (0,1.05) {reflection $x\mapsto-x$};
+  \node[font=\footnotesize] at (0,1.3) {reflection $x\mapsto-x$};
 \end{tikzpicture}
+\captionof{figure}{Negation turns lower bounds of $S$ into upper bounds of $-S$, so
+$\inf S=-\sup(-S)$.}
 \end{center}
 
 \begin{remark}[Dedekind cuts, Rudin 1.19 appendix]
@@ -1875,11 +1879,12 @@ $\max/\min$ for when the bound is actually attained.
 \end{pitfall}
 
 \begin{pitfall}
-A common slip: ``$u$ is an upper bound and $u\in S$, therefore $u=\sup S$.'' The
-implication is true (B\&S Exercise 2.3.7) --- if an upper bound lies in the set it is the
-maximum, hence the sup --- but the converse fails, and the hypothesis $u\in S$ is essential.
-For $S=[0,1)$, $u=1$ is an upper bound \emph{not} in $S$ and is still the sup, while $u=0.9\in
-S$ is in $S$ but is \emph{not} an upper bound. Always verify both ``bounds'' and ``least''.
+A common slip: ``$u$ is an upper bound of $S$, therefore $u=\sup S$.'' The inference is
+valid when also $u\in S$ (B\&S Exercise 2.3.7) --- if an upper bound lies in the set it is the
+maximum, hence the sup --- but not in general; and conversely $\sup S$ need not lie in $S$.
+For $S=[0,1)$, $u=2$ is an upper bound but not the sup; $u=1$ is an upper bound \emph{not} in
+$S$ and is still the sup; and $u=0.9$ is in $S$ but is \emph{not} an upper bound. Always verify
+both ``bounds'' and ``least''.
 \end{pitfall}
 
 \subsection*{Further worked examples}
@@ -1892,10 +1897,10 @@ elements; for an interval, test whether each endpoint is attained
 (Definition~\ref{d:sup@c2}).
 \wsol For $A$: it is finite, so $\sup A=\max A=3$ and $\inf A=\min A=-2$, both attained. For
 $B=[0,4)$: $0\in B$ is a lower bound and lies in $B$, so $\inf B=\min B=0$. And $4$ is an
-upper bound; given any $\eps>0$, $4-\tfrac\eps2<4$ lies in $B$ and exceeds $4-\eps$, so by
+upper bound; given any $\eps>0$, $\max\set{0,4-\tfrac\eps2}$ lies in $B$ and exceeds $4-\eps$, so by
 Proposition~\ref{p:suptest@c2} $\sup B=4$ --- but $4\notin B$, so $\max B$ does \emph{not}
 exist. \emph{Check.} Every $x\in B$ satisfies $x<4$, yet no number below $4$ bounds $B$
-(e.g.\ $3.9\in B$ beats $3.99-\eps$ choices), confirming $4$ is least. \checkmark
+(e.g.\ $3.99\in B$ exceeds the would-be bound $3.9$), confirming $4$ is least. \checkmark
 \end{wex}
 
 \begin{wex}{The supremum of $\set{n/(n+1)}$}
@@ -1927,8 +1932,8 @@ reaching a least rational one. \checkmark\ This is exactly the defect Completene
 \end{wex}
 
 \begin{exers}{Exercises (Rudin, Ch.1 -- order and completeness).}
-\item Prove Proposition 1.15 (the elementary arithmetic-of-fractions / inverse rules in an
-  ordered field, e.g.\ if $0<x<y$ then $0<1/y<1/x$).
+\item Prove Rudin's Proposition 1.15 (the multiplicative cancellation / inverse rules in a
+  field: for $x\neq0$, $xy=xz\imp y=z$, $xy=x\imp y=1$, $xy=1\imp y=1/x$, and $1/(1/x)=x$).
 \item Let $E$ be a nonempty subset of an ordered set; suppose $\alpha$ is a lower bound of
   $E$ and $\beta$ is an upper bound of $E$. Prove $\alpha\le\beta$.
 \item Let $A$ be a nonempty set of reals bounded below, and let $-A=\set{-x\st x\in A}$.
@@ -1936,8 +1941,8 @@ reaching a least rational one. \checkmark\ This is exactly the defect Completene
 \item (Dedekind cuts, with reference to the Appendix.) Suppose property (III) --- ``a cut
   has no largest element'' --- is omitted from the definition of a cut, keeping the same
   order and addition. Show the resulting ordered set still has the least-upper-bound
-  property, that addition satisfies axioms (A1)--(A4) (with a slightly different zero), but
-  that (A5) fails.
+  property, that addition satisfies axioms (A1)--(A3) of Definition~\ref{d:field@c2} (with a
+  slightly different zero), but that (A4) fails.
 \end{exers}
 
 \begin{exers}{Exercises (Bartle \& Sherbert, \S2.3).}
@@ -1999,7 +2004,7 @@ reaching a least rational one. \checkmark\ This is exactly the defect Completene
 Completeness has teeth. Its first payoff is that $\N$ is not bounded above in $\R$ --- there
 are no ``infinitely large'' reals --- and dually no positive real is ``infinitely small.''
 
-\begin{theorem}[Archimedean Property, Rudin 1.20 / B\&S 2.4.3--2.4.5]\label{t:arch@c2}
+\begin{theorem}[Archimedean Property, Rudin 1.20 / B\&S 2.4.3--2.4.6]\label{t:arch@c2}
 \textup{(a)} For every $x\in\R$ there is $n\in\N$ with $n>x$ (so $\N$ is unbounded above).
 \textup{(b)} For every $\eps>0$ there is $n\in\N$ with $\tfrac1n<\eps$.
 \textup{(c)} For every $x>0$ there is $n\in\N$ with $n-1\le x<n$.
@@ -2020,11 +2025,10 @@ least element $n$, and then $n-1\le x<n$.
   \draw[numln] (-0.5,0)--(13.5,0) node[right]{$\R$};
   \foreach \x in {0,...,13}{\draw[tick] (\x,0.12)--(\x,-0.12);}
   \foreach \x/\l in {0/0,4/n{-}1,5/n}{\node[font=\footnotesize] at (\x,-0.5){$\l$};}
-  \node[pt,label={above:$x$}] at (4.6,0) {};
   \draw[band] (4,-0.12) rectangle (5,0.12);
-  \node[font=\footnotesize] at (6.7,0.9){$n-1\le x<n$: every real is trapped between
-    consecutive integers};
-\end{tikzpicture}
+  \node[pt,label={above:$x$}] at (4.6,0) {};
+\end{tikzpicture}\captionof{figure}{$n-1\le x<n$: every real is trapped between consecutive
+integers.}
 \end{center}
 
 \begin{corollary}[$\inf\set{1/n}=0$, B\&S 2.4.4]\label{c:inf1n@c2}
@@ -2055,15 +2059,15 @@ $x<\tfrac mn<y$. Take $r=\tfrac mn$.
 
 \begin{center}
 \begin{tikzpicture}[scale=1.0]
-  \draw[numln] (-0.6,0)--(9.4,0) node[right]{$\times n$};
-  \node[opt,label={below:$nx$}] at (1.5,0) {};
-  \node[opt,label={below:$ny$}] at (4.2,0) {};
-  \draw[band] (1.5,-0.1) rectangle (4.2,0.1);
-  \draw[brc] (1.5,0.32)--(4.2,0.32) node[midway,above=4pt]{\footnotesize length $ny-nx>1$};
-  \node[pt,label={below:$m$}] at (3,0) {};
+  \draw[numln] (-0.6,0)--(6.4,0) node[right]{$\times n$};
+  \draw[band] (1.3,-0.1) rectangle (4.2,0.1);
   \foreach \x in {1,2,3,4}{\draw[tick] (\x,0.1)--(\x,-0.1);}
-  \node[font=\footnotesize] at (6.8,0.6) {an interval of length $>1$ catches an integer $m$};
-\end{tikzpicture}
+  \node[opt,label={below:$nx$}] at (1.3,0) {};
+  \node[opt,label={below:$ny$}] at (4.2,0) {};
+  \draw[brc] (1.3,0.32)--(4.2,0.32) node[midway,above=4pt]{\footnotesize length $ny-nx>1$};
+  \node[pt,label={below:$m$}] at (2,0) {};
+\end{tikzpicture}\captionof{figure}{The scaled interval $(nx,ny)$ has length $>1$, so it catches an
+integer $m$ (the least integer $>nx$).}
 \end{center}
 
 \begin{corollary}[Density of irrationals]\label{c:densityirr@c2}
@@ -2072,14 +2076,15 @@ Between any two reals $x<y$ there is also an \emph{irrational}.
 
 \begin{proof}
 Apply Theorem~\ref{t:densityQ@c2} to $x/\sqrt2<y/\sqrt2$ to get a rational $r\neq0$ with
-$x/\sqrt2<r<y/\sqrt2$; then $r\sqrt2$ is irrational (a nonzero rational times the irrational
+$x/\sqrt2<r<y/\sqrt2$ (if the rational found is $0$, apply the theorem again to
+$0<y/\sqrt2$); then $r\sqrt2$ is irrational (a nonzero rational times the irrational
 $\sqrt2$) and $x<r\sqrt2<y$.
 \end{proof}
 
 \subsection*{Existence and uniqueness of $n$th roots}
 
 The flagship use of completeness: it manufactures the roots that $\Q$ was missing. We prove
-the existence of $\sqrt2$ in full --- the argument is the template for every nth root.
+the existence of $\sqrt2$ in full --- the argument is the template for every $n$th root.
 
 \begin{theorem}[Existence of $\sqrt2$, Rudin 1.21 / B\&S 2.4.7]\label{t:sqrt2exists@c2}
 There is a unique real $y>0$ with $y^2=2$.
@@ -2094,9 +2099,9 @@ rule out $y^2<2$ and $y^2>2$ by perturbing $y$.
 $(y+h)^2=y^2+h(2y+h)<y^2+h(2y+1)<y^2+(2-y^2)=2$, so $y+h\in S$ --- contradicting that $y$ is
 an \emph{upper} bound of $S$.
 
-\emph{If $y^2>2$:} choose $k=\dfrac{y^2-2}{2y}>0$. Then for any $s\ge y-k$ with $s>0$,
-$(y-k)^2=y^2-2yk+k^2>y^2-2yk=2$, so every $s\in S$ satisfies $s<y-k$ (else $s^2\ge(y-k)^2>2$);
-thus $y-k$ is a smaller upper bound, contradicting $y=\sup S$.
+\emph{If $y^2>2$:} choose $k=\dfrac{y^2-2}{2y}>0$. Then $y-k=\tfrac{y^2+2}{2y}>0$ and
+$(y-k)^2=y^2-2yk+k^2>y^2-2yk=2$, so every $s\in S$ satisfies $s<y-k$ (else $s\ge y-k>0$ gives
+$s^2\ge(y-k)^2>2$); thus $y-k$ is a smaller upper bound, contradicting $y=\sup S$.
 
 By trichotomy $y^2=2$. \emph{Uniqueness:} if $0<y_1<y_2$ then $y_1^2<y_2^2$
 (Theorem~\ref{t:orderrules@c2}), so at most one positive root exists.
@@ -2120,21 +2125,21 @@ smaller upper bound. So $y^2=3$. \emph{Check.} $1.7^2=2.89<3<3.24=1.8^2$, so $y\
 as expected. \checkmark
 \end{wex}
 
-\begin{wex}{$\sup$ and $\inf$ of $\set{\tfrac1n-\tfrac1m}$ (B\&S 2.4.2)}
+\begin{wex}{$\sup$ and $\inf$ of $\set{\tfrac1n-\tfrac1m}$ (B\&S Exercise 2.4.2)}
 Find $\inf S$ and $\sup S$ for $S=\set{\tfrac1n-\tfrac1m\st n,m\in\N}$.
 \wrec Two free indices; push one to make the expression large, the other to make it small.
-\wsol Each term lies in $(-1,1)$: $\tfrac1n\le1$ and $-\tfrac1m\ge-1$, with strict unless an
-index is $1$. \emph{Sup:} fix $n=1$, let $m\to\infty$: $1-\tfrac1m\to1$, and $1-\tfrac1m<1$,
+\wsol Each term lies in $(-1,1)$: $\tfrac1n-\tfrac1m<\tfrac1n\le1$ and
+$\tfrac1n-\tfrac1m>-\tfrac1m\ge-1$. \emph{Sup:} fix $n=1$, let $m\to\infty$: $1-\tfrac1m\to1$, and $1-\tfrac1m<1$,
 so $\sup S=1$ (approached, never attained), by Proposition~\ref{p:suptest@c2} with
 Corollary~\ref{c:inf1n@c2}. \emph{Inf:} fix $m=1$, let $n\to\infty$: $\tfrac1n-1\to-1$ from
 above, so $\inf S=-1$. \emph{Check.} No term equals $\pm1$, so neither bound is in $S$;
 $\tfrac11-\tfrac12=\tfrac12\in S$ sits comfortably inside $(-1,1)$. \checkmark
 \end{wex}
 
-\begin{wex}{$\sup(A+B)=\sup A+\sup B$ (B\&S 2.4.7)}
+\begin{wex}{$\sup(A+B)=\sup A+\sup B$ (B\&S Exercise 2.4.7)}
 For nonempty bounded $A,B$, with $A+B=\set{a+b\st a\in A,b\in B}$, prove
 $\sup(A+B)=\sup A+\sup B$.
-\wrec Sum of two sets; bound each factor, then approach with both at once.
+\wrec Sum of two sets; bound each summand, then approach with both at once.
 \wsol Let $\alpha=\sup A,\ \beta=\sup B$. For $a\in A,b\in B$: $a+b\le\alpha+\beta$, so
 $\alpha+\beta$ bounds $A+B$. Given $\eps>0$, choose $a>\alpha-\tfrac\eps2$ and
 $b>\beta-\tfrac\eps2$; then $a+b>(\alpha+\beta)-\eps$. By the two-condition test
@@ -2144,7 +2149,7 @@ $\sup(A+B)=\alpha+\beta$. \emph{Check.} $A=B=[0,1]$: $A+B=[0,2]$, $\sup=2=1+1$. 
 \begin{pitfall}
 The $\sup$-of-a-product or $\sup$-of-an-$\inf$ identities are subtler than the sum case. In
 general only $\sup_x\inf_y h(x,y)\le\inf_y\sup_x h(x,y)$ (a one-sided min--max inequality,
-B\&S 2.4.11), and equality can fail. Never assume you may freely swap $\sup$ and $\inf$ ---
+B\&S Exercise 2.4.11), and equality can fail. Never assume you may freely swap $\sup$ and $\inf$ ---
 the order matters. Likewise $\sup(AB)\neq\sup A\cdot\sup B$ once negative numbers appear,
 since multiplying by a negative reverses bounds.
 \end{pitfall}
@@ -2154,8 +2159,9 @@ since multiplying by a negative reverses bounds.
 \begin{wex}{Trapping a real between integers (the floor)}
 Use the Archimedean property to locate $\floor{x}$ for $x=\tfrac{47}{6}$ and for
 $x=-\tfrac{7}{4}$, the unique integer $n$ with $n\le x<n+1$.
-\wrec Trigger: ``find the integer part.'' Theorem~\ref{t:arch@c2}(c) guarantees a unique such
-$n$; compute it by comparing with consecutive integers.
+\wrec Trigger: ``find the integer part.'' Theorem~\ref{t:arch@c2}(c) (applied to $x+k>0$ for a
+suitable $k\in\N$ when $x\le0$) guarantees such an $n$, unique since two such integers differ
+by less than $1$; compute it by comparing with consecutive integers.
 \wsol For $x=\tfrac{47}{6}=7.8\overline{3}$: $7\le7.83\ldots<8$, so $\floor{x}=7$. For
 $x=-\tfrac74=-1.75$: the integer below is $-2$, since $-2\le-1.75<-1$, so $\floor{x}=-2$
 (\emph{not} $-1$ --- the floor rounds \emph{down}). \emph{Check.} $7\cdot6=42\le47<48=8\cdot6$
@@ -2170,8 +2176,9 @@ a fraction with small enough denominator, then add an irrational nudge.
 rational $r=1.415=\tfrac{283}{200}$ satisfies $1.41421<1.415<1.42421$, so $r$ works (indeed
 $r^2=2.002225>2$ yet $r<\sqrt2+0.01$). For an irrational, take
 $\xi=\sqrt2+\tfrac{1}{200}=1.41421\ldots+0.005=1.41921\ldots$; it is irrational (rational
-plus irrational) and lies in the interval. \emph{Check.} $1.41421<1.415<1.41921<1.42421$,
-all four inside $(\sqrt2,\sqrt2+0.01)$. \checkmark
+plus irrational) and lies in the interval. \emph{Check.}
+$1.41421\ldots<1.415<1.41921\ldots<1.42421\ldots$, so both $r$ and $\xi$ lie inside
+$(\sqrt2,\sqrt2+0.01)$. \checkmark
 \end{wex}
 
 \begin{exers}{Exercises (Rudin, Ch.1 -- roots, exponents, irrationals).}
@@ -2224,7 +2231,8 @@ all four inside $(\sqrt2,\sqrt2+0.01)$. \checkmark
 \item Modify the $\sqrt2$-argument to show that if $a>0$ there is a positive real $z$ with
   $z^2=a$.
 \item Modify the argument to show there is a positive real $u$ with $u^3=2$.
-\item Complete the proof of the Density Theorem by removing the assumption $x>0$.
+\item Assuming the Density Theorem is known when $x>0$, deduce it for all $x<y$ (this removes
+  the assumption $x>0$ made in B\&S's proof).
 \item If $u>0$ and $x<y$, show there is a rational $r$ with $x<ru<y$. (So $\set{ru\st
   r\in\Q}$ is dense in $\R$.)
 \end{exers}
@@ -2264,8 +2272,8 @@ $(a,\infty),[a,\infty),(-\infty,b),(-\infty,b]$, and $(-\infty,\infty)=\R$. Here
 are symbols, \emph{not} elements of $\R$.
 \end{definition}
 
-Intervals are exactly the ``gap-free'' sets: a set is an interval iff it contains every
-point between any two of its points.
+Intervals are exactly the ``gap-free'' sets: a set with at least two points is an interval iff
+it contains every point between any two of its points.
 
 \begin{theorem}[Characterization of intervals, B\&S 2.5.1]\label{t:intervalchar@c2}
 A subset $I\subseteq\R$ with at least two points is an interval iff it has the
@@ -2292,15 +2300,15 @@ I_3\supseteq\cdots$, i.e.\ $I_{n+1}\subseteq I_n$ for all $n$.
 
 \begin{center}
 \begin{tikzpicture}[scale=1.0]
-  \foreach \i/\y/\l/\r in {0/0/-3.6/3.6, 1/-0.55/-2.6/2.7, 2/-1.1/-1.6/2.1,
-                           3/-1.65/-0.7/1.7, 4/-2.2/0.0/1.4}{
+  \foreach \i/\y/\l/\r in {1/0/-3.6/3.6, 2/-0.55/-2.6/2.7, 3/-1.1/-1.6/2.1,
+                           4/-1.65/-0.7/1.7, 5/-2.2/0.0/1.4}{
     \draw[line width=1.3pt] (\l,\y)--(\r,\y);
     \draw (\l,\y+0.13)--(\l,\y-0.13);
     \draw (\r,\y+0.13)--(\r,\y-0.13);
     \node[font=\footnotesize] at (\r+0.6,\y) {$I_{\i}$};
   }
-  \node[font=\footnotesize] at (-3.55,0.25) {$a_1$};
-  \node[font=\footnotesize] at (3.55,0.25) {$b_1$};
+  \node[font=\footnotesize,above] at (-3.6,0.13) {$a_1$};
+  \node[font=\footnotesize,above] at (3.6,0.13) {$b_1$};
   \node[pt] at (0.95,-2.65) {};
   \node[font=\footnotesize] at (0.95,-2.95) {$\xi\in\bigcap_n I_n$};
   \draw[dotted] (0.95,-2.2)--(0.95,-2.55);
@@ -2308,7 +2316,7 @@ I_3\supseteq\cdots$, i.e.\ $I_{n+1}\subseteq I_n$ for all $n$.
 point $\xi$.}
 \end{center}
 
-\begin{theorem}[Nested Interval Property, B\&S 2.5.2 / Rudin 1.21-style]\label{t:nip@c2}
+\begin{theorem}[Nested Interval Property, B\&S 2.5.2 / Rudin 2.38]\label{t:nip@c2}
 Let $I_n=[a_n,b_n]$ be a nested sequence of \emph{closed, bounded} intervals. Then
 $\bigcap_{n=1}^\infty I_n\neq\es$. Concretely, $\xi=\sup_n a_n$ lies in every $I_n$. If
 moreover the lengths $b_n-a_n\to0$, the common point is \emph{unique}.
@@ -2363,7 +2371,7 @@ successive digits name a shrinking nest of intervals closing on the number.
 \begin{theorem}[Decimal expansions, B\&S 2.5.6--2.5.7]\label{t:decimal@c2}
 Every $x\in[0,1]$ has a decimal representation $x=0.d_1d_2d_3\dots$ with digits
 $d_k\in\set{0,1,\dots,9}$, meaning $x=\sup_n\sum_{k=1}^n d_k 10^{-k}$. The representation is
-unique except for the \emph{dyadic-type} ambiguity, where a number ending in repeating $9$s
+unique except for the \emph{trailing-$9$} ambiguity, where a number ending in repeating $9$s
 equals one ending in repeating $0$s, e.g.\ $0.4999\dots=0.5000\dots$. The analogous
 statement holds in base $2$ with digits $\set{0,1}$.
 \end{theorem}
@@ -2384,11 +2392,11 @@ Find the binary representation of $\tfrac38$ and of $\tfrac13$.
 $1$, keep $\tfrac12$), $2\cdot\tfrac12=1$ (digit $1$, remainder $0$). So
 $\tfrac38=0.011_2$, terminating (also $=0.010111\dots_2$ by the $9$s-analogue). For
 $\tfrac13$: $2\cdot\tfrac13=\tfrac23$ (digit $0$), $2\cdot\tfrac23=\tfrac43$ (digit $1$, keep
-$\tfrac13$), and it repeats: $\tfrac13=0.010101\dots_2=\overline{01}_2$. \emph{Check.}
+$\tfrac13$), and it repeats: $\tfrac13=0.010101\dots_2=0.\overline{01}_2$. \emph{Check.}
 $0+\tfrac14+\tfrac1{16}+\cdots=\tfrac{1/4}{1-1/4}=\tfrac13$. \checkmark
 \end{wex}
 
-\begin{wex}{A periodic decimal is rational}
+\begin{wex}{A periodic decimal is rational}\label{wex:periodic@c2}
 Show $0.137137137\dots$ is rational and find it as a fraction.
 \wrec Repeating block of length $3$; multiply by $10^3$ and subtract.
 \wsol Let $x=0.\overline{137}$. Then $1000x=137.\overline{137}=137+x$, so $999x=137$ and
@@ -2420,9 +2428,9 @@ even though each is bounded and the right endpoints are included.
 \wrec Trigger: ``test the hypotheses of the NIP.'' The property needs \emph{closed}
 intervals; probe what fails when the left end stays open.
 \wsol The $J_n$ are nested ($\tfrac1{n+1}\le\tfrac1n$ gives $J_{n+1}\subseteq J_n$) and
-bounded. Suppose $x\in\bigcap_n J_n$. Then $0<x\le\tfrac1n$ for every $n$, so $x>0$ is a
-lower bound issue: by the Archimedean property (\S2.4) there is $n$ with $\tfrac1n<x$,
-contradicting $x\le\tfrac1n$. Hence no such $x$ exists and $\bigcap_n J_n=\es$.
+bounded. Suppose $x\in\bigcap_n J_n$. Then $0<x\le\tfrac1n$ for every $n$, so $x$ would be a
+positive lower bound of $\set{\tfrac1n}$. But by the Archimedean property (\S2.4) there is $n$
+with $\tfrac1n<x$, contradicting $x\le\tfrac1n$. Hence no such $x$ exists and $\bigcap_n J_n=\es$.
 
 \begin{center}
 \begin{tikzpicture}[scale=1.0]
@@ -2450,13 +2458,13 @@ open left end, exactly the gap the \emph{closed} hypothesis of Theorem~\ref{t:ni
 \begin{wex}{A repeating decimal with a non-repeating prefix}
 Express $x=0.41\overline{6}=0.41666\dots$ as a fraction in lowest terms.
 \wrec Trigger: ``eventually-periodic decimal to fraction.'' Shift past the non-repeating
-prefix, then subtract to kill the repeating tail (as in Theorem~\ref{t:decimal@c2}).
+prefix, then subtract to kill the repeating tail (as in Worked Example~\ref{wex:periodic@c2}).
 \wsol The non-repeating part has length $2$ and the repeating block (``$6$'') length $1$.
 Multiply to align: $1000x=416.\overline{6}$ and $100x=41.\overline{6}$. Subtracting,
 $900x=375$, so $x=\tfrac{375}{900}=\tfrac{5}{12}$ after dividing by $75$. \emph{Check.}
 $\tfrac5{12}=0.41\overline 6$ by long division ($5.000/12=0.4166\dots$). \checkmark\ Every
-such eventually-periodic expansion is rational; the converse (Theorem~\ref{t:decimal@c2}
-discussion) also holds.
+such eventually-periodic expansion is rational; the converse (see Worked
+Example~\ref{wex:periodic@c2}) also holds.
 \end{wex}
 
 \begin{exers}{Exercises (Bartle \& Sherbert, \S2.5).}
@@ -2467,8 +2475,9 @@ discussion) also holds.
 \item If $S\subseteq\R$ is nonempty and bounded and $I_S=[\inf S,\sup S]$, show
   $S\subseteq I_S$, and that any closed bounded interval $J$ with $S\subseteq J$ satisfies
   $I_S\subseteq J$.
-\item In the characterization-of-intervals proof, explain why the points $x,y$ exist in $S$.
-\item Write out the details of the remaining case in the characterization of intervals.
+\item In the characterization-of-intervals proof, explain why the points $x,y$ exist in $I$.
+\item Write out the details of the characterization of intervals in the case where $I$ is
+  bounded neither above nor below (so that $I=\R$).
 \item If $I_1\supseteq I_2\supseteq\cdots$ is nested with $I_n=[a_n,b_n]$, show
   $a_1\le a_2\le\cdots$ and $\cdots\le b_2\le b_1$.
 \item Let $I_n=[0,1/n]$ for $n\in\N$. Prove $\bigcap_{n=1}^\infty I_n=\set{0}$.
@@ -2476,13 +2485,13 @@ discussion) also holds.
 \item Let $K_n=(n,\infty)$ for $n\in\N$. Prove $\bigcap_{n=1}^\infty K_n=\es$.
 \item With $\xi=\sup a_n$ and $\eta=\inf b_n$, show $\eta\in\bigcap_n I_n$ and
   $[\xi,\eta]=\bigcap_{n=1}^\infty I_n$.
-\item Show that the intervals obtained from the bisection inequalities form a nested
-  sequence.
+\item Show that the intervals $\bigl[\sum_{k=1}^n d_k2^{-k},\ \sum_{k=1}^n d_k2^{-k}+2^{-n}\bigr]$
+  obtained by bisection from the binary digits $d_k$ of $x\in[0,1]$ form a nested sequence.
 \item Give the two binary representations of $\tfrac38$ and $\tfrac7{16}$.
 \item (a) Give the first four digits in the binary representation of $\tfrac13$. (b) Give
   the complete binary representation of $\tfrac13$.
-\item Show that if $a_k,b_k\in\set{0,1,\dots,9}$ and
-  $\sum_{k=1}^n a_k 10^{-k}=\sum_{k=1}^m b_k 10^{-k}\neq0$, then $n=m$ and $a_k=b_k$ for
+\item Show that if $a_k,b_k\in\set{0,1,\dots,9}$, $a_n\neq0$, $b_m\neq0$, and
+  $\sum_{k=1}^n a_k 10^{-k}=\sum_{k=1}^m b_k 10^{-k}$, then $n=m$ and $a_k=b_k$ for
   all $k$.
 \item Find the decimal representation of $-\tfrac27$.
 \item Express $\tfrac1{17}$ and $\tfrac2{19}$ as periodic decimals.
@@ -2494,7 +2503,8 @@ discussion) also holds.
 \item Classify each set as an interval or not, using the betweenness characterization:
   (a) $\Z$; (b) $\Q\cap[0,1]$; (c) $[0,1]\cup[2,3]$; (d) $\set{x\st x^2<4}$.
 \item Compute $\bigcap_{n=1}^\infty[-1/n,\,1+1/n]$ and $\bigcap_{n=1}^\infty(-1/n,\,1+1/n)$,
-  and explain the difference using the Nested Interval Property.
+  and explain why the answers agree although the Nested Interval Property applies only to
+  the first family.
 \item (Disprove.) Give a nested sequence of \emph{bounded} but non-closed intervals with
   empty intersection, and a nested sequence of \emph{closed} but unbounded intervals with
   empty intersection. Why does each evade the Nested Interval Property?
@@ -2503,12 +2513,12 @@ discussion) also holds.
 \item Find the binary expansion of $\tfrac5{16}$ and of $\tfrac25$, indicating which
   terminates and which repeats.
 \item Prove that a real number has a terminating decimal expansion iff it is of the form
-  $m/(2^a5^b)$ for integers $m,a,b\ge0$.
+  $m/(2^a5^b)$ with $m\in\Z$ and integers $a,b\ge0$.
 \item (Diagram.) Draw four nested closed intervals $I_1\supseteq\cdots\supseteq I_4$ in
   $[0,1]$ produced by repeated bisection toward $\tfrac13$, and mark the common point.
 \item Use the Nested Interval Property to give a proof that a bounded monotone increasing
   sequence of reals has a least upper bound that it ``reaches in the limit'' (informal
-  preview of \S4).
+  preview of \S4.3).
 \item Re-prove that $[0,1]$ is uncountable by the bisection/nesting method, writing out how
   the interval $I_{n+1}$ is chosen to exclude $x_{n+1}$.
 \end{exers}
@@ -2531,7 +2541,7 @@ The multiplication rule is exactly what ``$i^2=-1$'' forces:
 $(a+bi)(c+di)=ac+adi+bci+bd\,i^2$. One checks the field axioms directly; the inverse of
 $z\neq0$ is computed below via the conjugate.
 
-\begin{definition}[Conjugate, real/imaginary parts, modulus, Rudin 1.26--1.28]\label{d:conj@c2}
+\begin{definition}[Conjugate, real/imaginary parts, modulus, Rudin 1.30, 1.32]\label{d:conj@c2}
 For $z=a+bi$: the \emph{conjugate} is $\bar z=a-bi$; the \emph{real} and \emph{imaginary}
 parts are $\Re z=a$, $\Im z=b$; the \emph{modulus} (absolute value) is
 $\abs z=\sqrt{a^2+b^2}=\sqrt{z\bar z}\,\ge0$.
@@ -2543,22 +2553,22 @@ $\abs z=\sqrt{a^2+b^2}=\sqrt{z\bar z}\,\ge0$.
   \draw[numln] (0,-2.1)--(0,2.4) node[above]{$\Im$};
   \coordinate (Z) at (3,1.6);
   \coordinate (Zc) at (3,-1.6);
-  \draw[curve,-{Stealth[length=2mm]}] (0,0)--(Z);
+  \draw[curve,-{Stealth[length=2mm]}] (0,0)--(Z)
+    node[pos=0.4,above,sloped,font=\footnotesize]{$\abs z=\sqrt{a^2+b^2}$};
   \node[pt] at (Z) {};
   \node[font=\footnotesize,above right] at (Z) {$z=a+bi$};
   \node[opt] at (Zc) {};
   \node[font=\footnotesize,below right] at (Zc) {$\bar z=a-bi$};
-  \draw[dashed] (Z)--(3,0) node[below,font=\footnotesize]{$a=\Re z$};
+  \draw[dashed] (Z)--(3,0) node[below left,font=\footnotesize]{$a=\Re z$};
   \draw[dashed] (Z)--(0,1.6) node[left,font=\footnotesize]{$b=\Im z$};
   \draw[dashed] (Zc)--(3,0);
-  \node[font=\footnotesize] at (1.3,1.15) {$\abs z=\sqrt{a^2+b^2}$};
   % angle arc
   \draw (0.7,0) arc (0:28:0.7);
 \end{tikzpicture}\captionof{figure}{$\C$ as the plane: $z$ is the vector to $(a,b)$, $\abs z$ its length,
 $\bar z$ its reflection across the real axis.}
 \end{center}
 
-\begin{theorem}[Algebra of conjugate and modulus, Rudin 1.31]\label{t:conjmod@c2}
+\begin{theorem}[Algebra of conjugate and modulus, Rudin 1.31, 1.33]\label{t:conjmod@c2}
 For $z,w\in\C$:
 \textup{(a)} $\overline{z+w}=\bar z+\bar w$, $\overline{zw}=\bar z\,\bar w$, $\bar{\bar z}=z$;
 \textup{(b)} $z+\bar z=2\Re z$, $z-\bar z=2i\Im z$; and $z$ is real iff $z=\bar z$;
@@ -2591,7 +2601,7 @@ modulus.
 \end{definition}
 
 The dot product packages length and angle at once: $\mathbf x\cdot\mathbf x$ is the squared
-length, while for distinct vectors $\mathbf x\cdot\mathbf y=\norm{\mathbf x}\norm{\mathbf
+length, while for nonzero vectors $\mathbf x\cdot\mathbf y=\norm{\mathbf x}\norm{\mathbf
 y}\cos\theta$ encodes the angle between them. The norm $\norm{\cdot}$ is just the
 Pythagorean length, and the whole of Euclidean geometry in $\R^k$ flows from these two
 formulas plus the inequality below.
@@ -2615,9 +2625,9 @@ This quadratic in $t$ is $\ge0$ for all $t$, so its discriminant is $\le0$:
 $4(\mathbf x\cdot\mathbf y)^2-4\norm{\mathbf x}^2\norm{\mathbf y}^2\le0$, which is exactly
 $\abs{\mathbf x\cdot\mathbf y}\le\norm{\mathbf x}\norm{\mathbf y}$. Equality forces the
 quadratic to have a real root $t_0$, i.e.\ $\norm{\mathbf x-t_0\mathbf y}=0$, i.e.\ $\mathbf
-x=t_0\mathbf y$. (Rudin gives the equivalent algebraic identity
+x=t_0\mathbf y$. (Alternatively, the algebraic identity
 $\norm{\mathbf x}^2\norm{\mathbf y}^2-(\mathbf x\cdot\mathbf y)^2
-=\tfrac12\sum_{i,j}(x_iy_j-x_jy_i)^2\ge0$, the Lagrange identity, which exhibits the gap as a
+=\tfrac12\sum_{i,j}(x_iy_j-x_jy_i)^2\ge0$, the Lagrange identity, exhibits the gap as a
 sum of squares.)
 \end{proof}
 
@@ -2630,10 +2640,10 @@ sum of squares.)
   \draw[curve,-{Stealth[length=2mm]}] (0,0)--(X) node[below right]{$\mathbf x$};
   \draw[curve,-{Stealth[length=2mm]}] (0,0)--(Y) node[above left]{$\mathbf y$};
   % projection of x onto y direction
-  \node[font=\footnotesize] at (2.7,2.0)
+  \node[font=\footnotesize,anchor=west] at (1.9,2.0)
     {$\abs{\mathbf x\cdot\mathbf y}=\norm{\mathbf x}\norm{\mathbf y}\abs{\cos\theta}\le
       \norm{\mathbf x}\norm{\mathbf y}$};
-  \draw (0.55,0) arc (15:62:0.55);
+  \draw (15:0.55) arc (15:62:0.55);
   \node[font=\footnotesize] at (0.85,0.45) {$\theta$};
 \end{tikzpicture}\captionof{figure}{Cauchy--Schwarz says $\abs{\cos\theta}\le1$: the dot product never exceeds the
 product of lengths.}
@@ -2702,7 +2712,8 @@ The same argument bars an order on any field where $-1$ is a sum of squares. \ch
 \end{wex}
 
 \begin{pitfall}
-$\C$ has no order: ``$z<w$'' for complex numbers is meaningless. You may compare \emph{moduli}
+$\C$ admits no order making it an ordered field: ``$z<w$'' for complex numbers is
+meaningless. You may compare \emph{moduli}
 $\abs z<\abs w$ (real numbers), but never the complex numbers themselves. Inequality
 arguments in $\C$ always run through $\abs{\cdot}$, $\Re$, or $\Im$, never through a
 nonexistent complex order.
@@ -2762,7 +2773,8 @@ proportional coordinates. \checkmark
   statement about parallelograms.
 \item If $k\ge2$ and $\mathbf x\in\R^k$, prove there exists $\mathbf y\in\R^k$ with
   $\mathbf y\neq\mathbf0$ but $\mathbf x\cdot\mathbf y=0$. Is this also true if $k=1$?
-\item Suppose $\mathbf a,\mathbf b\in\R^k$. Find $\mathbf c\in\R^k$ and $r>0$ such that
+\item Suppose $\mathbf a,\mathbf b\in\R^k$, $\mathbf a\neq\mathbf b$. Find $\mathbf c\in\R^k$ and
+  $r>0$ such that
   $\abs{\mathbf x-\mathbf a}=2\abs{\mathbf x-\mathbf b}$ iff $\abs{\mathbf x-\mathbf c}=r$.
   (Solution: $3\mathbf c=4\mathbf b-\mathbf a$, $3r=2\abs{\mathbf b-\mathbf a}$.)
 \end{exers}
