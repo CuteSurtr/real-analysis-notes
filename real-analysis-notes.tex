@@ -109,6 +109,7 @@ $A\triangle B=(A\setminus B)\cup(B\setminus A)$.
     \draw (1.2,0) circle (1.1) node[below=1.1cm] {$B$};
   \end{scope}
 \end{tikzpicture}
+\captionof{figure}{Venn diagrams: the shaded regions are $A\cup B$, $A\cap B$, and $A\setminus B$.}
 \end{center}
 
 \begin{theorem}[De~Morgan and distributive laws]\label{t:demorgan@c1}
@@ -159,12 +160,13 @@ $R\subseteq A\times B$; we write $a\mathbin{R}b$ for $(a,b)\in R$.
   \draw[dgrid] (0,0) grid (4,3);
   \draw[numln] (-0.2,0) -- (4.4,0) node[right]{$A$};
   \draw[numln] (0,-0.2) -- (0,3.3) node[above]{$B$};
-  % shade A=[1,2]u[3,4]? keep simple: A=[1,3], B=[1,2]
+  % A=[1,3], B=[1,2]
   \fill[band] (1,1) rectangle (3,2);
   \node at (2,1.5) {$A\times B$};
-  \draw[brc] (1,-0.35) -- (3,-0.35) node[midway,below=3pt]{\footnotesize $A=[1,3]$};
-  \draw[brc] (-0.35,2) -- (-0.35,1) node[midway,left=3pt]{\footnotesize $B=[1,2]$};
+  \draw[brc] (3,-0.35) -- (1,-0.35) node[midway,below=3pt]{\footnotesize $A=[1,3]$};
+  \draw[brc] (-0.35,1) -- (-0.35,2) node[midway,left=3pt]{\footnotesize $B=[1,2]$};
 \end{tikzpicture}
+\captionof{figure}{The Cartesian product of $A=[1,3]$ and $B=[1,2]$ is a rectangle in the plane.}
 \end{center}
 
 \subsection*{Functions: the modern (graph) definition}
@@ -191,9 +193,9 @@ point.
   \draw[-{Stealth[length=2mm]}] (a1)--(b1);
   \draw[-{Stealth[length=2mm]}] (a2)--(b2);
   \draw[-{Stealth[length=2mm]}] (a3)--(b2); % two inputs -> one output (allowed)
-  \node[align=center,font=\footnotesize] at (2,-2.7)
-    {each $a$ has exactly one arrow out;\\ an output may be hit $0,1,$ or many times};
 \end{tikzpicture}
+\captionof{figure}{A function $f:A\to B$: each $a\in A$ has exactly one arrow out, while an element
+of $B$ may be hit $0$, $1$, or many times.}
 \end{center}
 
 \begin{definition}\label{d:images@c1}
@@ -260,7 +262,7 @@ and the bounded interval $(-1,1)$ have the same cardinality --- foreshadowing
 
 \begin{wex}{NON-injective squaring, and how images behave}
 Let $f(x)=x^2$ on $\R$. With $E=[-1,0]$, $F=[0,1]$ show
-$f(E\cap F)\subsetneq f(E)\cap f(F)$ is \emph{false} here but the general inclusion
+$f(E\cap F)=f(E)\cap f(F)$ is \emph{false} here, so the general inclusion
 $f(E\cap F)\subseteq f(E)\cap f(F)$ can be strict.
 \wrec Trigger: a parts-of-images comparison; the lesson is that direct image preserves
 $\cup$ but only \emph{half} of $\cap$.
@@ -276,9 +278,10 @@ preserved, no injectivity needed.
 \begin{pitfall}
 Direct image and preimage are \emph{not} symmetric. Preimage commutes with all three
 operations: $f\inv(G\cup H)=f\inv G\cup f\inv H$, $f\inv(G\cap H)=f\inv G\cap f\inv H$, and
-$f\inv(G^c)=(f\inv G)^c$. Direct image commutes with $\cup$ but, for $\cap$ and
-complement, only gives $\subseteq$ unless $f$ is injective. When in doubt, push problems
-through the \emph{preimage} --- it is the better-behaved operation.
+$f\inv(G^c)=(f\inv G)^c$. Direct image commutes with $\cup$, but for $\cap$ it only gives
+$\subseteq$ unless $f$ is injective, and it commutes with complements
+($f(A\setminus E)=B\setminus f(E)$ for all $E$) only when $f$ is bijective. When in doubt,
+push problems through the \emph{preimage} --- it is the better-behaved operation.
 \end{pitfall}
 
 \begin{theorem}[Preimage respects all Boolean operations]\label{t:preimage@c1}
@@ -308,6 +311,7 @@ $(g\circ f)(x)=g(f(x))$. Composition is associative: $h\circ(g\circ f)=(h\circ g
 \begin{tikzcd}[column sep=large]
 A \arrow[r,"f"] \arrow[rr,bend right=22,"g\circ f"'] & B \arrow[r,"g"] & C
 \end{tikzcd}
+\captionof{figure}{The composite $g\circ f$: first apply $f$, then $g$.}
 \end{center}
 
 \begin{proposition}\label{p:compose-inj@c1}
@@ -513,9 +517,9 @@ $P(k)\imp P(k+1)$.
   \node at (2*0.85+0.08,-0.3) {\footnotesize $P(3)$};
   \node at (6*0.85+0.08,-0.3) {\footnotesize $P(7)$};
   \draw[-{Stealth[length=2mm]}] (0.45,1.15) to[bend left=20] (0.95,1.15);
-  \node[font=\footnotesize] at (3.4,1.5)
-    {base case knocks the first; each step topples the next};
 \end{tikzpicture}
+\captionof{figure}{Induction as falling dominoes: the base case knocks over the first, and each
+inductive step topples the next.}
 \end{center}
 
 \begin{theorem}[Strong / Complete Induction]\label{t:strong@c1}
@@ -597,10 +601,10 @@ $(1+x)^k\ge1+kx$. Since $1+x\ge0$ we may multiply the inequality by $1+x$:
 \]
 because $kx^2\ge0$. By induction the inequality holds for all $n$. \emph{Check.} $x=1$,
 $n=3$: $2^3=8\ge1+3=4$. \checkmark\ This inequality is the engine behind many
-limit estimates later (e.g.\ $\sqrt[n]{n}\to1$).
+limit estimates later (e.g.\ $x^n\to0$ for $\abs x<1$ and $a^{1/n}\to1$ for $a>0$).
 \end{wex}
 
-\begin{wex}{Strong induction: every $n\ge2$ has a prime factor}
+\begin{wex}{Strong induction: every $n\ge2$ is a product of primes}
 Prove that every integer $n\ge2$ is a product of primes.
 \wrec The factorization of $n$ refers to \emph{smaller} numbers $a,b<n$, not to $n-1$;
 this is the signature of strong induction.
@@ -614,10 +618,11 @@ the smaller already-handled $2$ and $6$.
 
 \begin{pitfall}
 \textbf{Never skip the base case.} The step alone proves nothing. ``$P(n):\ n=n+1$''
-satisfies a vacuous-looking step pattern if mishandled, yet is false for every $n$; only a
-base case can anchor the chain. The notorious ``all horses are the same color'' paradox
-fails precisely at $n=1\to2$, where the inductive step secretly needs two horses to
-overlap. \textbf{Always check the step works for the \emph{smallest} relevant $k$.}
+has a valid inductive step (add $1$ to both sides of $k=k+1$), yet is false for every $n$;
+only a base case can anchor the chain. The notorious ``all horses are the same color''
+paradox fails precisely at $n=1\to2$, where the inductive step secretly needs the two
+groups of $n$ horses to share a horse. \textbf{Always check the step works for the
+\emph{smallest} relevant $k$.}
 \end{pitfall}
 
 \begin{pitfall}
@@ -654,7 +659,7 @@ $\tfrac1{j(j+1)}=\tfrac1j-\tfrac1{j+1}$. We use induction to drill the method.
   =\frac{k(k+2)+1}{(k+1)(k+2)}=\frac{(k+1)^2}{(k+1)(k+2)}=\frac{k+1}{k+2},
 \]
 using $k(k+2)+1=k^2+2k+1=(k+1)^2$. This is the formula at $k+1$. \emph{Check.} $n=3$ gives
-$\tfrac12+\tfrac16+\tfrac1{12}=\tfrac{6+2+1}{12}=\tfrac9{12}=\tfrac34=\tfrac3{4}$.
+$\tfrac12+\tfrac16+\tfrac1{12}=\tfrac{6+2+1}{12}=\tfrac9{12}=\tfrac34=\tfrac{3}{3+1}$.
 \checkmark\ As $n\to\infty$ the sum $\to1$, foreshadowing convergent series.
 \end{wex}
 
@@ -704,7 +709,9 @@ color'' fallacy at $n=1\to2$.
   \dfrac1{(2n-1)(2n+1)}$ and prove it.
 \item Conjecture a formula for the sum $1+3+5+\cdots+(2n-1)$ of the first $n$ odd numbers
   and prove it by induction.
-\item Prove the second version of the induction principle (Theorem~1.2.4 of B\&S).
+\item Prove the second version of the induction principle (B\&S 1.2.3): if $n_0\in\N$,
+  $P(n_0)$ is true, and $P(k)\imp P(k+1)$ for every $k\ge n_0$, then $P(n)$ is true for
+  all $n\ge n_0$.
 \item Prove $2^n<n!$ for all $n\ge4$.
 \item Prove $2n-3\le 2^{n-2}$ for all $n\ge5$.
 \item Find all $n\in\N$ for which $n^2<2^n$, and prove your answer.
@@ -759,7 +766,7 @@ transitive (Proposition~\ref{p:compose-inj@c1}: a composite of bijections is a b
 A hallmark of \emph{infinite} sets, impossible for finite ones, is that they biject with
 proper subsets of themselves.
 
-\begin{wex}{$\N$ is equinumerous with a proper subset}
+\begin{wex}{$\N$ is equinumerous with a proper subset}\label{wex:N-proper@c1}
 Exhibit a bijection of $\N$ onto the even numbers $2\N=\set{2,4,6,\dots}$, and onto $\N$
 minus a finite set.
 \wrec Trigger: ``show an infinite set matches a proper subset.'' Build an explicit
@@ -767,7 +774,8 @@ formula and check both directions.
 \wsol $f(n)=2n$ is a bijection $\N\to2\N$ (inverse $m\mapsto m/2$). Likewise $g(n)=n+13$
 bijects $\N$ onto $\set{14,15,16,\dots}$, the integers greater than $13$. \emph{Check.}
 $f$ misses no even number and repeats none; a finite set could never biject with a proper
-subset, so this property \emph{characterizes} infinity (Dedekind's definition).
+subset, while every infinite set can (it contains a copy of $\N$, granting countable choice),
+so this property \emph{characterizes} infinity (Dedekind's definition).
 \end{wex}
 
 \begin{theorem}[Subsets and images of countable sets]\label{t:countable-closure@c1}
@@ -812,15 +820,19 @@ Theorem~\ref{t:countable-closure@c1}(c).
   \node[font=\footnotesize] at (0.4,4) {$n{=}4$};
   \node[font=\footnotesize] at (1,4.5) {$m{=}1$};
   \node[font=\footnotesize] at (4,4.5) {$m{=}4$};
-  % zig-zag path along anti-diagonals
-  \draw[-{Stealth[length=2mm]},line width=0.9pt,black!70]
-    (p11)--(p21)--(p12)--(p13)--(p22)--(p31)--(p41)--(p32)--(p23)--(p14);
-  \node[font=\footnotesize,fill=white,inner sep=1pt] at (1,0.55) {$1$};
-  \node[font=\footnotesize,fill=white,inner sep=1pt] at (2,0.55) {$2$};
-  \node[font=\footnotesize,fill=white,inner sep=1pt] at (1.5,1.5) {$3$};
+  % Cantor pairing order: each anti-diagonal is run from (1,s-1) down to (s-1,1)
+  % (solid); dashed segments jump to the start of the next diagonal
+  \draw[-{Stealth[length=2mm]},line width=0.9pt,black!70] (p12)--(p21);
+  \draw[-{Stealth[length=2mm]},line width=0.9pt,black!70] (p13)--(p22)--(p31);
+  \draw[-{Stealth[length=2mm]},line width=0.9pt,black!70] (p14)--(p23)--(p32)--(p41);
+  \draw[dashed,black!70] (p11)--(p12) (p21)--(p13) (p31)--(p14);
+  \node[font=\footnotesize] at (1,0.55) {$1$};
+  \node[font=\footnotesize] at (0.7,2) {$2$};
+  \node[font=\footnotesize] at (2,0.55) {$3$};
 \end{tikzpicture}
-\captionof{figure}{Enumerating $\N\times\N$ along anti-diagonals $m+n=\text{const}$: each
-diagonal is finite, so every pair is reached at a finite stage.}
+\captionof{figure}{Enumerating $\N\times\N$ along anti-diagonals $m+n=\text{const}$, each run
+in the direction of increasing $m$ as in the Cantor pairing $h$ (dashed: jumps between
+diagonals). Each diagonal is finite, so every pair is reached at a finite stage.}
 \end{center}
 
 \begin{corollary}\label{c:Z-Q-countable@c1}
@@ -828,13 +840,19 @@ $\Z$ and $\Q$ are denumerable, and a countable union of countable sets is counta
 \end{corollary}
 
 \begin{proof}
-$\Z$: interleave, $0,1,-1,2,-2,\dots$, i.e.\ the bijection $\N\to\Z$ sending odd $2k-1\mapsto
-k-1$... more cleanly $n\mapsto n/2$ if $n$ even, $-(n-1)/2$ if $n$ odd. \emph{Countable
-union:} let $A_1,A_2,\dots$ be countable, enumerate each $A_i=\set{a_{i1},a_{i2},\dots}$,
-and map $\bigcup_i A_i$ into $\N\times\N$ by $a_{ij}\mapsto(i,j)$; this is (almost) an
-injection into a countable set, so the union is countable. \emph{$\Q$:} the map
-$\Q_{>0}\to\N\times\N$, $p/q\mapsto(p,q)$ in lowest terms, is an injection, so $\Q_{>0}$ is
-countable; then $\Q=\Q_{>0}\cup\set0\cup\Q_{<0}$ is a finite union of countable sets.
+$\Z$: interleave, $0,1,-1,2,-2,\dots$, i.e.\ use the bijection $\N\to\Z$ given by
+$n\mapsto n/2$ if $n$ is even and $n\mapsto-(n-1)/2$ if $n$ is odd. \emph{Countable
+union:} let $A_1,A_2,\dots$ be countable (pad a finite family with empty sets). For each
+nonempty $A_i$ choose a surjection $\N\to A_i$, $j\mapsto a_{ij}$
+(Theorem~\ref{t:countable-closure@c1}(c)). For $x\in\bigcup_i A_i$ let $i(x)$ be the least
+$i$ with $x\in A_i$, and then $j(x)$ the least $j$ with $a_{i(x)j}=x$ (well-ordering).
+Since $x=a_{i(x)j(x)}$, the map $x\mapsto(i(x),j(x))$ is an injection of $\bigcup_iA_i$
+into $\N\times\N$; composed with a bijection $\N\times\N\to\N$ (Theorem~\ref{t:NxN@c1}) it
+is an injection into $\N$, so the union is countable by
+Theorem~\ref{t:countable-closure@c1}(c). \emph{$\Q$:} the map $\Q_{>0}\to\N\times\N$,
+$p/q\mapsto(p,q)$ in lowest terms, is an injection, so $\Q_{>0}$ is countable, and so is
+$\Q_{<0}=\set{-r\st r\in\Q_{>0}}$. Then $\Q=\Q_{>0}\cup\set0\cup\Q_{<0}$ is a finite union
+of countable sets, hence countable; it is infinite (it contains $\N$), so it is denumerable.
 \end{proof}
 
 \begin{pitfall}
@@ -857,8 +875,8 @@ The interval $[0,1)$ is uncountable; hence $\R$ is uncountable.
 \begin{proof}
 Suppose, for contradiction, that $[0,1)$ were countable, say enumerated as
 $x_1,x_2,x_3,\dots$. Write each in decimal, $x_i=0.d_{i1}d_{i2}d_{i3}\dots$, choosing the
-non-terminating form to make the expansion unique (forbid trailing $9$s). Define a new
-digit string $y=0.e_1e_2e_3\dots$ by
+terminating form when there are two, to make the expansion unique (forbid trailing $9$s).
+Define a new digit string $y=0.e_1e_2e_3\dots$ by
 \[
   e_i=\begin{cases}5,& d_{ii}\neq5,\\ 4,& d_{ii}=5.\end{cases}
 \]
@@ -909,8 +927,8 @@ naturals in disguise.
 If there exist injections $f:A\to B$ and $g:B\to A$, then $A\sim B$.
 \end{theorem}
 
-This powerful tool (proof omitted; see the exercises) lets you prove $A\sim B$ by two
-\emph{one-way} comparisons instead of constructing a bijection outright.
+This powerful tool (proof omitted; the exercises below apply it) lets you prove $A\sim B$ by
+two \emph{one-way} comparisons instead of constructing a bijection outright.
 
 \begin{wex}{$(0,1)\sim[0,1]\sim\R$ via Schroeder--Bernstein}
 Show the open interval, closed interval, and whole line all have the same cardinality.
@@ -920,9 +938,9 @@ at endpoints --- the cue for Cantor--Schroeder--Bernstein, or a clever direct ma
 $[0,1]\hookrightarrow(0,1)$ by $x\mapsto\tfrac{x+1}3\in[\tfrac13,\tfrac23]\subset(0,1)$
 (injective). By Theorem~\ref{t:csb@c1}, $(0,1)\sim[0,1]$. And $\tan\!\bigl(\pi(x-\tfrac12)\bigr)$
 is an explicit bijection $(0,1)\to\R$ (strictly increasing, onto), so all three are
-equinumerous, of cardinality $2^{\aleph_0}$. \emph{Check.} Consistent with Worked
-Example~\ref{t:R-uncountable@c1}-style intuition --- adding or deleting the two endpoints
-cannot change an uncountable cardinality.
+equinumerous, of cardinality $2^{\aleph_0}$. \emph{Check.} Consistent with
+Theorem~\ref{t:R-uncountable@c1}: all three sets are uncountable, and adding or deleting
+the two endpoints cannot change an uncountable cardinality.
 \end{wex}
 
 \begin{wex}{The algebraic numbers are countable}
@@ -931,9 +949,9 @@ coefficients. Show the set $\mathbb A$ of algebraic numbers is countable (hence
 ``most'' reals are transcendental).
 \wrec ``Show a set built from integers is countable'': organize it as a countable union of
 finite sets, indexed by something countable.
-\wsol For each $n\ge1$ the integer polynomials of degree $\le n$ with
+\wsol For each $n\ge1$ the nonzero integer polynomials of degree $\le n$ with
 $\abs{a_0}+\cdots+\abs{a_n}\le n$ form a \emph{finite} set, and each has $\le n$ roots. The
-set of all integer polynomials is a countable union (over $n$) of finite sets, hence
+set of all nonzero integer polynomials is a countable union (over $n$) of finite sets, hence
 countable (Corollary~\ref{c:Z-Q-countable@c1}); the roots form a countable union of finite
 sets, hence $\mathbb A$ is countable. \emph{Check.} $\Q\subseteq\mathbb A$ (each $p/q$ is a
 root of $qx-p$), and $\sqrt2,\,\sqrt[3]5\in\mathbb A$, yet $\mathbb A$ is still only
@@ -954,7 +972,7 @@ cardinality are independent notions --- do not conflate them.
 A hotel with rooms $1,2,3,\dots$ is full (one guest per room). Show a single new guest can
 be accommodated without anyone leaving, and that countably many new guests can be too.
 \wrec Trigger: ``an infinite set matches itself with room to spare.'' Build explicit
-shifting bijections, as in Worked Example~\ref{d:equinumerous@c1}-style constructions.
+shifting bijections, as in Worked Example~\ref{wex:N-proper@c1}.
 \wsol Move the occupant of room $n$ to room $n+1$ for every $n$; this is the bijection
 $s:\N\to\set{2,3,4,\dots}$, $s(n)=n+1$, freeing room $1$ for the newcomer. For countably
 many new guests, move room $n$'s occupant to room $2n$ (bijection $\N\to2\N$), vacating all
@@ -975,11 +993,11 @@ so no room is double-booked and none is wasted.
   \foreach \i/\j in {1/2,2/3,3/4,4/5}{
     \draw[-{Stealth[length=1.6mm]},black!70] (g\i) to[bend left=30] (r\j.south);
   }
-  \node[font=\footnotesize] at (0.1,0) {new};
+  \node[font=\footnotesize,anchor=east] at (0.25,0) {new};
   \draw[-{Stealth[length=1.6mm]},black!70] (0.3,0) to[bend left=30] (r1.south);
-  \node[font=\footnotesize,align=center] at (3.6,-0.8)
-    {guest in room $n$ shifts to room $n+1$; room $1$ opens up};
 \end{tikzpicture}
+\captionof{figure}{Hilbert's hotel: the guest in room $n$ shifts to room $n+1$, and room $1$
+opens up for the new guest.}
 \end{center}
 
 \begin{wex}{The integers are countable, with an explicit formula}
@@ -989,9 +1007,9 @@ negatives, then check injectivity and surjectivity by the method.
 \wsol Define $h(n)=\tfrac n2$ if $n$ is even and $h(n)=-\tfrac{n-1}2$ if $n$ is odd. So
 $h$ lists $0,1,-1,2,-2,3,-3,\dots$ as $n=1,2,3,4,5,6,7,\dots$. Surjective: an integer
 $m>0$ is $h(2m)$, $m<0$ is $h(1-2m)$, and $0=h(1)$. Injective: even and odd $n$ produce
-nonnegative and negative values respectively, so the two cases never collide, and within
+positive and nonpositive values respectively, so the two cases never collide, and within
 each case $h$ is one-to-one. \emph{Check.} $h(6)=3$ and $h(7)=-3$; the inverse sends $3\mapsto
-6$, $-3\mapsto 7$, recovering $n$. Hence $\Z\sim\N$ is denumerable.
+6$, $-3\mapsto 7$, recovering $n$. Hence $\Z\sim\N$, i.e.\ $\Z$ is denumerable.
 \end{wex}
 
 \begin{wex}{A countable union of countable sets, made concrete}
@@ -1024,7 +1042,9 @@ would be a countable union.
 \begin{exers}{Exercises (Bartle \& Sherbert, \S1.3).}
 \item Prove a nonempty set $T_1$ is finite iff there is a bijection from $T_1$ onto a finite
   set $T_2$.
-\item Prove parts (b) and (c) of the uniqueness theorem $\N_m\sim\N_n\imp m=n$.
+\item Prove parts (b) and (c) of B\&S Theorem~1.3.4: (b) if $A$ has $m\in\N$ elements and
+  $C\subseteq A$ has one element, then $A\setminus C$ has $m-1$ elements; (c) if $C$ is
+  infinite and $B$ is finite, then $C\setminus B$ is infinite.
 \item Let $S=\set{1,2}$, $T=\set{a,b,c}$. (a) How many injections $S\to T$ are there?
   (b) How many surjections $T\to S$?
 \item Exhibit a bijection between $\N$ and the set of all odd integers greater than $13$.
@@ -1060,10 +1080,10 @@ would be a countable union.
   rationals with two expansions) that the digit choice $\set{4,5}$ avoided for decimals.
 \item Prove $\mathcal P(\N)\sim\R$. (Map a subset $A\subseteq\N$ to the real with binary
   digits $\mathbf 1_A$; repair the double-counting with Schroeder--Bernstein.)
-\item (Strict middle.) Show that for any sets, $A\hookrightarrow B$ and a surjection $B\to
-  A$ together force $A\sim B$, citing the appropriate theorem.
-\item Show the set of all \emph{eventually-zero} sequences of natural numbers is countable,
-  but the set of \emph{all} sequences of naturals is uncountable.
+\item (Strict middle.) Show that for any sets, $A\hookrightarrow B$ and a surjection $A\to
+  B$ together force $A\sim B$, citing the appropriate theorem.
+\item Show the set of all \emph{eventually-zero} sequences of nonnegative integers is
+  countable, but the set of \emph{all} such sequences is uncountable.
 \item Prove that a countable union of countable sets is countable, being explicit about
   where a choice of enumerations is used.
 \item Give an example of a strictly increasing chain $A_1\subsetneq A_2\subsetneq\cdots$ of
