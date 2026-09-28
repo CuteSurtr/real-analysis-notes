@@ -38932,7 +38932,7 @@ so the whole series is unchanged.
 where in the last step we re-indexed $n+1\mapsto n$.
 
 \textbf{(iv)} By (ii) and (iii) it suffices to show $\Theta(\tfrac12+\tfrac\tau2\mid\tau)=0$.
-Again using $n^2$ and $n$:
+Again combining the exponents in $n^2$ and $n$:
 \[
   \Theta\!\left(\tfrac12+\tfrac\tau2\,\Big|\,\tau\right)
   =\sum_n e^{\pi i n^2\tau}e^{2\pi i n(1/2+\tau/2)}
@@ -38960,12 +38960,12 @@ zeros sit at the centers $\tfrac12+\tfrac\tau2$ of the fundamental cells.
   \draw[line width=0.6pt] (tau)--($(e1)+(tau)$);
   % zero at center 1/2 + tau/2
   \node[zero] at ($0.5*(e1)+0.5*(tau)$){};
-  \node[font=\footnotesize] at ($0.5*(e1)+0.5*(tau)+(0.05,-0.18)$){$\tfrac12+\tfrac\tau2$};
+  \node[font=\footnotesize] at ($0.5*(e1)+0.5*(tau)+(-0.12,-0.2)$){$\tfrac12+\tfrac\tau2$};
   % a few translates
   \node[zero] at ($0.5*(e1)+0.5*(tau)+(1,0)$){};
   \node[zero] at ($0.5*(e1)+0.5*(tau)+(tau)$){};
 \end{tikzpicture}
-\captionof{figure}{Fundamental parallelogram $\Z+\Z\tau$ with the (simple) zero of
+\captionof{figure}{Fundamental parallelogram of the lattice $\Z+\Z\tau$ with the (simple) zero of
 $\Theta(\cdot\mid\tau)$ at the center $\tfrac12+\tfrac\tau2$, repeated by the lattice.
 (Schematic.)}
 \end{center}
@@ -39024,16 +39024,18 @@ factor,
 \[
   \Pi(z+\tau\mid\tau)=\Pi(z\mid\tau)\,\frac{1+q^{-1}e^{-2\pi iz}}{1+qe^{2\pi iz}}.
 \]
-Now $(1+x)/(1+x^{-1})=x$ for $x\ne-1$ with $x=qe^{2\pi iz}$ gives the factor
-$qe^{2\pi iz}\cdot(\text{rearranged})$; carefully, $\dfrac{1+q^{-1}e^{-2\pi iz}}{1+qe^{2\pi iz}}
-=q^{-1}e^{-2\pi iz}=e^{-\pi i\tau}e^{-2\pi iz}$, which is (iii).
+Now $(1+x^{-1})/(1+x)=x^{-1}$ for $x\ne0,-1$; with $x=qe^{2\pi iz}$ this gives
+$\dfrac{1+q^{-1}e^{-2\pi iz}}{1+qe^{2\pi iz}}
+=q^{-1}e^{-2\pi iz}=e^{-\pi i\tau}e^{-2\pi iz}$, which is (iii) (by continuity also at the
+isolated points where $x=-1$).
 
 \textbf{(iv)} A convergent product vanishes iff a factor does. The factor $1-q^{2n}$ never
 vanishes ($\abs q<1$). The factor $1+q^{2n-1}e^{2\pi iz}=0$ requires
 $q^{2n-1}e^{2\pi iz}=-1=e^{\pi i}$, i.e. $(2n-1)\tau+2z\equiv1\pmod 2$, giving
 $z\equiv\tfrac12+\tfrac\tau2-n\tau\pmod1$ for $n\ge1$. Similarly the third factor gives
 $z\equiv\tfrac12+\tfrac\tau2+n'\tau\pmod1$ for $n'\ge0$. Together these are exactly the
-points in (iv). Each zero is simple because $e^w-1$ vanishes to first order at $w=0$.
+points in (iv). Each zero is simple, because it is a zero of exactly one factor and
+$e^w-1$ vanishes to first order at $w=0$.
 \end{proof}
 
 \begin{center}
@@ -39041,8 +39043,8 @@ points in (iv). Each zero is simple because $e^w-1$ vanishes to first order at $
   \begin{axis}[width=7.6cm,height=5.2cm,view={40}{28},
     xlabel={\footnotesize$x$},ylabel={\footnotesize$y$},
     zlabel={\footnotesize$\abs{\Pi}$},ticks=none,colormap/blackwhite]
-    \addplot3[surf,domain=-0.5:0.5,y domain=0.05:0.7,samples=26,samples y=22,shader=interp]
-      {1 - exp(-30*((x-0)^2+(y-0.35)^2))*0.9};
+    \addplot3[surf,domain=-0.5:0.5,y domain=0:0.7,samples=25,samples y=21,shader=interp]
+      {sqrt(1 - exp(-30*(x^2+(y-0.35)^2)))};
   \end{axis}
 \end{tikzpicture}
 \captionof{figure}{Schematic modulus surface of $\Pi(z\mid\tau)$ over a fundamental cell:
@@ -39058,10 +39060,11 @@ For all $z\in\C$ and $\tau\in\HH$, $\quad\Theta(z\mid\tau)=\Pi(z\mid\tau).$
 \begin{proof}
 Fix $\tau\in\HH$. \textbf{Step 1: a constant ratio.} Consider $F(z)=\Theta(z\mid\tau)/\Pi(z\mid\tau)$.
 By Propositions~\ref{p:theta-props@c23} and \ref{p:pi-props@c23}, $\Theta$ and $\Pi$ have identical
-periodicity (ii), identical quasi-periodicity (iii), and identical zero sets (iv) --- and the
-zeros of $\Pi$ are simple, so they exactly cancel the zeros of $\Theta$. Hence $F$ is entire
+periodicity (ii) and identical quasi-periodicity (iii), and $\Theta$ vanishes at every zero of
+$\Pi$ (iv); since the zeros of $\Pi$ are simple, they are cancelled by zeros of $\Theta$. Hence $F$ is entire
 and doubly periodic with periods $1$ and $\tau$ (the quasi-periodicity factors cancel in the
-ratio). A bounded entire function on a fundamental parallelogram is constant by Liouville, so
+ratio). A doubly periodic entire function is bounded (by its maximum on the closed fundamental
+parallelogram), hence constant by Liouville, so
 \begin{equation}\label{eq:cF@c23}
   \Theta(z\mid\tau)=c(\tau)\,\Pi(z\mid\tau)
 \end{equation}
@@ -39074,18 +39077,18 @@ $e^{2\pi iz}=e^{-2\pi iz}=-1$:
   =c(\tau)\prod_{n=1}^{\infty}(1-q^{2n})(1-q^{2n-1})^2
   =c(\tau)\prod_{n=1}^{\infty}(1-q^n)(1-q^{2n-1}),
 \]
-the last step merging $(1-q^{2n-1})(1-q^{2n})=(1-q^n)$ over all $n$. Hence
+the last step merging $\prod_n(1-q^{2n-1})(1-q^{2n})=\prod_n(1-q^n)$. Hence
 \begin{equation}\label{eq:c1@c23}
   c(\tau)=\frac{\sum_{n=-\infty}^{\infty}(-1)^n q^{n^2}}
               {\prod_{n=1}^{\infty}(1-q^n)(1-q^{2n-1})}.
 \end{equation}
-Now put $z=\tfrac14$, so $e^{2\pi iz}=i$. On the theta side, $i^n$ kills all odd $n$, leaving
-the even terms $n=2m$:
+Now put $z=\tfrac14$, so $e^{2\pi iz}=i$. On the theta side, the terms $\pm n$ with $n$ odd
+cancel (as $i^{-n}=-i^n$), leaving the even terms $n=2m$:
 \[
   \Theta(\tfrac14\mid\tau)=\sum_n q^{n^2}i^n=\sum_{m=-\infty}^{\infty}q^{4m^2}(-1)^m.
 \]
 On the product side, $(1+iq^{2m-1})(1-iq^{2m-1})=1+q^{4m-2}$, and separating the two cases
-$2m=4n-4$ and $2m=4n-2$,
+$2m=4n$ and $2m=4n-2$,
 \[
   \Pi(\tfrac14\mid\tau)=\prod_{m\ge1}(1-q^{2m})(1+q^{4m-2})
   =\prod_{n\ge1}(1-q^{4n})(1-q^{8n-4}).
@@ -39164,12 +39167,15 @@ pulling back to it along the projection $\pi$.
 
 \begin{center}
 \begin{tikzpicture}[scale=1.0]
-  \draw[cxaxis] (-2.4,0)--(2.4,0) node[right]{$\Re z$};
-  \draw[cxaxis] (0,-1.6)--(0,2.0) node[above]{$\Im z$};
-  % fundamental cell outline
+  \draw[cxaxis] (-1.6,-1)--(2.4,-1) node[right]{$\Re z$};
+  \draw[cxaxis] (-1,-1.6)--(-1,2.0) node[above]{$\Im z$};
+  % fundamental cell outline: vertices 0, 1, 1+tau, tau (drawn for tau = i)
   \draw[line width=0.6pt] (-1,-1) rectangle (1,1);
+  \node[font=\footnotesize,below left] at (-1,-1) {$0$};
+  \node[font=\footnotesize,below] at (1,-1) {$1$};
+  \node[font=\footnotesize,left] at (-1,1) {$\tau$};
   \node[pole,label={[font=\footnotesize]above right:$\tfrac12+\tfrac\tau2$}] at (0,0) {};
-  \node[font=\footnotesize] at (1.5,1.2) {double pole};
+  \node[font=\footnotesize] at (0,-0.4) {double pole};
 \end{tikzpicture}
 \captionof{figure}{$(\log\Theta)''$ is elliptic of order $2$: one double pole per
 fundamental cell, at the zero of $\Theta$. (Schematic.)}
@@ -39182,8 +39188,8 @@ We now study how $\Theta$ behaves under the modular substitutions
   T_2:\ \tau\mapsto\tau+2,\qquad S:\ \tau\mapsto-1/\tau,
 \]
 both preserving $\HH$. (We use $T_2$ rather than $T_1$ because $\Theta(z\mid\tau+2)=\Theta(z\mid\tau)$
-while $\Theta(z\mid\tau+1)\ne\Theta(z\mid\tau)$: the coefficient $e^{\pi i n^2}$ has period $2$
-in $\tau$ as a function of $n^2$.)
+while $\Theta(z\mid\tau+1)\ne\Theta(z\mid\tau)$: the factor $e^{\pi i n^2\tau}$ is unchanged by
+$\tau\mapsto\tau+2$, but picks up $e^{\pi i n^2}=(-1)^n$ under $\tau\mapsto\tau+1$.)
 
 \begin{theorem}[The $S$-transformation of $\Theta$]\label{t:Strans@c23}
 For $\tau\in\HH$ and all $z\in\C$,
@@ -39205,8 +39211,8 @@ Writing $x=a$ and rearranging, this is
 \[
   \sum_{n}e^{-\pi t(n+a)^2}=t^{-1/2}\sum_{n}e^{-\pi n^2/t}e^{2\pi i na},
 \]
-which is exactly the Poisson summation formula applied to the Gaussian (equation (3) of
-Stein--Shakarchi Ch.4).
+which is exactly the Poisson summation formula applied to the Gaussian
+(equation~\eqref{eq:theta-a@c17}; equation (3) of Stein--Shakarchi Ch.4).
 \end{proof}
 
 \begin{corollary}[Functional equation of $\theta$]\label{c:theta-fe@c23}
@@ -39227,14 +39233,14 @@ Set $z=0$ in Theorem~\ref{t:Strans@c23}: $e^{\pi i\tau\cdot0}=1$ and $\Theta(0\m
   % unit semicircle (S maps inside<->outside)
   \draw[dashed,black!55] (-1,0) arc (180:0:1);
   \node[pt,label={[font=\footnotesize]right:$\tau$}] at (0.6,1.2){};
-  \node[pt,label={[font=\footnotesize]left:$-1/\tau$}] at (-0.41,0.83){};
-  \draw[->,line width=0.6pt,black!70] (0.5,1.15) to[bend right=18] (-0.32,0.9);
-  \node[font=\footnotesize] at (0.1,1.7){$S:\tau\mapsto-1/\tau$};
+  \node[pt,label={[font=\footnotesize,xshift=-4pt]below:$-1/\tau$}] at (-0.333,0.667){};
+  \draw[->,line width=0.6pt,black!70] (0.52,1.17) to[bend right=25] (-0.25,0.74);
+  \node[font=\footnotesize] at (1.05,1.7){$S:\tau\mapsto-1/\tau$};
   \draw[->,line width=0.6pt,black!70] (1.9,0.6)--(2.5,0.6);
   \node[font=\footnotesize] at (2.2,0.85){$T_2$};
 \end{tikzpicture}
-\captionof{figure}{The modular substitutions on $\HH$: $S$ inverts through the unit circle,
-$T_2$ translates by $2$. Both preserve the upper half-plane. (Schematic.)}
+\captionof{figure}{The modular substitutions on $\HH$: $S$ is inversion in the unit circle
+followed by reflection in the imaginary axis, $T_2$ translates by $2$. Both preserve the upper half-plane. (Schematic.)}
 \end{center}
 
 \begin{corollary}[Behavior near the cusp $\tau=1$]\label{c:cusp@c23}
@@ -39252,11 +39258,11 @@ Since $n$ and $n^2$ have the same parity, $\theta(1+\tau)=\sum_n(-1)^n e^{\pi i 
 Theorem~\ref{t:Strans@c23} with $z=\tfrac12$:
 \[
   \theta(1-1/\tau)=\sqrt{\tfrac\tau i}\,e^{\pi i\tau/4}\,\Theta(\tfrac\tau2\mid\tau)
-  =\sqrt{\tfrac\tau i}\sum_n e^{\pi i n^2\tau}e^{\pi i n\tau}
+  =\sqrt{\tfrac\tau i}\,e^{\pi i\tau/4}\sum_n e^{\pi i n^2\tau}e^{\pi i n\tau}
   =\sqrt{\tfrac\tau i}\sum_n e^{\pi i(n+1/2)^2\tau}.
 \]
 The $n=0,-1$ terms each give $e^{\pi i\tau/4}$ (total $2e^{\pi i\tau/4}$), of modulus
-$2e^{-\pi t/4}$; the remaining terms are $O(e^{-9\pi t/4})$.
+$2e^{-\pi t/4}$ where $t=\Im\tau$; the remaining terms are $O(e^{-9\pi t/4})$.
 \end{proof}
 
 \subsection*{The Dedekind eta function}
@@ -39286,8 +39292,8 @@ Differentiate in $z$ and evaluate at $z_0=\tfrac12+\tfrac\tau2$:
   2\pi i\,H(\tau)=\sqrt{\tfrac i\tau}\,e^{-\pi i/(4\tau)}e^{-\pi i\tau/4}
   \left(\tfrac{-2\pi i}{\tau}\right)e^{-\pi i/2}\,H(-1/\tau).
 \]
-Simplifying, $e^{\pi i\tau/4}H(\tau)=(i/\tau)^{3/2}e^{-\pi i/(4\tau)}H(-1/\tau)$. The cube of
-$\eta$ is exactly $e^{\pi i\tau/4}H(\tau)$ up to the prefactor; for $\tau=it$ the function
+Simplifying, $e^{\pi i\tau/4}H(\tau)=(i/\tau)^{3/2}e^{-\pi i/(4\tau)}H(-1/\tau)$. Since
+$\eta(\tau)^3=e^{\pi i\tau/4}H(\tau)$, this says $\eta(\tau)^3=(i/\tau)^{3/2}\eta(-1/\tau)^3$; for $\tau=it$ the function
 $\eta(\tau)$ is positive, so taking cube roots gives $\eta(\tau)=\sqrt{i/\tau}\,\eta(-1/\tau)$,
 equivalently $\eta(-1/\tau)=\sqrt{\tau/i}\,\eta(\tau)$, and this extends to all $\tau\in\HH$
 by analytic continuation.
@@ -39310,14 +39316,14 @@ $\eta$ becomes the integer weight $12$ of $\Delta$.
 $\eta(-1/\tau)^{24}=(\tau/i)^{12}\eta(\tau)^{24}$. Now $(\tau/i)^{12}=\tau^{12}/i^{12}
 =\tau^{12}/(i^4)^3=\tau^{12}/1=\tau^{12}$. Multiplying by $(2\pi)^{12}$,
 $\Delta(-1/\tau)=\tau^{12}\Delta(\tau)$. \emph{Check.} The weight is $24\cdot\tfrac12=12$,
-and $i^{12}=1$ removes all branch ambiguity, so $\Delta$ is single-valued and holomorphic on
-$\HH$ --- it is the modular discriminant (cf. Problem~5).
+and $i^{12}=1$ removes all branch ambiguity: the factor $\tau^{12}$ is single-valued and
+holomorphic on $\HH$. The function $\Delta$ is the modular discriminant (cf. Problem~1 below).
 \end{wex}
 
 \subsection*{Further worked examples}
 
 \begin{wex}{The $q$-expansion of $\eta(\tau)$ to order $q^{14}$}
-With $q=e^{\pi i\tau}$, expand $\eta(\tau)=q^{1/6}\prod_{n\ge1}(1-q^{2n})$ and identify the
+With $q=e^{\pi i\tau}$, expand $\eta(\tau)=q^{1/12}\prod_{n\ge1}(1-q^{2n})$ and identify the
 exponents that occur. (Here $e^{2\pi i n\tau}=q^{2n}$.)
 \wrec This is the pentagonal number theorem (Proposition~\ref{p:pentagonal@c23}) in disguise:
 $\prod_{n\ge1}(1-q^{2n})=\sum_k(-1)^k q^{k(3k+1)}$ after replacing $x=q^2$.
@@ -39326,7 +39332,7 @@ $\prod_{n\ge1}(1-q^{2n})=\sum_{k=-\infty}^{\infty}(-1)^k q^{2\cdot k(3k+1)/2}
 =\sum_k(-1)^k q^{k(3k+1)}$. The exponents $k(3k+1)$ for $k=0,1,-1,2,-2,\dots$ are
 $0,4,2,14,10,\dots$ with signs $+,-,-,+,+,\dots$, so
 $\prod_{n\ge1}(1-q^{2n})=1-q^2-q^4+q^{10}+q^{14}-\cdots$. Therefore
-$\eta(\tau)=q^{1/6}\bigl(1-q^2-q^4+q^{10}+q^{14}-\cdots\bigr)$. \emph{Check.} The smallest
+$\eta(\tau)=q^{1/12}\bigl(1-q^2-q^4+q^{10}+q^{14}-\cdots\bigr)$. \emph{Check.} The smallest
 positive exponent inside the product is $2$ (from the single factor $1-q^2$), and the next is
 $4$; multiplying $(1-q^2)(1-q^4)(1-q^6)\cdots$ by hand reproduces $1-q^2-q^4+0\cdot q^6+\cdots$,
 confirming the pentagonal pattern.
@@ -39348,7 +39354,7 @@ cancel; their difference integrates $-(-2\pi i)$ over a unit horizontal segment:
   \frac{1}{2\pi i}\Bigl(\int_{z_0}^{z_0+1}-\int_{z_0+\tau}^{z_0+1+\tau}\Bigr)\frac{\Theta'}{\Theta}\dz
   =\frac{1}{2\pi i}\int_{z_0}^{z_0+1}2\pi i\dz=1.
 \]
-The two vertical sides (related by $z\mapsto z+1$) give exactly cancelling contributions since
+The two slanted sides (related by $z\mapsto z+1$) give exactly cancelling contributions since
 $(\log\Theta)'$ is periodic of period $1$. Total: $1$ zero. \emph{Check.} This matches
 Proposition~\ref{p:theta-props@c23}(iv), which locates that single zero at $\tfrac12+\tfrac\tau2$;
 since it is simple (Proposition~\ref{p:pi-props@c23}(iv)) the count $1$ is exact.
@@ -39364,10 +39370,10 @@ since it is simple (Proposition~\ref{p:pi-props@c23}(iv)) the count $1$ is exact
   \node[font=\footnotesize] at ($0.5*(e1)+0.5*(tau)+(0,-0.22)$){$\tfrac12+\tfrac\tau2$};
   \node[font=\footnotesize] at (-0.18,-0.12){$z_0$};
   \node[font=\footnotesize] at ($(e1)+(0.18,-0.12)$){$z_0{+}1$};
-  \node[font=\footnotesize] at (1.2,0.55){$P$};
+  \node[font=\footnotesize] at ($(e1)+0.5*(tau)+(0.2,0)$){$P$};
 \end{tikzpicture}
 \captionof{figure}{Argument-principle contour $P$ around one fundamental cell: the
-horizontal sides contribute $+1$, the vertical sides cancel, giving exactly one (simple) zero.
+horizontal sides contribute $+1$, the slanted sides cancel, giving exactly one (simple) zero.
 (Schematic.)}
 \end{center}
 
@@ -39382,7 +39388,7 @@ but not yet a value. The fixed-point relation only says the branch $\sqrt{\tau/i
 at $\tau=i$; the actual value is the classical
 $\theta(i)=\pi^{1/4}/\Gamma(\tfrac34)$ (Gauss). Here $q=e^{\pi i\cdot i}=e^{-\pi}\approx0.0432$,
 so the series $\theta(i)=1+2q+2q^4+\cdots=1+2e^{-\pi}+2e^{-4\pi}+\cdots$
-$\approx1+0.0864+0.0000139\approx1.0864$. \emph{Check.} $\pi^{1/4}/\Gamma(3/4)\approx
+$\approx1+0.0864+0.0000070\approx1.0864$. \emph{Check.} $\pi^{1/4}/\Gamma(3/4)\approx
 1.3313/1.2254\approx1.0864$, agreeing to four places, and the consistency $\sqrt{i/i}=1$
 correctly fixes the branch at the $S$-fixed point.
 \end{wex}
@@ -39399,8 +39405,8 @@ Hence
 \]
 \emph{Check.} The factor is independent of $n$ (consistent with period $1$) and reduces to
 (iii) at $(n,m)=(0,1)$. Writing $q=e^{\pi i\tau}$ the modulus of the multiplier is
-$\abs{q}^{m^2}e^{2\pi m\Im z}$, exactly the automorphy factor of a theta line bundle of degree
-$1$ on the torus $\C/(\Z+\Z\tau)$.
+$\abs{q}^{-m^2}e^{2\pi m\Im z}$; the multiplier itself is exactly the automorphy factor of a theta
+line bundle of degree $1$ on the torus $\C/(\Z+\Z\tau)$.
 \end{wex}
 
 \begin{wex}{A NON-example: $\sum_n q^n$ is not quasi-periodic like $\Theta$}
@@ -39408,10 +39414,11 @@ Does the geometric-type series $G(z)=\sum_{n\in\Z}q^{\,n}e^{2\pi i n z}$ (linear
 $n^2$) define an entire quasi-periodic function on $\C$? Decide and explain.
 \wrec Convergence of $\sum q^{n}e^{2\pi i n z}$ over ALL $n\in\Z$ requires both tails to decay;
 compare with the Gaussian exponent $n^2$ that makes $\Theta$ entire.
-\wsol For $n\to+\infty$ the term is $q^n e^{2\pi i n z}$ with $\abs q<1$: decays if
-$e^{-2\pi\Im z}\abs q<$ controlled. But for $n\to-\infty$, $q^n=e^{-\pi i n\tau}$ has
-$\abs{q^n}=e^{\pi\abs n\Im\tau}\to\infty$, and $e^{2\pi i nz}$ cannot tame this for all $z$.
-So the bilateral sum \emph{diverges} for every $z$ in a half-plane: $G$ is not even defined,
+\wsol For $n\to+\infty$ the term is $q^n e^{2\pi i n z}$ with $\abs q<1$: it decays only if
+$e^{-2\pi\Im z}\abs q<1$. But for $n\to-\infty$, $q^n=e^{\pi i n\tau}$ has
+$\abs{q^n}=e^{\pi\abs n\Im\tau}\to\infty$, and $e^{2\pi i nz}$ tames this only if
+$e^{-2\pi\Im z}\abs q>1$, the opposite condition.
+So the bilateral sum \emph{diverges} for every $z\in\C$: $G$ is not even defined,
 let alone entire. \emph{Check.} The quadratic exponent $n^2$ in $\Theta$ is essential --- it
 forces decay as $\abs n\to\infty$ in BOTH directions, which a linear exponent $n$ never does.
 This is exactly why the heat kernel uses $e^{-\pi n^2 t}$, not $e^{-\pi n t}$.
@@ -39424,7 +39431,7 @@ explicit series in $z$, and read off its poles.
 product into a sum and $\partial_z$ acts term by term.
 \wsol From
 $\Pi(z\mid\tau)=\prod_{n\ge1}(1-q^{2n})(1+q^{2n-1}e^{2\pi iz})(1+q^{2n-1}e^{-2\pi iz})$, the
-$n$-independent factor $(1-q^{2n})$ drops under $\partial_z\log$, leaving
+$z$-independent factor $(1-q^{2n})$ drops under $\partial_z\log$, leaving
 \[
   (\log\Theta)'(z\mid\tau)
   =\sum_{n\ge1}\Bigl(\frac{2\pi i\,q^{2n-1}e^{2\pi iz}}{1+q^{2n-1}e^{2\pi iz}}
@@ -39444,15 +39451,15 @@ elliptic function.
   \frac{(\Theta'(z\mid\tau))^2-\Theta(z\mid\tau)\Theta''(z\mid\tau)}{\Theta(z\mid\tau)^2}
   =\weier_\tau\!\bigl(z-\tfrac12-\tfrac\tau2\bigr)+c_\tau,
 \]
-where $c_\tau$ can be expressed in terms of the first two $z$-derivatives of $\Theta(z\mid\tau)$
-at $z=\tfrac12+\tfrac\tau2$. Compare with Exercise~5 of the previous chapter (the analogy
+where $c_\tau$ can be expressed in terms of the first three $z$-derivatives of $\Theta(z\mid\tau)$
+at $z=\tfrac12+\tfrac\tau2$. Compare with Exercise~4 of Section~22.1 (the analogy
 between $\Theta$ and the Weierstrass $\sigma$ function).
 \end{exers}
 
 \begin{exers}{Problems (Stein, Ch.10).}
 \item ($\ast$) Let $\Delta(\tau)=g_2^3-27g_3^2$ be the discriminant of the cubic
 $y^2=4x^3-g_2 x-g_3$, where $g_2=60E_4$, $g_3=140E_6$, and $E_k$ is the Eisenstein series of
-order $k$ (Chapter 9: $(\weier')^2=4\weier^3-g_2\weier-g_3$). Prove that
+order $k$ (Corollary~\ref{c:diffeq@c22}: $(\weier')^2=4\weier^3-g_2\weier-g_3$). Prove that
 $\Delta(\tau)=(2\pi)^{12}\eta(\tau)^{24}$ for all $\tau\in\HH$. [Hint: $\Delta$ and $\eta^{24}$
 satisfy the same transformation laws under $\tau\mapsto\tau+1$ and $\tau\mapsto-1/\tau$; using
 the fundamental domain it suffices to check the behavior at the cusp at infinity.]
@@ -39478,13 +39485,15 @@ series (Proposition~\ref{p:pentagonal@c23}) under $x=q^2$.
 $\tau=it$. Compute $\sqrt{\tau/i}$ explicitly for $\tau=1+i$ and verify it lies in the right
 half-plane. Show the functional equation $\theta(-1/\tau)=\sqrt{\tau/i}\,\theta(\tau)$ would
 fail with the opposite branch.
-\item (NON-example: a fake quasi-period.) Consider $g(z)=e^{2\pi i z}$. Show $g(z+1)=g(z)$ but
-that there is \emph{no} constant $\lambda$ with $g(z+\tau)=\lambda g(z)$ for all $z$ unless
-$\tau\in\Z$. Conclude that mere exponentials cannot have an honest second quasi-period in the
-sense of $\Theta$, so the lattice structure of $\Theta$ is genuinely two-dimensional.
+\item (NON-example: a fake quasi-period.) Consider $g(z)=e^{2\pi i z}$. Show $g(z+1)=g(z)$, and
+that $g(z+\tau)=\lambda g(z)$ for all $z$ holds with the constant $\lambda=e^{2\pi i\tau}$ for
+\emph{every} $\tau\in\C$, while $\lambda=1$ only if $\tau\in\Z$. Conclude that a constant multiplier
+singles out no second period: mere exponentials cannot have an honest second quasi-period in the
+sense of $\Theta$ (whose multiplier $e^{-\pi i\tau}e^{-2\pi iz}$ depends on $z$), so the lattice
+structure of $\Theta$ is genuinely two-dimensional.
 \item (Composite of $S$ and $T_2$.) Compute the matrix of $T_2 S$ and the fractional linear
-transformation it induces. Verify that $(T_2S)^{-1}=U_{-1}=\begin{psmallmatrix}2&-1\\1&0\end{psmallmatrix}$
-fixes $\tau=1$, as used in the rigidity theorem.
+transformation it induces. Verify that $T_2S=U_{-1}=\begin{psmallmatrix}2&-1\\1&0\end{psmallmatrix}$
+fixes $\tau=1$, as used in the proof of the rigidity theorem (Theorem~\ref{t:rigidity@c23}).
 \item (Diagram problem.) Sketch the fundamental parallelogram with vertices
 $0,1,\tau,1+\tau$ for $\tau=\tfrac12+i$, mark the single zero of $\Theta(\cdot\mid\tau)$ at its
 center, and indicate by arrows the two quasi-period directions $1$ and $\tau$. Label which
@@ -39530,9 +39539,9 @@ For example $p(2)=2$ ($2=2=1+1$), $p(3)=3$ ($3=3=2+1=1+1+1$), $p(4)=5$. A short 
   % Young diagrams for partitions of 4
   \def\cell{\draw (0,0) rectangle (1,1);}
   \begin{scope}\foreach \i in {0,1,2,3}{\draw (\i,0) rectangle (\i+1,1);}\node[font=\footnotesize] at (2,-0.7){$4$};\end{scope}
-  \begin{scope}[shift={(0,-3)}]\foreach \i in {0,1,2}{\draw (\i,0) rectangle (\i+1,1);}\draw (0,-1) rectangle (1,0);\node[font=\footnotesize] at (1.5,-1.7){$3{+}1$};\end{scope}
+  \begin{scope}[shift={(0,-4)}]\foreach \i in {0,1,2}{\draw (\i,0) rectangle (\i+1,1);}\draw (0,-1) rectangle (1,0);\node[font=\footnotesize] at (1.5,-1.7){$3{+}1$};\end{scope}
   \begin{scope}[shift={(7,0)}]\foreach \i in {0,1}{\draw (\i,0) rectangle (\i+1,1);}\foreach \i in {0,1}{\draw (\i,-1) rectangle (\i+1,0);}\node[font=\footnotesize] at (1,-1.7){$2{+}2$};\end{scope}
-  \begin{scope}[shift={(7,-3)}]\foreach \i in {0,1}{\draw (\i,0) rectangle (\i+1,1);}\draw(0,-1)rectangle(1,0);\draw(0,-2)rectangle(1,-1);\node[font=\footnotesize] at (1,-2.7){$2{+}1{+}1$};\end{scope}
+  \begin{scope}[shift={(7,-4)}]\foreach \i in {0,1}{\draw (\i,0) rectangle (\i+1,1);}\draw(0,-1)rectangle(1,0);\draw(0,-2)rectangle(1,-1);\node[font=\footnotesize] at (1,-2.7){$2{+}1{+}1$};\end{scope}
   \begin{scope}[shift={(13,0)}]\foreach \j in {0,-1,-2,-3}{\draw (0,\j) rectangle (1,\j+1);}\node[font=\footnotesize] at (0.5,-3.7){$1^4$};\end{scope}
 \end{tikzpicture}
 \captionof{figure}{The $p(4)=5$ partitions of $4$ as Young diagrams.}
@@ -39599,7 +39608,7 @@ $1,\allowbreak 2,\allowbreak 5,\allowbreak 7,\allowbreak 12,\allowbreak 15,\allo
 \begin{center}
 \begin{tikzpicture}[scale=1.05,line cap=round,
     dotc/.style={circle,fill=black,inner sep=1.5pt},
-    dotone/.style={circle,fill=black,draw=black,inner sep=2.3pt}]
+    dotone/.style={circle,draw=black,line width=0.6pt,inner sep=3.2pt}]
   % Figurate pentagonal numbers. Two nested regular pentagons share the corner O=(0,0).
   % A size-k pentagon carries k+1 evenly spaced dots on every side; nesting sizes 1 then 2
   % yields 5 then 12 distinct dots, while the shared corner alone is 1.
@@ -39614,7 +39623,7 @@ $1,\allowbreak 2,\allowbreak 5,\allowbreak 7,\allowbreak 12,\allowbreak 15,\allo
       (1.809,2.49), (1,3.078), (0.191,2.49), (-0.618,1.902),
       (-0.309,0.951), (1.309,0.951), (0.5,1.539)}{
     \node[dotc] at \P {};}
-  % highlight the single shared corner (the pentagonal number 1)
+  % ring the single shared corner (the pentagonal number 1)
   \node[dotone] at (0,0) {};
   \node[font=\footnotesize,anchor=west] at (2.85,1.0) {$1,\ 5,\ 12,\dots$};
 \end{tikzpicture}
@@ -39684,8 +39693,8 @@ repeated part, allowed for $p(2)=2$ but forbidden for $p_u(2)=1$. So the identit
 
 \begin{remark}
 The growth of $p(n)$ is governed by the behavior of $1/\prod(1-x^n)$ as $x\to1^-$. An
-elementary estimate (Exercises~5--6) gives $\log F(x)\sim\dfrac{\pi^2}{6(1-x)}$ and hence
-$e^{c_1\sqrt n}\le p(n)\le e^{c_2\sqrt n}$. The precise Hardy--Ramanujan asymptotic
+elementary estimate (Exercises~4--5 below) gives $\log F(x)\sim\dfrac{\pi^2}{6(1-x)}$ and hence
+$e^{c_1\sqrt n}\le p(n)\le e^{c_2\sqrt n}$ for $n\ge2$. The precise Hardy--Ramanujan asymptotic
 $p(n)\sim\dfrac{1}{4n\sqrt3}e^{\pi\sqrt{2n/3}}$ needs the modular transformation of the
 generating function, which traces back to Proposition~\ref{p:eta-fe@c23} for $\eta$.
 \end{remark}
@@ -39697,7 +39706,7 @@ generating function, which traces back to Proposition~\ref{p:eta-fe@c23} for $\e
     domain=1:40,samples=40,ticks=none,
     axis lines=left,line width=0.8pt]
     \addplot[only marks,mark=*,mark size=0.8pt,black] coordinates
-      {(1,0)(2,0.69)(3,1.1)(5,1.95)(8,3.09)(12,4.34)(20,6.51)(30,8.79)(40,10.6)};
+      {(1,0)(2,0.69)(3,1.1)(5,1.95)(8,3.09)(12,4.34)(20,6.44)(30,8.63)(40,10.53)};
     \addplot[black,dashed,line width=0.7pt]{3.14159*sqrt(2*x/3)-ln(4*x*1.732)};
   \end{axis}
 \end{tikzpicture}
@@ -39719,23 +39728,28 @@ left side; triangular numbers $\tfrac{n(n+1)}2$ point to a half-integer shift.
 $e^{2\pi iz}=q$. Then in $\Pi=\prod_{n\ge1}(1-q^{2n})(1+q^{2n-1}e^{2\pi iz})(1+q^{2n-1}e^{-2\pi iz})$:
 $1-q^{2n}=1-x^n$; $1+q^{2n-1}e^{2\pi iz}=1+q^{2n}=1+x^n$; and
 $1+q^{2n-1}e^{-2\pi iz}=1+q^{2n-2}=1+x^{n-1}$. Reindexing the last family over $n-1\ge0$ and
-the first two over $n\ge1$ assembles $\prod_{n\ge0}(1+x^n)(1-x^{2n+2})$ (the $1-x^{2n+2}$ comes
-from pairing $1-x^{n}$ across the even/odd split as in the text). On the theta side,
+the first two over $n\ge1$ assembles $\prod_{n\ge0}(1+x^n)(1-x^{2n+2})$ (the factor
+$1-x^{2n+2}$ comes from pairing the first two families, $(1-x^{n+1})(1+x^{n+1})=1-x^{2n+2}$). On
+the theta side,
 $\Theta=\sum_n q^{n^2}e^{2\pi i nz}=\sum_n q^{n^2}q^n=\sum_n q^{n^2+n}=\sum_n x^{(n^2+n)/2}
 =\sum_n x^{n(n+1)/2}$. \emph{Check.} The exponents $n(n+1)/2$ for $n=0,\pm1,\pm2$ are
-$0,1,0,3,1,\dots$; collecting, the right side is $1+2x+2x^3+2x^6+\cdots$, and multiplying the
-first few left-hand factors $(1+1)(1-x^2)(1+x)(1-x^4)\cdots$ reproduces $1+2x+0x^2+2x^3+\cdots$.
+$0,1,0,3,1,\dots$; collecting (each triangular number occurs twice, from $n$ and $-n-1$), the
+right side is $2+2x+2x^3+2x^6+\cdots$, and multiplying the first few left-hand factors
+$(1+1)(1-x^2)(1+x)(1-x^4)\cdots$ reproduces $2+2x+0x^2+2x^3+\cdots$.
 \end{wex}
 
 \begin{wex}{The septagonal number identity (Stein, Exercise 7b)}
-Prove $\displaystyle\prod_{n=0}^{\infty}(1-x^{5n+1})(1-x^{5n+4})(1-x^{5n+5})
-=\sum_{n=-\infty}^{\infty}(-1)^n x^{n(5n+3)/2}$ for $\abs x<1$.
+Prove, for $\abs x<1$,
+\[
+  \prod_{n=0}^{\infty}(1-x^{5n+1})(1-x^{5n+4})(1-x^{5n+5})
+  =\sum_{n=-\infty}^{\infty}(-1)^n x^{n(5n+3)/2}.
+\]
 \wrec Mirror the pentagonal proof (Proposition~\ref{p:pentagonal@c23}): group the exponents into
 three residue classes mod $5$ that match the three Jacobi factor-families, then apply the
 product formula.
 \wsol Put $q=x^{5/2}$ and $e^{2\pi iz}=-x^{1/2}\cdot x$, chosen so the three families
 $1-q^{2n},\,1+q^{2n-1}e^{2\pi iz},\,1+q^{2n-1}e^{-2\pi iz}$ become respectively the residue
-classes $5n+5,\,5n+1,\,5n+4$ (the sign $-$ inside each factor comes from $e^{\pi i}=-1$ folded
+classes $5n+5,\,5n+4,\,5n+1$ (the sign $-$ inside each factor comes from $e^{\pi i}=-1$ folded
 into $z$). The theta side is then
 $\sum_n q^{n^2}e^{2\pi inz}=\sum_n(-1)^n x^{(5n^2+3n)/2}=\sum_n(-1)^n x^{n(5n+3)/2}$, since
 $q^{n^2}=x^{5n^2/2}$ and the phase contributes $x^{3n/2}(-1)^n$. \emph{Check.} The exponents
@@ -39783,7 +39797,7 @@ series, with a \emph{minus} sign on $x^1$). But $\sum p(n)x^n=1+x+2x^2+3x^3+\cdo
 \emph{positive} coefficients. They differ already at $x^1$ ($-1$ vs $+1$). \emph{Check.} The
 true relation is $\bigl(\sum p(n)x^n\bigr)\cdot\prod(1-x^n)=1$, as in the previous worked
 example --- one is the reciprocal of the other, never equal (a power series and its reciprocal
-coincide only when both equal $1$).
+coincide only when both equal $\pm1$).
 \end{wex}
 
 \begin{exers}{Exercises (Stein, Ch.10).}
@@ -39813,7 +39827,7 @@ so $u_n=A\alpha^n+B\beta^n$ when $\alpha\ne\beta$ (a variant holds for $\alpha=\
 for $A,B$.
 \item Using the generating identity for $p(n)$, prove the recurrence
 \[
-  p(n)=p(n-1)+p(n-2)-p(n-5)-p(n-7)-\cdots
+  p(n)=p(n-1)+p(n-2)-p(n-5)-p(n-7)+\cdots
   =\sum_{k\ne0}(-1)^{k+1}p\!\left(n-\tfrac{k(3k+1)}2\right),
 \]
 the finite sum over $k\in\Z$, $k\ne0$, with $\tfrac{k(3k+1)}2\le n$. Use it to compute
@@ -39823,9 +39837,9 @@ $p(5),p(6),p(7),p(8),p(9),p(10)$ and check $p(10)=42$.
   \log F(x)\sim\frac{\pi^2}{6(1-x)}\qquad\text{as }x\to1^-,\ 0<x<1.
 \]
 [Hint: $\log F(x)=\sum_n\log(1/(1-x^n))$ and $\log(1/(1-x^n))=\sum_m\tfrac1m x^{nm}$, so
-$\log F(x)=\sum_m\tfrac1m\tfrac{x^m}{1-x^m}$; use $m x^{m-1}(1-x)<1-x^m<m(1-x)$.]
+$\log F(x)=\sum_m\tfrac1m\tfrac{x^m}{1-x^m}$; use $m x^{m-1}(1-x)\le1-x^m\le m(1-x)$.]
 \item Show as a consequence of the previous exercise that
-$e^{c_1 n^{1/2}}\le p(n)\le e^{c_2 n^{1/2}}$ for positive constants $c_1,c_2$.
+$e^{c_1 n^{1/2}}\le p(n)\le e^{c_2 n^{1/2}}$ for all $n\ge2$, with positive constants $c_1,c_2$.
 [Hint: $F(e^{-y})=\sum p(n)e^{-ny}\le C e^{c/y}$ as $y\to0$, so $p(n)e^{-ny}\le c e^{c/y}$;
 take $y=1/n^{1/2}$ for the upper bound. For the lower bound,
 $\sum_{n=0}^m p(n)e^{-ny}\ge C(e^{c/y}-\sum_{n>m}e^{c n^{1/2}}e^{-ny})$, take
@@ -39833,7 +39847,7 @@ $y=Am^{-1/2}$, and use that $p(n)$ is increasing.]
 \end{exers}
 
 \begin{exers}{Additional exercises.}
-\item (Reading a product.) Multiply out $\prod_{k=1}^{4}(1-x^k)^{-1}$ far enough to read off
+\item (Reading a product.) Multiply out $\prod_{k=1}^{6}(1-x^k)^{-1}$ far enough to read off
 $p(0),\dots,p(6)$ and confirm $p(6)=11$.
 \item (Odd vs distinct, small $n$.) Verify $p_o(n)=p_u(n)$ for $n=5$ by listing all partitions
 of $5$ into odd parts and all into distinct parts.
@@ -39874,19 +39888,21 @@ Which integers are sums of two squares? Of four? Define
 \]
 counting signs and orderings. For instance $r_2(3)=0$, while $r_2(5)=8$ (from
 $5=(\pm2)^2+(\pm1)^2=(\pm1)^2+(\pm2)^2$). No integer $\equiv3\pmod4$ is a sum of two squares,
-and no integer $\equiv7\pmod8$ is a sum of three squares. The two- and four-square problems,
-open since Diophantus, were finally solved by Jacobi's theta-function machinery.
+and no integer $\equiv7\pmod8$ is a sum of three squares. The two- and four-square problems go
+back to Diophantus and Fermat; Euler proved the two-square theorem for primes and Lagrange the
+four-square theorem, while Jacobi's theta-function machinery gives the exact counts $r_2(n)$ and
+$r_4(n)$.
 
 \begin{center}
 \begin{tikzpicture}[scale=0.55]
   \draw[dgrid] (-3.3,-3.3) grid (3.3,3.3);
   \draw[cxaxis] (-3.5,0)--(3.5,0) node[right]{$x$};
   \draw[cxaxis] (0,-3.5)--(0,3.5) node[above]{$y$};
-  \draw[contour] (0,0) circle ({sqrt(5)});
+  \draw[curve] (0,0) circle ({sqrt(5)});
   % the 8 lattice points on x^2+y^2=5
   \foreach \p in {(2,1),(1,2),(-1,2),(-2,1),(-2,-1),(-1,-2),(1,-2),(2,-1)}{
     \node[pt] at \p {};}
-  \node[font=\footnotesize] at (2.6,2.6){$r_2(5)=8$};
+  \node[lblnode] at (2.6,2.6){$r_2(5)=8$};
 \end{tikzpicture}
 \captionof{figure}{The $8$ lattice points on the circle $x^2+y^2=5$: $r_2(n)$ counts
 integer points on the circle of radius $\sqrt n$.}
@@ -39912,7 +39928,7 @@ For $n\ge1$, $\quad r_2(n)=4\bigl(d_1(n)-d_3(n)\bigr).$
 \end{theorem}
 
 A consequence: \emph{$n$ is a sum of two squares iff every prime $\equiv3\pmod4$ in its
-factorization occurs to an even power} (Exercise~9).
+factorization occurs to an even power} (Exercise~3(c) below).
 
 The first step links $r_2$ to $\theta^2$.
 
@@ -39983,7 +39999,7 @@ $1\equiv1$ and $3\equiv3$.
 \end{wex}
 
 \begin{wex}{$r_2$ vanishes for $n\equiv3\pmod4$}
-Show $4k+3$ is never a sum of two squares, directly and via $d_1-d_3$ for $n=21$.
+Show $4k+3$ is never a sum of two squares, and contrast with $n=21$ via $d_1-d_3$.
 \wrec Squares are $0$ or $1$ mod $4$, so $x^2+y^2\in\set{0,1,2}\pmod4$, never $3$.
 \wsol Mod $4$: $x^2,y^2\in\set{0,1}$, so $x^2+y^2\in\set{0,1,2}$, excluding $3$. For
 $n=21=3\cdot7$: divisors $1,3,7,21$ are $\equiv1,3,3,1\pmod4$, so $d_1=2$, $d_3=2$,
@@ -40024,14 +40040,14 @@ The points $\tau=\pm1$ are the \emph{cusps}; they are equivalent under $\tau\map
 
 \begin{center}
 \begin{tikzpicture}[scale=1.6]
+  % region |Re|<=1, |tau|>=1 (filled first, so the axes stay visible on top)
+  \fill[band] (-1,{sqrt(1-0)}) -- (-1,2.05) -- (1,2.05) -- (1,0) arc (0:180:1) -- cycle;
   \draw[cxaxis] (-2.0,0)--(2.0,0) node[right]{$\Re\tau$};
   \draw[->,line width=0.5pt] (0,-0.05)--(0,2.2) node[above,font=\footnotesize]{$\Im\tau$};
-  % region |Re|<=1, |tau|>=1
-  \fill[band] (-1,{sqrt(1-0)}) -- (-1,2.05) -- (1,2.05) -- (1,0) arc (0:180:1) -- cycle;
   \draw[line width=0.8pt] (-1,2.05)--(-1,0);
   \draw[line width=0.8pt] (1,2.05)--(1,0);
   \draw[line width=0.8pt] (-1,0) arc (180:0:1);
-  \node[font=\footnotesize] at (0,1.4){$\mathcal F$};
+  \node[font=\footnotesize] at (0.5,1.5){$\mathcal F$};
   \node[pt,label={[font=\footnotesize]below:$-1$}] at (-1,0){};
   \node[pt,label={[font=\footnotesize]below:$1$}] at (1,0){};
   \node[pt,label={[font=\footnotesize]below:$0$}] at (0,0){};
@@ -40055,7 +40071,7 @@ $\Im(Sg_1(\tau))=\Im(-1/g_1(\tau))=\dfrac{\Im g_1(\tau)}{\abs{g_1(\tau)}^2}>\Im 
 contradicting maximality. Hence $\abs{g_1(\tau)}\ge1$ and $g_1(\tau)\in\mathcal F$.
 \end{proof}
 
-Thus the inclusion of the fundamental domain into $\HH$ becomes a bijection after passing to
+Thus the inclusion of the fundamental domain into $\HH$ becomes a surjection after passing to
 the quotient by $G$: every orbit meets $\mathcal F$, so a $G$-invariant function on $\HH$ is
 determined by its values on $\mathcal F$.
 
@@ -40119,10 +40135,10 @@ The modular partner of $\theta^4$ is a subtle conditionally convergent Eisenstei
 \begin{definition}\label{d:E2star@c23}
 For $\tau\in\HH$, with the order of summation ($n$ first, then $m$) essential,
 \[
-  E_2^{*}(\tau)=\sum_m\sum_n{}'\frac{1}{(m\tau+n)^2}-\sum_n\sum_m{}'\frac{1}{(m\tau+n)^2},
+  E_2^{*}(\tau)=\sum_m\sum_n{}'\frac{4}{(m\tau+2n)^2}-\sum_m\sum_n{}'\frac{4}{(2m\tau+n)^2},
 \]
 where the primes mean the term $m=n=0$ is omitted. Equivalently $E_2^*(\tau)=F(\tau/2)-4F(2\tau)$
-with the ``forbidden'' Eisenstein series $F(\tau)=\sum_m\bigl(\sum_n 1/(m\tau+n)^2\bigr)$.
+with the ``forbidden'' Eisenstein series $F(\tau)=\sum_m\bigl(\sum_n{}' 1/(m\tau+n)^2\bigr)$.
 \end{definition}
 
 \begin{proposition}[Reduction of the four-square theorem]\label{p:E2star-reduce@c23}
@@ -40131,7 +40147,7 @@ $r_4(n)=8\sigma_1^{*}(n)$ is equivalent to $\theta(\tau)^4=-\dfrac{1}{\pi^2}E_2^
 
 \begin{proof}
 It suffices to show $-\pi^{-2}E_2^*(\tau)=1+8\sum_{k\ge1}\sigma_1^{*}(k)q^k$. Recall from the
-previous chapter (Eisenstein series) that
+previous chapter (Corollary~\ref{c:forbidden@c22}) that
 $F(\tau)=\dfrac{\pi^2}{3}-8\pi^2\sum_{k\ge1}\sigma_1(k)e^{2\pi i k\tau}$, where $\sigma_1(k)$
 is the sum of all divisors. Now $\sigma_1^{*}(n)=\sigma_1(n)$ if $4\nmid n$, and
 $\sigma_1^{*}(n)=\sigma_1(n)-4\sigma_1(n/4)$ if $4\mid n$ (a divisor $d=4\tilde d$ of
@@ -40199,7 +40215,7 @@ integer is a sum of four squares.
 Set $f(\tau)=E_2^{*}(\tau)/\theta(\tau)^4$, holomorphic since $\theta\ne0$. By
 Proposition~\ref{p:E2star-props@c23}, $f(\tau+2)=f(\tau)$ and $f(-1/\tau)=f(\tau)$ (the factors
 $-\tau^{-2}$ cancel between $E_2^*$ and $\theta^4$), and $f$ is bounded with limit $-\pi^2$ at
-$\infty$ and the cusps (using $\theta^4\to1$, $\theta(1-1/\tau)^4\sim16\tau^2 e^{\pi i\tau}$).
+$\infty$ and the cusps (using $\theta^4\to1$, $\theta(1-1/\tau)^4\sim-16\tau^2 e^{\pi i\tau}$).
 By the rigidity Theorem~\ref{t:rigidity@c23}, $f\equiv-\pi^2$. Thus
 $\theta^4=-\pi^{-2}E_2^*$, which by Proposition~\ref{p:E2star-reduce@c23} is the four-square
 theorem; since $\sigma_1^*(n)\ge1$ for every $n\ge1$, $r_4(n)>0$ always.
@@ -40227,8 +40243,8 @@ $4=(\pm2)^2+0+0+0$ ($4\cdot2=8$ ways) plus $4=(\pm1)^2{\times}4$
 \end{wex}
 
 \begin{pitfall}
-The series $E_2^{*}$ is only \emph{conditionally} convergent: summing $n$-first-then-$m$
-differs from $m$-first-then-$n$, and the gap is exactly the $2\pi i/\tau$ of
+The series $F$ from which $E_2^{*}$ is built is only \emph{conditionally} convergent: summing
+$n$-first-then-$m$ differs from $m$-first-then-$n$, and the gap is exactly the $2\pi i/\tau$ of
 Lemma~\ref{l:forbidden@c23}(b). This is why $E_2$ (weight $2$) is \emph{not} a genuine modular
 form --- the ``error term'' $-2\pi i\tau$ in $F(-1/\tau)=\tau^2F(\tau)-2\pi i\tau$ is its
 anomaly. The starred combination $E_2^{*}=F(\tau/2)-4F(2\tau)$ is engineered so the anomalies
@@ -40268,10 +40284,10 @@ prime $\equiv3$) confirms $25$ is a sum of two squares; the count $12$ matches b
   \draw[dgrid] (-5.3,-5.3) grid (5.3,5.3);
   \draw[cxaxis] (-5.6,0)--(5.6,0) node[right]{$x$};
   \draw[cxaxis] (0,-5.6)--(0,5.6) node[above]{$y$};
-  \draw[contour] (0,0) circle (5);
+  \draw[curve] (0,0) circle (5);
   \foreach \p in {(5,0),(-5,0),(0,5),(0,-5),(3,4),(4,3),(-3,4),(-4,3),
     (3,-4),(4,-3),(-3,-4),(-4,-3)}{\node[pt] at \p {};}
-  \node[font=\footnotesize] at (3.7,4.4){$r_2(25)=12$};
+  \node[lblnode,anchor=south west] at (3.4,4.6){$r_2(25)=12$};
 \end{tikzpicture}
 \captionof{figure}{The $12$ lattice points on $x^2+y^2=25$: the $4$ axis points plus the
 $8$ from the Pythagorean triple $(3,4,5)$.}
@@ -40293,7 +40309,7 @@ $(\pm1,\pm8),(\pm4,\pm7),(\pm8,\pm1),(\pm7,\pm4)$, i.e. $4\cdot4=16$ points. Agr
 \end{wex}
 
 \begin{wex}{A NON-example: $r_2$ is NOT $4d_1+4d_3$}
-A reader guesses $r_2(n)=4(d_1(n)+d_3(n))=4d(n)$ (four times the divisor count). Refute at
+A reader guesses $r_2(n)=4(d_1(n)+d_3(n))$ (four times the number of odd divisors). Refute at
 $n=9$.
 \wrec The theorem has a \emph{minus} sign: $r_2=4(d_1-d_3)$. Divisors $\equiv3\pmod4$
 subtract, encoding the obstruction from primes $\equiv3$.
@@ -40311,7 +40327,7 @@ $\theta(1-1/\tau)^2\sim 4(\tau/i)e^{\pi i\tau/2}$ as $\Im\tau\to\infty$.
 \wsol By Corollary~\ref{c:cusp@c23}, $\theta(1-1/\tau)\sim\sqrt{\tau/i}\,\cdot2e^{\pi i\tau/4}$.
 Squaring, $\theta(1-1/\tau)^2\sim(\tau/i)\cdot4e^{\pi i\tau/2}=4(\tau/i)e^{\pi i\tau/2}$.
 \emph{Check.} This is exactly property (iv) for $\theta^2$, so $\theta^2$ matches $C$ at the
-cusp $\tau=1$; both blow up like $\abs\tau e^{-\pi\Im\tau/2}\to0$ in modulus, which is what
+cusp $\tau=1$; both decay like $\abs\tau e^{-\pi\Im\tau/2}\to0$ in modulus, which is what
 makes the ratio $f=C/\theta^2$ bounded (limit $1$) at the cusp in the proof of
 Theorem~\ref{t:two-sq-proof@c23}.
 \end{wex}
@@ -40351,7 +40367,7 @@ $\set{4,7}$ and $\set{1,8}$, each yielding $8$ signed/ordered points).
   \prod_{n=0}^{\infty}(1-x^{5n+1})(1-x^{5n+4})(1-x^{5n+5})=\sum_{n=-\infty}^{\infty}(-1)^n x^{n(5n+3)/2}.
 \]
 \end{enumerate}
-\item Consider Pythagorean triples $(a,b,c)$ with $a^2+b^2=c^2$, $a,b,c\in\Z$, and $a,b$
+\item Consider Pythagorean triples $(a,b,c)$ with $a^2+b^2=c^2$, $a,b,c\in\Z$, $c>0$, and $a,b$
 without common factors.
 \begin{enumerate}
 \item[(a)] Show one of $a,b$ is odd and the other even.
@@ -40375,9 +40391,9 @@ factorization of $n$ occurs to an even power.
 \item[(a)] $r_2(n)=0$ for infinitely many $n$, while $\limsup_{n\to\infty}r_2(n)=\infty$.
 \item[(b)] $r_4(n)=24$ for infinitely many $n$, while $\limsup_{n\to\infty}r_4(n)/n=\infty$.
 \end{enumerate}
-[Hint: for (a) consider $n=5^k$; for (b) consider $n=2^k$, and $n=q^k$ with $q$ odd and
-large.]
-\item Recall from Problem~2 of Chapter~2 that $\sum_{n\ge1}d(n)z^n=\sum_{n\ge1}\dfrac{z^n}{1-z^n}$
+[Hint: for (a) consider $n=5^k$; for (b) consider $n=2^k$, and odd $n$ with many prime factors,
+e.g.\ the product of the first $k$ odd primes (use $\sum_p1/p=\infty$).]
+\item Recall from Problem~2 of Stein, Ch.2 (in Chapter~15) that $\sum_{n\ge1}d(n)z^n=\sum_{n\ge1}\dfrac{z^n}{1-z^n}$
 for $\abs z<1$, where $d(n)$ is the number of divisors of $n$. More generally, show
 \[
   \sum_{n=1}^{\infty}\sigma_\ell(n)z^n=\sum_{n=1}^{\infty}\frac{n^\ell z^n}{1-z^n},\qquad\abs z<1,
@@ -40390,7 +40406,7 @@ where $\sigma_\ell(n)$ is the sum of the $\ell$-th powers of the divisors of $n$
 \item[(b)] Show as a result that
 \[
   \sum_{n\ge1}\frac{nq^n}{1-q^n}-\sum_{n\ge1}\frac{4nq^{4n}}{1-q^{4n}}
-  =\sum_{n\ge1}\frac{q^n}{(1-q^n)^2}-\sum_{n\ge1}\frac{q^{4n}}{(1-q^{4n})^2}
+  =\sum_{n\ge1}\frac{q^n}{(1-q^n)^2}-4\sum_{n\ge1}\frac{q^{4n}}{(1-q^{4n})^2}
   =\sum_{n\ge1}\sigma_1^{*}(n)q^n,
 \]
 where $\sigma_1^{*}(n)$ is the sum of divisors of $n$ not divisible by $4$.
@@ -40400,7 +40416,7 @@ $\displaystyle\theta(\tau)^4=1+8\sum_{n=1}^{\infty}\frac{q^n}{(1+(-1)^n q^n)^2}$
 \end{exers}
 
 \begin{exers}{Problems (Stein, Ch.10).}
-\item ($\ast$) Suppose $n=4^a(8k+7)$ with $a,k$ positive integers. Show $n$ cannot be written
+\item ($\ast$) Suppose $n=4^a(8k+7)$ with $a,k$ non-negative integers. Show $n$ cannot be written
 as a sum of three squares. (The converse, that every $n$ not of this form is a sum of three
 squares, is a difficult theorem of Legendre and Gauss.)
 \item Let $\mathrm{SL}_2(\Z)$ be the $2\times2$ integer matrices of determinant $1$, acting on
@@ -40411,7 +40427,7 @@ $\begin{psmallmatrix}1&1\\0&1\end{psmallmatrix}$, and let $\mathfrak g=\langle S
 \begin{enumerate}
 \item[(a)] Show every $\tau\in\HH$ has $g\in\mathfrak g$ with $g(\tau)\in\mathcal F_1$.
 \item[(b)] Call $\tau,\tau'$ congruent if $\tau'=g(\tau)$ for some $g\in\mathrm{SL}_2(\Z)$.
-Prove that if $\tau,\tau'\in\mathcal F_1$ are congruent, then either $\Re\tau=\pm\tfrac12$ and
+Prove that if distinct $\tau,\tau'\in\mathcal F_1$ are congruent, then either $\Re\tau=\pm\tfrac12$ and
 $\tau'=\tau\mp1$, or $\abs\tau=1$ and $\tau'=-1/\tau$. [Hint: say $\tau'=g(\tau)$; one may
 assume $\Im\tau'\ge\Im\tau$, so $\abs{c\tau+d}\le1$; treat $c=-1,0,1$ separately.]
 \item[(c)] Prove $S$ and $T_1$ generate the modular group: every $g\in\mathrm{SL}_2(\Z)$ is a
@@ -40430,7 +40446,7 @@ Theorem~\ref{t:rigidity@c23} (a holomorphic, bounded, $G$-invariant function on 
 \begin{enumerate}
 \item[(a)] Suppose $f:\HH\to\C$ is holomorphic and bounded, and there is a sequence
 $\tau_k=x_k+iy_k$ with $f(\tau_k)=0$, $\sum_k y_k=\infty$, $0<y_k\le1$, $\abs{x_k}\le1$. Then
-$f\equiv0$. [Hint: when $x_k=0$, see Problem~5 in Chapter~8.]
+$f\equiv0$. [Hint: when $x_k=0$, see Stein, Ch.8, Problem~5.]
 \item[(b)] Given relatively prime $c,d$ of different parity, show there exist integers $a,b$
 with $\begin{psmallmatrix}a&b\\c&d\end{psmallmatrix}\in G$. [Hint: solutions of $xc+dy=1$ are
 $x_0+dt$, $y_0-ct$.]
@@ -40445,7 +40461,7 @@ $g\in G$ with $g(i)=x_{c,d}+i/(c^2+d^2)$, $\abs{x_{c,d}}\le1$, then apply (a).]
 \end{enumerate}
 \item ($\ast$) Connect $\eta$ to elliptic functions: with $\Delta(\tau)$ the discriminant of
 $y^2=4x^3-g_2x-g_3$ ($g_2=60E_4$, $g_3=140E_6$), prove $\Delta(\tau)=(2\pi)^{12}\eta(\tau)^{24}$.
-(See the companion to Exercise~1 above; details outlined there.)
+(The same problem appears at the end of Section~23.1, whose hint outlines the details.)
 \item ($\ast$) Deduce the formula for $r_8(n)$ (sum of eight squares):
 $r_8(n)=16\sigma_3^{*}(n)$, where $\sigma_3^{*}(n)=\sigma_3(n)=\sum_{d\mid n}d^3$ for $n$ odd,
 and $\sigma_3^{*}(n)=\sum_{d\mid n}(-1)^d d^3=\sigma_3^{e}(n)-\sigma_3^{o}(n)$ for $n$ even.
@@ -40458,7 +40474,7 @@ $\zeta(4)=\pi^4/90$.]
 \item[(b)] Note $E_4^{*}(\tau)=E_4(\tau)-2^{-4}E_4((\tau-1)/2)$.
 \item[(c)] $E_4^{*}(\tau+2)=E_4^{*}(\tau)$.
 \item[(d)] $E_4^{*}(\tau)=\tau^{-4}E_4^{*}(-1/\tau)$.
-\item[(e)] $(48/\pi^4)E_4^{*}(\tau)\to1$ as $\tau\to\infty$.
+\item[(e)] $(48/\pi^4)E_4^{*}(\tau)\to1$ as $\Im\tau\to\infty$.
 \item[(f)] $\abs{E_4^{*}(1-1/\tau)}\approx\abs\tau^4\abs{e^{2\pi i\tau}}$ as $\Im\tau\to\infty$.
 [Hint: verify $E_4^{*}(1-1/\tau)=\tau^4(E_4(\tau)-E_4(2\tau))$.]
 \end{enumerate}
@@ -40493,8 +40509,8 @@ such as a suitable ratio of Eisenstein series). State precisely which hypothesis
 $\abs\tau\ge1$) in the upper half-plane, mark the cusps $\pm1$, and draw the images of
 $\mathcal F$ under $T_2$ and under $S$ to show how translates tile a neighborhood of the real
 axis.
-\item (Conditional convergence.) For $E_2^{*}$, illustrate the order-of-summation
-sensitivity: compute the difference $F(\tau)-\widetilde F(\tau)=2\pi i/\tau$ from
+\item (Conditional convergence.) For the series $F$ behind $E_2^{*}$, illustrate the
+order-of-summation sensitivity: compute the difference $F(\tau)-\widetilde F(\tau)=2\pi i/\tau$ from
 Lemma~\ref{l:forbidden@c23}(b) and explain why this nonzero ``anomaly'' is exactly what prevents
 $E_2$ from being a weight-$2$ modular form.
 \item (From $\theta^4$ to arithmetic.) Assuming $\theta^4=-\pi^{-2}E_2^{*}$, deduce that every
