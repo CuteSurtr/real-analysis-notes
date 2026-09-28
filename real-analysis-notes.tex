@@ -20973,10 +20973,11 @@ Two features deserve emphasis. First, only a \emph{tagged} partition can be call
 $\delta$-fine: the condition involves the tags. Second, the length of $I_i$ is controlled by
 the value of $\delta$ \emph{at the tag $t_i$}, so different subintervals may obey wildly
 different length bounds. Where $\delta$ is small the subinterval must be short; where $\delta$
-is large the subinterval may be long. Taking $\delta(t)\equiv\tfrac12\eta$ a constant recovers
-the Riemann mesh condition $\norm{\dot P}<\eta$ (see Theorem~\ref{t:consistency@c12}). The gauge
-also lets us \emph{force a tag}: if $\delta(c)$ is tiny, any $\delta$-fine partition must tag a
-short subinterval containing $c$, and if $\delta$ further satisfies $\delta(t)\le\tfrac12\abs{t-c}$
+is large the subinterval may be long. Taking $\delta(t)\equiv\tfrac12\eta$ a constant essentially
+recovers the Riemann mesh condition: every $\delta$-fine $\dot P$ has $\norm{\dot P}\le\eta$ (see
+Theorem~\ref{t:consistency@c12}). The gauge
+also lets us \emph{force a tag}: if $\delta(c)$ is tiny, any subinterval tagged by $c$ must be
+short, and if $\delta$ further satisfies $\delta(t)\le\tfrac12\abs{t-c}$
 for $t\ne c$, then $c$ itself is \emph{forced} to be a tag.
 
 \begin{center}
@@ -20985,8 +20986,6 @@ for $t\ne c$, then $c$ itself is \emph{forced} to be a tag.
       width=12.5cm,height=6.0cm,axis lines=middle,xlabel=$x$,ylabel=$y$,
       xtick=\empty,ytick=\empty,xmin=-0.15,xmax=6.3,ymin=-0.3,ymax=2.6,
       clip=false,enlargelimits=false]
-    % a function wild near x=1, tame on the right
-    \addplot[curve,domain=0.06:6,samples=200]{0.45*sin(deg(7/(x+0.18)))*exp(-0.35*x)+1.2};
     % delta-fine partition: narrow boxes near the wild left end, wide on the tame right
     \def\pp{0,0.28,0.62,1.05,1.6,2.4,3.6,6}
     \def\tt{0.14,0.45,0.83,1.3,2.0,3.0,4.8}
@@ -20998,6 +20997,8 @@ for $t\ne c$, then $c$ itself is \emph{forced} to be a tag.
     \fill[band,draw=black!45](axis cs:1.6,0)rectangle(axis cs:2.4,{0.45*sin(deg(7/(2.0+0.18)))*exp(-0.35*2.0)+1.2});
     \fill[band,draw=black!45](axis cs:2.4,0)rectangle(axis cs:3.6,{0.45*sin(deg(7/(3.0+0.18)))*exp(-0.35*3.0)+1.2});
     \fill[band,draw=black!45](axis cs:3.6,0)rectangle(axis cs:6,{0.45*sin(deg(7/(4.8+0.18)))*exp(-0.35*4.8)+1.2});
+    % a function wild near x=0, tame on the right (drawn over the boxes)
+    \addplot[curve,domain=0.06:6,samples=900]{0.45*sin(deg(7/(x+0.18)))*exp(-0.35*x)+1.2};
     \addplot[only marks,mark=*,mark size=1.1pt]coordinates{
       (0.14,{0.45*sin(deg(7/(0.14+0.18)))*exp(-0.35*0.14)+1.2})
       (0.45,{0.45*sin(deg(7/(0.45+0.18)))*exp(-0.35*0.45)+1.2})
@@ -21006,7 +21007,7 @@ for $t\ne c$, then $c$ itself is \emph{forced} to be a tag.
       (2.0,{0.45*sin(deg(7/(2.0+0.18)))*exp(-0.35*2.0)+1.2})
       (3.0,{0.45*sin(deg(7/(3.0+0.18)))*exp(-0.35*3.0)+1.2})
       (4.8,{0.45*sin(deg(7/(4.8+0.18)))*exp(-0.35*4.8)+1.2})};
-    \node[font=\footnotesize,align=center] at (axis cs:0.9,2.35){narrow where $f$ is wild};
+    \node[font=\footnotesize,align=center] at (axis cs:1.25,2.35){narrow where $f$ is wild};
     \node[font=\footnotesize,align=center] at (axis cs:4.6,2.35){wide where $f$ is tame};
   \end{axis}
 \end{tikzpicture}\captionof{figure}{A $\delta$-fine tagged partition. The gauge $\delta(t)$ is tiny near the
@@ -21040,7 +21041,7 @@ $[a,b]$.
 \end{theorem}
 \begin{proof}
 \emph{Bisection.} Suppose, for contradiction, that $[a,b]$ admits no $\delta$-fine partition.
-Bisect $[a,b]$ at its midpoint into two closed halves. If \emph{both} halves admitted
+Bisect $[a,b]$ at its midpoint $c$ into two closed halves. If \emph{both} halves admitted
 $\delta$-fine partitions, joining them would give one for $[a,b]$ (concatenating tagged
 partitions of $[a,c]$ and $[c,b]$ yields one of $[a,b]$). So at least one half, call it
 $I_1=[a_1,b_1]$, admits none. Repeat: bisect $I_1$ and pick a half $I_2$ with no $\delta$-fine
@@ -21075,7 +21076,7 @@ $I_k$ as admitting no $\delta$-fine partition. Hence the original assumption is 
   % xi
   \fill(3.5,-2.1)circle(1.3pt);
   \draw[densely dotted](3.5,-2.1)--(3.5,0.35);
-  \node[above,font=\footnotesize] at (3.5,0.35){$\xi=\bigcap_k I_k$};
+  \node[above,font=\footnotesize] at (3.5,0.35){$\set{\xi}=\bigcap_k I_k$};
   % delta-ball at xi on level 3
   \draw[brc](3.05,-2.45)--(3.95,-2.45)
     node[midway,below=2pt,font=\footnotesize]{$I_k\subseteq[\xi-\delta(\xi),\xi+\delta(\xi)]$};
@@ -21131,8 +21132,8 @@ As $\eps>0$ was arbitrary, $L'=L''$.
 \begin{remark}
 This proof is the template for almost every result below: to combine two requirements take the
 \emph{pointwise minimum} of the two gauges. The minimum of finitely many gauges is a gauge, and
-a partition fine for the minimum is fine for each. There is no analogue of ``$\min$ of two mesh
-bounds destroying the structure'' --- gauges compose cleanly, which is exactly their advantage.
+a partition fine for the minimum is fine for each. Exactly as with mesh bounds, nothing is lost
+by passing to the minimum: gauges combine as cleanly as constants do.
 \end{remark}
 
 \subsection*{Every Riemann integrable function is generalized integrable}
@@ -21213,12 +21214,12 @@ verification, nothing more.
 \wsol Box $1=[0,\tfrac12]$, $t_1=\tfrac14$: $\delta(\tfrac14)=\tfrac14\cdot\tfrac34+\tfrac1{20}
 =\tfrac{3}{16}+\tfrac1{20}=0.2375$, so the allowed window is $[0.0125,0.4875]$. But $0\notin
 [0.0125,0.4875]$, so box~1 already \emph{fails}. The partition is \emph{not} $\delta$-fine.
-\emph{Check.} The failure is exactly where intuition predicts --- near $0$ the gauge is largest
-($\delta(0)=0.30$) yet the box $[0,\tfrac12]$ has half-width $0.25$ measured from its tag
-$\tfrac14$ only when the tag sits at the \emph{center}; here the tag $\tfrac14$ is off-center, so
-the left end $0$ escapes the window. Re-tagging box~1 with $t_1=\tfrac14$ replaced by the
-midpoint $\tfrac14$ does not help; one needs $\abs{0-t_1}\le\delta(t_1)$ and
-$\abs{\tfrac12-t_1}\le\delta(t_1)$ simultaneously. \checkmark
+\emph{Check.} The tag is not the problem: $\tfrac14$ is already the \emph{midpoint} of
+$[0,\tfrac12]$, whose half-width $0.25$ exceeds $\delta(\tfrac14)=0.2375$; although the gauge is
+largest near $0$ ($\delta(0)=0.30$), box~1 is simply too long. Re-tagging box~1 does not help
+either: one needs $\abs{0-t_1}\le\delta(t_1)$ and $\abs{\tfrac12-t_1}\le\delta(t_1)$
+simultaneously, which forces $\delta(t_1)\ge\tfrac14$, i.e.\ $t_1\le\tfrac15$, and then
+$\delta(t_1)=\tfrac3{10}-\tfrac14t_1<\tfrac12-t_1$. \checkmark
 \end{wex}
 
 \begin{wex}{The minimum of two gauges is a gauge (and only shrinks the fine family)}
@@ -21254,10 +21255,11 @@ window $[t-0,t+0]=\set t$ would force a degenerate box of length $0$ at $t$, and
 (Theorem~\ref{t:cousin@c12}) --- whose proof needs $\delta(\xi)>0$ to fit some $I_k$ inside the
 $\delta(\xi)$-ball --- would collapse. The correct way to ``almost forbid'' rational tags is the
 \emph{small but positive} gauge $\delta(r_k)=\eps/2^{k+2}$ of the Dirichlet worked example, not a
-zero gauge. \emph{Check.} With a genuinely zero value at one point, no $\delta$-fine partition can
-have a box containing that point with any \emph{other} tag, and the point itself only admits the
-length-$0$ box, which is not a legal subinterval --- so the fine family is empty and the integral
-undefined. \checkmark
+zero gauge. \emph{Check.} Take $\delta(c)=0$ at one point and $\delta(t)\le\tfrac12\abs{t-c}$
+for $t\ne c$ (tag-forcing, as after Definition~\ref{d:gauge@c12}). Then no box containing $c$ can
+have any \emph{other} tag, and $c$ itself only admits the length-$0$ box, which is not a legal
+subinterval --- so the fine family is empty, the implication in Definition~\ref{d:hk@c12} holds
+vacuously for \emph{every} $L$, and the integral would no longer be unique. \checkmark
 \end{wex}
 
 \begin{center}
@@ -21266,22 +21268,22 @@ undefined. \checkmark
   \draw[numln](-0.4,0)--(9.4,0);
   \foreach \x/\lab in {0/$a$,9/$b$}{\draw[tick](\x,0.12)--(\x,-0.12);\node[below] at (\x,-0.16){\lab};}
   % the point c
-  \fill(5,0)circle(1.4pt);\node[below] at (5,-0.16){$c$};
-  % large delta-ball for a far tag t (would have to contain c -> contradiction)
-  \draw[brc](1.5,0.55)--(4.5,0.55)
+  \fill(5,0)circle(1.4pt);\node[above] at (5,0.06){$c$};
+  % window of a far tag t: delta(t)=1=|t-c|/2, too small to reach c
+  \draw[brc](2,0.55)--(4,0.55)
     node[midway,above=2pt,font=\footnotesize]{window of a far tag $t$: too small to reach $c$};
-  \fill(3,0.0)circle(1.1pt);\node[above,font=\footnotesize] at (3,0.08){$t$};
+  \fill(3,0.0)circle(1.1pt);\node[below] at (3,-0.16){$t$};
   \draw[densely dotted](3,0)--(3,0.5);
   % small delta-ball about c
   \draw[brc](4.55,-0.7)--(5.45,-0.7)
     node[midway,below=2pt,font=\footnotesize]{$[c-\delta(c),c+\delta(c)]$};
   \draw[densely dotted](5,0)--(5,-0.65);
-  \node[font=\footnotesize,align=center] at (5,1.0)
+  \node[font=\footnotesize,align=center] at (5,1.6)
     {if $\delta(t)\le\tfrac12\abs{t-c}$ for $t\ne c$,\\ only $t=c$ can tag the box at $c$};
 \end{tikzpicture}\captionof{figure}{Tag-forcing by a gauge. Shrinking $\delta$ near a point $c$ so that
 $\delta(t)\le\tfrac12\abs{t-c}$ for $t\ne c$ makes every other tag's window too small to reach
 $c$; the box containing $c$ must therefore be tagged \emph{at} $c$. This is the mechanism behind
-the Uniqueness, Additivity, and FTC proofs.}
+the proof of the Additivity Theorem~\ref{t:additivity@c12}.}
 \end{center}
 
 \begin{exers}{Exercises (Bartle \& Sherbert, \S10.1, gauges and the definition).}
@@ -21294,9 +21296,9 @@ the Uniqueness, Additivity, and FTC proofs.}
 \item (a) Show that in any tagged partition each tag belongs to at most two subintervals.
   (b) Are there tagged partitions in which every tag belongs to exactly two subintervals?
 \item Let $\delta$ be a gauge on $[a,b]$ and $\dot P$ a $\delta$-fine partition. (a) Show there
-  is a $\delta$-fine partition $\dot Q_1$ in which no tag belongs to two subintervals and
+  is a $\delta$-fine partition $\dot Q_1$ in which no point is the tag of two subintervals and
   $S(f,\dot Q_1)=S(f,\dot P)$ for every $f$. (b) Does there exist a $\delta$-fine $\dot Q_2$ in
-  which every tag belongs to two subintervals with $S(f,\dot Q_2)=S(f,\dot P)$ for every $f$?
+  which every tag is the tag of two subintervals with $S(f,\dot Q_2)=S(f,\dot P)$ for every $f$?
   (c) Show there is a $\delta$-fine $\dot Q_3$ in which every tag is an endpoint of its
   subinterval and $S(f,\dot Q_3)=S(f,\dot P)$ for every $f$.
 \item On $[0,2]$ let $\delta(t):=\tfrac12\abs{t-1}$ for $t\ne1$ and $\delta(1):=0.01$. Show
@@ -21318,14 +21320,14 @@ the Uniqueness, Additivity, and FTC proofs.}
   does not show that a function in $\R^*[a,b]$ is bounded. Identify the exact step that fails.
 \item Let $f(x)=1/x$ for $x\in(0,1]$ and $f(0)=0$. Show $f\notin\R^*[0,1]$. (Hint: compare $f$
   with the step functions $s_n=1$ on $(\tfrac12,1]$, $s_n=2$ on $(\tfrac13,\tfrac12]$, \dots,
-  $s_n=n$ on $[0,\tfrac1n]$.)
+  $s_n=n$ on $(0,\tfrac1n]$, $s_n(0)=0$.)
 \item Let $k:[0,1]\to\R$ be $k(x)=0$ if $x$ is $0$ or irrational and $k(m/n)=n$ for $m/n$ in
   lowest terms. Show $k\in\R^*[0,1]$ with integral $0$, that $k$ is continuous nowhere, and that
   $k$ is unbounded on every subinterval $[c,d]$ with $c<d$.
 \item Let $f$ be Dirichlet's function on $[0,1]$ and $F(x)\equiv0$. Since $F'(x)=f(x)$ for all
   $x\in[0,1]\setminus\Q$, show that FTC First Form (Theorem~\ref{t:ftc1@c12}) implies $f\in\R^*[0,1]$.
 \item Let $M(x)=\ln\abs x$ for $x\ne0$, $M(0)=0$, so $M'(x)=1/x$ for $x\ne0$. Explain why it
-  does \emph{not} follow that $\int_{-2}^2(1/x)\dx=\ln\abs2-\ln 2=0$.
+  does \emph{not} follow that $\int_{-2}^2(1/x)\dx=\ln\abs2-\ln\abs{-2}=0$.
 \item Let $k(x)=x^{-1/2}\sin(1/x)$ on $(0,1]$ and $k(0)=0$. Show $k\in\R^*[0,1]$. (Hint:
   differentiate $C(x)=x^{3/2}\cos(1/x)$, $C(0)=0$.)
 \item Let $g(x)=(1/x)\sin(1/x)$ on $(0,1]$ and $g(0)=0$. Show $g\in\R^*[0,1]$. (Hint:
@@ -21333,16 +21335,17 @@ the Uniqueness, Additivity, and FTC proofs.}
 \end{exers}
 
 \begin{exers}{Additional exercises.}
-\item (Warm-up on gauges.) Let $\delta(t):=\tfrac14$ be the constant gauge on $[0,1]$. (a) Show a
-  tagged partition is $\delta$-fine iff its mesh is $\le\tfrac14$. (b) Conclude that for a constant
-  gauge $\delta$-fineness reduces to the ordinary mesh condition of the Riemann integral.
+\item (Warm-up on gauges.) Let $\delta(t):=\tfrac14$ be the constant gauge on $[0,1]$. (a) Show that
+  every tagged partition of mesh $\le\tfrac14$ is $\delta$-fine, that every $\delta$-fine partition has
+  mesh $\le\tfrac12$, and that neither converse holds. (b) Conclude that for a constant gauge
+  $\delta$-fineness is sandwiched between two ordinary mesh conditions of the Riemann integral.
 \item Let $\delta_1,\delta_2$ be gauges on $[a,b]$ and set $\delta(t):=\min\set{\delta_1(t),\delta_2(t)}$.
   Show $\delta$ is a gauge and that every $\delta$-fine partition is simultaneously $\delta_1$-fine
   and $\delta_2$-fine. (This is the standard trick for combining two $\eps$-requirements.)
-\item Using Cousin's Lemma (Theorem~\ref{t:cousin@c12}), prove that every continuous $f$ on $[a,b]$ lies
-  in $\R^*[a,b]$ is \emph{not} what is asked here; instead, merely show that for every gauge
-  $\delta$ on $[a,b]$ a $\delta$-fine partition exists, and explain in one sentence why this is the
-  property that makes the Henstock--Kurzweil definition non-vacuous.
+\item Show, by a supremum argument instead of the bisection proof of Cousin's Lemma
+  (Theorem~\ref{t:cousin@c12}), that for every gauge $\delta$ on $[a,b]$ a $\delta$-fine partition
+  exists (consider the supremum of those $x\in(a,b]$ for which $[a,x]$ has one), and explain in one
+  sentence why this is the property that makes the Henstock--Kurzweil definition non-vacuous.
 \item Compute directly from the definition: show $f(x):=c$ (constant) is in $\R^*[a,b]$ with
   $\int_a^b f=c(b-a)$, by exhibiting, for each $\eps>0$, a gauge that works (any gauge does).
 \item (Non-example.) Define $\delta(t):=\abs{t-\tfrac12}$ for $t\ne\tfrac12$ and $\delta(\tfrac12):=0$
@@ -21352,12 +21355,13 @@ the Uniqueness, Additivity, and FTC proofs.}
   defining condition, then $L=L'$. (Cite Theorem~\ref{t:hk-unique@c12} for the structure, but give the
   $\eps/2$ argument yourself.)
 \item (Diagram.) On a number line for $[0,3]$, mark tags $t_1=0.5$, $t_2=1.5$, $t_3=2.5$ and draw,
-  above each $t_i$, the bracket $[t_i-\delta(t_i),\,t_i+\delta(t_i)]$ for the gauge $\delta(t):=0.4$.
+  above each $t_i$, the bracket $[t_i-\delta(t_i),\,t_i+\delta(t_i)]$ for the gauge $\delta(t):=0.6$.
   Shade which configurations of subinterval endpoints make the partition $\delta$-fine, and write one
-  sentence interpreting "the subinterval must fit inside the bracket of its tag."
+  sentence interpreting ``the subinterval must fit inside the bracket of its tag.''
 \item (Refinement.) Suppose $\dot P$ is $\delta$-fine and $\dot Q$ is obtained from $\dot P$ by
-  splitting one subinterval $[x_{i-1},x_i]$ at an interior point $c$, tagging both pieces by the same
-  $t_i$. Show $\dot Q$ is still $\delta$-fine and $S(f,\dot Q)=S(f,\dot P)$ for every $f$.
+  splitting one subinterval $[x_{i-1},x_i]$ at its tag $t_i$, assumed to lie in $(x_{i-1},x_i)$, and
+  tagging both pieces by $t_i$. Show $\dot Q$ is still $\delta$-fine and $S(f,\dot Q)=S(f,\dot P)$ for
+  every $f$.
 \end{exers}
 
 
@@ -21431,9 +21435,9 @@ both in $\R^*$, and in that case
 $\delta'$ on $[a,c]$ and $\delta''$ on $[c,b]$ for tolerance $\eps/2$. Splice them into a gauge
 $\delta_\eps$ on $[a,b]$ that additionally satisfies $\delta_\eps(t)\le\tfrac12\abs{c-t}$ for
 $t\ne c$; this forces every $\delta_\eps$-fine partition $\dot Q$ of $[a,b]$ to use $c$ as a
-tag at any box meeting $c$ (cf.\ the tag-forcing remark in \S\ref{d:gauge@c12}). Such a $\dot Q$
-then splits at $c$ into a $\delta'$-fine partition of $[a,c]$ and a $\delta''$-fine partition of
-$[c,b]$ with $S(f,\dot Q)=S(f,\dot Q_1)+S(f,\dot Q_2)$ (a box tagged at $c$ may be cut at $c$
+tag at any box meeting $c$ (cf.\ the tag-forcing remark after Definition~\ref{d:gauge@c12}).
+Such a $\dot Q$ then splits at $c$ into a $\delta'$-fine partition of $[a,c]$ and a
+$\delta''$-fine partition of $[c,b]$ with $S(f,\dot Q)=S(f,\dot Q_1)+S(f,\dot Q_2)$ (a box tagged at $c$ may be cut at $c$
 without changing its contribution). Hence $\abs{S(f,\dot Q)-(L_1+L_2)}<\eps$.
 ($\imp$) Use the Cauchy criterion on each half: extend partitions of $[a,c]$ by a fixed tail on
 $[c,b]$ so that differences over $[a,c]$ equal differences over $[a,b]$.
@@ -21454,15 +21458,16 @@ Definition~\ref{d:hk@c12}, so that $\abs{S(f,\dot P)-L}<\eps$ for every $\delta_
 $\dot P$. Write $\int_{J}f$ for the (generalized) integral over a subinterval $J=[u,v]$. Then
 for every $\delta_\eps$-fine \emph{subpartition} $\set{([u_j,v_j],s_j)}_{j=1}^m$,
 \[
-  \abs[\Big]{\sum_{j=1}^m\Bigl(f(s_j)(v_j-u_j)-\int_{u_j}^{v_j}f\Bigr)}\le\eps,
+  \Bigl|\sum_{j=1}^m\Bigl(f(s_j)(v_j-u_j)-\int_{u_j}^{v_j}f\Bigr)\Bigr|\le\eps,
 \]
 and moreover, summing the absolute values term by term,
 \[
-  \sum_{j=1}^m\abs[\Big]{f(s_j)(v_j-u_j)-\int_{u_j}^{v_j}f}\le 2\eps.
+  \sum_{j=1}^m\Bigl|f(s_j)(v_j-u_j)-\int_{u_j}^{v_j}f\Bigr|\le 2\eps.
 \]
 \end{lemma}
 \begin{proof}[Proof idea]
-The gap $[a,b]\setminus\bigcup_j[u_j,v_j]$ is a finite union of closed intervals $K_1,\dots,K_p$.
+The closure of the gap $[a,b]\setminus\bigcup_j[u_j,v_j]$ is a finite union of non-overlapping
+closed intervals $K_1,\dots,K_p$.
 On each $K_i$ the restriction of $f$ is in $\R^*$ (additivity), so for any $\rho>0$ choose a
 $\delta_\eps$-fine partition $\dot R_i$ of $K_i$ with $\abs{S(f,\dot R_i)-\int_{K_i}f}<\rho/p$.
 Joining the given subpartition with all the $\dot R_i$ gives a $\delta_\eps$-fine partition of
@@ -21494,13 +21499,14 @@ Then $f\in\R^*[a,b]$ and
 \]
 \end{theorem}
 \begin{proof}
-We prove the case $E=\es$ (the countable-exceptional-set case is Exercise~14, handled by an
-extra geometric budget on $E$). Fix $\eps>0$. For each $t\in[a,b]$, differentiability gives
+We prove the case $E=\es$ (the countable-exceptional-set case is Exercise~1 of the exercises on
+the Fundamental Theorem at the end of this section, handled by an extra geometric budget on
+$E$). Fix $\eps>0$. For each $t\in[a,b]$, differentiability gives
 $\delta_\eps(t)>0$ such that
 \[
   0<\abs{z-t}\le\delta_\eps(t),\ z\in[a,b]
   \quad\imp\quad
-  \abs[\Big]{\frac{F(z)-F(t)}{z-t}-f(t)}<\tfrac12\eps,
+  \Bigl|\frac{F(z)-F(t)}{z-t}-f(t)\Bigr|<\tfrac12\eps,
 \]
 i.e.\ $\abs{F(z)-F(t)-f(t)(z-t)}\le\tfrac12\eps\abs{z-t}$ for $z\in[t-\delta_\eps(t),
 t+\delta_\eps(t)]\cap[a,b]$. This $\delta_\eps$ is our gauge. Now for $u\le t\le v$ with
@@ -21537,7 +21543,7 @@ $(0,b]$ and $h(0):=0$. By Theorem~\ref{t:ftc1@c12} with $E=\set0$, $h\in\R^*[0,b
 \]
 \emph{Check.} $h$ is unbounded near $0$, so the Riemann integral does not exist; the
 generalized integral simply reads off $2\sqrt b$ (and agrees with the classical
-\emph{improper} value, as \S\ref{d:hake@c12} will explain). \checkmark
+\emph{improper} value, as Hake's Theorem~\ref{d:hake@c12} will explain). \checkmark
 \end{wex}
 
 \begin{wex}{$\int_0^b \ln x\dx$ via FTC (B\&S 10.1.10c)}
@@ -21550,7 +21556,7 @@ $\ell(0):=0$) lies in $\R^*[0,b]$ and $\int_0^b\ln x\dx=L(b)-L(0)=b\ln b-b$. \em
 $b=1$ this gives $-1=\int_0^1\ln x\dx$, the familiar value. \checkmark
 \end{wex}
 
-\begin{wex}{NON-example: why $\int_{-2}^2 dx/x$ is still undefined (B\&S Exer 10.1.12)}
+\begin{wex}{NON-example: why $\int_{-2}^2 \dd x/x$ is still undefined (B\&S Exer 10.1.12)}
 Let $M(x)=\ln\abs x$ for $x\ne0$, $M(0)=0$, so $M'(x)=1/x$ for $x\ne0$. One is tempted to write
 $\int_{-2}^2\tfrac1x\dx=M(2)-M(-2)=\ln2-\ln2=0$. Explain why FTC First Form does \emph{not}
 apply.
@@ -21560,15 +21566,16 @@ antiderivative on the \emph{whole} closed interval.
 \emph{countable} exceptional set for the derivative. Here $M(x)=\ln\abs x\to-\infty$ as
 $x\to0$, so $M$ has no continuous value at $0$: hypothesis~(a) fails. Indeed $1/x$ is genuinely
 \emph{not} generalized integrable on $[-2,2]$ (it is not integrable even on $(0,1]$; see
-\S\ref{d:hake@c12} and B\&S Exer 10.1.9), so the symmetric ``$0$'' is meaningless, not a principal
-value granted by the theory. \emph{Lesson.} Continuity of the antiderivative across the bad
-point is essential; a jump or blow-up there voids the conclusion. \checkmark
+Hake's Theorem~\ref{d:hake@c12} and B\&S Exer 10.1.9), so the symmetric ``$0$'' is meaningless,
+not a principal value granted by the theory. \emph{Lesson.} Continuity of the antiderivative
+across the bad point is essential; a jump or blow-up there voids the conclusion. \checkmark
 \end{wex}
 
 \subsection*{Substitution, products, and integration by parts}
 
 Because FTC First Form is so strong, the standard calculus theorems improve. We record the
-statements (proofs are in B\&S / [MTI]) and illustrate one.
+statements (proofs are in B\&S and in Bartle's \emph{A Modern Theory of Integration}, cited as
+[MTI]) and illustrate one.
 
 \begin{theorem}[Substitution, B\&S 10.1.12]\label{t:subst@c12}
 Let $\varphi:[\alpha,\beta]\to\R$ be continuous with $\varphi([\alpha,\beta])\subseteq[a,b]$,
@@ -21586,7 +21593,8 @@ If $f\in\R^*[a,b]$ and $g$ is monotone on $[a,b]$, then $fg\in\R^*[a,b]$.
 \end{theorem}
 
 The product of two generalized integrable functions need \emph{not} be integrable
-(Exercise~10.1.18), so the monotonicity of one factor in Theorem~\ref{t:mult@c12} is essential.
+(B\&S Exer 10.1.18; see also the non-example below), so the monotonicity of one factor in
+Theorem~\ref{t:mult@c12} is essential.
 
 \begin{theorem}[Integration by parts, B\&S 10.1.15]\label{t:parts@c12}
 Let $F,G$ be differentiable on $[a,b]$. Then $F'G\in\R^*[a,b]$ if and only if $FG'\in\R^*[a,b]$,
@@ -21627,8 +21635,8 @@ $0$ --- the singularity is integrable and the substitution is now fully justifie
 \begin{tikzpicture}[scale=1.0]
   % telescoping picture for FTC: F(b)-F(a) = sum of F(x_i)-F(x_{i-1}); local term approx by slope f(t_i)
   \begin{axis}[
-      width=11.5cm,height=5.4cm,axis lines=middle,xlabel=$x$,ylabel=$y$,
-      xtick=\empty,ytick=\empty,xmin=-0.15,xmax=6.3,ymin=-0.2,ymax=3.1,
+      width=11.5cm,height=6.4cm,axis lines=middle,xlabel=$x$,ylabel=$y$,
+      xtick=\empty,ytick=\empty,xmin=-0.15,xmax=6.3,ymin=-0.2,ymax=4.3,
       clip=false,enlargelimits=false]
     \addplot[curve,domain=0.2:6,samples=120]{0.55*x+0.35*sin(deg(1.3*x))+0.4};
     % division points and the staircase of increments F(x_i)-F(x_{i-1})
@@ -21637,19 +21645,29 @@ $0$ --- the singularity is integrable and the substitution is now fully justifie
     \draw[densely dotted](axis cs:2.9,0)--(axis cs:2.9,{0.55*2.9+0.35*sin(deg(1.3*2.9))+0.4});
     \draw[densely dotted](axis cs:4.2,0)--(axis cs:4.2,{0.55*4.2+0.35*sin(deg(1.3*4.2))+0.4});
     \draw[densely dotted](axis cs:5.6,0)--(axis cs:5.6,{0.55*5.6+0.35*sin(deg(1.3*5.6))+0.4});
-    % a representative chord (secant) over one box with slope ~ f(t_i)
-    \draw[thick](axis cs:1.6,{0.55*1.6+0.35*sin(deg(1.3*1.6))+0.4})--
-                (axis cs:2.9,{0.55*2.9+0.35*sin(deg(1.3*2.9))+0.4});
-    \node[font=\footnotesize,align=center] at (axis cs:2.25,2.55)
+    % one box [x_{i-1},x_i]=[2.9,4.2]: the chord (solid) and, dashed, the segment of slope
+    % f(t_i)=F'(t_i) through the tag t_i=3.55, whose rise is the Riemann term f(t_i)(x_i-x_{i-1})
+    \draw[thick](axis cs:2.9,{0.55*2.9+0.35*sin(deg(1.3*2.9))+0.4})--
+                (axis cs:4.2,{0.55*4.2+0.35*sin(deg(1.3*4.2))+0.4});
+    \draw[thick,densely dashed]
+      (axis cs:2.9,{0.55*3.55+0.35*sin(deg(1.3*3.55))+0.4-0.65*(0.55+0.455*cos(deg(1.3*3.55)))})--
+      (axis cs:4.2,{0.55*3.55+0.35*sin(deg(1.3*3.55))+0.4+0.65*(0.55+0.455*cos(deg(1.3*3.55)))});
+    \fill(axis cs:3.55,{0.55*3.55+0.35*sin(deg(1.3*3.55))+0.4})circle(1.3pt);
+    \draw[densely dotted](axis cs:3.55,0)--(axis cs:3.55,{0.55*3.55+0.35*sin(deg(1.3*3.55))+0.4});
+    \node[font=\footnotesize,align=center] at (axis cs:3.0,2.5)
       {chord slope $\approx f(t_i)$};
-    \node[above left,font=\footnotesize] at (axis cs:5.9,3.0){$y=F(x)$};
+    \node[right,font=\footnotesize] at (axis cs:6,{0.55*6+0.35*sin(deg(1.3*6))+0.4}){$y=F(x)$};
     \node[below,font=\footnotesize] at (axis cs:0.4,-0.02){$a$};
+    \node[below,font=\footnotesize] at (axis cs:2.9,-0.02){$x_{i-1}$};
+    \node[below,font=\footnotesize] at (axis cs:3.55,-0.02){$t_i$};
+    \node[below,font=\footnotesize] at (axis cs:4.2,-0.02){$x_i$};
     \node[below,font=\footnotesize] at (axis cs:5.6,-0.02){$b$};
   \end{axis}
 \end{tikzpicture}\captionof{figure}{FTC First Form as a telescoping estimate. Over each box the true increment
 $F(x_i)-F(x_{i-1})$ (the chord rise) is matched by the Riemann term $f(t_i)(x_i-x_{i-1})$ (slope
-$f(t_i)$ times width). The gauge makes each local match good to $\tfrac12\eps(x_i-x_{i-1})$; the
-increments telescope to $F(b)-F(a)$, so $S(f,\dot P)\approx F(b)-F(a)$.}
+$f(t_i)$ times width: the rise of the dashed segment through the tag). The gauge makes each
+local match good to $\tfrac12\eps(x_i-x_{i-1})$; the increments telescope to $F(b)-F(a)$, so
+$S(f,\dot P)\approx F(b)-F(a)$.}
 \end{center}
 
 \subsection*{Further worked examples}
@@ -21658,9 +21676,12 @@ increments telescope to $F(b)-F(a)$, so $S(f,\dot P)\approx F(b)-F(a)$.}
 Evaluate $\int_0^1 x\ln x\dx$, whose integrand has a (removable) singularity at $0$.
 \wrec Trigger: a product $F'G$ with $G=\ln x$ unbounded at $0$; use the gauge-integral parts
 formula (Theorem~\ref{t:parts@c12}), which needs no separate integrability hypothesis.
-\wsol Take $F(x)=\tfrac12 x^2$ (so $F'=x$) and $G(x)=\ln x$ (so $G'=1/x$ on $(0,1]$); both are
-differentiable on $(0,1]$ and the product $FG=\tfrac12 x^2\ln x\to0$ at $0$, so $[FG]_0^1$ is
-well defined. Theorem~\ref{t:parts@c12} gives
+\wsol Take $F(x)=\tfrac12 x^2$ (so $F'=x$) and $G(x)=\ln x$ (so $G'=1/x$ on $(0,1]$).
+Theorem~\ref{t:parts@c12} asks for differentiability on all of $[0,1]$, which fails for $G$ at
+$0$, but its proof still works: the product $FG=\tfrac12 x^2\ln x\to0$ at $0$, so $FG$ (set
+$=0$ at $0$) is continuous on $[0,1]$ with $(FG)'=F'G+FG'$ on $(0,1]$, and FTC First Form with
+$E=\set0$ gives $F'G+FG'\in\R^*[0,1]$ with integral $[FG]_0^1$. Since $FG'=\tfrac12x$ is
+continuous, linearity yields
 \[
   \int_0^1 x\ln x\dx=\Bigl[\tfrac12 x^2\ln x\Bigr]_0^1-\int_0^1\tfrac12 x^2\cdot\tfrac1x\dx
   =0-\int_0^1\tfrac12 x\dx=-\tfrac14 .
@@ -21690,13 +21711,16 @@ $\R^*$ (B\&S Exer 10.1.18). \checkmark
 
 \begin{wex}{NON-example: the product of two $\R^*$ functions need not be in $\R^*$}
 Let $w\in\R^*[0,1]$ be a conditionally integrable function with $\abs w\notin\R^*[0,1]$ (such a
-$w$ exists, \S\ref{d:hake@c12}). Show that $w\cdot\operatorname{sgn}(w)$ fails to be generalized
+$w$ exists; see Exercise~4 of the exercises on the Fundamental Theorem below). Show that
+$w\cdot\operatorname{sgn}(w)$ fails to be generalized
 integrable, so ``$f,g\in\R^*\Rightarrow fg\in\R^*$'' is false.
 \wrec Trigger: a claimed closure property that fails; produce the standard counterexample using
 $\abs w=w\cdot\operatorname{sgn} w$.
 \wsol Set $g:=\operatorname{sgn}(w)$, the sign function of $w$, which takes values in
-$\set{-1,0,1}$ and is therefore bounded (indeed $g\in\R^*[0,1]$, being a bounded function that is
-a pointwise limit of step functions). If the product $w g$ were in $\R^*[0,1]$, then since
+$\set{-1,0,1}$ and is therefore bounded (indeed $g\in\R^*[0,1]$: $w$ is measurable by
+Theorem~\ref{t:int-meas@c12}, hence so is $g=\lim_n\max\set{-1,\min\set{1,nw}}$ by
+Theorem~\ref{t:meas-closed@c12}, and a measurable function squeezed between the constants $\pm1$
+is in $\R^*$ by Theorem~\ref{t:meas-int@c12}). If the product $w g$ were in $\R^*[0,1]$, then since
 $wg=w\cdot\operatorname{sgn}(w)=\abs w$ pointwise, we would conclude $\abs w\in\R^*[0,1]$ ---
 contradicting the choice of $w$ as conditionally (non-absolutely) integrable. Hence $wg\notin
 \R^*[0,1]$, even though $w,g\in\R^*[0,1]$. \emph{Lesson.} Integrability is \emph{not} closed under
@@ -21710,14 +21734,14 @@ $\R^*$ --- the same phenomenon that separates $\R^*$ from $L$. \checkmark
   $[a,b]$, $F'(x)=f(x)$ for $x\in[a,b]\setminus E$, and $f(c_k):=0$. Prove $f\in\R^*[a,b]$ with
   $\int_a^b f=F(b)-F(a)$, completing Theorem~\ref{t:ftc1@c12}. (a) For $\eps>0$ and
   $t\in[a,b]\setminus E$, take $\delta_\eps(t)$ as in the proof of the $E=\es$ case; choose
-  $\delta_\eps(c_k)>0$ so that $\abs{z-c_k}<\delta_\eps(c_k)$, $z\in[a,b]$, implies
+  $\delta_\eps(c_k)>0$ so that $\abs{z-c_k}\le\delta_\eps(c_k)$, $z\in[a,b]$, implies
   $\abs{F(z)-F(c_k)}<\eps/2^{k+2}$. (b) Show a $\delta_\eps$-fine partition with a tag $t_i=c_k$
   has $\abs{F(x_i)-F(x_{i-1})-f(c_k)(x_i-x_{i-1})}<\eps/2^{k+1}$. (c) Conclude
   $\abs{S(f,\dot P)-(F(b)-F(a))}<\eps(b-a+1)$.
 \item Use the Substitution Theorem (Theorem~\ref{t:subst@c12}) to evaluate:
   (a) $\int_{-3}^3(2t+1)\operatorname{sgn}(t^2+t-2)\dt=6$;
   (b) $\int_0^4\dfrac{\sqrt t}{1+t}\dt$;
-  (c) $\int_1^5\dfrac{dt}{t\sqrt{t-1}}=2\arctan2$;
+  (c) $\int_1^5\dfrac{\dd t}{t\sqrt{t-1}}=2\arctan2$;
   (d) $\int_0^1\sqrt{1-t^2}\,\dt$.
 \item Give an example of $f\in\R^*[0,1]$ whose square $f^2$ does \emph{not} belong to
   $\R^*[0,1]$.
@@ -21745,14 +21769,14 @@ $\R^*$ --- the same phenomenon that separates $\R^*$ from $L$. \checkmark
   $\int_a^b fg=g(a)\int_a^\xi f+g(b)\int_\xi^b f$.
 \item Show $\int_0^b x^{\alpha-1}\dx=b^\alpha/\alpha$ for $\alpha>0$ by exhibiting a continuous
   antiderivative on $[0,b]$ and applying FTC First Form with $E=\set0$.
-\item Use FTC First Form to evaluate $\int_{-1}^1\dfrac{dx}{\sqrt{1-x^2}}$, identifying the
+\item Use FTC First Form to evaluate $\int_{-1}^1\dfrac{\dd x}{\sqrt{1-x^2}}$, identifying the
   countable exceptional set and a continuous antiderivative.
 \end{exers}
 
 \begin{exers}{Additional exercises.}
 \item (Linearity drill.) Using Theorem~\ref{t:linear@c12}, evaluate $\int_0^1(3x^2-2x+5)\dx$ by writing
   it as a combination of $\int_0^1 x^2$, $\int_0^1 x$, $\int_0^1 1$ and citing the FTC for each.
-\item Let $f\in\R^*[a,b]$ and $c\in(a,b)$. Prove additivity over the join: if $f\in\R^*[a,c]$ and
+\item Let $f:[a,b]\to\R$ and $c\in(a,b)$. Prove additivity over the join: if $f\in\R^*[a,c]$ and
   $f\in\R^*[c,b]$, then $f\in\R^*[a,b]$ with $\int_a^b f=\int_a^c f+\int_c^b f$. (Combine gauges on
   the two pieces.)
 \item Apply the Fundamental Theorem (First Form, Theorem~\ref{t:ftc1@c12}) to evaluate
@@ -21771,7 +21795,7 @@ $\R^*$ --- the same phenomenon that separates $\R^*$ from $L$. \checkmark
   illustrates the Second Form of the FTC and its exceptional point.
 \item (Multiplication theorem.) Using Theorem~\ref{t:mult@c12}, show that if $f\in\R^*[a,b]$ and $g$ is
   monotone on $[a,b]$, then $fg\in\R^*[a,b]$. Give a one-sentence reason this can fail without
-  monotonicity (point to Exercise on $f^2$ in \S10.2).
+  monotonicity (point to Exercise~3 of the list above, on $f^2$).
 \end{exers}
 
 
@@ -21808,7 +21832,7 @@ then $f$ is \emph{already} in $\R^*[a,b]$ with that value.
 This gives a practical test: to show $f\in\R^*[a,b]$ and find its value, compute
 $\int_a^\gamma f$ by elementary means and take $\gamma\to b^-$.
 
-\begin{wex}{An improper integral handled by Hake (B\&S 10.2 opening)}
+\begin{wex}{An improper integral handled by Hake (B\&S 10.2 opening)}\label{wex:hake-sqrt@c12}
 Show $h(x)=x^{-1/2}$ (with $h(0):=0$) is in $\R^*[0,1]$ and $\int_0^1 x^{-1/2}\dx=2$, using
 Hake.
 \wrec Trigger: ``a textbook improper integral; confirm it is a genuine generalized integral.''
@@ -21816,8 +21840,8 @@ Integrate over $[\gamma,1]$ (singularity at the left end) and let $\gamma\to0^+$
 \wsol For $\gamma\in(0,1)$, $h$ is continuous on $[\gamma,1]$, so
 $\int_\gamma^1 x^{-1/2}\dx=\bigl[2\sqrt x\bigr]_\gamma^1=2-2\sqrt\gamma$. As $\gamma\to0^+$ this
 $\to2$. By Hake's theorem (left-endpoint version), $h\in\R^*[0,1]$ with $\int_0^1 h=2$.
-\emph{Check.} This matches the FTC computation $H(1)-H(0)=2$ from \S\ref{t:ftc1@c12}; the two routes
-agree, as Hake guarantees. \checkmark
+\emph{Check.} This matches the FTC computation $H(1)-H(0)=2$ in the worked example following
+Theorem~\ref{t:ftc1@c12}; the two routes agree, as Hake guarantees. \checkmark
 \end{wex}
 
 \subsection*{A conditionally convergent integral: $\sin x/x$ in miniature}
@@ -21852,16 +21876,16 @@ generalized integrable function that is not absolutely integrable. \checkmark
       xtick=\empty,ytick=\empty,
       xmin=-0.3,xmax=18.6,ymin=-0.55,ymax=1.15,clip=false,enlargelimits=false]
     % signed-area lobes shaded as closed regions under the curve
-    \addplot[band,domain=0.35:3.14159,samples=80]{sin(deg(x))/x}\closedcycle;
+    \addplot[band,domain=0.001:3.14159,samples=80]{sin(deg(x))/x}\closedcycle;
     \addplot[fill=black!20,domain=3.14159:6.2832,samples=80]{sin(deg(x))/x}\closedcycle;
     \addplot[band,domain=6.2832:9.4248,samples=80]{sin(deg(x))/x}\closedcycle;
     \addplot[fill=black!20,domain=9.4248:12.566,samples=80]{sin(deg(x))/x}\closedcycle;
     \addplot[band,domain=12.566:15.708,samples=80]{sin(deg(x))/x}\closedcycle;
-    \addplot[curve,domain=0.35:18,samples=400]{sin(deg(x))/x};
-    \node[font=\footnotesize] at (axis cs:1.7,0.55){$+$};
-    \node[font=\footnotesize] at (axis cs:4.7,-0.18){$-$};
-    \node[font=\footnotesize] at (axis cs:7.9,0.12){$+$};
-    \node[font=\footnotesize] at (axis cs:11,-0.07){$-$};
+    \addplot[curve,domain=0.001:18,samples=400]{sin(deg(x))/x};
+    \node[font=\footnotesize] at (axis cs:1.3,0.4){$+$};
+    \node[font=\footnotesize] at (axis cs:4.6,-0.1){$-$};
+    \node[font=\footnotesize] at (axis cs:7.85,0.055){$+$};
+    \node[font=\footnotesize] at (axis cs:11,-0.045){$-$};
     \node[above right,font=\footnotesize] at (axis cs:9,0.6){$y=\dfrac{\sin x}{x}$};
   \end{axis}
 \end{tikzpicture}\captionof{figure}{The Dirichlet integrand $\sin x/x$. Successive lobes alternate sign with slowly
@@ -21886,12 +21910,12 @@ integrable functions, the Lebesgue ones are exactly the \emph{absolutely} integr
 \begin{theorem}[Comparison Test, B\&S 10.2.4]\label{t:compare@c12}
 If $f,v\in\R^*[a,b]$ and $\abs{f(x)}\le v(x)$ for all $x\in[a,b]$, then $f\in L[a,b]$ and
 \[
-  \abs[\Big]{\int_a^b f}\le\int_a^b\abs f\le\int_a^b v.
+  \Bigl|\int_a^b f\Bigr|\le\int_a^b\abs f\le\int_a^b v.
 \]
 \end{theorem}
 \begin{proof}
 That $\abs f\in\R^*[a,b]$ is the deep half (it uses the Saks--Henstock lemma; see [MTI]). Given
-it, $\abs f\ge0$ forces $f\in L[a,b]$ by definition. For the inequalities, $-\abs f\le f\le\abs
+it, $f\in L[a,b]$ by definition. For the inequalities, $-\abs f\le f\le\abs
 f$ and monotonicity (Theorem~\ref{t:linear@c12}c) give $-\int\abs f\le\int f\le\int\abs f$, i.e.\
 $\abs{\int f}\le\int\abs f$; and $\abs f\le v$ gives $\int\abs f\le\int v$.
 \end{proof}
@@ -21937,7 +21961,7 @@ $\dist(f,g):=\norm{f-g}=\int_a^b\abs{f-g}$.
 
 By Theorem~\ref{t:lattice@c12}, $\norm{\cdot}$ satisfies $\norm f\ge0$, $\norm{cf}=\abs c\norm f$,
 and $\norm{f+g}\le\norm f+\norm g$; it is only a \emph{semi}norm because $\norm f=0$ forces
-$f=0$ only \emph{almost everywhere}, not everywhere (e.g.\ $f=1_{\Q}$ has $\norm f=0$). The
+$f=0$ only \emph{almost everywhere}, not everywhere (e.g.\ $f=\mathbf 1_{\Q}$ has $\norm f=0$). The
 distance $\dist$ is symmetric and obeys the triangle inequality, making $L[a,b]$ a
 (pseudo)metric space. The completeness of this space is the Riesz--Fischer theorem.
 
@@ -21975,7 +21999,7 @@ $v$ (here a constant) and invoke the Comparison Test (Theorem~\ref{t:compare@c12
 $f|_{[\gamma,1]}\in\R^*$; and $\abs{f(x)}=\abs{\sin(1/x)}\le1$ for all $x$. The constant $v\equiv
 1$ is in $\R^*[0,1]$ (indeed in $L[0,1]$, with $\int_0^1 1=1$). Because $f$ is bounded and, on
 $(0,1]$, continuous, $f\in\R^*[0,1]$ (a bounded measurable function on a bounded interval is
-generalized integrable; see \S\ref{t:meas-int@c12}). With $\abs f\le v$ and $f,v\in\R^*[0,1]$, the
+generalized integrable; see Theorem~\ref{t:meas-int@c12}). With $\abs f\le v$ and $f,v\in\R^*[0,1]$, the
 Comparison Test gives $f\in L[0,1]$ and $\abs{\int_0^1 f}\le\int_0^1\abs f\le\int_0^1 1=1$.
 \emph{Check.} Unlike $\sin x/x$ on $[0,\infty)$, here the oscillation lives on a \emph{bounded}
 interval and the amplitude does not decay --- but boundedness alone already forces absolute
@@ -21990,40 +22014,40 @@ showing $\norm{\cdot}$ is only a \emph{semi}norm.
 null set; its integral of $\abs f$ vanishes.
 \wsol Take $f=\mathbf 1_{\Q\cap[0,1]}$, the indicator of the rationals: $f(x)=1$ on the
 (countable, dense) set $\Q\cap[0,1]$ and $f(x)=0$ elsewhere. By the Dirichlet worked example
-(\S\ref{d:hk@c12}), $f\in\R^*[0,1]$ with $\int_0^1 f=0$; the same gauge argument applied to
+(following Theorem~\ref{t:consistency@c12}), $f\in\R^*[0,1]$ with $\int_0^1 f=0$; the same gauge argument applied to
 $\abs f=f$ gives $\abs f\in\R^*$ with $\int_0^1\abs f=0$, so $f\in L[0,1]$ and $\norm f=0$.
 Yet $f$ is nonzero at every rational --- a \emph{dense} set of points. \emph{Lesson.} $\norm f=0$
 forces $f=0$ only \emph{almost everywhere} (off a null set), never everywhere; this is exactly why
 Definition~\ref{d:seminorm@c12} calls $\norm{\cdot}$ a seminorm and why $L[a,b]$ is a
 \emph{pseudo}metric space until one passes to a.e.-equivalence classes. \emph{Check.} The
-nonzero values sit on the measure-zero set $\Q\cap[0,1]$, which contributes $0$ to every Riemann
-sum once the gauge pins each rational's box, as in \S\ref{d:hk@c12}. \checkmark
+nonzero values sit on the measure-zero set $\Q\cap[0,1]$, which contributes at most $\eps$ to every
+$\delta_\eps$-fine Riemann sum once the gauge pins each rational's box, as in that worked example.
+\checkmark
 \end{wex}
 
 \begin{center}
 \begin{tikzpicture}[scale=1.0]
   \begin{axis}[
       width=12cm,height=4.6cm,axis lines=middle,xlabel=$x$,ylabel=$y$,
-      xtick=\empty,ytick=\empty,xmin=-0.05,xmax=1.12,ymin=-0.7,ymax=1.0,
+      xtick=\empty,ytick=\empty,xmin=-0.05,xmax=1.12,ymin=-0.9,ymax=0.75,
       clip=false,enlargelimits=false]
     % the step function w of the series example: heights 2^k a_k on [c_{k-1},c_k), a_k=(-1)^k/k
-    % c_k = 1-2^{-k}: 0, .5, .75, .875, .9375 ...
-    % heights: 2^1*(-1)/1=-2 ; 2^2*(1/2)=2 ; 2^3*(-1/3)=-2.667 ; ... rescale to fit
-    % we draw rescaled bars (heights/4) to fit the axis, signs preserved
-    \draw[band,draw=black!50](axis cs:0,0)rectangle(axis cs:0.5,-0.5);
-    \draw[band,draw=black!50](axis cs:0.5,0)rectangle(axis cs:0.75,0.5);
-    \draw[band,draw=black!50](axis cs:0.75,0)rectangle(axis cs:0.875,-0.55);
+    % c_k = 1-2^{-k}: 0, .5, .75, .875, .9375, .96875
+    % heights 2^k a_k = -2, 2, -8/3, 4, -32/5, all drawn at the common scale 1/8
+    \draw[band,draw=black!50](axis cs:0,0)rectangle(axis cs:0.5,-0.25);
+    \draw[band,draw=black!50](axis cs:0.5,0)rectangle(axis cs:0.75,0.25);
+    \draw[band,draw=black!50](axis cs:0.75,0)rectangle(axis cs:0.875,-0.3333);
     \draw[band,draw=black!50](axis cs:0.875,0)rectangle(axis cs:0.9375,0.5);
-    \draw[band,draw=black!50](axis cs:0.9375,0)rectangle(axis cs:0.969,-0.52);
-    \node[font=\footnotesize] at (axis cs:0.25,-0.62){area $a_1$};
-    \node[font=\footnotesize] at (axis cs:0.625,0.66){area $a_2$};
-    \draw[densely dashed](axis cs:1,-0.7)--(axis cs:1,1.0);
-    \node[below,font=\footnotesize] at (axis cs:1,-0.02){$1$};
+    \draw[band,draw=black!50](axis cs:0.9375,0)rectangle(axis cs:0.96875,-0.8);
+    \node[font=\footnotesize] at (axis cs:0.25,-0.36){area $a_1$};
+    \node[font=\footnotesize] at (axis cs:0.625,0.36){area $a_2$};
+    \draw[densely dashed](axis cs:1,-0.9)--(axis cs:1,0.75);
+    \node[below right,font=\footnotesize] at (axis cs:1,0){$1$};
   \end{axis}
 \end{tikzpicture}\captionof{figure}{The step function $w$ encoding a series $\sum a_k=A$: on $[c_{k-1},c_k)$ with
 $c_k=1-2^{-k}$ the bar has width $2^{-k}$ and (signed) height $2^k a_k$, so its signed area is
-exactly $a_k$ (bars drawn to scale in sign, rescaled in height to fit). Cumulative areas
-$\int_0^\gamma w=\sum_{j\le n}a_j$ converge to $A$ by Hake. If the $a_k$ alternate without
+exactly $a_k$ (drawn for $a_k=(-1)^k/k$, all heights reduced by the same factor). Cumulative areas
+$\int_0^{c_n}w=\sum_{j\le n}a_j$ converge to $A$ by Hake. If the $a_k$ alternate without
 absolute convergence, $w\in\R^*\setminus L$.}
 \end{center}
 
@@ -22051,12 +22075,14 @@ absolute convergence, $w\in\R^*\setminus L$.}
   $\abs{g(x)}\le B$, show $\norm{fg}\le B\norm f$.
 \item (a) Give an $f\in\R^*[0,1]$ such that $\max\set{f,0}$ does not belong to $\R^*[0,1]$.
   (b) Can you give an $f\in L[0,1]$ with $\max\set{f,0}\notin L[0,1]$?
-\item Write out the details of the proof that $\min\set{f,g}\in\R^*[a,b]$ in Theorem 10.2.8 when
-  $\alpha\le f$ and $\alpha\le g$.
-\item Write out the details of the proofs of Theorem 10.2.11.
+\item Let $f,g\in\R^*[a,b]$ and suppose there is $\alpha\in\R^*[a,b]$ with $\alpha\le f$ and
+  $\alpha\le g$. Write out the details of the proof that $\min\set{f,g}\in\R^*[a,b]$ (B\&S
+  Theorem 10.2.8).
+\item Write out the details of the proofs of B\&S Theorem 10.2.11 (the properties of $\norm{\cdot}$
+  and $\dist$ stated after Definition~\ref{d:seminorm@c12}).
 \item Give an $f\in L[a,b]$ not identically $0$ but such that $\norm f=0$.
 \item If $f,g\in L[a,b]$, show $\bigl|\norm f-\norm g\bigr|\le\norm{f-g}$.
-\item Establish the easy part of the Completeness Theorem 10.2.12.
+\item Establish the easy part of the Completeness Theorem~\ref{t:riesz@c12}.
 \item If $f_n(x):=x^n$ for $n\in\N$, show $f_n\in L[0,1]$ and $\norm{f_n}\to0$; thus
   $\norm{f_n-u}\to0$ where $u$ is the function identically $0$.
 \item Let $g_n(x):=-1$ for $x\in[-1,-1/n)$, $g_n(x):=nx$ for $x\in[-1/n,1/n]$, and $g_n(x):=1$
@@ -22069,7 +22095,7 @@ absolute convergence, $w\in\R^*\setminus L$.}
 \end{exers}
 
 \begin{exers}{Additional exercises.}
-\item (Improper warm-up.) Using Hake's Theorem (Theorem~\ref{t:hake-inf@c12} or its bounded form), show
+\item (Improper warm-up.) Using Hake's Theorem (Theorem~\ref{d:hake@c12}, in its left-endpoint form), show
   $\int_0^1 x^{-1/2}\dx=2$ by computing $\int_c^1 x^{-1/2}\dx$ and letting $c\to0^+$.
 \item Determine for which $p>0$ the integral $\int_0^1 x^{-p}\dx$ converges, and find its value when
   it does. State the answer as a single threshold on $p$.
@@ -22080,7 +22106,8 @@ absolute convergence, $w\in\R^*\setminus L$.}
 \item Prove the Comparison Test in the form: if $f,v\in\R^*[a,b]$ and $\abs{f(x)}\le v(x)$ for all
   $x$, then $f\in L[a,b]$ and $\norm f\le\int_a^b v$.
 \item Show that $\mathcal R[a,b]\subseteq L[a,b]$: every (ordinary) Riemann integrable function is
-  Lebesgue integrable. Which inclusion among $\mathcal R$, $L$, $\R^*$ is strict, and why?
+  Lebesgue integrable. Which of the inclusions $\mathcal R[a,b]\subseteq L[a,b]\subseteq\R^*[a,b]$ are
+  strict, and why?
 \item (Seminorm.) Verify directly that $\norm f:=\int_a^b\abs f$ satisfies $\norm{f+g}\le\norm f+\norm
   g$ and $\norm{cf}=\abs c\norm f$ on $L[a,b]$, and exhibit a nonzero $f$ with $\norm f=0$ (so it is a
   seminorm, not a norm). Cite Definition~\ref{d:seminorm@c12}.
@@ -22141,8 +22168,8 @@ the role $\delta(t)$ plays for an ordinary tag.
     \fill[band,draw=black!45](axis cs:5.0,0)rectangle(axis cs:7.2,{1.3*exp(-0.45*6.1)});
     \draw[densely dashed](axis cs:7.2,0)--(axis cs:7.2,1.45);
     \node[above,font=\footnotesize] at (axis cs:7.2,1.45){$x_n\ge 1/\delta^*$};
-    \draw[brc](axis cs:7.2,-0.12)--(axis cs:11,-0.12)
-      node[midway,below=2pt,font=\footnotesize]{uncovered tail (forced far out)};
+    \draw[brc](axis cs:11,-0.12)--(axis cs:7.2,-0.12)
+      node[midway,below=4pt,font=\footnotesize]{uncovered tail (forced far out)};
     \node[font=\footnotesize] at (axis cs:0.3,-0.12){$a$};
   \end{axis}
 \end{tikzpicture}\captionof{figure}{A $\delta$-fine subpartition of $[a,\infty)$: finitely many tagged boxes cover
@@ -22159,8 +22186,8 @@ We write $\int_a^\infty f:=A$. If both $f,\abs f\in\R^*[a,\infty)$ we say $f\in 
 
 Integration over $(-\infty,b]$ uses a gauge with a number $\delta_*>0$ controlling the left tail
 ($x_0\le-1/\delta_*$); over $(-\infty,\infty)$ a gauge carries \emph{both} tail numbers
-$\delta_*,\delta^*$ and the subpartition leaves out both ends. All the Section~1--2 theorems
-(linearity, additivity, Cauchy criterion) transfer with the same proofs.
+$\delta_*,\delta^*$ and the subpartition leaves out both ends. All the theorems of
+Sections~12.1--12.2 (linearity, additivity, Cauchy criterion) transfer with the same proofs.
 
 \subsection*{Hake and the fundamental theorem at infinity}
 
@@ -22210,7 +22237,7 @@ $a_k$ by $\abs{a_k}$, $\abs s\in\R^*[0,\infty)$ iff $\sum\abs{a_k}<\infty$. \emp
 $a_k=(-1)^k/k$ again yields $s\in\R^*\setminus L$ over $[0,\infty)$. \checkmark
 \end{wex}
 
-\begin{wex}{The Dirichlet integral converges (B\&S 10.3.4d)}
+\begin{wex}{The Dirichlet integral converges (B\&S 10.3.4d)}\label{wex:dirichlet-conv@c12}
 Let $D(x)=\dfrac{\sin x}{x}$ for $x>0$, $D(0)=1$. Show $D\in\R^*[0,\infty)$ but
 $D\notin L[0,\infty)$.
 \wrec Trigger: a conditionally convergent improper integral. Use the Cauchy condition via
@@ -22301,8 +22328,8 @@ Rescaling $x=2u$ turns the integral into $\tfrac12\int_{-\infty}^\infty\tfrac{du
 \end{wex}
 
 \begin{exers}{Exercises (Bartle \& Sherbert, \S10.3).}
-\item Let $\delta$ be a gauge on $[a,\infty]$. From Theorem 5.5.5 every bounded subinterval $[a,b]$
-  has a $\delta$-fine partition. Show that $[a,\infty]$ has a $\delta$-fine partition.
+\item Let $\delta$ be a gauge on $[a,\infty]$. From Cousin's Lemma (Theorem~\ref{t:cousin@c12}) every
+  bounded subinterval $[a,b]$ has a $\delta$-fine partition. Show that $[a,\infty]$ has a $\delta$-fine partition.
 \item Let $f\in\R^*[a,\gamma]$ for all $\gamma\ge a$. Show $f\in\R^*[a,\infty)$ if and only if for
   every $\eps>0$ there is $K(\eps)\ge a$ such that $q>p\ge K(\eps)$ implies
   $\abs{\int_p^q f}<\eps$.
@@ -22318,26 +22345,26 @@ Rescaling $x=2u$ turns the integral into $\tfrac12\int_{-\infty}^\infty\tfrac{du
   $f\in L[1,\infty)$.
 \item Let $f(x):=\cos x$ for $x\in[0,\infty)$. Show $f\notin\R^*[0,\infty)$.
 \item If $s>0$, let $g(x):=e^{-sx}$ for $x\in[0,\infty)$. (a) Use Hake's Theorem to show
-  $g\in L[0,\infty)$ and $\int_0^\infty e^{-sx}\dx=1/s$. (b) Use the Fundamental Theorem 10.3.5.
+  $g\in L[0,\infty)$ and $\int_0^\infty e^{-sx}\dx=1/s$. (b) Use the Fundamental
+  Theorem~\ref{t:ftc-inf@c12}.
 \item (a) Use Integration by Parts and Hake's Theorem to show $\int_0^\infty xe^{-sx}\dx=1/s^2$
-  for $s>0$. (b) Use the Fundamental Theorem 10.3.5.
+  for $s>0$. (b) Use the Fundamental Theorem~\ref{t:ftc-inf@c12}.
 \item Show that if $n\in\N$, $s>0$, then $\int_0^\infty x^n e^{-sx}\dx=n!/s^{n+1}$.
 \item (a) Show that $\int_1^\infty\dfrac{1}{x\ln x}\dx$ does not converge. (b) Show that if
-  $\alpha>1$, then $\int_1^\infty\dfrac{1}{x^\alpha\ln x}\dx$ relates as
-  $\int_1^\infty\dfrac{\ln x}{x^\alpha}\dx=1/(\alpha-1)^2$.
+  $\alpha>1$, then $\int_1^\infty\dfrac{\ln x}{x^\alpha}\dx=1/(\alpha-1)^2$.
 \item (a) Show $\int_{n\pi}^{(n+1)\pi}\abs{\dfrac1x\sin x}\dx>\dfrac1{4(n+1)}$. (b) Show
-  $\abs D\notin\R^*[0,\infty)$, where $D$ is as in Example 10.3.4(d).
+  $\abs D\notin\R^*[0,\infty)$, where $D$ is as in Worked Example~\ref{wex:dirichlet-conv@c12}.
 \item Show that $\int_0^\infty\dfrac{1}{\sqrt x}\sin x\dx$ converges. (Hint: integrate by parts.)
 \item Establish the convergence of Fresnel's integral $\int_0^\infty\sin(x^2)\dx$. (Hint: use the
-  Substitution Theorem 10.1.12.)
+  Substitution Theorem~\ref{t:subst@c12}.)
 \item Establish convergence or divergence of: (a) $\int_0^\infty\dfrac{\ln x}{x^2+1}\dx$;
   (b) $\int_0^\infty\dfrac{\ln x}{\sqrt{x^2+1}}\dx$; (c) $\int_0^\infty\dfrac{x}{(x+1)^3}\dx$;
   (d) $\int_0^\infty\dfrac{dx}{x(x+1)}$; (e) $\int_0^\infty\dfrac{dx}{\sqrt{1+x^3}}$;
   (f) $\int_0^\infty\dfrac{\arctan x}{x^{3/2}+1}\dx$.
 \item (Abel's Test.) Let $f,w:[a,\infty)\to\R$; Abel's Test asserts that if $f\in\R^*[a,\infty)$ and
   $w$ is bounded and monotone on $[a,\infty)$, then $fw\in\R^*[a,\infty)$. (a) Show Abel's Test does
-  not apply to $\int_0^\infty(1/x)\sin x\dx$ via $w(x):=1/x$, but does apply with $w(x):=1/\sqrt x$
-  and Exercise 14. (b) Use Abel's Test and Exercise 15 to show $\int_0^\infty\dfrac{x}{x+1}\sin(x^2)\dx$
+  not apply to $\int_0^\infty(1/x)\sin x\dx$ via $w(x):=1/x$, but does apply on $[1,\infty)$ with
+  $w(x):=1/\sqrt x$ and Exercise 14. (b) Use Abel's Test and Exercise 15 to show $\int_0^\infty\dfrac{x}{x+1}\sin(x^2)\dx$
   converges. (c) Use Abel's Test and Exercise 14 to show $\int_0^\infty\dfrac{1}{x^{3/2}(x+1)}\sin x\dx$
   converges. (d) Use Abel's Test to obtain the convergence of Exercise 16(f).
 \item (Chartier--Dirichlet Test.) With the notation of Exercise 17, the test asserts that if
@@ -22357,7 +22384,7 @@ Rescaling $x=2u$ turns the integral into $\tfrac12\int_{-\infty}^\infty\tfrac{du
 \item (Infinite-interval warm-up.) Compute $\int_1^\infty x^{-2}\dx$ from the definition via
   $\lim_{\gamma\to\infty}\int_1^\gamma x^{-2}\dx$, and state the antiderivative used.
 \item Determine for which $p$ the integral $\int_1^\infty x^{-p}\dx$ converges, and find its value
-  when it does. Contrast the threshold with the $\int_0^1 x^{-p}\dx$ case of \S10.2.
+  when it does. Contrast the threshold with the $\int_0^1 x^{-p}\dx$ case of \S12.3.
 \item Using the Fundamental Theorem on $[a,\infty)$ (Theorem~\ref{t:ftc-inf@c12}), evaluate
   $\int_0^\infty e^{-x}\dx$ and $\int_0^\infty xe^{-x}\dx$.
 \item (Non-example.) Show $\int_0^\infty\cos x\dx$ does not converge, by exhibiting two subsequences
@@ -22453,9 +22480,9 @@ and then $\int_I f=\sup_k\int_I f_k$. The MCT is the tool of choice when $f_k\up
     \addplot[curve,domain=0:3,samples=120]{1.0*(1-exp(-0.7*x))};
     \addplot[curve,domain=0:3,samples=120]{1.6*(1-exp(-1.1*x))};
     \addplot[curve,domain=0:3,samples=120]{2.1*(1-exp(-1.6*x))};
-    \node[font=\footnotesize] at (axis cs:2.55,0.78){$f_1$};
-    \node[font=\footnotesize] at (axis cs:2.55,1.35){$f_2$};
-    \node[font=\footnotesize] at (axis cs:2.55,2.05){$f=\lim f_k$};
+    \node[right,font=\footnotesize] at (axis cs:3,0.88){$f_1$};
+    \node[right,font=\footnotesize] at (axis cs:3,1.54){$f_2$};
+    \node[right,font=\footnotesize] at (axis cs:3,2.08){$f=\lim f_k$};
   \end{axis}
 \end{tikzpicture}\captionof{figure}{Monotone Convergence: $f_1\le f_2\le\cdots\uparrow f$ pointwise, so the areas
 $\int f_k$ increase. If they stay bounded, $f$ is integrable and $\int f=\lim\int f_k=\sup\int
@@ -22511,9 +22538,9 @@ this, so MCT applies and the limit equals $\dfrac1{\alpha-1}$. \emph{Check.} As 
 
 \subsection*{Evaluation of the Dirichlet integral}\label{ss:dct@c12}
 
-\begin{wex}{$\displaystyle\int_0^\infty\frac{\sin x}{x}\dx=\frac\pi2$ (B\&S 10.4.6f)}
+\begin{wex}{$\displaystyle\int_0^\infty\frac{\sin x}{x}\dx=\frac\pi2$ (B\&S 10.4.6f)}\label{wex:dirichlet-value@c12}
 Compute the Dirichlet integral, whose convergence (but not value) was shown in
-\S\ref{t:hake-inf@c12}.
+Worked Example~\ref{wex:dirichlet-conv@c12}.
 \wrec Trigger: a parameter integral $D_k(t)=\int_0^k e^{-tx}\frac{\sin x}{x}\dx$; differentiate
 in $t$ under the integral (justified by DCT), solve the resulting ODE, and let $k\to\infty$.
 \wsol Put $D_k(t)=\int_0^k e^{-tx}\dfrac{\sin x}{x}\dx$ for $t\ge0$; then $D_k(0)=\int_0^k
@@ -22524,15 +22551,17 @@ licenses differentiation under the integral:
   =\frac{e^{-tk}(t\sin k+\cos k)}{t^2+1}-\frac1{t^2+1}.
 \]
 Integrating $t$ from $0$ to $k$ and using $D_k(k)\to0$ (since $\abs{D_k(k)}\le(1-e^{-k^2})/k\to
-0$) and $\int_0^k\frac{dt}{t^2+1}=\arctan k\to\tfrac\pi2$, together with $\int_0^\infty g_k(t)\dt
-\to0$ for the first term (by DCT, dominator $2e^{-1}$), the relation
+0$) and $\int_0^k\frac{dt}{t^2+1}=\arctan k\to\tfrac\pi2$, together with
+$\abs{\int_0^k g_k}\le\int_0^\infty\abs{g_k(t)}\dt\to0$ for the first term
+$g_k(t):=e^{-tk}(t\sin k+\cos k)/(t^2+1)$ (by DCT: $g_k(t)\to0$ for $t>0$, dominator $2e^{-t}$),
+the relation
 \[
   D_k(k)-D_k(0)=\int_0^k D_k'(t)\dt=\int_0^k g_k(t)\dt-\arctan k
 \]
 passes to the limit as $0-\lim_k D_k(0)=0-\tfrac\pi2$. Hence $\lim_k\int_0^k\frac{\sin x}{x}\dx
 =\tfrac\pi2$, i.e.\ $\int_0^\infty\dfrac{\sin x}{x}\dx=\dfrac\pi2$. \emph{Check.} The value is
 positive (the first lobe dominates), and finite, as the conditional convergence in
-\S\ref{t:hake-inf@c12} demanded. \checkmark
+Worked Example~\ref{wex:dirichlet-conv@c12} demanded. \checkmark
 \end{wex}
 
 \begin{wex}{The Gaussian integral $\int_0^\infty e^{-x^2}\dx=\tfrac{\sqrt\pi}2$ (B\&S Exer 10.4.11)}
@@ -22576,9 +22605,9 @@ If $f\in\R^*[a,b]$ then $f\in M[a,b]$.
 \end{theorem}
 \begin{proof}
 Let $F(x)=\int_a^x f$ be the indefinite integral, continuous on $[a,b]$ (FTC Second Form), with
-$F'(x)=f(x)$ off a null set $Z$. The difference quotients $g_k(x)=k\bigl(F(x+\tfrac1k)-F(x)\bigr)$
-are continuous and $g_k(x)\to f(x)$ for $x\notin Z$; by Theorem~\ref{t:meas-closed@c12},
-$f\in M[a,b]$.
+$F'(x)=f(x)$ off a null set $Z$; extend $F$ by $F(x):=F(b)$ for $x>b$. The difference quotients
+$g_k(x)=k\bigl(F(x+\tfrac1k)-F(x)\bigr)$ are continuous on $[a,b]$ and $g_k(x)\to f(x)$ for
+$x\notin Z\cup\set b$; by Theorem~\ref{t:meas-closed@c12}, $f\in M[a,b]$.
 \end{proof}
 
 The converse fails ($g(x)=1/x$ is measurable but not in $\R^*[0,1]$); the precise statement is:
@@ -22589,17 +22618,20 @@ $\alpha(x)\le f(x)\le v(x)$ a.e. If moreover $\alpha$ or $v$ is in $L[a,b]$, the
 \end{theorem}
 \begin{proof}[Proof idea]
 ($\Leftarrow$) Take step functions $s_k\to f$ a.e.\ and truncate, $\sigma_k:=\operatorname{mid}
-\set{\alpha,s_k,v}$ (the middle value), so $\alpha\le\sigma_k\le v$ and $\sigma_k\to f$ a.e.; each
-$\sigma_k\in\R^*$ by Theorem~\ref{t:lattice@c12}/10.2.8, and the DCT (dominators $\alpha,v$) gives
-$f\in\R^*$. ($\imp$) trivial: $\alpha=v=f$. The $L$-conclusion is Theorem~\ref{t:onesided@c12}.
+\set{\alpha,s_k,v}$ (the middle value), so $\alpha\le\sigma_k\le v$ and $\sigma_k\to f$ a.e. If
+$\alpha,v\in L[a,b]$, each $\sigma_k=\max\set{\alpha,\min\set{s_k,v}}$ is in $L$ by
+Theorem~\ref{t:lattice@c12}, and the DCT (dominators $\alpha,v$) gives $f\in\R^*$. In general,
+$\alpha$ is measurable (Theorem~\ref{t:int-meas@c12}), so this case applies to $f-\alpha\in M[a,b]$,
+squeezed between $0$ and $v-\alpha$, which lies in $L$ since it is in $\R^*$ and $\ge0$ a.e.; hence
+$f=\alpha+(f-\alpha)\in\R^*$. ($\imp$) trivial: $\alpha=v=f$. The $L$-conclusion is
+Theorem~\ref{t:onesided@c12}.
 \end{proof}
 
 \begin{remark}
 This closes the loop. The generalized integrable functions are exactly the measurable functions
-trapped between two integrable ones --- a clean ``two-sided boundedness'' criterion. As a famous
-analyst put it: ``No one ever calculates a Lebesgue integral; instead one calculates Riemann
-integrals and takes limits.'' The convergence theorems above are precisely the licence to take
-those limits.
+trapped between two integrable ones --- a clean ``two-sided boundedness'' criterion. In practice one
+rarely calculates a Lebesgue integral directly; instead one calculates Riemann integrals and takes
+limits. The convergence theorems above are precisely the licence to take those limits.
 \end{remark}
 
 \subsection*{Further worked examples}
@@ -22608,7 +22640,7 @@ those limits.
 \begin{tikzpicture}[scale=1.0]
   \begin{axis}[
       width=12cm,height=5.2cm,axis lines=middle,xlabel=$x$,ylabel=$y$,
-      xtick=\empty,ytick=\empty,xmin=-0.1,xmax=6.3,ymin=-1.5,ymax=1.7,
+      xtick=\empty,ytick=\empty,xmin=-0.1,xmax=6.3,ymin=-1.5,ymax=1.95,
       clip=false,enlargelimits=false]
     % dominating envelope +/- w
     \addplot[curve,dashed,domain=0:6,samples=120]{1.45*exp(-0.3*x)};
@@ -22616,8 +22648,8 @@ those limits.
     % a couple of f_k oscillating but trapped inside the envelope
     \addplot[curve,domain=0:6,samples=200]{1.1*exp(-0.3*x)*sin(deg(2.2*x))};
     \addplot[curve,domain=0:6,samples=200]{0.7*exp(-0.3*x)*sin(deg(4.5*x))};
-    \node[font=\footnotesize] at (axis cs:5.4,0.9){$+w$};
-    \node[font=\footnotesize] at (axis cs:5.4,-0.9){$-w$};
+    \node[font=\footnotesize] at (axis cs:5.3,0.52){$+w$};
+    \node[font=\footnotesize] at (axis cs:5.3,-0.52){$-w$};
     \node[font=\footnotesize] at (axis cs:2.0,1.35){$f_k$ trapped: $\abs{f_k}\le w$};
   \end{axis}
 \end{tikzpicture}\captionof{figure}{Dominated Convergence: every $f_k$ lies inside the fixed integrable envelope
@@ -22640,9 +22672,9 @@ uniform, since $\sup_x f_k=1$ for all $k$). But each bump has area
 \]
 so $\lim_k\int_0^\infty f_k=1\ne0=\int_0^\infty(\lim_k f_k)$. The \emph{domination} hypothesis
 fails: any $w$ with $\abs{f_k}\le w$ for all $k$ must satisfy $w(x)\ge1$ on $[k,k+1)$ for every
-$k$, hence $w\ge1$ on $[0,\infty)$, and $\int_0^\infty w=\infty$, so no \emph{integrable}
+$k$, hence $w\ge1$ on $[1,\infty)$, and $\int_0^\infty w=\infty$, so no \emph{integrable}
 dominator exists. \emph{Lesson.} Mass can ``escape to infinity'' under mere pointwise (even
-uniform) convergence; only an integrable envelope $w\in L$ prevents it. \emph{Check.} The
+uniform) convergence; an integrable envelope $w\in L$ prevents it. \emph{Check.} The
 companion Caution (the spreading plateau $f_k=\tfrac1k\mathbf 1_{[0,k]}$) fails the same way,
 confirming the obstruction is escaping mass, not the bump's height. \checkmark
 \end{wex}
@@ -22653,16 +22685,17 @@ bounded truncations and applying the MCT.
 \wrec Trigger: an unbounded $f\ge0$ presented as $f_k\uparrow f$; use Monotone Convergence
 (Theorem~\ref{t:mct@c12}) rather than a gauge estimate.
 \wsol Let $f(x)=x^{-1/2}$ on $(0,1]$, $f(0):=0$, and truncate: $f_k(x):=\min\set{f(x),k}$. Each
-$f_k$ is bounded and continuous off the single point where $f(x)=k$ (namely $x=1/k^2$), hence
-$f_k\in\R^*[0,1]$; and $f_k(x)\uparrow f(x)$ for every $x$ (truncation level rising). The
+$f_k$ is bounded and continuous except at the single point $x=0$ (where $f_k(0)=0$, while $f_k=k$
+on $(0,1/k^2]$), hence $f_k\in\R^*[0,1]$; and $f_k(x)\uparrow f(x)$ for every $x$ (truncation level rising). The
 integrals satisfy, for $k$ with $1/k^2\le1$,
 \[
   \int_0^1 f_k=\int_0^{1/k^2}k\dx+\int_{1/k^2}^1 x^{-1/2}\dx
   =k\cdot\tfrac1{k^2}+\bigl[2\sqrt x\bigr]_{1/k^2}^1=\tfrac1k+\bigl(2-\tfrac2k\bigr)=2-\tfrac1k,
 \]
 which is increasing and bounded above by $2$. By MCT, $f\in\R^*[0,1]$ and $\int_0^1 f=\sup_k
-\int_0^1 f_k=\lim_k(2-\tfrac1k)=2$. \emph{Check.} Matches the FTC and Hake computations of
-\S\ref{t:ftc1@c12} and \S\ref{d:hake@c12}; here the boundedness of each $f_k$ makes every step an ordinary
+\int_0^1 f_k=\lim_k(2-\tfrac1k)=2$. \emph{Check.} Matches the FTC computation in the worked example
+following Theorem~\ref{t:ftc1@c12} and the Hake computation of Worked
+Example~\ref{wex:hake-sqrt@c12}; here the boundedness of each $f_k$ makes every step an ordinary
 Riemann integral, and the MCT supplies the passage to the unbounded limit. \checkmark
 \end{wex}
 
@@ -22684,17 +22717,17 @@ Riemann integral, and the MCT supplies the passage to the unbounded limit. \chec
 \item Let $\seq{f_k}$ on $[a,b]$ with each $f_k$ differentiable, $f_k'(x)\to g(x)$, and
   $\abs{f_k'(x)}\le K$ for all $x\in[a,b]$. Show that the sequence $\seq{f_k(x)}$ either converges for
   all $x\in[a,b]$ or diverges for all $x\in[a,b]$.
-\item If $f_k$ are the functions of Example 10.4.6(a), show $\sup\set{f_k}$ does not belong to
-  $\R^*[0,\infty)$.
+\item Let $f_k:=\tfrac1k\mathbf 1_{[0,k]}$ be the functions of the Caution after
+  Theorem~\ref{t:dct@c12}. Show $\sup\set{f_k}$ does not belong to $\R^*[0,\infty)$.
 \item Show directly that $\int_0^\infty e^{-tx}\dx=1/t$ and $\int_0^\infty xe^{-tx}\dx=1/t^2$ for
-  $t>0$, confirming Examples 10.4.6(d,e) when $f(x):=1$.
-\item Use the differentiation formula in 10.4.6(f) to obtain
+  $t>0$, confirming B\&S Examples 10.4.6(d,e) when $f(x):=1$.
+\item Use the differentiation formula in Worked Example~\ref{wex:dirichlet-value@c12} to obtain
   $\int_0^\infty e^{-tx}\sin x\dx=1/(t^2+1)$.
 \item For $t>0$ define $E(t):=\int_0^\infty\dfrac{e^{-tx}\sin x}{x}\dx$. (a) Show $E$ exists and is
   continuous for $t>a>0$, and $E(t)\to0$ as $t\to\infty$. (b) Since
   $\abs{\partial_t(e^{-tx}\sin x/x)}\le e^{-ax}$ for $t\ge a>0$, show $E'(t)=-1/(t^2+1)$ for $t>0$.
   (c) Deduce $E(t)=\tfrac12\pi-\arctan t$ for $t>0$. (d) Explain why we cannot use (c) to obtain
-  equation (12).
+  the value $\int_0^\infty\frac{\sin x}{x}\dx=\frac\pi2$ of Worked Example~\ref{wex:dirichlet-value@c12}.
 \item (Gaussian integral.) Establish $\int_0^\infty e^{-x^2}\dx=\tfrac12\sqrt\pi$ as follows. (a) Let
   $G(t):=\int_0^1\dfrac{e^{-t^2(x^2+1)}}{x^2+1}\dx$ for $t\ge0$. Since the integrand is dominated by
   $1/(x^2+1)$, $G$ is continuous on $[0,\infty)$, $G(0)=\arctan1=\tfrac14\pi$, and (by Dominated
@@ -22738,7 +22771,7 @@ Riemann integral, and the MCT supplies the passage to the unbounded limit. \chec
   $\sup_k\int_a^b f_k<\infty$. State precisely what the Monotone Convergence Theorem concludes about
   $f$ and $\int_a^b f$, and apply it to $f_k(x)=1-(1-x)^k$ on $[0,1]$.
 \item (DCT.) Suppose $f_k\to f$ a.e.\ on $[a,b]$ and $\abs{f_k}\le g$ with $g\in L[a,b]$. Show
-  $f\in L[a,b]$ and $\int_a^b f_k\to\int_a^b f$. Apply it to $f_k(x)=\dfrac{\cos(kx)}{1+x^2}$ on
+  $f\in L[a,b]$ and $\int_a^b f_k\to\int_a^b f$. Apply it to $f_k(x)=\dfrac{\cos(x/k)}{1+x^2}$ on
   $[0,1]$.
 \item (Non-example: no domination.) Let $f_k(x)=k$ on $(0,1/k)$ and $0$ elsewhere on $[0,1]$. Show
   $f_k\to0$ pointwise but $\int_0^1 f_k=1\not\to0$. Identify which hypothesis of the DCT fails, and
@@ -22750,12 +22783,12 @@ Riemann integral, and the MCT supplies the passage to the unbounded limit. \chec
 \item (Differentiation under the integral.) Using the Leibniz rule justified by the DCT
   (Theorem~\ref{t:dct@c12}), compute $\dfrac{d}{dt}\int_0^1 e^{-tx}\dx$ for $t>0$ in two ways and check
   they agree.
-\item (Diagram.) Sketch the "travelling spike" $f_k(x)=k\,\mathbf 1_{(1/k,2/k)}(x)$ for $k=2,4,8$ on
+\item (Diagram.) Sketch the ``travelling spike'' $f_k(x)=k\,\mathbf 1_{(1/k,2/k)}(x)$ for $k=2,4,8$ on
   $[0,1]$. Shade each spike, note each has area $1$, and explain visually why pointwise convergence to
   $0$ coexists with $\int f_k=1$, the canonical failure of interchange without domination.
 \item (Measure via integrals.) For $E\subseteq[a,b]$ measurable with $m(E)=\int_a^b\mathbf 1_E$, use
   the Monotone Convergence Theorem to prove countable additivity: for pairwise disjoint measurable
-  $C_k$, $m\bigl(\bigcup_k C_k\bigr)=\sum_k m(C_k)$. (This is the bridge from \S10.4 to Lebesgue
+  $C_k$, $m\bigl(\bigcup_k C_k\bigr)=\sum_k m(C_k)$. (This is the bridge from \S12.5 to Lebesgue
   measure.)
 \end{exers}
 
