@@ -37437,7 +37437,7 @@ Concretely there are nonzero $\omega_1,\omega_2\in\C$ with
 \]
 Such an $f$ is called \emph{doubly periodic}. The interesting case is when $\omega_1$ and
 $\omega_2$ are linearly independent over $\R$, i.e.\ $\tau:=\omega_2/\omega_1\notin\R$. (If
-the ratio were real the function collapses to a singly periodic or constant one --- see the
+the ratio were real the function would collapse to a singly periodic or constant one --- see the
 exercises.) Of $\tau$ and $1/\tau$ exactly one has positive imaginary part, so after possibly
 swapping $\omega_1\leftrightarrow\omega_2$ we may assume $\Im(\tau)>0$.
 
@@ -37450,8 +37450,8 @@ $\Im(\tau)>0$. Iterating periodicity gives
 \end{equation}
 
 The normalization $F(z)=f(\omega_1 z)$ is the composite of $f$ with multiplication by
-$\omega_1$, and it carries the period lattice $\Lambda_{\omega_1,\omega_2}=\Z\omega_1+\Z\omega_2$
-onto the normalized lattice $\Lambda=\Z+\Z\tau$.
+$\omega_1$, which carries the normalized lattice $\Lambda=\Z+\Z\tau$ onto the period lattice
+$\Lambda_{\omega_1,\omega_2}=\Z\omega_1+\Z\omega_2$.
 
 \begin{center}
 \begin{tikzcd}[row sep=large, column sep=large]
@@ -37563,7 +37563,7 @@ An entire doubly periodic function is constant.
 By Proposition~\ref{p:tiling@c22}(iv), $f$ is determined by its values on $P_0$, whose closure
 $\overline{P_0}$ is compact. A continuous (here holomorphic, hence continuous) function on a
 compact set is bounded, so $f$ is bounded on all of $\C$. By Liouville's theorem
-(Chapter~2) $f$ is constant.
+(Corollary~\ref{c:liouville@c15}) $f$ is constant.
 \end{proof}
 
 This is precisely why we insist on \emph{meromorphic} $f$: to get something nonconstant we
@@ -37580,8 +37580,9 @@ structural backbone, and the proof technique --- integrating around $\partial P_
 cancelling opposite sides by periodicity --- recurs constantly.
 
 \begin{method}{Cancelling an integral over $\partial P_0$ by periodicity}
-\emph{Recognition trigger.} You integrate a $\Lambda$-periodic integrand $g$ (such as $f$,
-$f'/f$, or $zf'/f$) over the boundary of a period parallelogram and want the value.
+\emph{Recognition trigger.} You integrate a $\Lambda$-periodic integrand $g$ (such as $f$ or
+$f'/f$; but not $zf'/f$, which is not periodic) over the boundary of a period parallelogram and
+want the value.
 \begin{enumerate}
 \item Split $\partial P_0$ into the four sides: $0\to1$, $1\to1+\tau$, $1+\tau\to\tau$,
 $\tau\to0$ (positively oriented).
@@ -37612,7 +37613,7 @@ $P_0$ slightly first to clear them.
   \node[font=\scriptsize,fill=white,inner sep=1pt,anchor=east] at (0.18,0.5){$\tau\to0$};
 \end{tikzpicture}
 \captionof{figure}{The boundary $\partial P_0$ of the fundamental parallelogram, positively
-(counterclockwise) oriented into the four edges. For a $\Lambda$-periodic integrand the side
+(counterclockwise) oriented and split into its four edges. For a $\Lambda$-periodic integrand the side
 $0\to1$ cancels $1{+}\tau\to\tau$, and $1\to1{+}\tau$ cancels $\tau\to0$, so the contour
 integral vanishes. (Schematic.)}
 \end{center}
@@ -37631,8 +37632,10 @@ sides cancel, e.g.
   =\int_0^1 f(z)\dz+\int_1^0 f(s+\tau)\,\dd s
   =\int_0^1 f(z)\dz-\int_0^1 f(s)\,\dd s=0,
 \]
-and similarly for the other pair. Hence $\sum\Res f=0$. If $f$ had a single simple pole its
-residue would be its only residue and would have to vanish --- impossible for a simple pole.
+and similarly for the other pair. Hence $\sum\Res f=0$. Now $f$ has at least one pole, since
+otherwise it would be entire, hence constant (Theorem~\ref{t:entire-const@c22}). If $f$ had a
+single simple pole its residue would be its only residue and would have to vanish ---
+impossible for a simple pole.
 So $f$ has $\ge2$ poles (counted with multiplicity). If a pole lies on $\partial P_0$,
 translate to $P=h+P_0$ with no poles on $\partial P$ and argue there.
 \end{proof}
@@ -37694,8 +37697,8 @@ where pairing $\pm n$ makes the bracket $O(1/n^2)$; or
   F(z)=\frac1z+\sum_{n\ne0}\Bigl(\frac{1}{z+n}-\frac1n\Bigr),
 \]
 where the subtracted $1/n$ makes each term $O(1/n^2)$. Both give the same meromorphic
-function, in fact $F(z)=\pi\cot\pi z$ (Chapter~5). For the doubly periodic case we mimic the
-\emph{second} cure on the square of the lattice sum.
+function, in fact $F(z)=\pi\cot\pi z$ (Theorem~\ref{t:cot@c18}). For the doubly periodic case
+we mimic the \emph{second} cure on the square of the lattice sum.
 
 \begin{lemma}\label{l:conv@c22}
 For $\Lambda^*=\Lambda\setminus\set0$ the two series
@@ -37716,7 +37719,7 @@ converge if and only if $r>2$.
 Summing over $n\ne0$ (plus the $n=0$ slice, a convergent $\sum 1/|m|^r$) gives a finite total
 when $r>2$. \emph{Second series.} It suffices to find $c>0$ with $|n|+|m|\le c\,|n+m\tau|$ for
 all integers $n,m$; then the second sum is dominated by a constant times the first. Writing
-$\tau=s+it$ ($t>0$), with $A,B>0$ one has $(A^2+B^2)^{1/2}\approx A+B$ (since
+$\tau=s+it$ ($t>0$), with $A,B\ge0$ one has $(A^2+B^2)^{1/2}\approx A+B$ (since
 $A,B\le(A^2+B^2)^{1/2}\le A+B$), so
 \[
   |n+m\tau|=[(n+ms)^2+(mt)^2]^{1/2}\approx |n+ms|+|m\,t|\approx |n+ms|+|m|\approx |n|+|m|,
@@ -37728,8 +37731,9 @@ $r=2$ (see the exercises).
 
 \begin{remark}
 The estimate shows that for $r>2$ the series $\sum|n+m\tau|^{-r}$ converges \emph{uniformly}
-in every half-plane $\Im(\tau)\ge\delta>0$. This uniformity is what later makes Eisenstein
-series holomorphic in $\tau$.
+on every region $\set{\Im(\tau)\ge\delta,\ \abs{\Re\tau}\le M}$ with $\delta,M>0$ (the constant
+$c$ can be chosen uniformly there), hence locally uniformly on $\HH$. This uniformity is what
+later makes Eisenstein series holomorphic in $\tau$.
 \end{remark}
 
 \begin{definition}\label{d:weier@c22}
@@ -37778,16 +37782,18 @@ order $2$.
 \begin{center}
 \begin{tikzpicture}
   \begin{axis}[width=9cm,height=5.8cm,view={40}{26},
-    xlabel={\footnotesize$x$},ylabel={\footnotesize$y$},zlabel={\footnotesize$|\weier|$},
+    xlabel={\footnotesize$x$},ylabel={\footnotesize$y$},zlabel={\footnotesize$|z|^{-2}$},
     ticks=none,colormap/blackwhite,zmin=0,zmax=30,
     restrict z to domain*=0:30,unbounded coords=jump]
     \addplot3[surf,domain=-0.9:0.9,y domain=-0.9:0.9,samples=45,samples y=45,shader=interp]
       {1/((x*x+y*y)+0.01)};
   \end{axis}
 \end{tikzpicture}
-\captionof{figure}{Modulus surface $|\weier(z)|$ over a neighborhood of a lattice point: the
-double pole at the origin spikes to $+\infty$ like $1/|z|^2$. Height is clipped at a finite
-level for display. (Schematic.)}
+\captionof{figure}{Schematic of the double pole of $\weier$ at the lattice point $0$. Only the
+principal part is drawn: the surface is $|z|^{-2}$ (regularized at $0$ and clipped at a finite
+height). Close to the pole $|\weier(z)|$ looks like this, since $\weier(z)=z^{-2}+O(z^2)$; the
+other lattice terms, which make $|\weier|$ blow up again at the neighboring lattice points,
+are not drawn.}
 \end{center}
 
 \subsection*{Structure: the differential equation and universality}
@@ -37857,8 +37863,8 @@ Every even elliptic function $F$ with periods $1,\tau$ is a rational function of
 \end{lemma}
 
 \begin{proof}
-A zero or pole of $F$ at the origin is of even order (evenness), so for some integer $m$ the
-function $F\weier^m$ has no zero/pole on $\Lambda$; we may assume $F$ itself has none on
+A zero or pole of $F$ at the origin is of even order (evenness), so for some integer $k$ the
+function $F\weier^k$ has no zero/pole on $\Lambda$; we may assume $F$ itself has none on
 $\Lambda$. Recall $\weier(z)-\weier(a)$ has a double zero if $a$ is a half-period and two
 simple zeros at $\pm a$ otherwise. If $a$ is a zero of $F$ so is $-a$; and $a\sim -a$ exactly
 when $a$ is a half-period (then the zero has even order). So listing the zeros (with
@@ -37889,8 +37895,8 @@ finishes the job (Lemma~\ref{l:even-rational@c22}).}
 \begin{proof}[Proof of Theorem~\ref{t:universal@c22}]
 Split $f=f_{\mathrm{even}}+f_{\mathrm{odd}}$ with
 $f_{\mathrm{even}}(z)=\tfrac12[f(z)+f(-z)]$ and $f_{\mathrm{odd}}(z)=\tfrac12[f(z)-f(-z)]$.
-Both are elliptic. Now $f_{\mathrm{odd}}/\weier'$ is \emph{even} (odd over odd), so by
-Lemma~\ref{l:even-rational@c22} both $f_{\mathrm{even}}$ and $f_{\mathrm{odd}}/\weier'$ are
+Both are elliptic or constant. Now $f_{\mathrm{odd}}/\weier'$ is \emph{even} (odd over odd), so
+by Lemma~\ref{l:even-rational@c22} both $f_{\mathrm{even}}$ and $f_{\mathrm{odd}}/\weier'$ are
 rational in $\weier$. Therefore $f=f_{\mathrm{even}}+\weier'\cdot(f_{\mathrm{odd}}/\weier')$ is
 rational in $\weier$ and $\weier'$.
 \end{proof}
@@ -37907,7 +37913,9 @@ $\weier'$, then by continuity everywhere) to get
 \]
 \emph{Check.} Near $z=0$, $\weier=z^{-2}+\cdots$ gives $\weier''=6z^{-4}+\cdots$ and
 $6\weier^2=6z^{-4}+\cdots$ --- top orders match. \emph{Non-example:} $\weier''$ is \emph{not}
-a polynomial in $\weier'$ alone, since $\weier'$ is odd while $\weier''$ is even.
+a polynomial in $\weier'$ alone: a polynomial of degree $d\ge1$ in $\weier'$ has a pole of order
+$3d$ at $0$, never $4$, and $\weier''$ is not constant. (Parity alone does not decide this, since
+an even polynomial in $\weier'$, such as $(\weier')^2$, is even.)
 \end{wex}
 
 \begin{wex}{A rational reduction of an even elliptic function}
@@ -37917,8 +37925,8 @@ $e_j$.
 Lemma~\ref{l:even-rational@c22}. Use the differential equation.
 \wsol By Corollary~\ref{c:diffeq@c22}, $(\weier')^2=4\weier^3-g_2\weier-g_3$ --- a degree-$3$
 polynomial in $\weier$. \emph{Check.} This agrees with the factored
-$4(\weier-e_1)(\weier-e_2)(\weier-e_3)$ of Theorem~\ref{t:cubic@c22} once $g_2=4(e_1e_2+e_2e_3+e_3e_1)\cdot(-1)$
-and $g_3=4e_1e_2e_3$ are identified by expanding (using $e_1+e_2+e_3=0$). \emph{Pole order:}
+$4(\weier-e_1)(\weier-e_2)(\weier-e_3)$ of Theorem~\ref{t:cubic@c22} once
+$g_2=-4(e_1e_2+e_2e_3+e_3e_1)$ and $g_3=4e_1e_2e_3$ are identified by expanding (using $e_1+e_2+e_3=0$). \emph{Pole order:}
 both sides have a pole of order $6$ at lattice points, consistent.
 \end{wex}
 
@@ -37926,7 +37934,8 @@ both sides have a pole of order $6$ at lattice points, consistent.
 The subtraction of $1/\omega^2$ in $\weier$ is not optional bookkeeping --- the raw sum
 $\sum 1/(z+\omega)^2$ \emph{diverges} (it is the $r=2$ borderline case of
 Lemma~\ref{l:conv@c22}). It is also why double-periodicity of $\weier$ is not visible by
-inspection: the correction terms $-1/\omega^2$ are not themselves periodic. Periodicity is
+inspection: the shift $z\mapsto z+1$ (or $z\mapsto z+\tau$) permutes the terms
+$1/(z+\omega)^2$ but not the correction terms $-1/\omega^2$ paired with them. Periodicity is
 recovered only after differentiating (which kills the correction) or by the careful
 rearrangement in the exercises.
 \end{pitfall}
@@ -37935,7 +37944,7 @@ rearrangement in the exercises.
 
 The structural theorems above (residue sum zero, equal zero/pole count, order $\ge2$) are best
 absorbed by computing. The examples below also exercise the surrounding machinery of
-Chapters~2--3 --- residues, the argument principle, contour integrals --- so the elliptic
+Chapters~15--16 --- residues, the argument principle, contour integrals --- so the elliptic
 theory sits inside the wider toolkit rather than apart from it.
 
 \begin{wex}{The residue sum is zero, verified on a two-pole model}
@@ -37950,8 +37959,9 @@ $\ci_{\partial P_0}f\dz=2\pi i(\Res_{z=a}f+\Res_{z=b}f)=2\pi i(r+s)$. \emph{Way 
 on each pair the substitution $z\mapsto z+(\text{period})$ and $f(z+\omega)=f(z)$ make the two
 integrals exact negatives, so $\ci_{\partial P_0}f\dz=0$. Equating, $2\pi i(r+s)=0$, hence
 $r+s=0$. \emph{Check.} This is exactly Theorem~\ref{t:two-poles@c22}; the simplest concrete
-realization is $f(z)=\weier'(z)/(\weier(z)-\weier(a))$, whose two simple poles at $\pm a$ carry
-opposite residues $+1$ and $-1$.
+realization is $f(z)=\weier'(a)/(\weier(z)-\weier(a))$ with $2a\notin\Lambda$, whose two
+simple poles at $\pm a$ carry opposite residues $+1$ and $-1$ (as $\weier'(-a)=-\weier'(a)$),
+while the double pole of $\weier$ at $0$ becomes a double zero of $f$.
 \end{wex}
 
 \begin{wex}{Counting solutions of $\weier(z)=5$}
@@ -37965,8 +37975,8 @@ roots are $\{z_0,-z_0\}$, distinct. They coincide (a double root) precisely when
 -z_0$, i.e.\ $z_0$ is a half-period $\tfrac12,\tfrac\tau2,\tfrac{1+\tau}2$ --- and there
 $\weier(z_0)=e_1,e_2,e_3$ respectively. So $\weier=5$ has a double root iff $5\in\{e_1,e_2,e_3\}$.
 \emph{Check.} For $c=e_1$ the equation $\weier=e_1$ has its double root at $z=\tfrac12$ where
-$\weier'(\tfrac12)=0$ (a critical value), consistent with the chain rule forcing a repeated
-root exactly at critical points.
+$\weier'(\tfrac12)=0$ (a critical value), consistent with the fact that a root $z_0$ of
+$\weier-c$ is repeated exactly when $\weier'(z_0)=0$.
 \end{wex}
 
 \begin{wex}{An order-3 example and its zeros}
@@ -37979,7 +37989,7 @@ pole; use oddness to find zeros.
 $3$ zeros in $P_0$. Oddness plus periodicity gives $\weier'=0$ at the three half-periods
 $\tfrac12,\tfrac\tau2,\tfrac{1+\tau}2$ (shown in the text), each simple, accounting for all
 $3$. \emph{Check.} $3$ poles (one triple) $=3$ zeros (three simple), matching
-$N_z=N_p$; and the three zeros are exactly the branch points of the cubic
+$N_z=N_p$; and $\weier$ sends the three zeros to the three roots $e_1,e_2,e_3$ of the cubic in
 $(\weier')^2=4\prod(\weier-e_j)$.
 \end{wex}
 
@@ -37989,9 +37999,11 @@ Is $g(z)=1/\weier(z)$ entire? Decide and describe its singularities.
 $\weier$ become poles of $1/\weier$.
 \wsol No. $g$ is elliptic (reciprocal of an elliptic function), but it is \emph{not} entire:
 wherever $\weier(z)=0$, $g$ has a pole. Since $\weier$ has order $2$, $\weier(z)=0$ has exactly
-$2$ solutions $\pm z_0$ in $P_0$ (a generic value, so two simple zeros), giving $g$ two simple
-poles. Meanwhile the double poles of $\weier$ at lattice points become double \emph{zeros} of
-$g$. \emph{Check.} $g$ has order $2$ (two simple poles), consistent with
+$2$ solutions in $P_0$ counted with multiplicity: two simple zeros at $\pm z_0$ when
+$0\notin\set{e_1,e_2,e_3}$, or a double zero at a half-period when $0$ is one of the $e_j$
+(as happens for $\tau=i$). So $g$ has two simple poles or one double pole. Meanwhile the double
+poles of $\weier$ at lattice points become double \emph{zeros} of $g$. \emph{Check.} $g$ has
+order $2$ (two simple poles or one double pole), consistent with
 Theorem~\ref{t:two-poles@c22}; an entire doubly periodic function would be constant
 (Theorem~\ref{t:entire-const@c22}), and $g$ is visibly nonconstant, so it cannot be entire.
 \end{wex}
@@ -38022,7 +38034,7 @@ small circles vanish ($0<a<1$). Thus
 \]
 Dividing, $\int_0^\infty\frac{x^{a-1}}{1+x}\dx=\dfrac{2\pi i\,e^{i\pi(a-1)}}{1-e^{2\pi i(a-1)}}
 =\dfrac{\pi}{\sin\pi a}$. \emph{Check.} At $a=\tfrac12$ this is $\pi$, matching
-$\int_0^\infty\frac{dx}{\sqrt x(1+x)}=\pi$; the structural point is that, just as the keyhole
+$\int_0^\infty\frac{\dd x}{\sqrt x(1+x)}=\pi$; the structural point is that, just as the keyhole
 collects the single residue at $-1$, the lattice sum collects contributions one period at a
 time. \checkmark
 \end{wex}
@@ -38033,33 +38045,37 @@ Below, the contour used in the previous example.
 \begin{tikzpicture}[scale=1.25,line cap=round]
   % radii and the small vertical gap that opens the keyhole around the cut [0,infty)
   \def\Rout{2.4}\def\rin{0.42}\def\gp{0.14}
+  % angles at which the lines y=+-\gp meet the large and the small circle (both centered at 0)
+  \pgfmathsetmacro{\aout}{asin(\gp/\Rout)}\pgfmathsetmacro{\ain}{asin(\gp/\rin)}
   \draw[cxaxis] (-2.8,0)--(3.0,0) node[right]{$\Re z$};
   \draw[cxaxis] (0,-2.7)--(0,2.7) node[above]{$\Im z$};
   % the branch cut along the positive real axis
   \draw[ccut] (0,0)--(\Rout,0);
   % the keyhole as ONE oriented path: out above the cut -> big CCW circle
-  % -> back below the cut -> small CW circle, closing the loop.
+  % -> back below the cut -> small CW circle around the branch point 0, closing the loop.
   \draw[contour]
-        (\rin,\gp) -- ({\Rout*cos(3)},\gp)                 % above the cut, going out
-        arc[start angle=3,end angle=357,radius=\Rout]      % large circle, CCW
-        -- (\rin,-\gp)                                      % below the cut, coming back
-        arc[start angle=-200,end angle=20,radius=\rin];     % small circle, CW
+        ({\rin*cos(\ain)},\gp) -- ({\Rout*cos(\aout)},\gp)         % above the cut, going out
+        arc[start angle=\aout,end angle=360-\aout,radius=\Rout]     % large circle, CCW
+        -- ({\rin*cos(\ain)},-\gp)                                  % below the cut, coming back
+        arc[start angle=-\ain,end angle=-360+\ain,radius=\rin]      % small circle, CW
+        -- cycle;
   % the pole
   \node[pole] at (-1,0){};
   \node[font=\footnotesize,below=2pt] at (-1,0){$-1$};
-  % labels, kept clear of the curves with white backing
-  \node[font=\footnotesize,fill=white,inner sep=1pt] at (-1.05,1.95){large circle $\to0$};
+  % labels, kept clear of the curves
+  \node[font=\footnotesize] at (-1.3,2.62){large circle $\to0$};
   \node[font=\footnotesize,fill=white,inner sep=1pt,anchor=west] at (1.0,0.34){above cut};
   \node[font=\footnotesize,fill=white,inner sep=1pt,anchor=west] at (1.0,-0.34){below cut};
   \node[font=\footnotesize,fill=white,inner sep=1pt,anchor=west] at (0.55,-0.95){small circle $\to0$};
-  \draw[-{Stealth[length=1.6mm]},black!60,line width=0.5pt] (0.9,-0.9)--(0.18,-0.3);
+  \draw[-{Stealth[length=1.6mm]},black!60,line width=0.5pt] (0.62,-0.82)--(0.25,-0.42);
 \end{tikzpicture}
 \captionof{figure}{Keyhole contour around the cut $[0,\infty)$ for $z^{a-1}/(1+z)$; only the
 pole at $z=-1$ contributes. (Schematic.)}
 \end{center}
 
 \begin{wex}{The pole-counting integral as a winding number}
-Let $f$ be elliptic of order $m$ and $c$ a value not attained on $\partial P_0$. Interpret
+Let $f$ be elliptic of order $m$ with no poles on $\partial P_0$, and $c$ a value not attained on
+$\partial P_0$. Interpret
 $\dfrac{1}{2\pi i}\ci_{\partial P_0}\dfrac{f'(z)}{f(z)-c}\dz$ and evaluate it.
 \wrec Trigger: the argument principle applied to $f-c$. Periodicity kills the boundary
 integral.
@@ -38097,10 +38113,10 @@ dense in $\R$ when $\tau$ is irrational and $m,n$ range over $\Z$.]
 
 \item Let $a_1,\dots,a_r$ and $b_1,\dots,b_r$ be the zeros and poles (in $P_0$, with
 multiplicity) of an elliptic function $f$. Show that
-$a_1+\cdots+a_r-b_1-\cdots-b_r=n\omega_1+m\omega_2$ for some integers $n,m$. [Hint: if the
+$a_1+\cdots+a_r-b_1-\cdots-b_r=n+m\tau$ for some integers $n,m$. [Hint: if the
 boundary has no zeros/poles, integrate $z\,f'(z)/f(z)$ over $\partial P_0$ and note the
-integral of $f'/f$ over a side is an integer multiple of $2\pi i$; otherwise translate the
-side slightly.]
+integral of $f'/f$ over a side is an integer multiple of $2\pi i$; otherwise translate $P_0$
+slightly.]
 
 \item By rearranging the series
 $\frac{1}{z^2}+\sum_{\omega\in\Lambda^*}\bigl(\frac{1}{(z+\omega)^2}-\frac{1}{\omega^2}\bigr)$,
@@ -38125,12 +38141,13 @@ not a lattice point.
 \end{exers}
 
 \begin{exers}{Problems (Stein, Ch.9).}
-\item Besides the approach of \S2, there are several ways to handle $\sum 1/(z+\omega)^2$
-($\omega=n+m\tau$): (a) circularly, (b) first in $n$ then in $m$, (c) first in $m$ then in $n$.
+\item Besides the approach of Definition~\ref{d:weier@c22}, there are several ways to handle
+$\sum 1/(z+\omega)^2$ ($\omega=n+m\tau$): (a) circularly, (b) first in $n$ then in $m$, (c) first in $m$ then in $n$.
 (a) Prove that for $z\notin\Lambda$, $\lim_{R\to\infty}\sum_{n^2+m^2\le R^2}(z+n+m\tau)^{-2}
 =S_1(z)$ exists and $S_1(z)=\weier(z)+c_1$.
 (b) Prove $S_2(z)=\sum_m\bigl(\sum_n(z+n+m\tau)^{-2}\bigr)$ exists and
-$S_2(z)=\weier(z)+c_2$, where $c_2=F(\tau)$, the forbidden Eisenstein series.
+$S_2(z)=\weier(z)+c_2$, where $c_2=F(\tau)$, the forbidden Eisenstein series
+(Corollary~\ref{c:forbidden@c22}).
 (c) Prove $S_3(z)=\sum_n\bigl(\sum_m(z+n+m\tau)^{-2}\bigr)$ exists with
 $S_3(z)=\weier(z)+c_3$, $c_3=\widetilde F(\tau)$, the reverse of $F$.
 [Hint for (a): show $\lim_{R\to\infty}\sum_{1\le n^2+m^2\le R^2}(n+m\tau)^{-2}=c_1$ exists by
@@ -38149,27 +38166,30 @@ prove $\bigl(I(\weier(z+\alpha))\bigr)'=\pm1$ and use that $\weier$ is even.]
 to its unique congruent point in $P_0=\set{a+bi:0\le a,b<1}$. State the integers $n,m$ used.
 
 \item (Even/odd values.) Using only that $\weier$ is even and $\weier'$ is odd and both are
-$1$-periodic, prove $\weier'\bigl(\tfrac{1+\tau}{2}\bigr)=0$.
+$\Lambda$-periodic (periods $1$ and $\tau$), prove $\weier'\bigl(\tfrac{1+\tau}{2}\bigr)=0$.
 
 \item (Residue sum.) An elliptic $f$ of order $3$ has, in $P_0$, a simple pole at $a$ with
 residue $2$ and a double pole at $b$. Show the residue of $f$ at $b$ must be $-2$, and state
 how many zeros $f$ has in $P_0$.
 
 \item (Order of a quotient.) Let $f,g$ be elliptic with periods $1,\tau$ of orders $m_f$ and
-$m_g$. Show $fg$ and $f/g$ are elliptic and bound their orders. Give an example where the
-order of $f/g$ is strictly less than $m_f+m_g$.
+$m_g$. Show $fg$ and $f/g$ are doubly periodic and meromorphic (so elliptic unless constant)
+and bound their orders. Give an example where the order of $f/g$ is strictly less than
+$m_f+m_g$.
 
-\item (Building from $\weier$.) Show that $\weier(z)-\weier(a)$, for $a$ a non-half-period in
-$P_0$, is an order-$2$ elliptic function with exactly the two simple zeros $a$ and $-a$ in
-$P_0$. What changes when $a$ is a half-period?
+\item (Building from $\weier$.) Show that $\weier(z)-\weier(a)$, for $a\in P_0$, $a\ne0$, not a
+half-period, is an order-$2$ elliptic function with exactly two zeros in $P_0$, both simple: $a$
+and the point of $P_0$ congruent to $-a$. What changes when $a$ is a half-period?
 
 \item (Non-example.) Decide whether $h(z)=\weier(z)+\weier'(z)$ is even, odd, or neither, and
 whether it can be written as a rational function of $\weier$ alone. Justify using parity.
 
 \item (Diagram problem.) On a copy of the fundamental parallelogram for $\tau=0.3+i$, mark the
 lattice point (double pole of $\weier$) and the three half-periods (zeros of $\weier'$). Then
-sketch the oriented boundary $\partial P_0$ and indicate which pairs of sides cancel in the
-$\int_{\partial P_0}\weier'/\weier=0$ argument.
+sketch the oriented boundary of a slightly translated parallelogram $P=P_0+h$, chosen so that no
+zero or pole of $\weier$ lies on $\partial P$ (the pole at the vertex $0$ lies on
+$\partial P_0$), and indicate which pairs of sides cancel in the
+$\int_{\partial P}\weier'/\weier=0$ argument.
 
 \item (Differential equation check.) Assuming $(\weier')^2=4\weier^3-g_2\weier-g_3$,
 differentiate to express $\weier'''$ in terms of $\weier$ and $\weier'$, and verify the parity
@@ -38226,17 +38246,13 @@ and $S$. The cleanest example is the Eisenstein series.
 \begin{center}
 \begin{tikzpicture}[scale=1.5]
   % upper half plane with fundamental domain of modular group
-  \fill[band] (-0.5,0) -- (-0.5,2.3) -- (0.5,2.3) -- (0.5,0) -- cycle;
-  \begin{scope}
-    \clip (-0.5,0) rectangle (0.5,2.3);
-    \fill[white] (0,0) circle (1);
-  \end{scope}
+  \fill[band] (-0.5,2.3) -- (-0.5,{sqrt(3)/2}) arc (120:60:1) -- (0.5,2.3) -- cycle;
   \draw[cxaxis] (-2.1,0)--(2.1,0) node[right]{$\Re\tau$};
   \draw[cxaxis] (0,-0.1)--(0,2.4) node[above]{$\Im\tau$};
   \draw[line width=0.8pt] (-0.5,2.3)--(-0.5,{sqrt(3)/2});
   \draw[line width=0.8pt] (0.5,2.3)--(0.5,{sqrt(3)/2});
   \draw[line width=0.8pt] (-0.5,{sqrt(3)/2}) arc (120:60:1);
-  \node[font=\footnotesize] at (0,1.5){$\mathcal{F}$};
+  \node[font=\footnotesize] at (0.25,1.5){$\mathcal{F}$};
   \node[pt] at (-0.5,{sqrt(3)/2}){}; \node[pt] at (0.5,{sqrt(3)/2}){};
   \draw[-{Stealth[length=1.8mm]}] (0.7,0.5) arc (0:60:0.7);
   \node[font=\footnotesize] at (1.05,0.35){$S:\tau\mapsto-1/\tau$};
@@ -38244,7 +38260,8 @@ and $S$. The cleanest example is the Eisenstein series.
   \node[font=\footnotesize,below] at (0.5,0){$\tfrac12$};
 \end{tikzpicture}
 \captionof{figure}{The standard fundamental domain $\mathcal F$ in $\HH$ for the modular
-group; $T$ shifts by $1$, $S$ inverts across the unit circle.}
+group; $T$ shifts by $1$, and $S$ is inversion in the unit circle followed by reflection in the
+imaginary axis.}
 \end{center}
 
 \subsection*{Eisenstein series}
@@ -38269,8 +38286,8 @@ by the factor $\tau^{-k}$ under $S$.
 
 \begin{proof}
 (i) By Lemma~\ref{l:conv@c22} and the remark after it, the series converges absolutely and
-uniformly in $\Im\tau\ge\delta>0$ for $k\ge3$; a locally uniform limit of holomorphic
-functions is holomorphic, so $E_k\in\Hol(\HH)$. (ii) Replacing $(n,m)$ by $(-n,-m)$ negates
+uniformly on each region $\Im\tau\ge\delta>0$, $\abs{\Re\tau}\le M$, for $k\ge3$; a locally
+uniform limit of holomorphic functions is holomorphic, so $E_k\in\Hol(\HH)$. (ii) Replacing $(n,m)$ by $(-n,-m)$ negates
 each $\omega$, multiplying every term by $(-1)^k=-1$ when $k$ is odd; the sum equals its own
 negative, hence $0$. (iii) For $T$: $n+m(\tau+1)=(n+m)+m\tau$, and $(n,m)\mapsto(n+m,m)$ is a
 bijection of $\Z^2\setminus0$, so the sum is unchanged. For $S$: with $\tau\mapsto-1/\tau$,
@@ -38288,7 +38305,10 @@ Show $E_3(\tau)=0$ by pairing lattice points, and explain why the argument fails
 $\frac{1}{\omega^3}+\frac{1}{(-\omega)^3}=\frac{1}{\omega^3}-\frac{1}{\omega^3}=0$. Every term
 cancels with its partner ($\omega=0$ is excluded), so $E_3\equiv0$; same for any odd $k$.
 \emph{Check / non-example:} for $k=4$, $\frac{1}{\omega^4}+\frac{1}{(-\omega)^4}
-=\frac{2}{\omega^4}\ne0$ --- the pairing \emph{reinforces} rather than cancels, so $E_4\ne0$.
+=\frac{2}{\omega^4}\ne0$ --- the pairing \emph{reinforces} rather than cancels, so it proves
+nothing for $E_4$. That $E_4\not\equiv0$ follows from $E_4(\tau)\to2\zeta(4)\ne0$ as
+$\Im\tau\to\infty$ (Theorem~\ref{t:eisen-q@c22}); individual values can still vanish, e.g.\
+$E_4(e^{2\pi i/3})=0$.
 \end{wex}
 
 \begin{wex}{The transformation factor under $S$, checked on a partial sum}
@@ -38301,8 +38321,9 @@ $\tau^{-k}(n\tau-m)^k$. Setting $n'=-m$, $m'=n$ we have $n\tau-m=m'\tau+n'$, i.e
 $\tau^{-k}(n'+m'\tau)^k$ reindexed. The map $(n,m)\mapsto(n',m')=(-m,n)$ is the rotation
 matrix $\left(\begin{smallmatrix}0&-1\\1&0\end{smallmatrix}\right)$, a bijection of
 $\Z^2\setminus0$. \emph{Check.} The lattice point $\omega=1$ ($n,m=1,0$) maps to $(0,1)$,
-i.e.\ $\tau$; geometrically $S$ rotates the lattice by $90^\circ$ and rescales, consistent
-with $\weier_{-1/\tau}(z)=\tau^2\weier_\tau(\tau z)$.
+i.e.\ $\tau$. Geometrically the index map is a $90^\circ$ rotation of $\Z^2$, while $S$ replaces
+the lattice itself by the rotated and rescaled lattice $\Lambda_{-1/\tau}=\tau^{-1}\Lambda_\tau$,
+consistent with $\weier_{-1/\tau}(z)=\tau^2\weier_\tau(\tau z)$.
 \end{wex}
 
 \subsection*{The Laurent expansion of $\weier$ and the differential equation}
@@ -38374,8 +38395,8 @@ polynomials in $w=\weier$ agree: $4w^3-g_2w-g_3=4(w-e_1)(w-e_2)(w-e_3)$. The rig
 expands to $4w^3-4(\sum e_j)w^2+4(\sum_{i<j}e_ie_j)w-4e_1e_2e_3$. Matching the $w^2$
 coefficient: $-4(e_1+e_2+e_3)=0$, so $e_1+e_2+e_3=0$. Matching $w^1$ and $w^0$:
 $g_2=-4\sum_{i<j}e_ie_j$ and $g_3=4e_1e_2e_3$. \emph{Check.} With $\sum e_j=0$ we also get
-$\sum_{i<j}e_ie_j=-\tfrac12\sum e_j^2\le0$, so $g_2=2\sum e_j^2\ge0$, as expected for a real
-lattice.
+$\sum_{i<j}e_ie_j=-\tfrac12\sum e_j^2$, so $g_2=2\sum e_j^2$; in particular $g_2\ge0$ when the
+$e_j$ are real (e.g.\ for a rectangular lattice, $\tau\in i\R$).
 \end{wex}
 
 \subsection*{Eisenstein series and divisor functions}
@@ -38406,9 +38427,9 @@ For $k\ge2$ and $\Im\tau>0$,
 \end{lemma}
 
 \begin{proof}
-Apply Poisson summation to $f(z)=1/(z+\tau)^k$ (Chapter~4, Exercise~7). Alternatively, prove
-$k=2$ and differentiate. Differentiating the cotangent formula
-$\sum_{n}\frac{1}{n+\tau}=\pi\cot\pi\tau$ (Chapter~5) gives
+Apply Poisson summation (Theorem~\ref{t:poisson@c17}) to $f(z)=1/(z+\tau)^k$ (Stein, Ch.4,
+Exercise~7). Alternatively, prove $k=2$ and differentiate. Differentiating the cotangent formula
+$\sum_{n}\frac{1}{n+\tau}=\pi\cot\pi\tau$ (Theorem~\ref{t:cot@c18}) gives
 \[
   \sum_{n=-\infty}^{\infty}\frac{1}{(n+\tau)^2}=\frac{\pi^2}{\sin^2(\pi\tau)}.
 \]
@@ -38457,7 +38478,12 @@ when summed first in $m$ then in $n$.
 \begin{proof}
 The same computation as Theorem~\ref{t:eisen-q@c22} applies once we fix the order of summation;
 $2(-1)(2\pi)^2/1!=-8\pi^2$ gives the coefficient. The failure of the modular factor reflects
-the non-absolute convergence of the $k=2$ series, so order of summation matters.
+the non-absolute convergence of the $k=2$ series, so order of summation matters. Concretely,
+the relabelling in the proof of Theorem~\ref{t:eisen-props@c22}(iii) shows that
+$\tau^{-2}F(-1/\tau)$ is the series summed first in $m$ then in $n$. At $\tau=i$ (where
+$-1/\tau=\tau$ and $\tau^{-2}=-1$) this is $-F(i)$, whereas
+$F(i)=\tfrac{\pi^2}{3}-8\pi^2\sum_{r\ge1}\sigma(r)e^{-2\pi r}>0$, because $\sigma(r)\le r^2$
+keeps the sum below $1/24$. So the two orders of summation give different values.
 \end{proof}
 
 \begin{wex}{Euler's $\zeta(2)$ from the half-period}
@@ -38465,9 +38491,10 @@ Set $\tau=1/2$ in $\sum_m(m+\tau)^{-2}=\pi^2/\sin^2(\pi\tau)$ to deduce
 $\sum_{m\ge1}1/m^2=\zeta(2)=\pi^2/6$.
 \wrec Trigger: extract a special value of $\zeta$ from the cotangent-derivative identity.
 Evaluate at the symmetric point $\tau=1/2$.
-\wsol At $\tau=1/2$, $\sin^2(\pi/2)=1$, so $\sum_{m\in\Z}(m+\tfrac12)^{-2}=\pi^2$. The left
-side is $\sum_{m\ge1,\,\text{odd}}\frac{4}{m^2}\cdot$ (reindexing $m+\tfrac12=\tfrac{2m+1}{2}$),
-i.e.\ $\sum_{j\ \text{odd}}\frac{4}{j^2}=\pi^2$, so $\sum_{j\ \text{odd}}1/j^2=\pi^2/8$. Then
+\wsol At $\tau=1/2$, $\sin^2(\pi/2)=1$, so $\sum_{m\in\Z}(m+\tfrac12)^{-2}=\pi^2$. Since
+$m+\tfrac12=\tfrac{2m+1}{2}$, the left side is $\sum_{m\in\Z}\frac{4}{(2m+1)^2}$, and $2m+1$ runs
+over all odd integers, each odd $j\ge1$ occurring twice (as $\pm j$). So
+$8\sum_{j\ge1\ \text{odd}}1/j^2=\pi^2$, i.e.\ $\sum_{j\ge1\ \text{odd}}1/j^2=\pi^2/8$. Then
 \[
   \sum_{m\ge1}\frac1{m^2}=\sum_{\text{odd}}\frac1{j^2}+\sum_{\text{even}}\frac1{(2k)^2}
   =\frac{\pi^2}{8}+\frac14\sum_{m\ge1}\frac1{m^2},
@@ -38510,7 +38537,7 @@ $|E_4-\pi^4/45|\le ce^{-2\pi t}$ for $t=\Im\tau\ge1$.
     \foreach \r in {0.45,0.9}{ \draw[conff] (0,0) circle (\r); }
     \node[zero] at (0,0){};
     % the center q=0 (the cusp), labelled below-left of the marker
-    \node[font=\footnotesize,anchor=north east] at (-0.06,-0.08){$q=0$};
+    \node[font=\footnotesize,anchor=north east,fill=white,inner sep=1pt] at (-0.06,-0.08){$q=0$};
     % the cusp Im tau -> infinity sits at q=0, indicated by an arrow toward the centre
     \draw[-{Stealth[length=1.6mm]},black!60,line width=0.5pt] (1.15,-0.7)--(0.12,-0.06);
     \node[font=\footnotesize,anchor=west] at (1.05,-0.85){$\Im\tau\!\to\!\infty$};
@@ -38519,7 +38546,8 @@ $|E_4-\pi^4/45|\le ce^{-2\pi t}$ for $t=\Im\tau\ge1$.
   \end{scope}
 \end{tikzpicture}
 \captionof{figure}{$\tau\mapsto q=e^{2\pi i\tau}$ sends the period strip to the punctured
-unit disc; $\Im\tau\to\infty$ is the cusp $q\to0$, where $E_k\to2\zeta(k)$. (Schematic.)}
+unit disc; $\Im\tau\to\infty$ is the cusp $q\to0$, where $E_k\to2\zeta(k)$ ($k\ge4$ even).
+(Schematic.)}
 \end{center}
 
 \begin{pitfall}
@@ -38547,8 +38575,10 @@ $S:\tau\mapsto-1/\tau$.
 $ST\tau_0=S(2i+1)=-1/(2i+1)=-\tfrac{1-2i}{(1)^2+(2)^2}=\tfrac{-1+2i}{5}$;
 $TS\tau_0=T(i/2)=1+i/2$. Membership in $\mathcal F$: $\tau_0=2i$ has $\Re=0$ and $|\tau_0|=2\ge1$,
 so $\tau_0\in\mathcal F$. $S\tau_0=i/2$ has $|i/2|=\tfrac12<1$, outside $\mathcal F$ (it is the
-$S$-image of $\tau_0$, reflected inside the unit circle). \emph{Check.} $S$ is an involution,
-$S(S\tau_0)=S(i/2)=-1/(i/2)=2i=\tau_0$, confirming $S^2=\mathrm{id}$ in $\mathrm{PSL}_2(\Z)$.
+$S$-image of $\tau_0$, reflected inside the unit circle). The other three are outside too:
+$T\tau_0=1+2i$ and $TS\tau_0=1+i/2$ have real part $1>\tfrac12$, and
+$|ST\tau_0|=1/\sqrt5<1$. So none of the four images lies in $\mathcal F$; only $\tau_0$ itself
+does. \emph{Check.} $S$ is an involution, $S(S\tau_0)=S(i/2)=-1/(i/2)=2i=\tau_0$, confirming $S^2=\mathrm{id}$ in $\mathrm{PSL}_2(\Z)$.
 \end{wex}
 
 \begin{wex}{The scaling law $\weier_{-1/\tau}(z)=\tau^2\weier_\tau(\tau z)$, checked on poles}
@@ -38565,12 +38595,13 @@ $\weier_\tau(\tau z)\sim\dfrac{1}{(\tau(z-\omega'))^2}=\dfrac{1}{\tau^2(z-\omega
 $\tau^2\weier_\tau(\tau z)\sim\dfrac{1}{(z-\omega')^2}$, matching the principal part of
 $\weier_{-1/\tau}$. \emph{Check.} Both sides are even, elliptic of order $2$ for the lattice
 $\Lambda_{-1/\tau}$, and agree in principal part, so their difference is entire and doubly
-periodic, hence constant; evaluating the even parts at a half-period shows the constant is $0$.
+periodic, hence constant; comparing Laurent expansions at $z=0$, where both sides are
+$z^{-2}+O(z^2)$ with no constant term, shows the constant is $0$.
 \end{wex}
 
 \begin{wex}{$E_4$ and $E_6$ at the cusp}
-Find $\lim_{\Im\tau\to\infty}E_6(\tau)$ and the first $q$-correction, then form the
-$j$-numerator combination $g_2^3$ at the cusp where $g_2=60E_4,\ g_3=140E_6$.
+Find $\lim_{\Im\tau\to\infty}E_6(\tau)$ and the first $q$-correction, then form $g_2^3$ and the
+discriminant $g_2^3-27g_3^2$ at the cusp, where $g_2=60E_4,\ g_3=140E_6$.
 \wrec Trigger: read constant and $q^1$ coefficients from Theorem~\ref{t:eisen-q@c22} for $k=6$.
 \wsol For $k=6$: $(-1)^{3}=-1$, $(2\pi)^6=64\pi^6$, $(k-1)!=120$, $\zeta(6)=\pi^6/945$, so
 \[
@@ -38578,29 +38609,33 @@ $j$-numerator combination $g_2^3$ at the cusp where $g_2=60E_4,\ g_3=140E_6$.
   =\frac{2\pi^6}{945}-\frac{16\pi^6}{15}\bigl(q+33q^2+\cdots\bigr),
 \]
 using $\sigma_5(1)=1,\ \sigma_5(2)=1+32=33$. As $\Im\tau\to\infty$, $q\to0$, so
-$E_6\to2\zeta(6)=\pi^6/945$. At the cusp $g_2=60E_4\to60\cdot\tfrac{\pi^4}{45}=\tfrac{4\pi^4}{3}$
-and $g_3=140E_6\to140\cdot\tfrac{\pi^6}{945}=\tfrac{4\pi^6}{27}$; the discriminant
-$g_2^3-27g_3^2\to(\tfrac{4\pi^4}{3})^3-27(\tfrac{4\pi^6}{27})^2=\tfrac{64\pi^{12}}{27}
--27\cdot\tfrac{16\pi^{12}}{729}=\tfrac{64\pi^{12}}{27}-\tfrac{16\pi^{12}}{27}
-=\tfrac{48\pi^{12}}{27}\ne0$. \emph{Check.} The discriminant being nonzero at the cusp is the
-condition that the cubic $4w^3-g_2w-g_3$ has distinct roots $e_1,e_2,e_3$ --- exactly the
-distinctness proved geometrically in Section~1.
+$E_6\to2\zeta(6)=2\pi^6/945$. At the cusp $g_2=60E_4\to60\cdot\tfrac{\pi^4}{45}=\tfrac{4\pi^4}{3}$,
+so $g_2^3\to\tfrac{64\pi^{12}}{27}$, and $g_3=140E_6\to140\cdot\tfrac{2\pi^6}{945}=\tfrac{8\pi^6}{27}$;
+the discriminant
+$g_2^3-27g_3^2\to(\tfrac{4\pi^4}{3})^3-27(\tfrac{8\pi^6}{27})^2=\tfrac{64\pi^{12}}{27}
+-27\cdot\tfrac{64\pi^{12}}{729}=\tfrac{64\pi^{12}}{27}-\tfrac{64\pi^{12}}{27}=0$.
+\emph{Check.} For each $\tau\in\HH$ the cubic $4w^3-g_2w-g_3$ has the distinct roots
+$e_1,e_2,e_3$ (Section~22.1), so its discriminant is nonzero; at the cusp two roots merge, and
+indeed the limiting cubic is $4w^3-\tfrac{4\pi^4}{3}w-\tfrac{8\pi^6}{27}
+=4\bigl(w-\tfrac{2\pi^2}{3}\bigr)\bigl(w+\tfrac{\pi^2}{3}\bigr)^2$, with a double root.
 \end{wex}
 
 \begin{wex}{A residue computation behind Lemma~\ref{l:cot@c22}}
 Derive $\sum_{n\in\Z}\dfrac{1}{(n+\tau)^2}=\dfrac{\pi^2}{\sin^2\pi\tau}$ from the residues of
-$\pi\cot\pi z$, making the Chapter-5 step explicit.
+$\pi\cot\pi z$, making explicit the step via the cotangent formula (Theorem~\ref{t:cot@c18}).
 \wrec Trigger: a Mittag-Leffler / residue-summation identity. Use that $\pi\cot\pi z$ has simple
 poles at integers with residue $1$.
 \wsol The function $g(z)=\pi\cot\pi z$ has simple poles at each $n\in\Z$ with
-$\Res_{z=n}g=1$. Hence $\dfrac{d}{dz}\bigl[\pi\cot\pi z\bigr]=-\pi^2/\sin^2\pi z$ has at each
-integer $n$ a double pole with principal part $-1/(z-n)^2$. Comparing with the convergent sum
-$\sum_n 1/(z-n)^2$, which has the same double poles and is likewise bounded
-at $\infty$ in horizontal strips, the two differ by a bounded entire (hence constant, in fact
-zero) function: $\sum_n\dfrac{1}{(z-n)^2}=\dfrac{\pi^2}{\sin^2\pi z}$. Replace $z$ by $-\tau$ (or
-$\tau$, even sum) to get the stated identity. \emph{Check.} Take real $\tau\to\tfrac12$: the
-right side is $\pi^2/\sin^2(\pi/2)=\pi^2$, while the left is $\sum_n(n+\tfrac12)^{-2}=\pi^2$ as
-computed in the $\zeta(2)$ example above, so the two sides agree at a clean test value.
+$\Res_{z=n}g=1$. Hence $\pi^2/\sin^2\pi z=-\dfrac{d}{dz}\bigl[\pi\cot\pi z\bigr]$ has at each
+integer $n$ a double pole with principal part $1/(z-n)^2$. The convergent sum
+$\sum_n 1/(z-n)^2$ has the same principal parts, and both functions are $1$-periodic and tend
+to $0$ as $\abs{\Im z}\to\infty$; so their difference is a bounded entire function (hence
+constant) tending to $0$, i.e.\ zero: $\sum_n\dfrac{1}{(z-n)^2}=\dfrac{\pi^2}{\sin^2\pi z}$.
+Replace $z$ by $-\tau$ (or $\tau$, even sum) to get the stated identity. \emph{Check.} Take
+real $\tau\to\tfrac12$: the right side is $\pi^2/\sin^2(\pi/2)=\pi^2$, while the left is
+$\sum_n(n+\tfrac12)^{-2}=8\sum_{j\ge1\ \text{odd}}j^{-2}=8\cdot\tfrac34\zeta(2)=\pi^2$ by Euler's
+value $\zeta(2)=\pi^2/6$ (obtained independently in Chapter~19 from the residues of
+$\pi\cot\pi z/z^2$), so the two sides agree at a clean test value.
 \end{wex}
 
 \begin{wex}{$\zeta(4)$ from the $k=4$ cusp value}
@@ -38625,9 +38660,10 @@ $S$ is legitimate and gives $E_k(-1/\tau)=\tau^k E_k(\tau)$. At $k=2$ the series
 conditionally convergent (Lemma~\ref{l:conv@c22} fails at $r=2$), so the reindexing is not allowed;
 the actual repaired sum $F$ satisfies $F(-1/\tau)=\tau^2 F(\tau)-2\pi i\tau$, an
 \emph{inhomogeneous} (``quasimodular'') law. So a genuine weight-$2$ modular Eisenstein series
-does not exist. \emph{Check.} The anomaly term $-2\pi i\tau$ is exactly the order-of-summation
-discrepancy $\widetilde F-F$ of Corollary~\ref{c:forbidden@c22}, and it vanishes only formally; it is
-what makes the four-squares application work after a careful subtraction.
+does not exist. \emph{Check.} The anomaly term $-2\pi i\tau$ is exactly $\tau^2(\widetilde F-F)$,
+i.e.\ $\tau^2$ times the order-of-summation discrepancy of Corollary~\ref{c:forbidden@c22}
+(since $F(-1/\tau)=\tau^2\widetilde F(\tau)$), and it vanishes only formally; it is what makes
+the four-squares application work after a careful subtraction.
 \end{wex}
 
 \begin{wex}{Reading $\sigma_3(r)$ off the $E_4$ expansion}
@@ -38645,11 +38681,11 @@ $240\cdot28=6720$. \emph{Check.} $\sigma_3$ is multiplicative, $\sigma_3(6)=\sig
 
 \begin{center}
 \begin{tikzpicture}[scale=1.35]
-  % Tessellation of the upper half-plane: F and its T, S, TS images (schematic)
+  % Tessellation of the upper half-plane: F and its T, T^{-1}, S images (schematic)
   \draw[cxaxis] (-2.4,0)--(2.4,0) node[right]{$\Re\tau$};
   \draw[cxaxis] (0,-0.1)--(0,2.6) node[above]{$\Im\tau$};
-  % fundamental domain F
-  \fill[band] (-0.5,{sqrt(3)/2}) -- (-0.5,2.4) -- (0.5,2.4) -- (0.5,{sqrt(3)/2}) -- cycle;
+  % fundamental domain F (bounded below by the arc of the unit circle)
+  \fill[band] (-0.5,2.4) -- (-0.5,{sqrt(3)/2}) arc (120:60:1) -- (0.5,2.4) -- cycle;
   \draw[line width=0.7pt] (-0.5,2.4)--(-0.5,{sqrt(3)/2});
   \draw[line width=0.7pt] (0.5,2.4)--(0.5,{sqrt(3)/2});
   \draw[line width=0.7pt] (-0.5,{sqrt(3)/2}) arc (120:60:1);
@@ -38659,11 +38695,12 @@ $240\cdot28=6720$. \emph{Check.} $\sigma_3$ is multiplicative, $\sigma_3(6)=\sig
   \draw[conff] (-0.5,2.4)--(-0.5,{sqrt(3)/2}) arc (60:120:1)--(-1.5,2.4);
   \node[font=\footnotesize] at (1.0,1.55){$T\mathcal F$};
   \node[font=\footnotesize] at (-1.0,1.55){$T^{-1}\mathcal F$};
-  % S image: small region near unit semicircle
-  \draw[conff] (0,1) arc (90:30:1);
-  \draw[conff] (0,1) arc (90:150:1);
-  \node[font=\footnotesize] at (0,0.72){$S\mathcal F$};
-  \draw[dgrid] (0,0) circle (1);
+  % S image: the region with vertices e^{2 pi i/3}, e^{pi i/3} and the cusp 0, bounded by the
+  % arc of F and the arcs |tau+1|=1, |tau-1|=1 (the S-images of the two vertical sides of F)
+  \draw[conff] (-0.5,{sqrt(3)/2}) arc (60:0:1);
+  \draw[conff] (0.5,{sqrt(3)/2}) arc (120:180:1);
+  \node[font=\footnotesize,fill=white,inner sep=1pt] at (0,0.78){$S\mathcal F$};
+  \draw[dgrid] (1,0) arc (0:180:1);
   \node[pt] at (0,1){};
   \node[font=\footnotesize,below] at (-0.5,0){$-\tfrac12$};
   \node[font=\footnotesize,below] at (0.5,0){$\tfrac12$};
@@ -38685,10 +38722,12 @@ $\sigma_3(r)\le r^4$.
   \le C\,e^{-2\pi t}\quad(t\ge1),
 \]
 since the geometric-type series $\sum r^4 x^r$ converges for $x=e^{-2\pi t}<1$ and is
-$O(x)$ as $x\to0$. At $t=1$, $|q|=e^{-2\pi}\approx1.87\times10^{-3}$, so the first correction is
-already at the $10^{-3}$ level relative to the constant. \emph{Check.} Doubling $t$ to $2$
-squares the smallness to $|q|\approx3.5\times10^{-6}$ --- the convergence is genuinely
-exponential in $\Im\tau$, which is why the cusp value $2\zeta(k)$ dominates high in $\HH$.
+$O(x)$ as $x\to0$. At $t=1$, $|q|=e^{-2\pi}\approx1.87\times10^{-3}$, so the $q$-series
+converges very fast; but because of the large normalizing factor $240$ of the previous
+example, the first correction is still $240|q|\approx0.45$ times the constant:
+$E_4(i)\approx3.15$, while $\pi^4/45\approx2.16$. \emph{Check.} Doubling $t$ to $2$ squares
+the smallness to $|q|\approx3.5\times10^{-6}$ (so $240|q|\approx8\times10^{-4}$) --- the
+convergence is genuinely exponential in $\Im\tau$, which is why the cusp value $2\zeta(k)$ dominates high in $\HH$.
 \end{wex}
 
 \begin{center}
@@ -38702,8 +38741,9 @@ exponential in $\Im\tau$, which is why the cusp value $2\zeta(k)$ dominates high
     \addplot[only marks,mark=*,mark size=1.2pt] coordinates {(0,1) (0.25,0.208) (0.5,0.043) (1,0.0019)};
   \end{axis}
 \end{tikzpicture}
-\captionof{figure}{Exponential decay of $|q|=e^{-2\pi\Im\tau}$. By $\Im\tau=1$ the
-$q$-corrections to $E_k$ are already below $2\times10^{-3}$, so $E_k(\tau)\approx2\zeta(k)$.}
+\captionof{figure}{Exponential decay of $|q|=e^{-2\pi\Im\tau}$. By $\Im\tau=1$ already
+$|q|<2\times10^{-3}$, so the $q$-series of $E_k$ converges very fast there, and
+$E_k(\tau)\to2\zeta(k)$ ($k\ge4$ even) exponentially fast as $\Im\tau\to\infty$.}
 \end{center}
 
 \begin{exers}{Exercises (Stein, Ch.9).}
@@ -38731,7 +38771,7 @@ $\tau=it$ and $0<t\le1$.
 \begin{exers}{Problems (Stein, Ch.9).}
 \item Show that
 $\weier(z)=c+\pi^2\sum_{m=-\infty}^{\infty}\frac{1}{\sin^2\bigl((z+m\tau)\pi\bigr)}$ for an
-appropriate constant $c$. In fact, by part (b) of Problem~1, $c=-F(\tau)$.
+appropriate constant $c$. In fact, by part (b) of Problem~1 of Section~22.1, $c=-F(\tau)$.
 
 \item$^{\star}$ Suppose $\tau$ is purely imaginary, $\tau=it$ with $t>0$. Divide the plane
 into congruent rectangles by the lines $x=n/2$, $y=tm/2$ ($n,m\in\Z$); an example is the
@@ -38748,8 +38788,9 @@ exhibiting the bijection of $\Z^2\setminus0$ that proves it. Which generator of 
 group does this correspond to?
 
 \item (Vanishing by parity.) Show $E_5(\tau)\equiv0$ and, more generally, $E_k\equiv0$ for
-every odd $k\ge3$, by pairing $\omega$ with $-\omega$. Explain why the same pairing makes
-$E_4>0$ when $\tau=i$.
+every odd $k\ge3$, by pairing $\omega$ with $-\omega$. Explain why the same pairing gives no
+cancellation for $E_4$, and show that $E_4(i)>0$. [Hint: Theorem~\ref{t:eisen-q@c22} with
+$q=e^{-2\pi}>0$.]
 
 \item (Constant term.) Using Theorem~\ref{t:eisen-q@c22}, compute $\lim_{\Im\tau\to\infty}E_6(\tau)$
 in closed form (in terms of $\zeta(6)=\pi^6/945$).
@@ -38767,12 +38808,13 @@ Why does this not contradict Theorem~\ref{t:eisen-props@c22}(iii)?
 \item (Diagram problem.) Sketch the standard fundamental domain $\mathcal F=\set{|\Re\tau|\le\tfrac12,\
 |\tau|\ge1}$ of the modular group in the upper half-plane, and show on the picture the images
 of $\mathcal F$ under $T:\tau\mapsto\tau+1$ and $S:\tau\mapsto-1/\tau$. Mark the cusp
-$\Im\tau\to\infty$ and the corner $\tau=i$.
+$\Im\tau\to\infty$, the corners $e^{\pi i/3}$ and $e^{2\pi i/3}$, and the point $\tau=i$ (fixed
+by $S$).
 
 \item (Conformal map of $\weier$.) For $\tau=i$ (so the lattice is square), the half-period
 rectangle has vertices $0,\tfrac12,\tfrac12+\tfrac i2,\tfrac i2$. Sketch this rectangle and,
-using Stein Problem~4, indicate where its boundary lands ($\weier$ real) and that the interior
-maps conformally onto a half-plane.
+using Problem~2 of the preceding list (Stein, Ch.9, Problem~4), indicate where its boundary
+lands ($\weier$ real) and that the interior maps conformally onto a half-plane.
 
 \item (Growth bound.) Using $E_4(\tau)=\tfrac{\pi^4}{45}+\tfrac{16\pi^4}{3}\sum_{r\ge1}\sigma_3(r)q^r$,
 prove $|E_4(\tau)-\tfrac{\pi^4}{45}|\le C e^{-2\pi t}$ for $\tau=x+it$, $t\ge1$, by bounding
