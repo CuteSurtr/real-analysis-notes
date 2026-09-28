@@ -6931,11 +6931,12 @@ $A_4=\set{1/n\st n\in\N}$; (e) $A_5=[0,1]\cap\Q$.
 neighborhoods and ask whether $A$ keeps showing up nearby (other than at $c$).
 \wsol (a) Every point of $[0,1]$ is a cluster point of $(0,1)$; in particular the endpoints
 $0,1$ are cluster points but lie outside $A_1$. (b) A finite set has no cluster points:
-choose $\delta$ smaller than the least gap. (c) $\N$ has none, for the same reason (gaps of
-size $1$). (d) The only cluster point of $A_4$ is $0$ --- which is \emph{not} in $A_4$ ---
-since every $1/n$ is isolated. (e) By density of $\Q$, every point of $[0,1]$ is a cluster
-point of $A_5$. \emph{Check.} ``cluster point'' is about accumulation, not membership ---
-(a),(d),(e) all have cluster points outside the set.
+choose $\delta$ smaller than the least distance from $c$ to a point of $A\setminus\set c$.
+(c) $\N$ has none, for the same reason (gaps of size $1$). (d) The only cluster point of
+$A_4$ is $0$ --- which is \emph{not} in $A_4$ --- since every $1/n$ is isolated. (e) By
+density of $\Q$, every point of $[0,1]$ is a cluster point of $A_5$. \emph{Check.} ``cluster
+point'' is about accumulation, not membership --- (a),(d),(e) all have cluster points
+outside the set.
 \end{wex}
 
 \subsection*{The $\eps$--$\delta$ definition of a limit}
@@ -6966,7 +6967,7 @@ is the whole content; shrink $\eps$ and you may be forced to shrink $\delta$.
     xtick={1.4},xticklabels={$c$},
     ytick={2.0},yticklabels={$L$},
     xmin=-0.2,xmax=4.2,ymin=-0.2,ymax=4.0,
-    clip=false,
+    clip=false,axis on top,
   ]
     % epsilon band (horizontal)
     \addplot[draw=none,fill=black!8,forget plot] coordinates {(-0.2,1.55)(4.2,1.55)(4.2,2.45)(-0.2,2.45)};
@@ -6974,6 +6975,8 @@ is the whole content; shrink $\eps$ and you may be forced to shrink $\delta$.
     \addplot[draw=none,fill=black!14,forget plot] coordinates {(1.1,-0.2)(1.7,-0.2)(1.7,4.0)(1.1,4.0)};
     % the function f(x) = 0.6 x + 1.16 (so f(1.4)=2)
     \addplot[curve,domain=-0.1:4.1,samples=2]{0.6*x+1.16};
+    % the deleted point (c,L): its value plays no role
+    \node[opt] at (axis cs:1.4,2.0) {};
     % L +/- eps labels
     \node[left,font=\footnotesize] at (axis cs:-0.05,2.45){$L{+}\eps$};
     \node[left,font=\footnotesize] at (axis cs:-0.05,1.55){$L{-}\eps$};
@@ -7016,7 +7019,7 @@ definition} (the value $L$ is given or guessed; ``using the definition of limit'
   then $\abs{f(x)-L}\le\dots<\eps$.''
 \end{enumerate}
 \textbf{Shortcut (Lipschitz bound).} If you can show $\abs{f(x)-L}\le K\abs{x-c}$ outright,
-take $\delta=\eps/K$ and skip the interval-shrinking (B\&S 4.1.8 Ex.~6).
+take $\delta=\eps/K$ and skip the interval-shrinking (B\&S Exercise 4.1.6).
 \end{method}
 
 \begin{wex}{The model affine limit $\lim_{x\to c}(mx+b)=mc+b$}
@@ -7083,7 +7086,7 @@ a sign jump, a $1/x$ blowup).
 \end{method}
 
 \begin{wex}{A non-example: $\lim_{x\to0}\sin(1/x)$ does not exist}
-Show $\operatorname{sgn}$-style oscillation kills the limit.
+Show that oscillation kills the limit.
 \wrec ``Show the limit does not exist''; two sequences route.
 \wsol Let $x_n=\dfrac1{n\pi}\to0$, so $\sin(1/x_n)=\sin(n\pi)=0\to0$. Let
 $y_n=\dfrac1{(2n+\frac12)\pi}\to0$, so $\sin(1/y_n)=\sin((2n+\tfrac12)\pi)=1\to1$. The two
@@ -7096,16 +7099,20 @@ radius $<1$ can trap the tail. \checkmark
 \begin{tikzpicture}
   \begin{axis}[
     width=11cm,height=5.2cm,
-    axis lines=middle,xlabel=$x$,ylabel=$y$,
-    xmin=-0.35,xmax=0.35,ymin=-1.4,ymax=1.4,
+    axis lines=left,xlabel=$x$,ylabel=$y$,
+    xmin=-0.4,xmax=0.4,ymin=-1.4,ymax=1.4,
     xtick={-0.3,-0.15,0,0.15,0.3},
-    ytick={-1,1},
-    samples=801,
+    ytick={-1,0,1},
+    samples=1201,
   ]
-    \addplot[curve,domain=0.012:0.34]{sin(deg(1/x))};
-    \addplot[curve,domain=-0.34:-0.012]{sin(deg(1/x))};
-    \draw[densely dashed] (axis cs:-0.35,1)--(axis cs:0.35,1);
-    \draw[densely dashed] (axis cs:-0.35,-1)--(axis cs:0.35,-1);
+    % the lines x=0 and y=0 (tick labels sit outside, clear of the dense oscillation)
+    \draw[thin] (axis cs:-0.4,0)--(axis cs:0.4,0);
+    \draw[thin] (axis cs:0,-1.4)--(axis cs:0,1.4);
+    % sampled uniformly in t=1/x, so that every oscillation is resolved
+    \addplot[curve,line join=round,variable=\t,domain=2.95:83]({1/\t},{sin(deg(\t))});
+    \addplot[curve,line join=round,variable=\t,domain=2.95:83]({-1/\t},{-sin(deg(\t))});
+    \draw[densely dashed] (axis cs:-0.4,1)--(axis cs:0.4,1);
+    \draw[densely dashed] (axis cs:-0.4,-1)--(axis cs:0.4,-1);
   \end{axis}
 \end{tikzpicture}
 \captionof{figure}{$f(x)=\sin(1/x)$ near $0$: ever-faster oscillation between $\pm1$. Along
@@ -7146,7 +7153,7 @@ with $f(c)$ equal to something other than $L$.
 If $f_1$ is the restriction of $f$ to an \emph{open} interval $I\ni c$, then $f$ and $f_1$
 have the same limit behaviour at $c$ (an open $I$ contains a full punctured neighborhood of
 $c$). For a one-sided restriction the implication is one-way: a two-sided limit forces each
-restricted limit, but agreeing restricted limits on \emph{just one side} need not give a
+restricted limit, but a restricted limit on \emph{just one side} need not give a
 two-sided limit. This subtlety is the topic of one-sided limits in \S5.2.
 \end{remark}
 
@@ -7164,7 +7171,7 @@ $x=8.3$, $\sqrt[3]{8.3}\approx2.0247$, and $\tfrac13\abs{8.3-8}=0.1$ indeed boun
 $0.0247$. \checkmark
 \end{wex}
 
-\begin{wex}{A non-example: a one-sided blowup defeats the two-sided limit}
+\begin{wex}{A non-example: a sign jump defeats the two-sided limit}
 Show $\displaystyle\lim_{x\to0}\frac{\abs x}{x}$ does not exist, via the sequential
 criterion.
 \wrec ``Show the limit does not exist'': route through two sequences approaching $0$ from
@@ -7291,11 +7298,11 @@ the sequential criterion and the corresponding sequence theorems.
 \end{proof}
 
 \begin{remark}[Two proofs, one fact]
-B\&S prove these via the \emph{sequential criterion} (Theorem~\ref{t:heine@c5}): take any
-$x_n\to c$, $x_n\neq c$; then $f(x_n)\to L$ and $g(x_n)\to M$, and the sequence limit
-theorems give $f(x_n)g(x_n)\to LM$, etc. Rudin gives the direct $\eps$--$\delta$ estimate
-above. The sequential route is shorter; the direct route shows \emph{which} $\delta$ works.
-Both are worth carrying.
+B\&S and Rudin (4.4) prove these via the \emph{sequential criterion}
+(Theorem~\ref{t:heine@c5}): take any $x_n\to c$, $x_n\neq c$; then $f(x_n)\to L$ and
+$g(x_n)\to M$, and the sequence limit theorems give $f(x_n)g(x_n)\to LM$, etc. The proof
+above gives the direct $\eps$--$\delta$ estimate instead. The sequential route is shorter;
+the direct route shows \emph{which} $\delta$ works. Both are worth carrying.
 \end{remark}
 
 \begin{theorem}[Squeeze theorem for functions]\label{t:squeeze@c5}
@@ -7305,8 +7312,8 @@ c}f=\lim_{x\to c}h=L$, then $\lim_{x\to c}g=L$.
 
 \begin{proof}
 Given $\eps>0$, choose $\delta$ so both $\abs{f-L}<\eps$ and $\abs{h-L}<\eps$ on the
-punctured $\delta$-neighborhood. There $L-\eps<f(x)\le g(x)\le h(x)<L+\eps$, hence
-$\abs{g(x)-L}<\eps$.
+punctured $\delta$-neighborhood, and so small that this neighborhood lies inside the given
+one. There $L-\eps<f(x)\le g(x)\le h(x)<L+\eps$, hence $\abs{g(x)-L}<\eps$.
 \end{proof}
 
 \begin{wex}{Rational evaluation by the limit theorems}
@@ -7326,7 +7333,8 @@ Suppose $f$ is bounded near $c$ and $\lim_{x\to c}g=0$. Show $\lim_{x\to c}fg=0$
 \wrec ``Product with one factor $\to0$, the other only bounded'' --- you cannot use the
 product law (the $f$-limit may not exist) so estimate directly.
 \wsol Let $\abs{f}\le K$ on a punctured neighborhood. Then $\abs{f(x)g(x)}\le K\abs{g(x)}$.
-Given $\eps>0$ choose $\delta$ with $\abs{g(x)}<\eps/K$; then $\abs{fg}<\eps$. So $fg\to0$.
+Given $\eps>0$ choose $\delta$ with $\abs{g(x)}<\eps/K$ on the punctured
+$\delta$-neighborhood, taken inside that one; then $\abs{fg}<\eps$ there. So $fg\to0$.
 \emph{Check.} With $f=\sin(1/x)$ (bounded, no limit at $0$) and $g=x$, this recovers
 $x\sin(1/x)\to0$. \checkmark
 \end{wex}
@@ -7412,7 +7420,7 @@ $1$. \checkmark
   \begin{axis}[
     width=8.4cm,height=5.0cm,
     axis lines=middle,xlabel=$x$,ylabel=$y$,
-    xmin=-2.2,xmax=2.2,ymin=-0.3,ymax=6.4,
+    xmin=-2.5,xmax=2.5,ymin=-0.3,ymax=6.4,
     xtick={-2,-1,1,2},ytick={2,4,6},
     samples=200,restrict y to domain=0:6.4,
   ]
@@ -7431,7 +7439,7 @@ $1$. \checkmark
     samples=120,
   ]
     \addplot[curve,domain=0.5:12]{1+2/x};
-    \draw[densely dashed] (axis cs:0,1)--(axis cs:12,1) node[right,font=\footnotesize]{$y=1$};
+    \draw[densely dashed] (axis cs:0,1)--(axis cs:12,1) node[below left,font=\footnotesize]{$y=1$};
   \end{axis}
 \end{tikzpicture}
 \captionof{figure}{Left: $1/x^2\to+\infty$ as $x\to0$ (vertical asymptote). Right:
@@ -7442,7 +7450,7 @@ $(x+2)/x=1+2/x\to1$ as $x\to\infty$ (horizontal asymptote).}
 ``$\lim f=+\infty$'' does not mean the limit \emph{exists} in $\R$ --- it is shorthand for
 unbounded escape, a kind of \emph{controlled} divergence. The arithmetic of $\pm\infty$ has
 forbidden forms: $\infty-\infty$, $0\cdot\infty$, $\infty/\infty$, $A/0$ are undefined
-(Rudin 4.34). E.g.\ $f=1/x$, $g=-1/x+1$ near $0^+$ both blow up but $f+g\to+\infty$ while
+(Rudin 4.34). E.g.\ $f=1/x$, $g=-1/x+1$ near $0^+$ both blow up but $f+g=1\to1$ while
 $f-(f)=0$; you must compute, not cancel infinities.
 \end{pitfall}
 
@@ -7610,7 +7618,7 @@ $f(x_n)\not\to f(c)$.
 \begin{wex}{Continuity of $\abs{\cdot}$ and of $\sqrt{\cdot}$}
 Show $x\mapsto\abs x$ is continuous on $\R$ and $x\mapsto\sqrt x$ is continuous on
 $[0,\infty)$.
-\wrec ``Show continuous everywhere''; use a clean Lipschitz/Holder-type bound.
+\wrec ``Show continuous everywhere''; use a clean Lipschitz/H\"older-type bound.
 \wsol Absolute value: the reverse triangle inequality gives
 $\big|\abs x-\abs c\big|\le\abs{x-c}$, so $\delta=\eps$ works at every $c$. Square root: for
 $x,c\ge0$, $\abs{\sqrt x-\sqrt c}=\dfrac{\abs{x-c}}{\sqrt x+\sqrt c}\le\dfrac{\abs{x-c}}{\sqrt
@@ -7678,8 +7686,9 @@ closed.
 \begin{pitfall}
 Statement (ii) is about \emph{pre-}images, not images. A continuous $f$ need \emph{not} send
 open sets to open sets, nor closed to closed: $f(x)=x^2$ maps the open $(-1,1)$ to $[0,1)$
-(not open) and $\sin$ maps the closed unbounded $\R$ to $[-1,1]$. ``Open pre-image'' is the
-right notion; ``open image'' is a different (open-map) property entirely.
+(not open) and $x\mapsto1/(1+x^2)$ maps the closed unbounded $\R$ to $(0,1]$ (not closed).
+``Open pre-image'' is the right notion; ``open image'' is a different (open-map) property
+entirely.
 \end{pitfall}
 
 \begin{center}
@@ -7687,23 +7696,24 @@ right notion; ``open image'' is a different (open-map) property entirely.
   % left: domain X with a delta-ball; right: codomain Y with eps-ball inside open G
   \draw[rounded corners] (-0.2,-1.6) rectangle (3.4,1.8);
   \node at (1.6,1.5) {\footnotesize $X$};
-  \fill[band] (1.2,0.0) circle (0.55);
-  \node[pt,label=below:{\footnotesize $p$}] at (1.2,0.0) {};
-  \draw (1.2,0.0) circle (0.55);
-  \node[font=\footnotesize] at (1.2,-0.95) {$B_\delta(p)$};
-  \node[font=\footnotesize] at (0.4,0.75) {$f\inv(G)$};
+  \draw[rounded corners,dashed] (0.1,-1.4) rectangle (3.0,1.1);
+  \node[font=\footnotesize] at (0.85,0.75) {$f\inv(G)$};
+  \fill[band] (1.5,-0.1) circle (0.55);
+  \node[pt,label=below:{\footnotesize $p$}] at (1.5,-0.1) {};
+  \draw (1.5,-0.1) circle (0.55);
+  \node[font=\footnotesize] at (1.5,-1.0) {$B_\delta(p)$};
   % codomain
   \begin{scope}[shift={(6.0,0)}]
     \draw[rounded corners] (-0.2,-1.6) rectangle (3.4,1.8);
     \node at (1.6,1.5) {\footnotesize $Y$};
-    \draw[rounded corners,dashed] (0.3,-1.1) rectangle (3.0,1.0);
-    \node[font=\footnotesize] at (2.5,-0.85) {$G$ open};
-    \fill[band] (1.4,0.0) circle (0.5);
+    \draw[rounded corners,dashed] (0.3,-1.4) rectangle (3.1,1.2);
+    \node[font=\footnotesize] at (2.35,-1.05) {$G$ open};
+    \fill[band] (1.4,0.0) circle (0.62);
     \node[pt,label=below:{\footnotesize $f(p)$}] at (1.4,0.0) {};
-    \draw (1.4,0.0) circle (0.5);
-    \node[font=\footnotesize] at (1.4,0.78) {$B_\eps(f(p))$};
+    \draw (1.4,0.0) circle (0.62);
+    \node[font=\footnotesize] at (1.4,0.9) {$B_\eps(f(p))$};
   \end{scope}
-  \draw[-{Stealth[length=2.2mm]}] (1.9,0.0) .. controls (3.6,1.2) and (4.4,1.2) .. (6.9,0.05);
+  \draw[-{Stealth[length=2.2mm]}] (2.15,-0.05) .. controls (3.6,1.2) and (4.4,1.2) .. (6.79,0.1);
   \node[font=\footnotesize] at (4.4,1.25) {$f$};
 \end{tikzpicture}
 \captionof{figure}{Continuity at $p$ $=$ every output ball $B_\eps(f(p))$ has an input ball
@@ -7713,8 +7723,9 @@ $B_\delta(p)$ mapping into it. Globally: the pre-image of an open $G$ is open.}
 \begin{remark}[Determined on a dense set]
 If $f,g:X\to Y$ are continuous and agree on a \emph{dense} subset $E\subseteq X$, then
 $f=g$ on all of $X$: for $p\in X$ take $x_n\to p$ with $x_n\in E$; then
-$f(p)=\lim f(x_n)=\lim g(x_n)=g(p)$. In particular $f(E)$ is dense in $f(X)$ (Rudin 4.4
-Ex.), and a continuous map is pinned down by its values on $\Q$, say.
+$f(p)=\lim f(x_n)=\lim g(x_n)=g(p)$. In particular a continuous map is pinned down by its
+values on $\Q$, say. The same sequences, $f(x_n)\in f(E)$ with $f(x_n)\to f(p)$, show that
+$f(E)$ is dense in $f(X)$ (Rudin Ch.~4, Ex.~4).
 \end{remark}
 
 \begin{wex}{Zero sets are closed}
@@ -7896,7 +7907,7 @@ $\abs{x-c}<\delta,\ x\in A\imp\abs{f(x)-b}<\eta$. Chaining: $\abs{x-c}<\delta\im
 
 \begin{remark}[The open-set proof, in one line]
 Topologically (Theorem~\ref{t:cont-open@c5}) this is immediate: $(g\circ f)\inv(G)=f\inv
-(g\inv(G))$ is the pre-image of an open set under $f$ of an open set under $g$, hence open.
+(g\inv(G))$ is the pre-image under $f$ of the open set $g\inv(G)$, hence open.
 The $\eps$--$\delta$ version above shows the explicit $\delta$.
 \end{remark}
 
@@ -7970,7 +7981,8 @@ always lands in the domain $[0,\infty)$ of $g$, so $g\circ f$ is continuous on a
 (it equals $\abs{\cdot}$). $f\circ g(x)=(\sqrt x)^2=x$: now $g$ has domain $[0,\infty)$, so
 $f\circ g$ is only defined --- and continuous --- on $[0,\infty)$. \emph{Check.} The two
 composites agree as formulas ($\abs x=x$) precisely on the common domain $[0,\infty)$, but
-$g\circ f$ extends continuously to negatives while $f\circ g$ cannot. \checkmark
+$g\circ f$ is also defined (and continuous) for $x<0$, while $f\circ g$ is not defined there.
+\checkmark
 \end{wex}
 
 \begin{exers}{Exercises (Bartle \& Sherbert, \S5.2).}
@@ -8068,7 +8080,7 @@ $f(K)$ is compact in $\R$, hence closed and bounded by Heine--Borel.
 \subsection*{The extreme value theorem}
 
 \begin{theorem}[Extreme Value Theorem]\label{t:evt@c5}
-If $K$ is compact and $f:K\to\R$ is continuous, then $f$ \emph{attains} a maximum and a
+If $K$ is nonempty and compact and $f:K\to\R$ is continuous, then $f$ \emph{attains} a maximum and a
 minimum: there exist $p,q\in K$ with
 \[
   f(p)=\sup_{x\in K}f(x)=\max f(K),\qquad f(q)=\inf_{x\in K}f(x)=\min f(K).
@@ -8078,7 +8090,7 @@ In particular this holds for continuous $f$ on a closed bounded interval $[a,b]$
 
 \begin{proof}
 $M=\sup f(K)$ is finite (Corollary~\ref{c:bdd@c5}). Since $f(K)$ is closed
-(Theorem~\ref{t:cont-compact@c5}) and $M$ is a limit point of $f(K)$ (being its sup), $M\in
+(Theorem~\ref{t:cont-compact@c5}) and $M$ is a limit of points of $f(K)$ (being its sup), $M\in
 f(K)$; so $M=f(p)$ for some $p\in K$. Likewise $m=\inf f(K)=f(q)$. (Sequential phrasing:
 choose $x_n\in K$ with $f(x_n)\to M$; a subsequence $x_{n_k}\to p\in K$ gives $f(p)=\lim
 f(x_{n_k})=M$.)
@@ -8090,16 +8102,19 @@ f(x_{n_k})=M$.)
     width=11cm,height=5.6cm,
     axis lines=middle,xlabel=$x$,ylabel=$y$,
     xmin=-0.3,xmax=5.3,ymin=-0.5,ymax=3.4,
-    xtick={0.5,4.5},xticklabels={$a$,$b$},
+    xtick={0.5,1.9622,4.5},xticklabels={$a$,$p$,$b=q$},
     ytick=\empty,samples=200,clip=false,
   ]
-    % a continuous curve on [a,b] with interior max and endpoint-ish min
-    \addplot[curve,domain=0.5:4.5]{1.4 + 1.3*sin(deg(1.1*(x-0.5))) - 0.05*(x-2.5)^2};
-    % mark max p and min q
-    \draw[densely dashed] (axis cs:0.5,3.05)--(axis cs:5.3,3.05);
-    \node[right,font=\footnotesize] at (axis cs:5.3,3.05){$M=\max f$};
-    \draw[densely dashed] (axis cs:0.5,0.18)--(axis cs:5.3,0.18);
-    \node[right,font=\footnotesize] at (axis cs:5.3,0.18){$m=\min f$};
+    % a continuous curve on [a,b] with interior max (at p) and endpoint min (at q=b)
+    \addplot[curve,domain=0.5:4.5]{1.9 + 1.3*sin(deg(1.1*(x-0.5))) - 0.05*(x-2.5)^2};
+    % the levels M=f(p) and m=f(q), touched at p and q
+    \draw[densely dashed] (axis cs:0.5,3.1846)--(axis cs:5.3,3.1846);
+    \node[right,font=\footnotesize] at (axis cs:5.3,3.1846){$M=\max f$};
+    \draw[densely dashed] (axis cs:0.5,0.4629)--(axis cs:5.3,0.4629);
+    \node[right,font=\footnotesize] at (axis cs:5.3,0.4629){$m=\min f$};
+    \draw[densely dotted] (axis cs:1.9622,0)--(axis cs:1.9622,3.1846);
+    \node[pt] at (axis cs:1.9622,3.1846){};
+    \node[pt] at (axis cs:4.5,0.4629){};
   \end{axis}
 \end{tikzpicture}
 \captionof{figure}{EVT: a continuous $f$ on $[a,b]$ \emph{achieves} its sup and inf at actual
@@ -8109,7 +8124,8 @@ points $p,q\in[a,b]$ --- the dashed levels are touched, not merely approached.}
 \begin{pitfall}
 Every hypothesis is needed. Drop compactness and EVT fails: $f(x)=x$ on the \emph{open}
 $(0,1)$ has $\sup=1$, $\inf=0$, neither attained; $f(x)=1/x$ on $(0,1]$ is unbounded above.
-Drop continuity and it fails: $f(x)=x$ on $[0,1)$ with $f$ redefined cannot reach its sup.
+Drop continuity and it fails: on the compact $[0,1]$, $f(x)=x$ for $x<1$ with $f(1)=0$ never
+reaches its sup $1$.
 ``$\sup$'' is a least upper bound, possibly outside the set; ``$\max$'' is an attained value
 --- EVT is exactly the statement that for continuous $f$ on compact $K$ they coincide.
 \end{pitfall}
@@ -8161,8 +8177,8 @@ extrema exist and are attained; locate them among endpoints and interior critica
 \wsol $f$ is a polynomial, hence continuous, and $[0,2]$ is compact, so EVT applies. The
 candidates are the endpoints $x=0,2$ and the interior points where the difference quotient
 flattens, i.e.\ where $3x^2-3=0$, giving $x=1$ (the root $x=-1$ is outside $[0,2]$). Evaluate:
-$f(0)=0$, $f(1)=1-3=-2$, $f(2)=8-6=2$. So $\min f=-2$ attained at $p=1$ and $\max f=2$
-attained at $q=2$. \emph{Check.} Both values are achieved at genuine points of $[0,2]$, as
+$f(0)=0$, $f(1)=1-3=-2$, $f(2)=8-6=2$. So $\min f=-2$ attained at $q=1$ and $\max f=2$
+attained at $p=2$. \emph{Check.} Both values are achieved at genuine points of $[0,2]$, as
 EVT promises; the sup $2$ is a max, not merely a least upper bound. \checkmark
 \end{wex}
 
@@ -8212,7 +8228,7 @@ continuity; reinstating $f(1)=1$ (continuity) restores the attained maximum. \ch
     xtick={0},xticklabels={$0$},ytick={1},samples=200,clip=false,
   ]
     \addplot[curve,domain=0:8]{x/(1+x)};
-    \draw[densely dashed] (axis cs:-0.3,1)--(axis cs:8.4,1);
+    \draw[densely dashed] (axis cs:0,1)--(axis cs:8.4,1);
     \node[right,font=\footnotesize] at (axis cs:8.4,1){$\sup f=1$ (not attained)};
   \end{axis}
 \end{tikzpicture}
@@ -8240,7 +8256,7 @@ and bounded, climbing toward the dashed level $1$ but never reaching it --- the
   closed $A\subseteq X$ is $Z(f)$ for some continuous $f$.) Setting $V=f\inv\!\big([0,\tfrac12)\big)$
   and $W=f\inv\!\big((\tfrac12,1]\big)$, show $V,W$ are disjoint open sets with $A\subseteq
   V$, $B\subseteq W$ (\emph{normality} of metric spaces).
-\item For $A\subseteq\R^n$, $B\subseteq\R^k$, let $A+B=\set{x+y\st x\in A,\ y\in B}$.
+\item For $A,B\subseteq\R^k$, let $A+B=\set{x+y\st x\in A,\ y\in B}$.
   (a) If $K$ is compact and $C$ is closed in $\R^k$, prove $K+C$ is closed. (Hint: take
   $z\notin K+C$, put $F=z-C$; then $K,F$ are disjoint, choose $\delta$ as in the
   compact/closed separation; show the open ball of radius $\delta$ about $z$ misses $K+C$.)
@@ -8259,7 +8275,7 @@ and bounded, climbing toward the dashed level $1$ but never reaching it --- the
   absolute minimum point $x_0\in I$ for $f$, and that $x_0$ solves $\cos x=x^2$.
 \item Suppose $f:\R\to\R$ is continuous with $\lim_{x\to\infty}f=0$ and $\lim_{x\to-\infty}f=0$.
   Prove $f$ is bounded on $\R$ and attains either a maximum or a minimum. Give an example
-  where both are not attained.
+  where they are not both attained.
 \item Let $f:\R\to\R$ be continuous, $b\in\R$. Show that if $x_0$ has $f(x_0)<b$, then there
   is a $\delta$-neighborhood $U$ of $x_0$ with $f(x)<b$ for all $x\in U$.
 \item Examine which open (resp.\ closed) intervals are mapped by $f(x)=x^2$ onto open (resp.\
@@ -8311,7 +8327,7 @@ Suppose not: $f(E)=A\cup B$ with $A,B$ nonempty separated sets in $Y$. Put
 $G=E\cap f\inv(A)$ and $H=E\cap f\inv(B)$; these are nonempty, cover $E$, and are disjoint.
 One checks they are separated: if $p\in G$ were a limit of points of $H$, continuity would
 force $f(p)\in A$ to be a limit of points of $B$, contradicting separation of $A,B$
-(using $f(\closure G)\subseteq\closure{f(G)}$, Theorem~\ref{t:cont-open@c5}(iv)). So $E=G\cup
+(using $f(\closure H)\subseteq\closure{f(H)}$, Theorem~\ref{t:cont-open@c5}(iv)). So $E=G\cup
 H$ is a separation of $E$ --- contradicting connectedness. Hence $f(E)$ is connected.
 \end{proof}
 
@@ -8331,7 +8347,7 @@ interval; it contains $f(a)$ and $f(b)$, so it contains every $y$ between them. 
 $y=f(c)$ for some $c\in[a,b]$, and $c\neq a,b$ since $y\neq f(a),f(b)$.
 \end{proof}
 
-\begin{proof}[Bisection / sup proof (B\&S, constructive)]
+\begin{proof}[Supremum proof (B\&S)]
 Take the case $f(a)<y<f(b)$; replacing $f$ by $f-y$ assume $y=0$, so $f(a)<0<f(b)$. Let
 $W=\set{x\in[a,b]\st f(x)<0}$; it is nonempty ($a\in W$) and bounded, so $w=\sup W$ exists in
 $[a,b]$. We claim $f(w)=0$. If $f(w)<0$ then by continuity $f<0$ on a neighborhood of $w$, so
@@ -8355,8 +8371,8 @@ $w$, so $w$ is not a limit of $W$, again a contradiction. Hence $f(w)=0$, with $
     % mark f(a), f(b)
     \node[pt] at (axis cs:0.5,-1.0){};
     \node[below right,font=\footnotesize] at (axis cs:0.5,-1.0){$f(a)$};
-    \node[pt] at (axis cs:4.5,1.9){};
-    \node[above left,font=\footnotesize] at (axis cs:4.5,1.9){$f(b)$};
+    \node[pt] at (axis cs:4.5,1.859){};
+    \node[above left,font=\footnotesize] at (axis cs:4.5,1.859){$f(b)$};
   \end{axis}
 \end{tikzpicture}
 \captionof{figure}{IVT: a continuous graph joining $f(a)$ below the level $y$ to $f(b)$ above it
@@ -8374,7 +8390,7 @@ Every real polynomial of odd degree has at least one real root.
 
 \begin{proof}
 Write $p(x)=a_nx^n(1+o(1))$ with $n$ odd, $a_n\neq0$. As $x\to+\infty$ and $x\to-\infty$,
-$p$ takes values of opposite sign (odd power), so $p(a)<0<p(b)$ for suitable $a<b$; apply
+$p$ takes values of opposite sign (odd power), so $p(a)p(b)<0$ for suitable $a<b$; apply
 Bolzano.
 \end{proof}
 
@@ -8545,8 +8561,8 @@ $\delta$ works. \checkmark
 Show $f(x)=1/x$ is not uniformly continuous on $(0,1)$, but is on $[a,\infty)$ for $a>0$.
 \wrec ``Uniform continuity near a vertical asymptote''; failing pair near $0$, Lipschitz
 bound away from $0$.
-\wsol On $(0,1)$ take $x_n=\tfrac1n$, $u_n=\tfrac1{2n}$: $\abs{x_n-u_n}=\tfrac1{2n}\to0$ but
-$\abs{f(x_n)-f(u_n)}=\abs{n-2n}=n\to\infty\ge1$. Not uniformly continuous. On $[a,\infty)$,
+\wsol On $(0,1)$ take $x_n=\tfrac1n$, $u_n=\tfrac1{2n}$ ($n\ge2$): $\abs{x_n-u_n}=\tfrac1{2n}\to0$ but
+$\abs{f(x_n)-f(u_n)}=\abs{n-2n}=n\ge1$. Not uniformly continuous. On $[a,\infty)$,
 $\abs{\tfrac1x-\tfrac1u}=\dfrac{\abs{x-u}}{xu}\le\dfrac1{a^2}\abs{x-u}$, so $\delta=a^2\eps$
 works for all $x,u\ge a$. \emph{Check.} Uniform continuity is a property of $f$
 \emph{together with its domain}; shrinking the domain away from the bad point restores it.
@@ -8588,9 +8604,9 @@ diameters of sets.)
   \begin{axis}[
     width=8.2cm,height=5.0cm,axis lines=middle,xlabel=$x$,ylabel=$y$,
     title={\footnotesize $x^2$: fixed box fails},
-    xmin=0,xmax=3.2,ymin=0,ymax=9.2,samples=80,xtick=\empty,ytick=\empty,
+    xmin=0,xmax=3.2,ymin=0,ymax=9.2,xtick=\empty,ytick=\empty,
   ]
-    \addplot[curve,domain=0:3]{x^2};
+    \addplot[curve,domain=0:3,samples=80]{x^2};
     % box at small x: fits
     \addplot[draw=black,thick] coordinates {(0.5,0.25)(0.9,0.25)(0.9,1.0)(0.5,1.0)(0.5,0.25)};
     % box at large x: same width, output overflows
@@ -8604,12 +8620,14 @@ diameters of sets.)
   \begin{axis}[
     width=8.2cm,height=5.0cm,axis lines=middle,xlabel=$x$,ylabel=$y$,
     title={\footnotesize $1/x$: fixed box fails near $0$},
-    xmin=0,xmax=3.2,ymin=0,ymax=6.2,samples=120,xtick=\empty,ytick=\empty,
+    xmin=0,xmax=3.2,ymin=0,ymax=6.2,xtick=\empty,ytick=\empty,
     restrict y to domain=0:6.2,
   ]
-    \addplot[curve,domain=0.17:3]{1/x};
-    \addplot[draw=black,thick] coordinates {(1.5,0.667)(1.9,0.667)(1.9,1.4)(1.5,1.4)(1.5,0.667)};
-    \addplot[draw=black,thick] coordinates {(0.25,4.0)(0.65,4.0)(0.65,4.75)(0.25,4.75)(0.25,4.0)};
+    \addplot[curve,domain=0.2:3,samples=120]{1/x};
+    % box at gentle x: the graph crosses it side to side
+    \addplot[draw=black,thick] coordinates {(1.5,0.25)(1.9,0.25)(1.9,1.0)(1.5,1.0)(1.5,0.25)};
+    % box near 0: same width and height, the graph drops out through the bottom
+    \addplot[draw=black,thick] coordinates {(0.25,3.25)(0.65,3.25)(0.65,4.0)(0.25,4.0)(0.25,3.25)};
     \node[font=\footnotesize] at (axis cs:1.6,3.0){steeper near $0$:};
     \node[font=\footnotesize] at (axis cs:1.6,2.3){box overflows};
   \end{axis}
@@ -8634,7 +8652,7 @@ $x\to0^+$, so no $K$ bounds the difference quotient.
 
 \begin{definition}\label{d:gauge@c5}
 A \emph{gauge} on $[a,b]$ is a function $\delta:[a,b]\to(0,\infty)$ (a \emph{positive}
-function, not a constant). A tagged partition $\dot P=\set{([x_{i-1},x_i],t_i)}$ is
+function, not necessarily constant). A tagged partition $\dot P=\set{([x_{i-1},x_i],t_i)}$ is
 \emph{$\delta$-fine} if $[x_{i-1},x_i]\subseteq[\,t_i-\delta(t_i),\,t_i+\delta(t_i)\,]$ for
 each $i$.
 \end{definition}
@@ -8645,7 +8663,7 @@ For every gauge $\delta$ on $[a,b]$ there exists a $\delta$-fine tagged partitio
 
 \begin{proof}[Bisection proof]
 Suppose not. Bisect $[a,b]$ at the midpoint; at least one half admits no $\delta$-fine
-partition (else union the two, Ex.~5.5). Iterate to get nested $I_n$ of length
+partition (else union the two, B\&S Ex.~5.5.5). Iterate to get nested $I_n$ of length
 $(b-a)/2^n$, none $\delta$-fine. By nested intervals $\bigcap I_n=\set{\xi}$. Pick $p$ with
 $(b-a)/2^p<\delta(\xi)$; then $I_p\subseteq[\xi-\delta(\xi),\xi+\delta(\xi)]$, so the single
 pair $(I_p,\xi)$ is a $\delta$-fine partition of $I_p$ --- contradiction.
@@ -8685,7 +8703,7 @@ matching $K=1$; the curve never steepens past slope $1$, so a fixed box always f
 \checkmark
 \end{wex}
 
-\begin{wex}{Sum of uniformly continuous need not be: a product non-example}
+\begin{wex}{A product of uniformly continuous functions need not be uniformly continuous}
 Show that $x$ and $\sin x$ are each uniformly continuous on $\R$, but their product
 $x\sin x$ is not.
 \wrec ``Is uniform continuity closed under products?'': it is closed under sums but
@@ -8709,7 +8727,7 @@ $(0,1)$.
 input-closeness condition into an output-closeness one, uniformly in the index.
 \wsol Let $\eps>0$ and pick $\delta$ from uniform continuity. Since $\seq{x_n}$ is Cauchy,
 choose $N$ with $\abs{x_m-x_n}<\delta$ for $m,n\ge N$; then $\abs{f(x_m)-f(x_n)}<\eps$ for
-$m,n\ge N$, so $\seq{f(x_n)}$ is Cauchy. Now on $(0,1)$ the sequence $x_n=1/n$ is Cauchy
+$m,n\ge N$, so $\seq{f(x_n)}$ is Cauchy. Now on $(0,1)$ the sequence $x_n=1/n$ ($n\ge2$) is Cauchy
 (it converges to $0$), but $f(x_n)=n$ is \emph{not} Cauchy (it is unbounded). Hence $1/x$
 cannot be uniformly continuous on $(0,1)$. \emph{Check.} This matches the direct
 closing-pair argument earlier; the Cauchy test also shows $1/x$ has no continuous extension
@@ -8804,7 +8822,8 @@ approaches the bad point --- precisely the non-constant behavior that Cousin's l
   the partitions of Exercise~1 $\delta_1$-fine? (Note $\delta(t)\le\delta_1(t)$ throughout.)
 \item Let $\delta_2$ be the gauge with $\delta_2(0)=\tfrac1{10}$, $\delta_2(t)=\tfrac9{10}t$.
   Are the partitions of Exercise~1 $\delta_2$-fine?
-\item Let $g$ be the gauge of Example 5.5.4(d). (a) If $t\in(0,\tfrac12]$ show
+\item Let $g$ be the gauge on $[0,1]$ with $g(0)=g(1)=\tfrac1{10}$, $g(t)=\tfrac12t$ for
+  $t\in(0,\tfrac12]$, and $g(t)=\tfrac12(1-t)$ for $t\in(\tfrac12,1)$. (a) If $t\in(0,\tfrac12]$ show
   $[t-g(t),t+g(t)]=[\tfrac12 t,\tfrac32 t]\subseteq(0,\tfrac34]$. (b) If $t\in(\tfrac12,1)$
   show $[t-g(t),t+g(t)]\subseteq(\tfrac14,1)$.
 \item Let $a<c<b$ and $\delta$ a gauge on $[a,b]$. If $\dot P'$ is a $\delta$-fine partition
@@ -8888,8 +8907,8 @@ statement is symmetric with $\inf$. The inequalities chain as displayed.
 \end{proof}
 
 \begin{definition}[Classification of discontinuities]\label{d:disc-class@c5}
-Suppose $f(c^-)$ and $f(c^+)$ both exist (automatic for monotone $f$). The discontinuity at
-$c$ is:
+Suppose $f$ is discontinuous at $c$ (for monotone $f$ both one-sided limits $f(c^-)$, $f(c^+)$
+exist automatically). The discontinuity at $c$ is:
 \begin{itemize}
 \item \emph{removable} if $f(c^-)=f(c^+)\neq f(c)$ (a single ``hole'' that one value would
   fix);
@@ -8904,7 +8923,8 @@ exist.
 \begin{center}
 \begin{tikzpicture}
   \begin{axis}[width=5.6cm,height=4.2cm,axis lines=middle,title={\footnotesize removable},
-    xmin=-1.6,xmax=1.6,ymin=-0.3,ymax=2.2,xtick={0},xticklabels={$c$},ytick=\empty,samples=2]
+    xmin=-1.6,xmax=1.6,ymin=-0.3,ymax=2.2,xtick={0},xticklabels={$c$},ytick=\empty,samples=2,
+    hide obscured x ticks=false,xticklabel style={anchor=north west,inner sep=2pt}]
     \addplot[curve,domain=-1.5:-0.04]{x+1};
     \addplot[curve,domain=0.04:1.5]{x+1};
     \node[opt] at (axis cs:0,1){};
@@ -8914,7 +8934,8 @@ exist.
 \hfill
 \begin{tikzpicture}
   \begin{axis}[width=5.6cm,height=4.2cm,axis lines=middle,title={\footnotesize jump},
-    xmin=-1.6,xmax=1.6,ymin=-0.3,ymax=2.4,xtick={0},xticklabels={$c$},ytick=\empty,samples=2]
+    xmin=-1.6,xmax=1.6,ymin=-0.3,ymax=2.4,xtick={0},xticklabels={$c$},ytick=\empty,samples=2,
+    hide obscured x ticks=false,xticklabel style={anchor=north west,inner sep=2pt}]
     \addplot[curve,domain=-1.5:-0.04]{0.5*x+0.6};
     \addplot[curve,domain=0.04:1.5]{0.5*x+1.6};
     \node[opt] at (axis cs:0,0.6){};
@@ -8924,10 +8945,11 @@ exist.
 \hfill
 \begin{tikzpicture}
   \begin{axis}[width=5.6cm,height=4.2cm,axis lines=middle,title={\footnotesize essential},
-    xmin=-1.6,xmax=1.6,ymin=-1.4,ymax=1.4,xtick={0},xticklabels={$c$},ytick=\empty,samples=400,
+    xmin=-1.6,xmax=1.6,ymin=-1.4,ymax=1.4,xtick=\empty,ytick=\empty,samples=400,
     restrict y to domain=-1.4:1.4]
     \addplot[curve,domain=0.03:1.5]{sin(deg(1/x))};
     \addplot[curve,domain=-1.5:-0.03]{sin(deg(1/x))};
+    \node[anchor=north west,inner sep=2pt] at (axis cs:0,-1.05){$c$}; % below the oscillation band
   \end{axis}
 \end{tikzpicture}
 \captionof{figure}{Three discontinuity types at $c$: removable (matching one-sided limits, wrong
@@ -8963,8 +8985,8 @@ set is countable.
     \node[opt] at (axis cs:3.9,2.825){}; \node[pt] at (axis cs:3.9,3.5){};
     \addplot[curve,domain=3.9:5.6]{0.2*x+2.72};
     % brace marking a jump
-    \draw[brc] (axis cs:2.78,1.82)--(axis cs:2.78,2.5);
-    \node[right,font=\footnotesize] at (axis cs:2.82,2.16){jump $f(c^+){-}f(c^-)$};
+    \draw[brc] (axis cs:2.78,2.5)--(axis cs:2.78,1.82);
+    \node[right,font=\footnotesize] at (axis cs:2.9,2.16){jump $f(c^+){-}f(c^-)$};
   \end{axis}
 \end{tikzpicture}
 \captionof{figure}{An increasing function: each jump opens a gap in the range; disjoint gaps each
@@ -9006,7 +9028,7 @@ monotonicity matches the picture of $\sqrt{\cdot}$. \checkmark
 \begin{wex}{Thomae's function: continuous exactly at the irrationals}
 For $x=m/n$ in lowest terms ($n>0$) define $f(x)=1/n$; $f(0)=1$ (with $n=1$); $f(x)=0$ for
 $x\notin\Q$. Show $f$ is continuous at every irrational and has a (removable) simple
-discontinuity at every rational (Rudin 4.18).
+discontinuity at every rational (Rudin Ex.~4.18).
 \wrec ``Where is this continuous?''; bound $f$ by a small $1/n$ near any point.
 \wsol Fix any $c$ and $\eps>0$. Only finitely many rationals in $(c-1,c+1)$ have denominator
 $n\le1/\eps$; choose $\delta$ small enough to dodge all of them (and to avoid $c$ if $c$ is
@@ -9015,12 +9037,12 @@ rational with $n>1/\eps$ ($f=1/n<\eps$); so $\lim_{x\to c}f=0$. Hence $f$ is con
 $c$ iff $f(c)=0$, i.e.\ iff $c$ is irrational; at each rational, $\lim_{x\to c}f=0\neq f(c)$,
 a removable discontinuity (both one-sided limits are $0$). \emph{Check.} Continuity on a
 dense set (the irrationals) and discontinuity on a dense set (the rationals) coexist ---
-allowed precisely because the discontinuity set is countable. \checkmark
+allowed because the discontinuity set is countable. \checkmark
 \end{wex}
 
 \begin{theorem}[Simple discontinuities are at most countable]\label{t:simple-countable@c5}
 For any $f:(a,b)\to\R$ (not necessarily monotone), the set of points where $f$ has a
-\emph{simple} discontinuity is at most countable (Rudin 4.30).
+\emph{simple} discontinuity is at most countable (Rudin Ex.~4.17).
 \end{theorem}
 
 \begin{proof}[Sketch]
@@ -9061,7 +9083,7 @@ assigning one value ($g(1):=2$); the jump in $f$ and the oscillation in $h$ cann
 Enumerate $\Q\cap(0,1)=\set{q_1,q_2,\dots}$ and set $f(x)=\sum_{q_k<x}2^{-k}$. Show $f$ is
 increasing, discontinuous exactly at each $q_k$, and continuous at every irrational.
 \wrec ``Build a function with a controlled discontinuity set'': sum a convergent series of
-jumps, one per rational (the construction behind Theorem~\ref{t:mono-countable@c5}).
+jumps, one per rational (the construction showing Theorem~\ref{t:mono-countable@c5} is sharp).
 \wsol Each term $2^{-k}\ge0$, and adding more terms as $x$ increases gives $x<y\imp f(x)\le
 f(y)$, so $f$ is increasing (and bounded by $\sum 2^{-k}=1$). At $x=q_j$: as $x$ crosses
 $q_j$ upward, the term $2^{-j}$ switches on, so $f(q_j^+)-f(q_j^-)=2^{-j}>0$ --- a jump of
@@ -9074,20 +9096,21 @@ jumps''. \checkmark
 \end{wex}
 
 \begin{wex}{A non-example: a strictly increasing function with a discontinuous inverse}
-Show that dropping continuity from Theorem~\ref{t:mono-inverse@c5} can break it: a strictly
-increasing bijection of an interval onto a \emph{non}-interval need not have continuous
-inverse.
-\wrec ``Why does the inverse theorem need continuity of $f$?'': a jump in $f$ leaves a gap
-in the range, and the inverse must jump across that gap.
-\wsol Define $f:[0,2]\to[0,1]\cup[2,3]$ by $f(x)=x$ on $[0,1]$ and $f(x)=x+1$ on $(1,2]$.
-Then $f$ is strictly increasing and a bijection onto $J=[0,1]\cup[2,3]$, but it jumps at
-$x=1$ ($f(1)=1$, $f(1^+)=2$). Its inverse $g=f\inv$ sends $[0,1]\to[0,1]$ and $[2,3]\to(1,2]$;
-$g$ is discontinuous at $y=2$, where $g(2^-)$ would be $1$ from the left branch but $g(2)=1$
-jumps to values near $1$ then to $(1,\dots$ --- concretely $g$ is continuous here \emph{only}
-because $J$ already excludes $(1,2)$. The honest failure: $f$ itself is discontinuous, so
-Theorem~\ref{t:mono-inverse@c5} (which assumes $f$ continuous on an interval) simply does not
-apply. \emph{Check.} The range $J$ is not an interval --- its gap $(1,2)$ is the missing
-piece that an interval domain would have forbidden. \checkmark
+Show that the interval hypothesis cannot be dropped from Theorem~\ref{t:mono-inverse@c5}: a
+continuous strictly increasing bijection of a \emph{non}-interval onto an interval need not
+have continuous inverse.
+\wrec ``Why does the inverse theorem need an interval domain?'': a gap in the domain becomes
+a jump in the inverse, which must leap across that gap.
+\wsol Let $J=[0,1]\cup(2,3]$ and define $g:J\to\R$ by $g(y)=y$ on $[0,1]$ and $g(y)=y-1$ on
+$(2,3]$. Each piece is continuous and the two pieces lie at distance $1$ from each other, so
+$g$ is continuous on $J$; it is strictly increasing and maps $J$ bijectively onto
+$[0,1]\cup(1,2]=[0,2]$. Its inverse $f=g\inv:[0,2]\to J$ is $f(x)=x$ on $[0,1]$ and
+$f(x)=x+1$ on $(1,2]$, which jumps at $x=1$: $f(1)=1$ but $f(1^+)=2$. So $g\inv$ is
+discontinuous; Theorem~\ref{t:mono-inverse@c5} does not apply to $g$ because its domain $J$
+is not an interval. \emph{Check.} Read the other way, $f$ is strictly increasing on the
+interval $[0,2]$ but discontinuous, and its range $J$ has the gap $(1,2]$; yet $f\inv=g$ is
+continuous. Here dropping continuity of $f$ destroys the conclusion that $f([0,2])$ is an
+interval, but not the continuity of $f\inv$. \checkmark
 \end{wex}
 
 \begin{wex}{The logarithm as a monotone inverse}
@@ -9177,14 +9200,14 @@ $xy=\exp(s)\exp(t)=\exp(s+t)$, so $\log(xy)=s+t=\log x+\log y$. \emph{Check.} $\
   (b) $\sin(1/x)$; (c) $x\mapsto\dfrac{x^2-x}{x}$ (removable?); (d) $e^{-1/x^2}$ extended by
   $0$.
 \item (Non-example / disprove.) Disprove ``a function with at most countably many
-  discontinuities must be monotone on some interval'' --- give a non-monotone example, e.g.\
+  discontinuities must be monotone'' --- give a non-monotone example, e.g.\
   one with jumps of alternating sign at $1/n$.
 \item Prove that a strictly increasing continuous $f$ on $[a,b]$ has a strictly increasing
   continuous inverse, and apply it to construct $\ln$ as the inverse of $\exp$ on a suitable
   interval.
 \item Show that an increasing $f$ on $(a,b)$ has one-sided limits everywhere, and that the
-  total jump $\sum_c\big(f(c^+)-f(c^-)\big)$ over all discontinuities $c$ in $[s,t]\subseteq
-  (a,b)$ is at most $f(t)-f(s)$.
+  total jump $\sum_c\big(f(c^+)-f(c^-)\big)$ over all discontinuities $c$ in $(s,t)$, where
+  $a<s<t<b$, is at most $f(t)-f(s)$.
 \item (Diagram.) Sketch an increasing step-like function on $[0,4]$ with jumps at
   $x=1,2,3$, drawing filled/open endpoints correctly, and brace one jump labeled
   $f(c^+)-f(c^-)$.
