@@ -29855,7 +29855,7 @@ the wider the horizontal strip into which $f$ continues holomorphically; the ext
 ($\hat f$ compactly supported) corresponds to an \emph{entire} extension of exponential
 type. Every theorem below is, at heart, a single technique: shift the contour of
 integration --- the real line --- vertically inside a strip, exploiting that $e^{-2\pi i z\xi}$
-decays exponentially when $z$ leaves the real axis.
+decays exponentially when $z$ leaves the real axis in the appropriate direction.
 
 Throughout, the Fourier transform is normalized as
 \[
@@ -29890,7 +29890,7 @@ and recall its Fourier transform.
 \wrec Trigger: verify an explicit majorant $A/(1+x^2)$. Bound $y/(y^2+x^2)$ above by a
 multiple of $1/(1+x^2)$ uniformly in $x$.
 \wsol Since $y^2+x^2\ge \max(y^2,x^2)$, for $\abs x\ge 1$ we have $y/(y^2+x^2)\le y/x^2\le
-(1+y^{-1})\,y/(1+x^2)$ up to constants; for $\abs x\le 1$ the kernel is bounded by $1/y$. In
+2y/(1+x^2)$ (as $1+x^2\le 2x^2$); for $\abs x\le 1$ the kernel is bounded by $1/y\le(2/y)/(1+x^2)$. In
 either regime $P_y(x)\le A/(1+x^2)$ with $A=A(y)$. Its transform is the standard
 $\widehat{P_y}(\xi)=e^{-2\pi y\abs\xi}$. \emph{Check.} $\int_{-\infty}^\infty P_y(x)\dx
 =\frac1\pi[\arctan(x/y)]_{-\infty}^{\infty}=1$, consistent with $\widehat{P_y}(0)=e^0=1$.
@@ -29910,7 +29910,7 @@ The class $\mathcal F=\bigcup_{a>0}\mathcal F_a$ collects all functions lying in
 for \emph{some} $a>0$.
 \end{definition}
 
-In words: $\mathcal F_a$ is the holomorphic functions on the strip $S_a$ that are of moderate
+In words: $\mathcal F_a$ consists of the holomorphic functions on the strip $S_a$ that are of moderate
 decrease on every horizontal line $\Im z=y$, \emph{uniformly} in $-a<y<a$. The uniform constant
 $A$ is what lets us slide the contour from one line to another and keep the tail integrals under
 control.
@@ -29922,8 +29922,8 @@ control.
 
 The restriction $f|_\R$ to the real axis is the composite $f\circ\iota$ along the inclusion
 $\iota:\R\hookrightarrow S_a$; membership in $\mathcal F_a$ is a joint condition on the
-extension $f$ (holomorphy on $S_a$) and on this restriction (moderate decrease, uniformly over
-the horizontal lines filling $S_a$).
+extension $f$ (holomorphy on $S_a$) and on its restrictions to the horizontal lines filling
+$S_a$, this one among them (moderate decrease, uniformly over those lines).
 
 \begin{center}
 \begin{tikzpicture}[scale=1.0]
@@ -29953,13 +29953,13 @@ decrease; and the bound $A=Ce^{\pi a^2}$ degrades as $a$ grows, as one expects s
 Gaussian \emph{does} grow vertically.
 \end{wex}
 
-\begin{wex}{A rational function with poles off the strip}
+\begin{wex}{A rational function with poles off the strip}\label{wex:ratstrip@c17}
 Fix $c>0$ and set $f(z)=\dfrac1\pi\dfrac{c}{c^2+z^2}$. For which $a$ is $f\in\mathcal F_a$?
 \wrec Trigger: locate the poles; the strip half-width is bounded by the imaginary part of the
 nearest pole.
 \wsol The denominator $c^2+z^2=(z-ci)(z+ci)$ vanishes at $z=\pm ci$, simple poles on the
-imaginary axis at height $\pm c$. Thus $f$ is holomorphic exactly where $\abs{\Im z}<c$, giving
-$f\in\mathcal F_a$ for every $0<a<c$. On a line $\Im z=y$ with $\abs y<a<c$ one has
+imaginary axis at height $\pm c$. Thus $f$ is holomorphic on the strip $\abs{\Im z}<c$ but on
+no wider one, giving $f\in\mathcal F_a$ for every $0<a<c$. On a line $\Im z=y$ with $\abs y<a<c$ one has
 $\abs{c^2+z^2}\ge c^2-y^2>0$ bounded below, and for large $\abs x$ the modulus decays like
 $1/x^2$, so the uniform $A/(1+x^2)$ bound holds. \emph{Check.} This is exactly the Poisson
 kernel $P_c$ from above (with $y\rightsquigarrow c$), whose transform $e^{-2\pi c\abs\xi}$
@@ -29987,11 +29987,11 @@ for every $a<c$, shown shaded.}
 Show $f(z)=1/\cosh\pi z$ lies in $\mathcal F_a$ exactly for $\abs a<1/2$.
 \wrec Trigger: again locate the zeros of the denominator. $\cosh\pi z=0$ where $\pi z$ is an
 odd multiple of $i\pi/2$.
-\wsol $\cosh\pi z=\cos(\pi i z)\cdot$ (up to the usual identity); concretely $\cosh\pi z=0$
+\wsol Since $\cosh\pi z=\cos(i\pi z)$, we have $\cosh\pi z=0$
 iff $\pi z=i\pi(k+\tfrac12)$, i.e.\ $z=i(k+\tfrac12)$, $k\in\Z$. The nearest poles to the real
 axis sit at $z=\pm i/2$, so $f$ is holomorphic on $\abs{\Im z}<1/2$ and $f\in\mathcal F_a$ for
 $\abs a<1/2$. Moderate decrease on each line follows from $\abs{\cosh\pi(x+iy)}\gtrsim
-e^{\pi\abs x}$ for large $\abs x$ (exponential growth of $\cosh$), which dominates $1/(1+x^2)$.
+e^{\pi\abs x}$ for large $\abs x$ (exponential growth of $\cosh$), which dominates $1+x^2$.
 \emph{Check.} This is the self-dual function $\widehat{1/\cosh\pi x}=1/\cosh\pi\xi$ used in
 \S\ref{ss:applications@c17}; its transform decays like $e^{-\pi\abs\xi}$, matching the strip width
 $a\to 1/2$ via $2\pi b\to\pi$.
@@ -29999,14 +29999,14 @@ $a\to 1/2$ via $2\pi b\to\pi$.
 
 \begin{center}
 \begin{tikzpicture}[scale=1.0]
-  \fill[band] (-2.8,-0.6) rectangle (2.8,0.6);
+  \fill[band] (-2.8,-0.36) rectangle (2.8,0.36);
   \draw[cxaxis] (-3.0,0)--(3.0,0) node[right]{$\Re z$};
-  \draw[cxaxis] (0,-1.9)--(0,2.0) node[above]{$\Im z$};
-  \foreach \y in {0.9,1.55} { \node[pole] at (0,\y) {}; \node[pole] at (0,-\y) {}; }
-  \node[font=\footnotesize,anchor=west] at (0.15,0.9) {$i/2$};
-  \node[font=\footnotesize,anchor=west] at (0.15,-0.9) {$-i/2$};
-  \draw[dashed,black!55] (-2.8,0.6)--(2.8,0.6);
-  \draw[dashed,black!55] (-2.8,-0.6)--(2.8,-0.6);
+  \draw[cxaxis] (0,-2.1)--(0,2.4) node[above]{$\Im z$};
+  \foreach \y in {0.6,1.8} { \node[pole] at (0,\y) {}; \node[pole] at (0,-\y) {}; }
+  \node[font=\footnotesize,anchor=west] at (0.15,0.6) {$i/2$};
+  \node[font=\footnotesize,anchor=west] at (0.15,-0.6) {$-i/2$};
+  \draw[dashed,black!55] (-2.8,0.36)--(2.8,0.36);
+  \draw[dashed,black!55] (-2.8,-0.36)--(2.8,-0.36);
 \end{tikzpicture}
 \captionof{figure}{The poles of $1/\cosh\pi z$ sit at $z=i(k+\tfrac12)$, $k\in\Z$ (marked
 $\times$). The closest pair $\pm i/2$ bounds the strip (shaded) to half-width $a<1/2$.}
@@ -30023,7 +30023,7 @@ $\overline{D(z,r)}$ lies inside $S_a$, so the Cauchy integral formula for deriva
 \[
   f^{(n)}(z)=\frac{n!}{2\pi i}\oint_{\abs{w-z}=r}\frac{f(w)}{(w-z)^{n+1}}\dw .
 \]
-On the circle $\abs{w-z}=r$ we have $\Im w\in(\Im z-r,\Im z+r)\subseteq(-a,a)$, and writing
+On the circle $\abs{w-z}=r$ we have $\Im w\in[\Im z-r,\Im z+r]\subseteq(-a,a)$, and writing
 $w=u+iv$ with $u=\Re w$ near $\Re z=x$, the moderate-decrease bound on $f$ gives
 $\abs{f(w)}\le A/(1+u^2)\le A'/(1+x^2)$ (the shift by at most $r$ in the real part changes the
 majorant only by a bounded factor). Hence
@@ -30040,16 +30040,18 @@ Thus $f^{(n)}\in\mathcal F_b$.
 $\mathcal F_a$ (or in $\mathcal F$).
 \begin{enumerate}
 \item \textbf{Find the singularities.} The poles / branch points nearest the real axis cap the
-  strip: $a$ must be strictly below the smallest $\abs{\Im(\text{singularity})}$.
+  strip: $a$ cannot exceed the smallest $\abs{\Im(\text{singularity})}$, and must be strictly
+  below it when that singularity is a pole.
 \item \textbf{Check moderate decrease on lines.} On $\Im z=y$, $\abs{f(x+iy)}$ must be
   $\le A/(1+x^2)$ with $A$ uniform over $\abs y<a$. Exponential growth of the denominator
   (as for $\cosh$) or a degree-$\ge 2$ rational tail suffices.
 \item \textbf{If entire} (no singularities), only step 2 matters; but watch vertical growth
-  (the Gaussian's $e^{\pi y^2}$ is fine for finite $a$, but an $e^{z^2}$ would fail).
+  (the Gaussian's $e^{\pi y^2}$ is fine for finite $a$) and growth along $\R$ itself (an
+  $e^{z^2}$ fails there).
 \end{enumerate}
 \end{method}
 
-\begin{wex}{A NON-example: vertical growth kills membership}
+\begin{wex}{A NON-example: growth along the real axis kills membership}
 Show $f(z)=e^{z^2}$ belongs to no $\mathcal F_a$, even though it is entire.
 \wrec Trigger: ``entire but is it in $\mathcal F$?'' Apply step 2 of the method --- test the
 moderate-decrease bound on horizontal lines, and on the \emph{real} line itself.
@@ -30098,11 +30100,11 @@ with Theorem~\ref{t:expdecay@c17}.
 \begin{center}
 \begin{tikzpicture}[scale=1.0]
   \draw[cxaxis] (-2.7,0)--(2.7,0) node[right]{$\Re z$};
-  \draw[cxaxis] (0,-2.4)--(0,1.0) node[above]{$\Im z$};
+  \draw[cxaxis] (0,-2.4)--(0,1.7) node[above]{$\Im z$};
   \draw[contour] (-2.2,0) -- (2.2,0) arc (0:-180:2.2) -- cycle;
   \node[pole,label={[font=\small]left:$-ia$}] at (0,-1.1) {};
-  \node[pole,label={[font=\small]above right:$ia$}] at (0,1.1) {};
-  \node[font=\small,fill=white,inner sep=1pt] at (1.35,-1.55) {$C_R$};
+  \node[pole,label={[font=\small]right:$ia$}] at (0,1.1) {};
+  \node[font=\small,fill=white,inner sep=1pt] at (2.05,-1.75) {$C_R$};
   \node[font=\small,fill=white,inner sep=1pt] at (1.1,0.22) {$R$};
 \end{tikzpicture}
 \captionof{figure}{Closing the contour in the lower half-plane for $\xi>0$. The clockwise
@@ -30142,7 +30144,7 @@ $a<1$, consistent with $\min(a,a)=a$.
 
 \begin{wex}{A NON-example: a logarithmic branch point on $\R$}
 Show $f(z)=\Log z$ (principal branch) lies in no $\mathcal F_a$.
-\wrec Trigger: locate singularities. A branch point, like a pole, must be kept off the closed
+\wrec Trigger: locate singularities. A branch point, like a pole, must be kept out of the
 strip; the principal $\Log$ has its branch point and cut on the real axis.
 \wsol The principal logarithm $\Log z=\ln\abs z+i\Arg z$ has a branch point at $z=0$ and a cut
 along $(-\infty,0]$, all on the real axis. So $f$ is not even single-valued or continuous across
@@ -30153,8 +30155,8 @@ $A/(1+x^2)$ decay either --- it fails both conditions of Definition~\ref{d:Fa@c1
 
 \begin{exers}{Exercises (Stein, Ch.4).}
 \item If $f\in\mathcal F_a$ with $a>0$, then for any positive integer $n$ one has
-  $f^{(n)}\in\mathcal F_b$ whenever $0\le b<a$. [Hint: modify the solution to Exercise~8 in
-  Chapter~2, i.e.\ use the Cauchy integral formula for derivatives.]
+  $f^{(n)}\in\mathcal F_b$ whenever $0\le b<a$. [Hint: modify the solution to Exercise~8 of
+  Stein, Ch.2 (in Chapter~15), i.e.\ use the Cauchy integral formula for derivatives.]
 \end{exers}
 
 \begin{exers}{Additional exercises.}
@@ -30172,11 +30174,11 @@ $A/(1+x^2)$ decay either --- it fails both conditions of Definition~\ref{d:Fa@c1
   the Gaussian estimate with $\abs{\cos(2\pi z)}\le e^{2\pi\abs{\Im z}}$.)
 \item (Non-example.) Exhibit a function that is holomorphic on the whole strip $S_a$ and bounded
   on every horizontal line, yet does \emph{not} belong to $\mathcal F_a$ because the
-  moderate-decrease constant $A$ is not uniform in $y$. [Hint: try $f(z)=1/(1+(z/(a-\abs{\Im z}))^2)$
-  schematically, or simpler, a bounded function with no decay such as $f\equiv1$.]
+  moderate-decrease constant $A$ is not uniform in $y$. [Hint: try $f(z)=1/(a^2+z^2)$, whose
+  poles $\pm ia$ lie on the edges of $S_a$.]
 \item (Diagram problem.) For $f(z)=\dfrac1\pi\dfrac{2}{4+z^2}$, draw the complex plane marking the
-  poles and shading the maximal strip $S_a$ on which $f\in\mathcal F_a$. Label the value of $a$
-  and the residues at the poles.
+  poles and shading the largest strip $S_a$ on which $f$ is holomorphic. Label the value of $a$
+  and the residues at the poles; for which $a'$ is $f\in\mathcal F_{a'}$?
 \item Suppose $f\in\mathcal F_a$ and $f$ has a zero of order $m$ at a point $z_0\in S_a$. Show
   that $f(z)/(z-z_0)^m$ extends holomorphically across $z_0$ and again lies in $\mathcal F_b$ for
   every $b<a$ with $b\ne\abs{\Im z_0}$. Explain the role of moderate decrease in the conclusion.
@@ -30231,7 +30233,7 @@ The case $b=0$ says only that $\hat f$ is bounded: indeed $\abs{\hat f(\xi)}\le\
 
 Now take $0<b<a$ and first suppose $\xi>0$. Set $g(z)=f(z)e^{-2\pi i z\xi}$, holomorphic on
 $S_a$. Apply Cauchy's theorem to the rectangle with corners $\pm R$ and $\pm R-ib$ (the real
-segment, the right side down to $-ib$, the lower segment, the left side back up). On the left
+segment, the right side down to $R-ib$, the lower segment, the left side back up). On the left
 vertical side $z=-R-it$, $0\le t\le b$,
 \[
   \Bigl|\int_{-R}^{-R-ib} g(z)\dz\Bigr|
@@ -30262,9 +30264,9 @@ decays. Section~\ref{ss:pw@c17} pushes this to the limit: \emph{compact support}
 Use Theorem~\ref{t:expdecay@c17} to predict the decay of $\widehat{P_c}$ for $P_c(x)=\frac1\pi
 \frac{c}{c^2+x^2}$, and compare with the exact value.
 \wrec Trigger: read off the strip half-width and quote $e^{-2\pi b\abs\xi}$ for every $b<a$.
-\wsol From \S\ref{d:Fa@c17}, $P_c\in\mathcal F_a$ for all $a<c$, so the theorem gives
-$\abs{\widehat{P_c}(\xi)}\le B_b e^{-2\pi b\abs\xi}$ for every $b<c$. Letting $b\uparrow c$,
-the decay rate approaches $e^{-2\pi c\abs\xi}$. \emph{Check.} The exact transform is
+\wsol By Worked Example~\ref{wex:ratstrip@c17}, $P_c\in\mathcal F_a$ for all $a<c$, so the
+theorem gives $\abs{\widehat{P_c}(\xi)}\le B_b e^{-2\pi b\abs\xi}$ for every $b<c$. Letting
+$b\uparrow c$, the decay rate approaches $e^{-2\pi c\abs\xi}$. \emph{Check.} The exact transform is
 $\widehat{P_c}(\xi)=e^{-2\pi c\abs\xi}$, so the predicted rate is sharp --- the supremum $b\to c$
 is exactly attained by the true exponential rate, and the pole at height $c$ is the obstruction.
 \end{wex}
@@ -30289,10 +30291,11 @@ because $\abs{e^{-(A+iB)R}}=e^{-AR}\to 0$.
 \subsection*{The Fourier inversion formula}
 
 \begin{center}
+\begin{minipage}{\linewidth}\centering
 \begin{tikzpicture}[scale=1.0]
   \draw[cxaxis] (-3.4,0)--(3.4,0) node[right]{$\Re z$};
   \draw[cxaxis] (0,-1.8)--(0,1.8) node[above]{$\Im z$};
-  \draw[contour] (-2.8,1.0) -- (2.8,1.0) -- (2.8,-1.0) -- (-2.8,-1.0) -- cycle;
+  \draw[contour] (-2.8,-1.0) -- (2.8,-1.0) -- (2.8,1.0) -- (-2.8,1.0) -- cycle;
   \node[pole] at (1.1,0) {};
   \node[font=\small,below=5pt] at (1.1,0) {$x$};
   \node[font=\small,anchor=south west] at (-2.8,1.08) {$-R+ib$};
@@ -30304,6 +30307,7 @@ because $\abs{e^{-(A+iB)R}}=e^{-AR}\to 0$.
 \captionof{figure}{The rectangular contour $\gamma_R$ for Theorem~\ref{t:inversion@c17}, formed by
 the shifted lines $L_1$ (lower) and $L_2$ (upper). It encircles the simple pole of
 $f(\zeta)/(\zeta-x)$ at $\zeta=x$ (marked $\times$), whose residue is $f(x)$. (Schematic.)}
+\end{minipage}
 \end{center}
 
 \begin{theorem}[Fourier inversion on $\mathcal F$]\label{t:inversion@c17}
@@ -30365,12 +30369,13 @@ identity on $\mathcal F$.
 \begin{tikzpicture}[scale=0.92]
   \draw[cxaxis] (-3.8,0)--(3.8,0) node[right]{$\Re z$};
   \draw[cxaxis] (0,-1.5)--(0,1.5) node[above]{$\Im z$};
-  \draw[contour] (-3.3,0.8) -- (3.3,0.8) -- (3.3,-0.8) -- (-3.3,-0.8) -- cycle;
+  \draw[contour] (-3.5,-0.8) -- (3.5,-0.8) -- (3.5,0.8) -- (-3.5,0.8) -- cycle;
   \foreach \n in {-3,-2,-1,0,1,2,3} { \node[pole] at (\n,0) {}; }
-  \foreach \n/\lab in {-3/{-N},-1/{-1},0/{0},1/{1},3/{N}} {
+  \foreach \n/\lab in {-3/{-N},-1/{-1},1/{1},3/{N}} {
     \node[font=\small,below=4pt] at (\n,-0.12) {$\lab$}; }
-  \node[font=\small,anchor=south east] at (3.3,0.88) {$N+\tfrac12+ib$};
-  \node[font=\small,anchor=north east] at (3.3,-0.88) {$N+\tfrac12-ib$};
+  \node[font=\small,below left=4pt and 0pt] at (0,-0.12) {$0$};
+  \node[font=\small,anchor=south east] at (3.5,0.88) {$N+\tfrac12+ib$};
+  \node[font=\small,anchor=north east] at (3.5,-0.88) {$N+\tfrac12-ib$};
   \node[font=\small,fill=white,inner sep=1pt] at (-2.0,0.42) {$\gamma_N$};
 \end{tikzpicture}
 \captionof{figure}{The rectangular contour $\gamma_N$ for Theorem~\ref{t:poisson@c17}, with corners
@@ -30434,7 +30439,7 @@ $\vartheta(t)=t^{-1/2}\vartheta(1/t)$. \emph{Check.} At the fixed point $t=1$ th
 $\vartheta(1)=1^{-1/2}\vartheta(1)$, a tautology, as the self-dual point must be; and as
 $t\to\infty$, $\vartheta(t)\to 1$ while $t^{-1/2}\vartheta(1/t)\sim t^{-1/2}\cdot t^{1/2}=1$
 (since $\vartheta(s)\sim s^{-1/2}$ as $s\to 0$), consistent. This functional equation underlies
-the analytic continuation of the Riemann zeta function (Chapter~6).
+the analytic continuation of the Riemann zeta function (Chapter~19).
 \end{wex}
 
 \begin{wex}{A $\cosh$ summation identity}
@@ -30551,7 +30556,7 @@ summation does apply --- the quadratic decay is exactly what rescues both sides.
   treat $\xi<0$, $\xi=0$, $\xi>0$ separately; use residues.]
 \item More generally, let $R(x)=P(x)/Q(x)$ be a rational function with
   $\deg Q\ge\deg P+2$ and $Q(x)\ne0$ on the real axis.
-  (a) Prove that if $\alpha_1,\dots,\alpha_k$ are the roots of $R$ in the upper half-plane, then
+  (a) Prove that if $\alpha_1,\dots,\alpha_k$ are the roots of $Q$ in the upper half-plane, then
   there exist polynomials $P_j(\xi)$ of degree less than the multiplicity of $\alpha_j$ with
   $\int_{-\infty}^{\infty} R(x)e^{-2\pi i x\xi}\dx=\sum_{j=1}^k P_j(\xi)e^{-2\pi i\alpha_j\xi}$
   when $\xi<0$.
@@ -30559,7 +30564,7 @@ summation does apply --- the quadratic decay is exactly what rescues both sides.
   $\int_{-\infty}^{\infty} R(x)e^{-2\pi i x\xi}\dx=0$ for $\xi<0$.
   (c) Show similar results hold for $\xi>0$ (argue in the lower half-plane).
   (d) Show $\int_{-\infty}^{\infty} R(x)e^{-2\pi i x\xi}\dx=O(e^{-a\abs\xi})$ as $\abs\xi\to\infty$
-  for some $a>0$; determine the best possible $a$ in terms of the roots of $R$. [Hint: for (a)
+  for some $a>0$; determine the best possible $a$ in terms of the roots of $Q$. [Hint: for (a)
   use residues; powers of $\xi$ arise from differentiating $R(z)e^{-2\pi i z\xi}$.]
 \item Prove that $\displaystyle\frac1\pi\sum_{n=-\infty}^{\infty}\frac{a}{a^2+n^2}
   =\sum_{n=-\infty}^{\infty} e^{-2\pi a\abs n}$ whenever $a>0$, and hence show the sum equals
@@ -30615,9 +30620,10 @@ summation does apply --- the quadratic decay is exactly what rescues both sides.
   via the transform pair with the Poisson kernel) to derive
   $\sum_{n}\frac{1}{a^2+n^2}=\frac{\pi}{a}\coth(\pi a)$. State carefully which hypotheses of the
   theorem need checking and how moderate decrease is used.
-\item Show that if $f\in\mathcal F$ is \emph{even} ($f(-x)=f(x)$) then $\hat f$ is even and real
-  on $\R$; if $f$ is odd, $\hat f$ is odd and purely imaginary. Relate this to the symmetry of the
-  shifted contours used in Theorem~\ref{t:inversion@c17}.
+\item Show that if $f\in\mathcal F$ is real-valued on $\R$ and \emph{even} ($f(-x)=f(x)$) then
+  $\hat f$ is even and real on $\R$; if $f$ is real-valued and odd, $\hat f$ is odd and purely
+  imaginary. Relate this to the symmetry of the shifted contours used in
+  Theorem~\ref{t:inversion@c17}.
 \item Use the inversion formula at $x=0$ together with the self-duality
   $\widehat{e^{-\pi x^2}}=e^{-\pi\xi^2}$ to recompute $\int_{-\infty}^\infty e^{-\pi\xi^2}\,\dd\xi=1$,
   and explain how this is a consistency check on the normalization of the transform.
@@ -30713,12 +30719,12 @@ supported in $[-M,M]$.
 \begin{tikzcd}[row sep=large, column sep=huge]
 \bigl\{\,f\text{ entire},\ \abs{f(z)}\le Ae^{2\pi M\abs z}\,\bigr\}
   \arrow[r, "\mathcal F", shift left=1ex]
-& \bigl\{\,g:\ \supp g\subseteq[-M,M]\,\bigr\}
+& \bigl\{\,\hat f:\ \supp\hat f\subseteq[-M,M]\,\bigr\}
   \arrow[l, "\mathcal F^{-1}", shift left=1ex]
 \end{tikzcd}
-\captionof{figure}{The Paley--Wiener correspondence: the Fourier transform $\mathcal F$ is a
-bijection between entire functions of exponential type $2\pi M$ (of moderate decrease on $\R$)
-and functions supported in $[-M,M]$, with inverse $\mathcal F^{-1}$. ``If'' is the easy
+\captionof{figure}{The Paley--Wiener correspondence for $f$ of moderate decrease on $\R$: the
+Fourier transform $\mathcal F$ carries the entire functions of exponential type $2\pi M$ onto
+the transforms supported in $[-M,M]$, with inverse $\mathcal F^{-1}$. ``If'' is the easy
 direction, ``only if'' the hard one.}
 \end{center}
 
@@ -30747,13 +30753,13 @@ one in three steps; the crucial tool is the Phragmen--Lindelof principle.
 \begin{center}
 \begin{tikzpicture}[scale=1.0]
   \fill[band] (0,0) -- (2.6,2.6) arc (45:-45:3.67) -- cycle;
-  \draw[cxaxis] (-0.6,0)--(3.4,0) node[right]{$\Re z$};
+  \draw[cxaxis] (-0.6,0)--(4.1,0) node[right]{$\Re z$};
   \draw[cxaxis] (0,-3.0)--(0,3.0) node[above]{$\Im z$};
   \draw[line width=1pt] (0,0)--(2.6,2.6);
   \draw[line width=1pt] (0,0)--(2.6,-2.6);
   \node[font=\footnotesize] at (2.4,1.0) {$S$};
-  \node[font=\footnotesize] at (2.7,2.7) {$\arg z=\tfrac\pi4$};
-  \node[font=\footnotesize] at (2.8,-2.7) {$\arg z=-\tfrac\pi4$};
+  \node[font=\footnotesize,anchor=south west] at (2.6,2.6) {$\arg z=\tfrac\pi4$};
+  \node[font=\footnotesize,anchor=north west] at (2.6,-2.6) {$\arg z=-\tfrac\pi4$};
 \end{tikzpicture}
 \captionof{figure}{The sector $S=\set{-\pi/4<\arg z<\pi/4}$ of the Phragmen--Lindelof theorem
 (Theorem~\ref{t:pl@c17}).}
@@ -30767,8 +30773,9 @@ constants $C,c>0$ and all $z\in S$. Then $\abs{F(z)}\le 1$ for all $z\in S$.
 
 \begin{proof}
 Some growth restriction is essential: $F(z)=e^{z^2}$ is bounded by $1$ on $\partial S$ (there
-$\Re(z^2)=0$) yet $F(x)=e^{x^2}\to\infty$ on the real axis. The idea is to subdue the worst case
-$e^{z^2}$ by inserting a slightly weaker exponential. For $\eps>0$ set
+$\Re(z^2)=0$) yet $F(x)=e^{x^2}\to\infty$ on the real axis. The idea is to subdue the permitted
+growth $e^{c\abs z}$ (far milder than $e^{z^2}$) by inserting a decaying exponential of order
+$3/2$. For $\eps>0$ set
 \[
   F_\eps(z)=F(z)\,e^{-\eps z^{3/2}},
 \]
@@ -30789,11 +30796,12 @@ Thus $\abs{F_\eps}\le1$ on $\overline S$. Letting $\eps\to0$ yields $\abs F\le1$
 
 \begin{center}
 \begin{tikzpicture}[scale=0.78]
-  \begin{axis}[width=7.2cm,height=4.8cm,view={40}{28},
+  \begin{axis}[width=7.2cm,height=4.8cm,view={-60}{25},
     xlabel={\footnotesize$\Re z$},ylabel={\footnotesize$\Im z$},
     zlabel={\footnotesize$\abs F$},ticks=none,colormap/blackwhite]
-    \addplot3[surf,domain=0:2.2,y domain=-2.2:2.2,samples=26,samples y=26,shader=interp]
-      {exp(-0.6*(x*x - y*y))};
+    % |e^{z^2}| = exp(r^2 cos 2theta) over the sector r<=1.6, |theta|<=45 deg (pgfplots trig in degrees)
+    \addplot3[surf,domain=0:1.6,y domain=-45:45,samples=26,samples y=26,shader=interp]
+      ({x*cos(y)},{x*sin(y)},{exp(x*x*cos(2*y))});
   \end{axis}
 \end{tikzpicture}
 \captionof{figure}{Modulus of the ``enemy'' $e^{z^2}$ over the sector: flat ($=1$) on the
@@ -30820,14 +30828,15 @@ $1/(1+x^2)$ factor). For $\xi>M$ and $\eps>0$ introduce
 \[
   f_\eps(z)=\frac{f(z)}{(1+i\eps z)^2}.
 \]
-On the closed \emph{lower} half-plane $\abs{1/(1+i\eps z)^2}\le1$ (there $\Im(i\eps z)=\eps\Re z$
-contributes, and $\abs{1+i\eps z}\ge1$ for $\Im z\le0$), and $1/(1+i\eps z)^2\to1$ pointwise as
+On the closed \emph{lower} half-plane $\abs{1/(1+i\eps z)^2}\le1$ (there
+$\Re(1+i\eps z)=1-\eps\Im z\ge1$, so $\abs{1+i\eps z}\ge1$), and $1/(1+i\eps z)^2\to1$ pointwise as
 $\eps\to0$. By moderate decrease of $f$ on $\R$,
 \[
   \abs{\widehat{f_\eps}(\xi)-\hat f(\xi)}\le\int_{-\infty}^\infty\abs{f(x)}\,
    \Bigl|\frac{1}{(1+i\eps x)^2}-1\Bigr|\dx\to0\quad(\eps\to0)
 \]
-by dominated convergence. But $f_\eps$ satisfies the Step-1 hypothesis \eqref{eq:step1@c17}
+by dominated convergence. But $f_\eps$ satisfies the Step-1 hypothesis \eqref{eq:step1@c17} on
+the lower half-plane, which is all Step~1 uses for $\xi>M$
 (the $(1+i\eps z)^2$ in the denominator supplies the $1/(1+x^2)$ decay), so
 $\widehat{f_\eps}(\xi)=0$; passing $\eps\to0$ gives $\hat f(\xi)=0$. For $\xi<-M$ argue in the
 upper half-plane with $1/(1-i\eps z)^2$.
@@ -30856,7 +30865,9 @@ check $\abs{f(z)}\le A e^{2\pi M\abs z}$.
 $\hat f(\xi)=\ind{[-M,M]}(\xi)$, supported precisely in $[-M,M]$. The entire extension
 $f(z)=\sin(2\pi M z)/(\pi z)$ satisfies $\abs{\sin(2\pi M z)}\le e^{2\pi M\abs{\Im z}}\le
 e^{2\pi M\abs z}$, while $1/(\pi z)$ only helps; so $f$ is of exponential type $2\pi M$, exactly
-as Paley-Wiener requires. \emph{Check.} $f(0)=2M$ (limit of $\sin(2\pi M x)/\pi x$), and
+as Paley-Wiener requires. (Strictly, $f$ decays only like $1/\abs x$, so it is not of moderate
+decrease: Theorem~\ref{t:pw@c17} serves as a guide here, and $\hat f$ is an improper integral.)
+\emph{Check.} $f(0)=2M$ (limit of $\sin(2\pi M x)/\pi x$), and
 $\int_{-M}^M 1\,\dd\xi=2M=f(0)$ via inversion at $x=0$. Consistent.
 \end{wex}
 
@@ -30894,7 +30905,8 @@ holomorphic in the interior.
 ($\Leftarrow$) For $\eps,\delta>0$ set $f_{\eps,\delta}(z)=\dfrac{f(z+i\delta)}{(1-i\eps z)^2}$,
 holomorphic in a region containing the closed upper half-plane. By Cauchy's theorem (shift the
 contour up into the region of holomorphy), $\widehat{f_{\eps,\delta}}(\xi)=0$ for $\xi<0$.
-Passing $\eps\to0$ gives $\widehat{f_{\cdot,\delta}}(\xi)=0$, then $\delta\to0$ gives
+Passing $\delta\to0$ (dominated convergence: $\abs{f_{\eps,\delta}(x)}\le\sup\abs f/(1+\eps^2x^2)$
+on $\R$) gives $\widehat{f_{\eps,0}}(\xi)=0$, then $\eps\to0$ (dominated by $\abs f$) gives
 $\hat f(\xi)=0$ for $\xi<0$.
 \end{proof}
 
@@ -30907,13 +30919,13 @@ $\hat f(\xi)=0$ for $\xi<0$.
   \node[font=\footnotesize] at (1.6,-0.25) {$\hat f(\xi)=0,\ \xi<0$};
 \end{tikzpicture}
 \captionof{figure}{Theorem~\ref{t:halfline@c17}: $\hat f$ vanishes on $(-\infty,0)$ iff $f$
-extends holomorphically and boundedly to the closed upper half-plane --- the analogue (via the
-exponential $e^{2\pi i\theta}$) of Fourier coefficients vanishing for $n<0$ on the disc.
-(Schematic.)}
+extends to a bounded continuous function on the closed upper half-plane, holomorphic inside
+--- the analogue (via the exponential $e^{2\pi i\theta}$) of Fourier coefficients vanishing for
+$n<0$ on the disc. (Schematic.)}
 \end{center}
 
 \begin{remark}
-There is a deliberate analogy with the disc theory (Theorem~7.1 of Chapter~3): a function
+There is a deliberate analogy with the disc theory (Theorem~\ref{t:fourcoeff@c16}): a function
 holomorphic in the upper half-plane $\leftrightarrow$ holomorphic in a disc; $\hat f$ vanishing on
 $\xi<0$ $\leftrightarrow$ Fourier coefficients vanishing for $n<0$. Both are ``one-sided
 spectrum'' = ``holomorphic extension'' theorems.
@@ -30949,23 +30961,27 @@ poles sit at height $1/(2\pi)=a$, exactly capping the strip --- the predicted ha
 and $f$ is a (rescaled) Poisson kernel as expected from a two-sided exponential transform.
 \end{wex}
 
-\begin{wex}{A NON-example: polynomial growth is not exponential type, but still entire}
+\begin{wex}{A NON-example: polynomial growth is of exponential type, but not moderate decrease}
 Is $f(z)=z^3$ of exponential type? What does Paley-Wiener then say about a hypothetical
 ``$\hat f$''?
 \wrec Trigger: test Definition~\ref{d:exptype@c17}. A polynomial grows slower than any $e^{\tau\abs z}$,
-so it \emph{is} of exponential type $0$ --- but it is not of moderate decrease on $\R$.
+so it \emph{is} of exponential type $\tau$ for every $\tau>0$ --- but it is not of moderate
+decrease on $\R$.
 \wsol For any $\tau>0$, $\abs{z^3}=\abs z^3\le A_\tau e^{\tau\abs z}$ since polynomials are
-dominated by exponentials; so $z^3$ is of exponential type $0$. However $z^3$ is unbounded on
-$\R$ and not in $L^1$, so it is not of moderate decrease and the Paley-Wiener \emph{hypothesis}
+dominated by exponentials; so $z^3$ is of exponential type $\tau$ for every $\tau>0$ (though not of
+type $0$, which would make it bounded). However $z^3$ is unbounded on $\R$ and not in $L^1$,
+so it is not of moderate decrease and the Paley-Wiener \emph{hypothesis}
 fails --- the theorem simply does not apply, and $z^3$ has no Fourier transform in this class.
 \emph{Check.} The moral is that exponential type controls vertical growth, but Paley-Wiener also
-requires real-axis decay; $z^3$ has the former (trivially, type $0$) and badly fails the latter.
+requires real-axis decay; $z^3$ has the former (trivially, any type $\tau>0$) and badly fails
+the latter.
 \end{wex}
 
 \begin{wex}{Phragmen-Lindelof sharpness: why the sector angle matters}
-Show that $F(z)=e^{z^2}$ violates the conclusion of Theorem~\ref{t:pl@c17} in the \emph{wider}
-sector $\abs{\arg z}<\pi/4$ is impossible to extend to $\abs{\arg z}<\pi/2$, pinpointing where
-the argument breaks.
+Show that $F(z)=e^{z^2}$ meets the boundary hypothesis but violates the conclusion of
+Theorem~\ref{t:pl@c17} in the sector $\abs{\arg z}<\pi/4$ (so the growth bound cannot be
+dropped), and explain why the proof does not extend to the \emph{wider} sector
+$\abs{\arg z}<\pi/2$, pinpointing where the argument breaks.
 \wrec Trigger: the proof used $\cos(3\theta/2)\ge\delta>0$, valid only while $3\abs\theta/2<\pi/2$,
 i.e.\ $\abs\theta<\pi/3$. Test the boundary growth and the auxiliary subharmonic factor.
 \wsol On the sector $\abs{\arg z}<\pi/4$, the diagonals $\theta=\pm\pi/4$ give
@@ -30975,8 +30991,8 @@ $\abs{F(x)}=e^{x^2}\to\infty$, so without the growth bound $\abs F\le Ce^{c\abs 
 $\abs F\le1$ is false. The damping factor $e^{-\eps z^{3/2}}$ works precisely because in
 $\abs\theta<\pi/4$ we have $\cos(3\theta/2)\ge\cos(3\pi/8)>0$; widen the sector to $\abs\theta<
 \pi/2$ and $\cos(3\theta/2)$ would go negative, destroying the decay. \emph{Check.} The exponent
-$3/2$ is the unique choice making $z^\alpha$ decay throughout a $\pi/2$-wide sector while beating
-$e^{z^2}$: one needs $\alpha>1$ (to beat linear $c\abs z$) and $\alpha\cdot\frac\pi4<\frac\pi2$
+$3/2$ is not special: $e^{-\eps z^\alpha}$ decays throughout the $\pi/2$-wide sector fast enough to
+beat $e^{c\abs z}$ whenever $\alpha>1$ (to beat linear $c\abs z$) and $\alpha\cdot\frac\pi4<\frac\pi2$
 i.e.\ $\alpha<2$, and $3/2$ sits safely between.
 \end{wex}
 
@@ -30986,9 +31002,11 @@ half-line and that $f$ extends to the appropriate closed half-plane.
 \wrec Trigger: a function holomorphic off a single pole. Locate the pole; the half-plane on the
 \emph{opposite} side is where $f$ extends, and the spectrum vanishes accordingly.
 \wsol The pole of $f$ is at $z=i$, in the \emph{upper} half-plane, so $f$ is holomorphic and
-bounded on the closed \emph{lower} half-plane $\set{y\le0}$. By the lower-half-plane analogue of
-Theorem~\ref{t:halfline@c17}, $\hat f(\xi)=0$ for $\xi>0$. Compute directly: for $\xi<0$ close up
-around $z=i$, getting $\hat f(\xi)=\int\frac{e^{-2\pi i x\xi}}{x-i}\dx=2\pi i\,e^{-2\pi i(i)\xi}
+bounded on the closed \emph{lower} half-plane $\set{y\le0}$. The lower-half-plane analogue of
+Theorem~\ref{t:halfline@c17} therefore suggests $\hat f(\xi)=0$ for $\xi>0$ (only suggests: $f$
+decays like $1/\abs x$, so it is not of moderate decrease and $\hat f$ is an improper integral).
+Compute directly: for $\xi<0$ close up around $z=i$, getting
+$\hat f(\xi)=\int\frac{e^{-2\pi i x\xi}}{x-i}\dx=2\pi i\,e^{-2\pi i(i)\xi}
 =2\pi i\,e^{2\pi\xi}$ (with $\xi<0$ this decays); for $\xi>0$ close down, enclosing no pole, so
 $\hat f(\xi)=0$. \emph{Check.} The vanishing half $\xi>0$ matches the pole sitting in the upper
 half-plane (holomorphic extension downward), exactly the dictionary of Theorem~\ref{t:halfline@c17};
@@ -31002,12 +31020,11 @@ and the surviving piece $2\pi i\,e^{2\pi\xi}\ind{\xi<0}$ is genuinely one-sided.
   % wedge sector for PL rotated to first quadrant, with contour
   \fill[band] (0,0) -- (2.6,0) arc (0:90:2.6) -- cycle;
   \draw[contour] (0,0) -- (2.6,0) arc (0:90:2.6) -- cycle;
-  \node[pole,label={[font=\footnotesize]right:$i$}] at (0,1.2) {};
   \node[font=\footnotesize] at (1.5,1.0) {$Q$};
-  \node[font=\footnotesize] at (2.05,1.9) {arc $R$};
+  \node[font=\footnotesize,anchor=south west] at (1.9,1.85) {arc $R$};
 \end{tikzpicture}
-\captionof{figure}{First-quadrant sector $Q$ of Step~3: $F(z)=f(z)e^{2\pi i M z}$ is
-$\le1$ on both axes, and Phragmen--Lindelof pushes the bound into the interior.}
+\captionof{figure}{First-quadrant sector $Q$ of Step~3: $F(z)=f(z)e^{2\pi i M z}$ has
+$\abs F\le1$ on both axes, and Phragmen--Lindelof pushes the bound into the interior.}
 \end{center}
 
 \begin{wex}{Band-limited functions form an algebra under convolution-product duality}
@@ -31029,10 +31046,10 @@ viewpoints agree, and the bandwidth is exactly additive.
   \begin{scope}
     \draw[cxaxis] (-2.3,0)--(2.3,0) node[right,font=\footnotesize]{$\xi$};
     \draw[cxaxis] (0,-0.3)--(0,2.0) node[above,font=\footnotesize]{$\hat f$};
-    \draw[contour] (-2.0,0) -- (-1.0,0) -- (0,1.5) -- (1.0,0) -- (2.0,0);
+    \draw[curve] (-2.0,0) -- (-1.0,0) -- (0,1.5) -- (1.0,0) -- (2.0,0);
     \node[font=\footnotesize] at (-1.0,-0.25) {$-M$};
     \node[font=\footnotesize] at (1.0,-0.25) {$M$};
-    \node[font=\footnotesize] at (-1.6,1.4) {compact support};
+    \node[font=\footnotesize] at (-1.75,1.4) {compact support};
   \end{scope}
   \draw[-{Stealth[length=2mm]}] (2.7,0.8)--(3.8,0.8)
     node[midway,above,font=\footnotesize]{inv.};
@@ -31041,7 +31058,7 @@ viewpoints agree, and the bandwidth is exactly additive.
     \draw[cxaxis] (0,-1.2)--(0,1.6) node[above,font=\footnotesize]{$\Im z$};
     \foreach \y in {-0.7,0,0.7}{ \draw[conff] (-2.0,\y)--(2.0,\y); }
     \foreach \x in {-1.5,-0.75,0,0.75,1.5}{ \draw[conff] (\x,-1.0)--(\x,1.3); }
-    \node[font=\footnotesize] at (1.4,1.0) {entire, type $2\pi M$};
+    \node[lblnode] at (1.4,1.0) {entire, type $2\pi M$};
   \end{scope}
 \end{tikzpicture}
 \captionof{figure}{Paley--Wiener dictionary: $\hat f$ supported in $[-M,M]$ (left) inverts to
@@ -31075,7 +31092,7 @@ an \emph{entire} $f$ of exponential type $2\pi M$ filling the whole plane (right
   ($R\ge0$, $\theta\in\R$).
   (b) Apply Phragmen--Lindelof to $F(z)=g(z)e^{\gamma z}$ with
   $\gamma=i\pi\,e^{-i\pi/(2\beta)}/\sin(\pi/(2\beta))$ and the sector $0\le\theta\le\pi/\beta<\pi$;
-  let $\beta\to\pi$ to deduce that $e^{\pi z}g(z)$ is bounded in the closed upper half-plane (and
+  let $\beta\to1$ to deduce that $e^{\pi z}g(z)$ is bounded in the closed upper half-plane (and
   similarly the lower), so by Liouville $e^{\pi z}g(z)$ is constant.
   (c) If $f$ is odd, then $\hat f(0)=0$; apply the argument to $\hat f(z)/z$ to deduce
   $f=\hat f=0$. Finally write a general $f$ as a sum of an even and an odd function.
@@ -31083,9 +31100,9 @@ an \emph{entire} $f$ of exponential type $2\pi M$ filling the whole plane (right
 
 \begin{exers}{Problems (Stein, Ch.4).}
 \item Suppose $\hat f(\xi)=O(e^{-a\abs\xi^p})$ as $\abs\xi\to\infty$, for some $p>1$. Then $f$ is
-  holomorphic for all $z$ and satisfies the growth condition $\abs{f(z)}\le A e^{a\abs z^q}$,
-  where $1/p+1/q=1$. (As $p\to\infty$, $q\to1$ recovers Theorem~\ref{t:pw@c17}; as $p\to1$,
-  $q\to\infty$ returns to Theorem~\ref{t:expdecay@c17}.) [Hint: use $-\xi^p+\xi u\le u^q$ for
+  holomorphic for all $z$ and satisfies the growth condition $\abs{f(z)}\le A e^{b\abs z^q}$ for
+  some $b>0$, where $1/p+1/q=1$. (As $p\to\infty$, $q\to1$ recovers Theorem~\ref{t:pw@c17}; as $p\to1$,
+  $q\to\infty$ returns to Theorem~\ref{t:pw-converse@c17}.) [Hint: use $-\xi^p+\xi u\le u^q$ for
   $\xi,u\ge0$, proved by examining $\xi^p\ge\xi u$ versus $\xi^p<\xi u$ and noting
   $\xi=u^{q-1}$, $u=\xi^{p-1}$ are inverse since $(p-1)(q-1)=1$.]
 \item ${}^*$ (Three-lines lemma.) Investigate bounded holomorphic functions in a strip.
@@ -31095,7 +31112,7 @@ an \emph{entire} $f$ of exponential type $2\pi M$ filling the whole plane (right
   Then $\sup_{x\in\R}\abs{F(x+iy)}\le M_0^{1-y}M_1^{y}$ for $0\le y\le1$.
   (c) Consequently $\log\sup_{x\in\R}\abs{F(x+iy)}$ is a convex function of $y$ on $[0,1]$.
   [Hint: for (a) apply the maximum modulus principle to $F_\eps(z)=F(z)e^{-\eps z^2}$; for (b)
-  consider $M_0^{z-1}M_1^{-z}F(z)$.]
+  consider $M_0^{-1-iz}M_1^{iz}F(z)$.]
 \item ${}^*$ (Borel's representation.) There is a relation between Paley-Wiener and a
   representation of E.\ Borel.
   (a) A function $f(z)$, holomorphic for all $z$, satisfies $\abs{f(z)}\le A_\eps e^{2\pi(M+\eps)\abs z}$
@@ -31104,15 +31121,16 @@ an \emph{entire} $f$ of exponential type $2\pi M$ filling the whole plane (right
   infinity, and $C$ is any circle centered at the origin of radius larger than $M$. In fact, if
   $f(z)=\sum a_n z^n$, then $g(w)=\sum_{n=0}^\infty A_n w^{-n-1}$ with $a_n=A_n(2\pi i)^{n+1}/n!$.
   (b) For such $f$ (with $f,\hat f$ of moderate decrease on $\R$), $g$ is holomorphic in the slit
-  plane $\C\setminus[-M,M]$, and $g(z)=\dfrac{1}{2\pi i}\int_{-M}^{M}\dfrac{\hat f(\xi)}{\xi-z}
+  plane $\C\setminus[-M,M]$, and $g(z)=\dfrac{1}{2\pi i}\int_{-M}^{M}\dfrac{\hat f(\xi)}{z-\xi}
   \,\dd\xi$, so $\hat f$ is the jump of $g$ across $[-M,M]$:
-  $\hat f(x)=\lim_{\eps\to0,\,\eps>0}\bigl(g(x+i\eps)-g(x-i\eps)\bigr)$.
+  $\hat f(x)=\lim_{\eps\to0,\,\eps>0}\bigl(g(x-i\eps)-g(x+i\eps)\bigr)$.
 \end{exers}
 
 \begin{exers}{Additional exercises.}
 \item Show that $f(z)=\dfrac{\sin(\pi z)}{\pi z}$ is entire of exponential type $\pi$, and
-  determine the support of $\hat f$ predicted by Paley-Wiener (Theorem~\ref{t:pw@c17}). Confirm by
-  computing $\hat f$ directly.
+  determine the support of $\hat f$ that Paley-Wiener suggests (Theorem~\ref{t:pw@c17} itself
+  does not apply, since $f$ decays only like $1/\abs x$). Confirm by computing $\hat f$ directly,
+  as an improper integral.
 \item Verify the easy direction of Paley-Wiener for $\hat f=\ind{[-1,1]}$: write down the entire
   extension $g(z)$ explicitly and check the bound $\abs{g(z)}\le A e^{2\pi\abs z}$.
 \item Prove that the product of two functions of exponential types $\tau_1,\tau_2$ is of
@@ -31125,12 +31143,13 @@ an \emph{entire} $f$ of exponential type $2\pi M$ filling the whole plane (right
   Theorem~\ref{t:pl@c17}: if in addition $F$ is bounded on $\overline S$, then $\abs F\le1$ on $S$.
   Explain why the extra growth hypothesis is what the unbounded sector demands.
 \item Deduce from Theorem~\ref{t:halfline@c17} that the Poisson kernel $P_y$ for the upper half-plane
-  has $\widehat{P_y}(\xi)$ vanishing for no $\xi$ (i.e.\ $P_y$ does \emph{not} extend
-  holomorphically to the closed upper half-plane), and reconcile this with $\widehat{P_y}(\xi)=
-  e^{-2\pi y\abs\xi}$.
+  has $\widehat{P_y}(\xi)\ne0$ for some $\xi<0$ (since $P_y$ does \emph{not} extend
+  holomorphically to the upper half-plane: it has a pole at $iy$), and reconcile this with
+  $\widehat{P_y}(\xi)=e^{-2\pi y\abs\xi}$.
 \item (Non-example.) Give a continuous, moderate-decrease function $f$ whose entire extension has
   growth $\abs{f(iy)}\sim e^{\abs y^{3/2}}$; explain why Paley-Wiener does \emph{not} apply
-  (it is of order $3/2$, not exponential type) and what Problem~1 of the scraped set says instead.
+  (it is of order $3/2$, not exponential type) and what the first of the Problems (Stein, Ch.4)
+  above says instead.
 \item (Diagram problem.) Draw the sector $S=\set{-\pi/4<\arg z<\pi/4}$ and the rotated first
   quadrant $Q$ used in Step~3 of the Paley-Wiener proof. Mark the boundary rays where $\abs F\le1$
   is known and indicate the direction in which $e^{-\eps z^{3/2}}$ forces decay.
