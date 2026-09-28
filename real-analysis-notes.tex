@@ -19102,8 +19102,8 @@ nonzero,
 \]
 We write $f\in\mathscr{C}(\Rk)$ (continuous) and say $f$ \emph{has compact support} if
 $\supp f$ is a compact (closed and bounded) subset of $\Rk$. The space of continuous
-functions on $\Rk$ with compact support is denoted $\mathscr{C}_c(\Rk)$ (Rudin writes
-$\mathscr{C}(\Rk)$ for it in this chapter, taking compact support as understood).
+functions on $\Rk$ with compact support is denoted $\mathscr{C}_c(\Rk)$ (Rudin has no
+separate symbol for it and says ``continuous with compact support'' in words).
 \end{definition}
 
 A function with compact support vanishes outside a bounded box, so all the integrals below
@@ -19146,18 +19146,17 @@ integrals to the common limit.
 \end{proof}
 
 \begin{pitfall}
-Independence of order needs \emph{some} hypothesis. Without compact support (or absolute
-integrability) the two iterated integrals can genuinely differ. Exercise~2 below builds an
-$f$, continuous except at the origin, with
+Independence of order needs \emph{some} hypothesis. Without continuity and compact support
+(or absolute integrability) the two iterated integrals can genuinely differ. Exercise~2
+below builds an $f$, continuous except at the origin, with
 $\int dy\int f(x,y)\,dx = 0$ but $\int dx\int f(x,y)\,dy = 1$. The obstruction is that
 $f$ is unbounded near $(0,0)$; compact support of a \emph{continuous} $f$ rules this out.
 \end{pitfall}
 
 \begin{wex}{An iterated integral over a box}
-Compute $\int f$ for $f(x,y)=xy\,e^{-(x^2+y^2)}\,\chi$, where $\chi$ is a smooth cutoff
-that equals $1$ on $[0,1]^2$ and $0$ outside $[-1,2]^2$, with $f$ taken equal to
-$xy\,e^{-(x^2+y^2)}$ on $[0,1]^2$ and we integrate only the displayed product over the unit
-square (a clean stand-in showing the iterated mechanics).
+Let $f(x,y)=xy\,e^{-(x^2+y^2)}\,\chi$, where $\chi$ is a smooth cutoff that equals $1$ on
+$[0,1]^2$ and $0$ outside $[-1,2]^2$, so that $f=xy\,e^{-(x^2+y^2)}$ on $[0,1]^2$. Compute
+the integral of $f$ over the unit square $[0,1]^2$ as an iterated integral.
 \wrec ``Integrate a product over a box.'' When $f(x,y)=g(x)h(y)$ on a rectangle, the double
 integral factors into a product of one-variable integrals.
 \wsol On $[0,1]^2$, $f(x,y)=\bigl(x e^{-x^2}\bigr)\bigl(y e^{-y^2}\bigr)$, a product of a
@@ -19198,16 +19197,17 @@ a partition of unity subordinate to that cover.
 For each $x\in K$ pick one cover element $V_{\alpha}\ni x$ and a ball $B(x,2r_x)$ with
 closure inside $V_\alpha$. The open balls $B(x,r_x)$ cover the compact $K$, so finitely many
 $B(x_1,r_1),\dots,B(x_s,r_s)$ already do. For each $i$ build a continuous bump
-$\varphi_i\ge0$ with $\varphi_i>0$ on $\closure{B(x_i,r_i)}$ and $\supp\varphi_i\subseteq
-B(x_i,2r_i)\subseteq V_{\alpha(i)}$ --- e.g.\ $\varphi_i(x)=\max\set{0,\,r_i^2-\dist(x,x_i)^2}$,
-or a smooth bump if smoothness is wanted (Exercise~6). Now normalize \emph{telescopically}
-so the partial sums stay below $1$ and the total is $1$ on $K$:
+$\varphi_i$ with $0\le\varphi_i\le1$, $\varphi_i=1$ on $\closure{B(x_i,r_i)}$ and
+$\supp\varphi_i\subseteq\closure{B(x_i,2r_i)}\subseteq V_{\alpha(i)}$ --- e.g.\
+$\varphi_i(x)=\min\set{1,\,\max\set{0,\,2-\dist(x,x_i)/r_i}}$, or a smooth bump if
+smoothness is wanted (Exercise (Rudin 6)). Now normalize \emph{telescopically} so the
+partial sums stay below $1$ and the total is $1$ on $K$:
 \[
   \psi_1=\varphi_1,\qquad
   \psi_{i+1}=(1-\varphi_1)\cdots(1-\varphi_i)\,\varphi_{i+1}.
 \]
 An easy induction gives $\psi_1+\cdots+\psi_i=1-(1-\varphi_1)\cdots(1-\varphi_i)$. On $K$
-every point lies in some $\closure{B(x_j,r_j)}$, where $\varphi_j>0$, so the product
+every point lies in some $\closure{B(x_j,r_j)}$, where $\varphi_j=1$, so the product
 $\prod(1-\varphi_\ell)$ vanishes and $\sum_i\psi_i=1$. Each $\supp\psi_i\subseteq
 \supp\varphi_i\subseteq V_{\alpha(i)}$, and $0\le\psi_i\le1$.
 \end{proof}
@@ -19220,23 +19220,36 @@ exactly $1$.
 \begin{tikzpicture}[scale=0.95]
   \begin{axis}[
     width=12cm, height=5.2cm,
-    domain=0:6, samples=200,
     axis lines=left, xlabel={$x$}, ylabel={},
+    x label style={at={(axis description cs:1,0)},anchor=west},
     ymin=0, ymax=1.25, xmin=0, xmax=6,
-    xtick={1,3,5}, xticklabels={$V_1$,$V_2$,$V_3$},
+    xtick=\empty,
     ytick={1}, yticklabel style={font=\footnotesize},
     clip=false]
-    % three bumps psi_1, psi_2, psi_3 (gaussians, normalized so sum ~ 1 on [1,5])
-    \addplot[curve, black!55, smooth] {exp(-(x-1.2)^2/0.7)};
-    \addplot[curve, black!55, smooth, densely dashed] {exp(-(x-3)^2/0.7)};
-    \addplot[curve, black!55, smooth, dotted] {exp(-(x-4.8)^2/0.7)};
-    % their (approximate) sum, drawn flat near 1 on the middle
-    \addplot[line width=1.2pt, black] coordinates
-      {(0,0.18)(0.6,0.55)(1.2,0.95)(2,1.0)(3,1.0)(4,1.0)(4.8,0.95)(5.4,0.6)(6,0.2)};
+    % a genuine partition of unity (cosine transitions): psi_1+psi_2+psi_3 = 1 exactly on
+    % K=[1.5,4.5]; supp psi_1=[0.5,3], supp psi_2=[1.5,4.5], supp psi_3=[3,5.5]
+    % the sum (1 on K, equal to psi_1 resp. psi_3 to the left resp. right of K), drawn first
+    \addplot[line width=1.2pt, black, domain=0.5:5.5, samples=201]
+      {(x<1.5)*(1-cos(180*(x-0.5)))/2 + (x>=1.5)*(x<=4.5) + (x>4.5)*(1+cos(180*(x-4.5)))/2};
+    \addplot[curve, black!55, domain=0.5:3, samples=101]
+      {(x<=1.5)*(1-cos(180*(x-0.5)))/2 + (x>1.5)*(1+cos(120*(x-1.5)))/2};
+    \addplot[curve, black!55, densely dashed, domain=1.5:4.5, samples=121]
+      {(x<=3)*(1-cos(120*(x-1.5)))/2 + (x>3)*(1+cos(120*(x-3)))/2};
+    \addplot[curve, black!55, dotted, domain=3:5.5, samples=101]
+      {(x<=4.5)*(1-cos(120*(x-3)))/2 + (x>4.5)*(1+cos(180*(x-4.5)))/2};
     \node[font=\footnotesize] at (axis cs:3,1.12) {$\sum_i\psi_i\equiv1$ on $K$};
-    \node[font=\footnotesize] at (axis cs:1.2,0.62) {$\psi_1$};
-    \node[font=\footnotesize] at (axis cs:3,0.62) {$\psi_2$};
-    \node[font=\footnotesize] at (axis cs:4.8,0.62) {$\psi_3$};
+    \node[font=\footnotesize] at (axis cs:1.5,0.55) {$\psi_1$};
+    \node[font=\footnotesize] at (axis cs:3,0.55) {$\psi_2$};
+    \node[font=\footnotesize] at (axis cs:4.5,0.55) {$\psi_3$};
+    % K marked on the axis; the cover V_1, V_2, V_3 (open intervals) below it
+    \draw[line width=2pt] (axis cs:1.5,0) -- (axis cs:4.5,0);
+    \node[font=\footnotesize,below] at (axis cs:3,0) {$K$};
+    \draw[{Parenthesis[scale=1.4]}-{Parenthesis[scale=1.4]}] (axis cs:0.3,-0.2) -- (axis cs:3.2,-0.2)
+      node[right,font=\footnotesize] {$V_1$};
+    \draw[{Parenthesis[scale=1.4]}-{Parenthesis[scale=1.4]}] (axis cs:1.3,-0.3) -- (axis cs:4.7,-0.3)
+      node[right,font=\footnotesize] {$V_2$};
+    \draw[{Parenthesis[scale=1.4]}-{Parenthesis[scale=1.4]}] (axis cs:2.8,-0.4) -- (axis cs:5.7,-0.4)
+      node[right,font=\footnotesize] {$V_3$};
   \end{axis}
 \end{tikzpicture}\captionof{figure}{A partition of unity in one variable: three bumps, each supported in one
 cover element $V_i$, summing to $1$ across the compact set $K$ they cover.}
@@ -19244,22 +19257,26 @@ cover element $V_i$, summing to $1$ across the compact set $K$ they cover.}
 
 \begin{center}
 \begin{tikzpicture}[scale=0.78]
-  % region K in R^2 covered by three overlapping disks (supports of bumps)
-  \draw[rounded corners=10pt, line width=1pt] (-0.4,-0.4) rectangle (5.4,2.4);
-  \node[font=\footnotesize] at (4.7,2.05) {$K$};
+  % compact K (rounded rectangle) covered by the three shaded supports of psi_1, psi_2, psi_3
+  % (radius 1.05); each support lies inside the dashed open disc V_i (radius 1.3)
   \begin{scope}[on background layer]
-    \fill[band] (1,1) circle (1.25);
-    \fill[band] (2.7,1) circle (1.25);
-    \fill[band] (4.2,1) circle (1.25);
+    \fill[band] (1,1) circle (1.05);
+    \fill[band] (2.6,1) circle (1.05);
+    \fill[band] (4.2,1) circle (1.05);
   \end{scope}
-  \draw[densely dashed] (1,1) circle (1.25)   node[above=1.1cm,font=\footnotesize]{$V_1$};
-  \draw[densely dashed] (2.7,1) circle (1.25) node[below=1.1cm,font=\footnotesize]{$V_2$};
-  \draw[densely dashed] (4.2,1) circle (1.25) node[above=1.1cm,font=\footnotesize]{$V_3$};
+  \draw[rounded corners=8pt, line width=1pt] (0.25,0.45) rectangle (4.95,1.55);
+  \node[font=\footnotesize] at (3.4,1.3) {$K$};
+  \draw[densely dashed] (1,1) circle (1.3);
+  \draw[densely dashed] (2.6,1) circle (1.3);
+  \draw[densely dashed] (4.2,1) circle (1.3);
+  \node[font=\footnotesize] at (-0.25,2.25) {$V_1$};
+  \node[font=\footnotesize] at (2.6,-0.6) {$V_2$};
+  \node[font=\footnotesize] at (5.45,2.25) {$V_3$};
   \node[pt] at (1,1) {}; \node[font=\footnotesize] at (1,0.7){$\psi_1$};
-  \node[pt] at (2.7,1) {}; \node[font=\footnotesize] at (2.7,0.7){$\psi_2$};
+  \node[pt] at (2.6,1) {}; \node[font=\footnotesize] at (2.6,0.7){$\psi_2$};
   \node[pt] at (4.2,1) {}; \node[font=\footnotesize] at (4.2,0.7){$\psi_3$};
 \end{tikzpicture}\captionof{figure}{The same idea in $\R^2$: the supports of the bumps (shaded disks) cover $K$,
-each sitting inside one cover element $V_\alpha$.}
+each sitting inside one cover element $V_\alpha$ (dashed).}
 \end{center}
 
 \begin{method}{Localizing a global problem with a partition of unity}
@@ -19275,8 +19292,8 @@ prove a global integral identity that is obvious on small pieces.
 \item Sum the local results. Linearity of the integral (or of whatever operation) glues the
   pieces into the global statement.
 \end{enumerate}
-This is exactly how the change of variables theorem (\S\,11.2) and Stokes' theorem
-(\S\,11.6) are reduced to a single coordinate patch.
+This is exactly how the change of variables theorem (\S\,11.2) is reduced to a single
+coordinate patch.
 \end{method}
 
 \begin{wex}{Reducing an integral to coordinate patches}
@@ -19297,10 +19314,11 @@ and we recover $\int f$, consistent.
 
 \begin{remark}
 Partitions of unity exist on any metric space for the analogous statement
-(Exercise~5), with the bump functions of Definition~\ref{d:supp@c11} replaced by Urysohn-type
-functions. With more care the $\psi_i$ can be taken infinitely differentiable
-(Exercise~6), which matters when we later differentiate forms: a smooth partition of unity
-lets us localize differential forms without losing smoothness.
+(Exercise (Rudin 5)), with the bump functions $\varphi_i$ of the proof of
+Theorem~\ref{t:pou@c11} replaced by Urysohn-type functions. With more care the $\psi_i$ can
+be taken infinitely differentiable (Exercise (Rudin 6)), which matters when we later
+differentiate forms: a smooth partition of unity lets us localize differential forms without
+losing smoothness.
 \end{remark}
 
 \subsection*{Further worked examples}
@@ -19337,9 +19355,9 @@ On $K=[0,2]\subseteq\R$ covered by $V_1=(-1,1.2)$ and $V_2=(0.8,3)$, exhibit fun
 $\psi_1,\psi_2$ forming a partition of unity subordinate to $\set{V_1,V_2}$.
 \wrec ``Build, not just invoke, a partition of unity.'' Use the telescoping construction
 $\psi_2=(1-\varphi_1)\varphi_2$ from Theorem~\ref{t:pou@c11}.
-\wsol Pick continuous bumps $\varphi_1$ supported in $V_1$ with $\varphi_1\equiv1$ on
-$[0,0.9]$, and $\varphi_2$ supported in $V_2$ with $\varphi_2\equiv1$ on $[1.1,2]$; arrange
-$\varphi_1+\varphi_2>0$ on all of $K$ (the overlap $(0.8,1.2)$ guarantees coverage). Set
+\wsol Pick continuous bumps $0\le\varphi_i\le1$: $\varphi_1$ supported in $V_1$ with
+$\varphi_1\equiv1$ on $[0,1]$, and $\varphi_2$ supported in $V_2$ with $\varphi_2\equiv1$ on
+$[1,2]$ (possible because $[0,1]\subseteq V_1$ and $[1,2]\subseteq V_2$). Set
 \[
   \psi_1=\varphi_1,\qquad \psi_2=(1-\varphi_1)\,\varphi_2 .
 \]
@@ -19397,9 +19415,9 @@ $\varphi_1=0$, so $\psi_1=0$, $\psi_2=1$, sum $1$ --- a valid partition of unity
   covers $\R^1$, yet no \emph{finite} subfamily does. Explain why the existence proof for
   partitions of unity nonetheless needs only finitely many bumps when the set being
   covered is \emph{compact}.
-\item (Conceptual.) State precisely what fails in the conclusion
-  $\int dy\int f\,dx=\int dx\int f\,dy$ if $f$ is merely bounded with compact support but
-  has one point of discontinuity. Relate your answer to Rudin~2, and say which hypothesis
+\item (Conceptual.) Decide whether the conclusion
+  $\int dy\int f\,dx=\int dx\int f\,dy$ can fail if $f$ is merely bounded with compact support
+  but has one point of discontinuity. Relate your answer to Rudin~2, and say which hypothesis
   in the iterated-integral theorem rules that example out.
 \item Let $K\subseteq\Rk$ be compact and $\set{V_i}_{i=1}^N$ a finite open cover of $K$.
   Prove there is $\delta>0$ such that every ball $B(x,\delta)$ with $x\in K$ lies in some
@@ -19442,8 +19460,8 @@ determinant $-1$. These are the building blocks.
   \end{scope}
   \draw[-{Stealth[length=2.2mm]}] (3.4,1.5)--(4.6,1.5) node[midway,above,font=\footnotesize]{$G$};
   \begin{scope}[shift={(5,0)}]
-    % only y-lines bend (one coordinate changed)
-    \foreach \x in {0,1,2,3}{ \draw (\x,0)--(\x,3); }
+    % G(x,y)=(x, y+0.35 sin(60x)): vertical lines are shifted up, horizontal lines bend
+    \foreach \x in {0,1,2,3}{ \draw (\x,{0.35*sin(\x*60)})--(\x,{3+0.35*sin(\x*60)}); }
     \foreach \y in {0,1,2,3}{
       \draw[domain=0:3,smooth,variable=\t]
         plot ({\t},{\y+0.35*sin(\t*60)});
@@ -19460,20 +19478,20 @@ $A=F'(0)$ is invertible. Then in some neighborhood of $0$,
 \[
   F=B_1\circ\cdots\circ B_{n-1}\circ G_n\circ G_{n-1}\circ\cdots\circ G_1 ,
 \]
-where each $G_i$ is a primitive $C^1$ map fixing $0$ and each $B_j$ is a flip. In words:
+where each $G_i$ is a primitive $C^1$ map fixing $0$ and each $B_j$ is a flip or the
+identity. In words:
 \emph{near a regular point, every $C^1$ map is a composition of primitive maps and flips.}
 \end{theorem}
 
 \begin{proof}[Proof outline]
-Argue by induction. After composing with $A\inv$ we may assume $F'(0)=I$. The idea is to
-correct the coordinates one at a time. Write $F=(f_1,\dots,f_n)$. Having arranged that the
-first $m-1$ coordinates of the (partially corrected) map already equal $x_1,\dots,x_{m-1}$
-near $0$, the map
+Argue by induction. The idea is to correct the coordinates one at a time. Write
+$F=(f_1,\dots,f_n)$. Having arranged that the first $m-1$ coordinates of the (partially
+corrected) map already equal $x_1,\dots,x_{m-1}$ near $0$, the map
 \[
   G_m(x)=\bigl(x_1,\dots,x_{m-1},\,f_m(x),\,x_{m+1},\dots,x_n\bigr)
 \]
 is primitive; its derivative at $0$ is invertible because $D_m f_m(0)\neq0$ (after a flip
-$B_m$ that brings a nonzero entry of the relevant row onto the diagonal, which is where the
+$B_m$ that brings a nonzero entry of the $m$-th column onto the diagonal, which is where the
 flips enter). By the inverse function theorem $G_m$ has a $C^1$ inverse near $0$, and
 replacing $F$ by $F\circ G_m\inv$ advances the induction: one more coordinate is now in
 standard form. After $n$ steps the map is the identity, and unwinding the substitutions
@@ -19481,10 +19499,11 @@ exhibits $F$ as the stated composition.
 \end{proof}
 
 \begin{pitfall}
-The flips $B_j$ cannot be dropped. Exercise~3(b): the simple swap $(x,y)\mapsto(y,x)$ of
-$\R^2$ is \emph{not} a composition of two primitive maps in any neighborhood of $0$. A swap
+The flips $B_j$ cannot be dropped. Exercise (Rudin 3)(b): the simple swap $(x,y)\mapsto(y,x)$
+of $\R^2$ is \emph{not} a composition of two primitive maps in any neighborhood of $0$. A swap
 moves two coordinates simultaneously in an unavoidable way; primitives move one at a time, so
-you genuinely need the flips to realize the permutation part of $A$.
+with only $n$ primitive factors you genuinely need the flips to realize the permutation part
+of $A$.
 \end{pitfall}
 
 \begin{wex}{Factoring an explicit map}
@@ -19519,8 +19538,8 @@ The proof is a model application of the two tools above.
   flips. Using a partition of unity (\S\,11.1, Theorem~\ref{t:pou@c11}) write
   $f=\sum_i\psi_i f$; it suffices to prove the formula for each $\psi_i f$, i.e.\ for $f$
   supported in one such patch.
-\item \textbf{One simple factor at a time.} For a \emph{flip} the formula is the
-  $1$-variable change of order of integration with an honest sign: $\abs{J}=1$ and both sides
+\item \textbf{One simple factor at a time.} For a \emph{flip} the formula is just a change
+  of the order of integration (Theorem~\ref{t:order@c11}): $\abs{J}=1$ and both sides
   integrate the same function. For a \emph{primitive} $G$ changing only coordinate $m$, fix
   the other $k-1$ variables and apply the \emph{one-dimensional} substitution rule
   $\int h(g(t))\,g'(t)\,dt=\int h(s)\,ds$ in the $m$-th variable; here
@@ -19536,7 +19555,7 @@ The proof is a model application of the two tools above.
 \end{proof}
 
 \begin{remark}
-The hypothesis $J_T\neq0$ and $T$ injective make $T$ a diffeomorphism onto $T(E)$; the
+The hypotheses $J_T\neq0$ and $T$ injective make $T$ a diffeomorphism onto $T(E)$; the
 factor $\abs{J_T}$ (absolute value) records the \emph{local volume distortion} of $T$,
 ignoring orientation. When we integrate \emph{forms} rather than functions
 (\S\,11.3 onward) the orientation is kept and the factor becomes $J_T$ \emph{without}
@@ -19638,9 +19657,9 @@ injective with $J_T>0$; there the theorem applies cleanly. The lesson: $J_T\neq0
   \[
     \iint_D f(x,y)\,dx\,dy=\int_0^{2\pi}\!\!\int_0^a f\bigl(T(r,\theta)\bigr)\,r\,dr\,d\theta .
   \]
-  (Hint: let $D_0$ be the interior of $D$ minus the segment from $(0,0)$ to $(0,a)$; first
-  apply Theorem~\ref{t:cov@c11} on $D_0$, then remove the restriction as in the partition-of-unity
-  argument.)
+  (Hint: let $D_0$ be the interior of $D$ minus the segment from $(0,0)$ to $(a,0)$; first
+  apply Theorem~\ref{t:cov@c11} on $D_0$, then remove the restriction by approximating $f$
+  with continuous functions supported in $D_0$.)
 \item (Rudin 10.) Let $a\to\infty$ in Exercise (Rudin 9) and prove
   \[
     \iint_{\R^2} f(x,y)\,dx\,dy=\int_0^{2\pi}\!\!\int_0^{\infty} f\bigl(T(r,\theta)\bigr)\,r\,dr\,d\theta
@@ -19662,8 +19681,8 @@ injective with $J_T>0$; there the theorem applies cleanly. The lesson: $J_T\neq0
   the Jacobian determinant $J_T$, and use the change-of-variables theorem to evaluate
   $\iint_{x^2+y^2\le1}(x^2+y^2)\,dx\,dy$.
 \item For the linear map $T(x)=Ax$ with $A$ invertible, verify directly from the
-  change-of-variables theorem that $\int_{T(E)}f=\abs{\det A}^{-1}\int_E f\circ T$ for
-  $f\in\mathscr{C}(\Rk)$ of compact support, recovering the volume-scaling factor
+  change-of-variables theorem that $\int_{T(E)}f=\abs{\det A}\int_E f\circ T$ for
+  $f\in\mathscr{C}(\Rk)$ with compact support in $T(E)$, recovering the volume-scaling factor
   $\abs{\det A}$.
 \item (Primitive factorization, $k=2$.) Write the map $T(x,y)=(x+y^2,\,y)$ as it stands
   and confirm it is primitive (it changes only the first coordinate). Compute its inverse
@@ -19697,10 +19716,10 @@ returns a number; the bookkeeping that makes this consistent under reparametriza
 \subsection*{The integral of a form over a surface}
 
 \begin{definition}\label{d:ksurface@c11}
-Let $E\subseteq\Rk$ and let $D\subseteq\Rk$ be a parameter domain. A \emph{$k$-surface} in
-$E$ is a $C'$ (continuously differentiable) map $\Phi:D\to E$, where $D$ is a compact set,
-typically a box or a simplex. We call $D$ the \emph{parameter domain} and $\Phi(D)$ the
-range.
+Let $E\subseteq\Rn$ be open and let $D\subseteq\Rk$ be a parameter domain. A
+\emph{$k$-surface} in $E$ is a $C'$ (continuously differentiable) map $\Phi:D\to E$, where
+$D$ is a compact set, typically a box or a simplex. We call $D$ the \emph{parameter domain}
+and $\Phi(D)$ the range.
 \end{definition}
 
 \begin{definition}\label{d:kform@c11}
@@ -19781,9 +19800,9 @@ contributing a factor $-1$.
 \end{proof}
 
 \begin{pitfall}
-Forms anticommute, scalars do not. $dx\wedge dy=-dy\wedge dx$, but the coefficient functions
-commute as usual: $a\,dx\wedge b\,dy=ab\,dx\wedge dy$. Two consequences trip people up:
-(i) any basic form with a repeated differential is \emph{zero}, e.g.\ $dx\wedge dx=0$ and
+Differentials anticommute, scalars do not. $dx\wedge dy=-dy\wedge dx$, but the coefficient
+functions commute as usual: $a\,dx\wedge b\,dy=ab\,dx\wedge dy$. Two consequences trip people
+up: (i) any basic form with a repeated differential is \emph{zero}, e.g.\ $dx\wedge dx=0$ and
 $dx\wedge dy\wedge dx=0$; (ii) on $\Rn$ there are no nonzero $k$-forms for $k>n$ (every basic
 $k$-form must repeat an index), so $dx_1\wedge\cdots\wedge dx_n$ is, up to a function, the
 \emph{only} top-degree form.
@@ -19835,7 +19854,7 @@ $dy\wedge dx=-dx\wedge dy$, so $yz\,dy\wedge dx\wedge dz=-yz\,dx\wedge dy\wedge 
 single coefficient $x-yz$, as a $1$-form wedge a $2$-form should give. \checkmark
 \end{wex}
 
-\begin{wex}{Why a square of a $1$-form can vanish or not}
+\begin{wex}{Why a square of a form can vanish or not}
 Let $\alpha=dx_1\wedge dx_2+dx_3\wedge dx_4$ on $\R^4$. Compute $\alpha\wedge\alpha$.
 \wrec ``Square a $2$-form.'' Even-degree forms commute with themselves, so the square need
 not vanish; expand carefully.
@@ -19856,7 +19875,7 @@ $\beta\wedge\beta=0$. Odd squares die; even squares need not. \checkmark
 \end{wex}
 
 \begin{remark}
-The displayed top-degree fact deserves emphasis. A $k$-form on $\Rk$ has standard
+The top-degree fact noted above deserves emphasis. A $k$-form on $\Rk$ has standard
 presentation $\omega=a(x)\,dx_1\wedge\cdots\wedge dx_k$, and integrating it over the identity
 $k$-surface gives $\int a$. Combined with Definition~\ref{d:kform@c11}, a change of parameters
 $\Phi$ multiplies the integrand by the Jacobian $J_\Phi$ \emph{with sign} --- this is the
@@ -19884,8 +19903,8 @@ negative because the parametrization is orientation-reversing for the $(x,y)$-pr
 \end{wex}
 
 \begin{wex}{A wedge of two $1$-forms that is not what it looks like}
-On $\R^3$ let $\alpha=dx+dy$ and $\beta=dy+dz$. Compute $\alpha\wedge\beta$ and check it is
-\emph{not} $d(x+y)\wedge d(y+z)$ done naively as $(x+y)(y+z)$ times anything.
+On $\R^3$ let $\alpha=dx+dy$ and $\beta=dy+dz$. Compute $\alpha\wedge\beta$ and check that it
+has \emph{no} coefficient $(x+y)(y+z)$, even though $\alpha=d(x+y)$ and $\beta=d(y+z)$.
 \wrec ``Wedge two $1$-forms; resist treating $\wedge$ like ordinary multiplication.'' Expand
 bilinearly, kill repeats, sort.
 \wsol
@@ -19902,14 +19921,17 @@ when the form has several terms.
 \end{wex}
 
 \begin{exers}{Exercises (Rudin, Ch.10).}
-\item (Rudin 14.) Prove the basic multiplication formula for forms (Rudin's formula (46)):
-  if $\omega=\sum_I a_I\,dx_I$ and $\lambda=\sum_J b_J\,dx_J$ are forms in standard
-  presentation, then
+\item (Rudin 14.) Prove Rudin's formula (46): if $j_1,\dots,j_k$ are distinct and
+  $dx_{j_1}\wedge\cdots\wedge dx_{j_k}=\varepsilon(j_1,\dots,j_k)\,dx_J$ with $J$ the
+  increasing rearrangement of $(j_1,\dots,j_k)$, then
   \[
-    \omega\wedge\lambda=\sum_{I,J} a_I b_J\,dx_I\wedge dx_J ,
+    \varepsilon(j_1,\dots,j_k)=s(j_1,\dots,j_k),\qquad\text{where}\quad
+    s(j_1,\dots,j_k)=\prod_{p<q}\operatorname{sgn}(j_q-j_p).
   \]
-  and the right side, after sorting into standard presentation, is well defined (independent
-  of the orderings used). Deduce that the wedge product is associative.
+  Deduce that when $\omega=\sum_I a_I\,dx_I$ and $\lambda=\sum_J b_J\,dx_J$ are in standard
+  presentation, sorting $\omega\wedge\lambda=\sum_{I,J} a_I b_J\,dx_I\wedge dx_J$ into
+  standard presentation gives a result independent of the interchanges used, and that the
+  wedge product is associative.
 \item (Rudin 15.) If $\omega$ and $\lambda$ are $k$- and $m$-forms respectively, prove the
   graded-commutativity law
   \[
@@ -19937,8 +19959,8 @@ when the form has several terms.
   \emph{not} decomposable, i.e. cannot be written as $\beta\wedge\gamma$ for two $1$-forms
   $\beta,\gamma$. (Hint: compute $\alpha\wedge\alpha$ and show it is nonzero, whereas any
   $\beta\wedge\gamma$ wedged with itself vanishes.)
-\item Given $1$-forms $\omega_1,\dots,\omega_k$ on $\R^n$, prove they are linearly
-  independent iff $\omega_1\wedge\cdots\wedge\omega_k\neq0$.
+\item Given $1$-forms $\omega_1,\dots,\omega_k$ on $\R^n$ with constant coefficients, prove
+  they are linearly independent iff $\omega_1\wedge\cdots\wedge\omega_k\neq0$.
 \item (Conceptual.) Explain why a $k$-form is the natural object to integrate over a
   $k$-dimensional surface, by describing how the basic form $dx_{i_1}\wedge\cdots\wedge
   dx_{i_k}$ measures the signed $k$-volume of the projection of an infinitesimal
@@ -19985,7 +20007,7 @@ The exterior derivative is linear and satisfies:
 \emph{(1)} By linearity reduce to $\omega=a\,dx_I$, $\lambda=b\,dx_J$. Then
 $\omega\wedge\lambda=ab\,dx_I\wedge dx_J$ and $d(ab)=a\,db+b\,da$, so
 $d(\omega\wedge\lambda)=(a\,db+b\,da)\wedge dx_I\wedge dx_J$. Now
-$da\wedge dx_I\wedge dx_J=(d\omega)\wedge\lambda$, while moving the $1$-form $db$ rightward
+$b\,da\wedge dx_I\wedge dx_J=(d\omega)\wedge\lambda$, while moving the $1$-form $db$ rightward
 past the $k$ factors $dx_I$ costs $(-1)^k$, giving $(-1)^k a\,dx_I\wedge db\wedge dx_J
 =(-1)^k\omega\wedge d\lambda$. Add.
 
@@ -20003,10 +20025,11 @@ of the statement ``the curl of a gradient is zero'' and ``the divergence of a cu
 (\S\,11.6). The converse --- that a form with $d\omega=0$ (\emph{closed}) is
 $d$ of something (\emph{exact}) --- is \emph{false} in general: the angle form
 $\eta=\frac{x\,dy-y\,dx}{x^2+y^2}$ on $\R^2\setminus\set{0}$ has $d\eta=0$ but is not exact
-(Exercises~21--23). Closed-but-not-exact forms detect holes in the domain.
+(Exercises (Rudin 21--23) in \S\,11.6). Closed-but-not-exact forms detect holes in the
+domain.
 \end{pitfall}
 
-\begin{wex}{Computing $d$ of a $1$-form in $\R^3$}
+\begin{wex}{Computing $d$ of a $1$-form in $\R^3$}\label{wex:d1form@c11}
 Let $\omega=P\,dx+Q\,dy+R\,dz$ with $P,Q,R\in C'(\R^3)$. Compute $d\omega$.
 \wrec ``Differentiate a $1$-form.'' Apply $d$ to each coefficient and wedge.
 \wsol
@@ -20027,8 +20050,9 @@ $\operatorname{curl}\nabla f=0$. \checkmark
 
 \begin{definition}\label{d:pullback@c11}
 Let $T:V\to E$ be a $C'$ map between open sets, $V\subseteq\Rm$, $E\subseteq\Rn$, written
-$y=T(x)$ with components $y_i=t_i(x)$. The \emph{pullback} (Rudin: ``$\omega_T$'') of a
-$k$-form $\omega=\sum a_I\,dy_I$ on $E$ is the $k$-form on $V$ obtained by substituting:
+$y=T(x)$ with components $y_i=t_i(x)$. The \emph{pullback} (Rudin: ``$\omega_T$''; also
+written $T^\ast\omega$) of a $k$-form $\omega=\sum a_I\,dy_I$ on $E$ is the $k$-form on $V$
+obtained by substituting:
 \[
   \omega_T=\sum_I (a_I\circ T)\;dt_{i_1}\wedge\cdots\wedge dt_{i_k},
   \qquad
@@ -20042,13 +20066,13 @@ The pullback is engineered so that integration is invariant: $\int_{T\circ\Phi}\
 =\int_\Phi\omega_T$ for any surface $\Phi$ in $V$. Pulling a form back, then integrating, is
 the same as integrating after pushing the surface forward.
 
-\begin{theorem}[Functoriality and naturality; Rudin 10.21--10.22]\label{t:natural@c11}
-Let $S,T$ be $C'$ maps with $E\xrightarrow{\,\ }$ ranges as needed. Then:
+\begin{theorem}[Functoriality and naturality; Rudin 10.22--10.23]\label{t:natural@c11}
+Let $S,T$ be $C'$ maps between open sets, with domains and ranges as needed. Then:
 \begin{enumerate}
 \item $(\omega\wedge\lambda)_T=\omega_T\wedge\lambda_T$;
 \item $(\omega_S)_T=\omega_{S\circ T}$ \quad(pullback reverses composition);
-\item \emph{(Naturality)} $d(\omega_T)=(d\omega)_T$ --- the exterior derivative commutes with
-  pullback.
+\item \emph{(Naturality)} If $\omega$ is of class $C'$ and $T$ is of class $C''$, then
+  $d(\omega_T)=(d\omega)_T$ --- the exterior derivative commutes with pullback.
 \end{enumerate}
 \end{theorem}
 
@@ -20087,7 +20111,7 @@ $\omega_T$.
   \omega_T=dt_1\wedge dt_2=(a\,du+b\,dv)\wedge(c\,du+d\,dv)
   =(ad-bc)\,du\wedge dv ,
 \]
-the cross terms $du\wedge du$, $dv\wedge dv$ dying. \emph{Check.} The factor $ad-bc=\det T$
+the terms $du\wedge du$, $dv\wedge dv$ dying. \emph{Check.} The factor $ad-bc=\det T$
 is exactly the Jacobian; pulling back the area form multiplies by the (signed) Jacobian,
 which is the oriented change-of-variables rule of \S\,11.3. \checkmark
 \end{wex}
@@ -20129,9 +20153,9 @@ built in.
 On $\R^2\setminus\set{0}$ let $\eta=\dfrac{x\,dy-y\,dx}{x^2+y^2}$. Show $d\eta=0$ (it is
 \emph{closed}); explain why this does \emph{not} prove $\eta=df$ for some $f$.
 \wrec ``Compute $d$ of a $1$-form; beware concluding exactness.'' $d\eta=0$ is necessary but
-not sufficient for $\eta$ to be $df$ (Pitfall after Theorem~\ref{t:dprops@c11}).
-\wsol Write $P=-y/(x^2+y^2)$, $Q=x/(x^2+y^2)$. By Worked Example on $d$ of a $1$-form,
-$d\eta=(Q_x-P_y)\,dx\wedge dy$. Differentiating,
+not sufficient for $\eta$ to be $df$ (Caution after Theorem~\ref{t:dprops@c11}).
+\wsol Write $P=-y/(x^2+y^2)$, $Q=x/(x^2+y^2)$. By Worked Example~\ref{wex:d1form@c11}
+(with $R=0$), $d\eta=(Q_x-P_y)\,dx\wedge dy$. Differentiating,
 $Q_x=\dfrac{(x^2+y^2)-x\cdot2x}{(x^2+y^2)^2}=\dfrac{y^2-x^2}{(x^2+y^2)^2}$ and
 $P_y=\dfrac{-(x^2+y^2)+y\cdot2y}{(x^2+y^2)^2}=\dfrac{y^2-x^2}{(x^2+y^2)^2}$, so $Q_x-P_y=0$ and
 $d\eta=0$. But $\eta$ is \emph{not} exact: its loop integral around the origin is $2\pi\neq0$
@@ -20170,9 +20194,10 @@ exact; globally the hole blocks it. The test ``$d\eta=0$'' sees only the local p
   ($d\omega=0$) but not exact (no $f$ with $df=\omega$ on the whole punctured plane). Take
   $\omega=(x\,dy-y\,dx)/(x^2+y^2)$ and explain why a global potential cannot exist by
   evaluating $\int_\gamma\omega$ around the unit circle.
-\item Show that pullback commutes with the wedge product and with $d$ for compositions:
-  $(S\circ T)^\ast=T^\ast\circ S^\ast$. Verify this on linear maps $S,T$ acting on a
-  top-degree form, recovering the multiplicativity $\det(ST)=\det S\det T$ of Jacobians.
+\item Show that pullback commutes with the wedge product and (for $T$ of class $C''$) with
+  $d$, and that for compositions $(S\circ T)^\ast=T^\ast\circ S^\ast$. Verify the last
+  identity on linear maps $S,T$ acting on a top-degree form, recovering the
+  multiplicativity $\det(ST)=\det S\det T$ of Jacobians.
 \item (Conceptual.) Explain in one paragraph why ``closed'' is necessary but not
   sufficient for ``exact,'' and how the failure is measured by the topology of the domain.
   Contrast the punctured plane with a convex open set, citing the Poincare lemma.
@@ -20205,8 +20230,9 @@ $C''$) is a $C''$ map $\Phi:Q^k\to E$; we treat it just like an affine one for i
 \end{definition}
 
 For an affine $k$-simplex in $\Rk$, the sign of $\det[p_1-p_0,\dots,p_k-p_0]$ is the
-\emph{orientation}; positively oriented means this determinant is positive. The unit cube and
-the standard simplex can each be cut into oriented simplexes (Exercises~12, 17, 18).
+\emph{orientation}; positively oriented means this determinant is positive. The unit square
+and the unit cube can be cut into oriented simplexes (Exercises (Rudin 17, 18)), and the
+cube $I^k$ maps onto the standard simplex $Q^k$ (Exercise (Rudin 12)).
 
 \begin{center}
 \begin{tikzpicture}[scale=1.5]
@@ -20226,8 +20252,8 @@ the standard simplex can each be cut into oriented simplexes (Exercises~12, 17, 
   \node[pt,label=below right:{$p_1$}] at (p1) {};
   \node[pt,label=above:{$p_2$}] at (p2) {};
   \node at (0.85,0.45) {$+\sigma$};
-  % curved arrow indicating orientation
-  \draw[->,>={Stealth[length=2mm]}] (0.85,0.55) ++(0.32,0) arc (0:300:0.16);
+  % curved arrow indicating orientation (circling the label, not crossing it)
+  \draw[->,>={Stealth[length=2mm]}] (0.85,0.45) ++(0.3,0) arc (0:300:0.3);
 \end{tikzpicture}\captionof{figure}{An oriented $2$-simplex $\sigma=[p_0,p_1,p_2]$. Its boundary
 $\partial\sigma=[p_1,p_2]-[p_0,p_2]+[p_0,p_1]$ traverses the three edges so that the interior
 stays on the left.}
@@ -20261,7 +20287,7 @@ the $2$-simplex above,
 \]
 which (since $-[p_0,p_2]=[p_2,p_0]$) is the counterclockwise loop $p_0\to p_1\to p_2\to p_0$.
 
-\begin{theorem}[$\partial^2=0$; Rudin 10.32]\label{t:dd0@c11}
+\begin{theorem}[$\partial^2=0$; Rudin Ex.\ 10.16]\label{t:dd0@c11}
 For every oriented affine $k$-simplex $\sigma$ (and hence for every chain $\Gamma$),
 \[
   \partial(\partial\sigma)=0 .
@@ -20284,23 +20310,26 @@ cancel. Since every $\sigma_{ij}$ cancels, $\partial^2\sigma=0$.
 
 \begin{center}
 \begin{tikzpicture}[scale=1.4]
-  % boundary-of-boundary cancellation on a triangle's edges: each vertex
-  % gets +1 from one edge and -1 from the adjacent edge.
+  % boundary-of-boundary cancellation on a triangle's edges: each oriented edge
+  % [a,b] of the boundary contributes -a at its tail and +b at its head, so each
+  % vertex gets + from one edge and - from the adjacent edge.
   \coordinate (p0) at (0,0);
   \coordinate (p1) at (2,0);
   \coordinate (p2) at (1,1.5);
-  \draw[line width=0.8pt] (p0)--(p1)--(p2)--cycle;
+  \draw[contour] (p0)--(p1);
+  \draw[contour] (p1)--(p2);
+  \draw[contour] (p2)--(p0);
   \node[pt] at (p0) {}; \node[pt] at (p1) {}; \node[pt] at (p2) {};
   \node[below left,font=\footnotesize] at (p0) {$p_0$};
   \node[below right,font=\footnotesize] at (p1) {$p_1$};
   \node[above,font=\footnotesize] at (p2) {$p_2$};
-  % at each vertex, the two incident edges contribute opposite signs
-  \node[font=\footnotesize,red!60!black] at (-0.32,0.12) {$+p_0$};
-  \node[font=\footnotesize,blue!60!black] at (-0.32,-0.14) {$-p_0$};
-  \node[font=\footnotesize,red!60!black] at (2.33,0.12) {$+p_1$};
-  \node[font=\footnotesize,blue!60!black] at (2.33,-0.14) {$-p_1$};
-  \node[font=\footnotesize,red!60!black] at (1.0,1.78) {$+p_2$};
-  \node[font=\footnotesize,blue!60!black] at (1.0,1.95) {$-p_2$};
+  % signed endpoints: minus at the tail, plus at the head of each edge
+  \node[font=\footnotesize] at (0.35,-0.2) {$-p_0$};
+  \node[font=\footnotesize] at (1.65,-0.2) {$+p_1$};
+  \node[font=\footnotesize] at (2.10,0.39) {$-p_1$};
+  \node[font=\footnotesize] at (1.40,1.44) {$+p_2$};
+  \node[font=\footnotesize] at (0.60,1.44) {$-p_2$};
+  \node[font=\footnotesize] at (-0.10,0.39) {$+p_0$};
   \node[align=center,font=\footnotesize] at (1,-0.6)
     {each endpoint appears once with $+$ and once with $-$\\ in $\partial(\partial\sigma)$,
      so the total is $0$};
@@ -20323,7 +20352,7 @@ of a chain (e.g.\ to set up Stokes' theorem).
 $\partial(\partial\sigma)\neq0$ you mis-signed a face.
 \end{method}
 
-\begin{wex}{Boundary of the standard $2$-simplex}
+\begin{wex}{Boundary of an oriented $2$-simplex}
 Compute $\partial[p_0,p_1,p_2]$ and verify $\partial^2=0$ explicitly.
 \wrec ``Take a boundary, then check it closes up.''
 \wsol Deleting each vertex with its sign:
@@ -20373,7 +20402,7 @@ sign, exactly $\partial(-\sigma)=-\partial\sigma$, as the boundary operator bein
 demands.
 \end{wex}
 
-\begin{wex}{Boundary of the standard $3$-simplex (tetrahedron)}
+\begin{wex}{Boundary of an oriented $3$-simplex (tetrahedron)}
 Compute $\partial[p_0,p_1,p_2,p_3]$ and verify it is a sum of four oriented triangular faces.
 \wrec ``Take the boundary of a $3$-simplex.'' Delete each vertex in turn with sign $(-1)^i$.
 \wsol
@@ -20381,36 +20410,36 @@ Compute $\partial[p_0,p_1,p_2,p_3]$ and verify it is a sum of four oriented tria
   \partial[p_0,p_1,p_2,p_3]
   =[p_1,p_2,p_3]-[p_0,p_2,p_3]+[p_0,p_1,p_3]-[p_0,p_1,p_2] .
 \]
-These are the four triangular faces, with alternating signs that orient each face outward.
-\emph{Check.} Applying $\partial$ again, each edge $[p_i,p_j]$ ($i<j$) appears in exactly two
-faces with opposite induced signs and cancels, so $\partial^2=0$ (Theorem~\ref{t:dd0@c11}); e.g.\
-the edge $[p_2,p_3]$ comes from $+[p_1,p_2,p_3]$ as $+[p_2,p_3]$ and from $-[p_0,p_2,p_3]$ as
-$-[p_2,p_3]$, summing to zero.
+These are the four triangular faces, with alternating signs that orient each face outward
+when $\sigma$ is a positively oriented simplex in $\R^3$. \emph{Check.} Applying $\partial$
+again, each edge $[p_i,p_j]$ ($i<j$) appears in exactly two faces with opposite induced signs
+and cancels, so $\partial^2=0$ (Theorem~\ref{t:dd0@c11}); e.g.\ the edge $[p_2,p_3]$ comes
+from $+[p_1,p_2,p_3]$ as $+[p_2,p_3]$ and from $-[p_0,p_2,p_3]$ as $-[p_2,p_3]$, summing to
+zero.
 \end{wex}
 
 \begin{center}
 \begin{tikzpicture}[scale=1.6]
   % a 3-simplex (tetrahedron) with its four oriented faces indicated
   \coordinate (p0) at (0,0);
-  \coordinate (p1) at (2,0.15);
-  \coordinate (p2) at (1.25,1.0);
-  \coordinate (p3) at (0.95,1.95);
-  % back faces (lighter)
+  \coordinate (p1) at (1.7,-0.35);
+  \coordinate (p2) at (2.4,0.45);
+  \coordinate (p3) at (1.0,1.9);
+  % base face [p0,p1,p2] (lighter); p2 is the back vertex
   \fill[band] (p0)--(p1)--(p2)--cycle;
-  % edges
-  \draw[line width=0.8pt] (p0)--(p1)--(p3)--cycle;
-  \draw[line width=0.8pt] (p0)--(p2)--(p3);
-  \draw[line width=0.8pt] (p1)--(p2);
+  % visible edges solid, the hidden edge p0p2 dashed
+  \draw[line width=0.8pt] (p0)--(p1)--(p2)--(p3)--cycle;
+  \draw[line width=0.8pt] (p1)--(p3);
   \draw[densely dashed,line width=0.6pt] (p0)--(p2);
   \node[pt,label=below left:{$p_0$}] at (p0) {};
   \node[pt,label=below right:{$p_1$}] at (p1) {};
   \node[pt,label=right:{$p_2$}] at (p2) {};
   \node[pt,label=above:{$p_3$}] at (p3) {};
-  \node[font=\footnotesize,align=left] at (3.4,1.0)
+  \node[font=\footnotesize,align=left] at (3.95,0.9)
     {$\partial=[p_1p_2p_3]-[p_0p_2p_3]$\\[1pt]
      $\quad+[p_0p_1p_3]-[p_0p_1p_2]$};
-\end{tikzpicture}\captionof{figure}{The standard $3$-simplex. Its boundary is the alternating sum of the four
-triangular faces; each interior edge cancels when $\partial$ is applied a second time.}
+\end{tikzpicture}\captionof{figure}{An oriented $3$-simplex (tetrahedron). Its boundary is the alternating sum of
+the four triangular faces; each edge cancels when $\partial$ is applied a second time.}
 \end{center}
 
 \begin{wex}{A chain whose boundary is not zero, contrasted with a cycle}
@@ -20446,7 +20475,7 @@ identities $d^2=0$, $\partial^2=0$ make this read $0=0$ consistently. The two ni
   \[
     x_1=u_1,\quad x_i=u_i(1-x_1-\cdots-x_{i-1})\ \ (i=2,\dots,k),
   \]
-  equivalently $\sum_{i=1}^k x_i=1-\prod_{i=1}^k(1-u_i)$. Show that $T$ maps $I^k$ onto
+  and show that $\sum_{i=1}^k x_i=1-\prod_{i=1}^k(1-u_i)$. Show that $T$ maps $I^k$ onto
   $Q^k$, is one-to-one in the interior of $I^k$, with inverse $S$ given in the interior of
   $Q^k$ by $u_1=x_1$ and $u_i=x_i/(1-x_1-\cdots-x_{i-1})$ for $i=2,\dots,k$, and that
   \[
@@ -20504,7 +20533,7 @@ identities $d^2=0$, $\partial^2=0$ make this read $0=0$ consistently. The two ni
 \item (Orientation flip.) Show that swapping two vertices of an oriented simplex reverses
   its orientation: $[p_0,p_1,p_2,\dots]=-[p_1,p_0,p_2,\dots]$. Deduce that an affine
   simplex with a repeated vertex is the zero chain.
-\item (Computation.) Let $\Phi$ be the $2$-surface (singular $2$-simplex) on
+\item (Computation.) Let $\Phi$ be the $2$-surface (singular $2$-cube) on
   $[0,1]^2$ given by $\Phi(u,v)=(u,v,u+v)$ in $\R^3$. Compute the integral
   $\int_\Phi dx\wedge dy$ of the basic form $dx\wedge dy$ over $\Phi$.
 \item For a chain $c=\sigma_1+\sigma_2$ of two $1$-simplexes that share an endpoint with
@@ -20549,11 +20578,12 @@ $x_j$-integration is carried out first via the \emph{fundamental theorem of calc
 \[
   \int (D_j a)\,dx_j = a\big|_{\text{top face}}-a\big|_{\text{bottom face}} .
 \]
-The two evaluated terms are exactly the contributions of the two faces of $\partial Q^k$ on
-which $x_j$ varies between its extremes; the remaining faces contribute nothing to that term
-because $a$ does not produce a boundary term there. Summing $j$ and matching signs against
-Definition~\ref{d:boundary@c11} gives precisely $\int_{\partial Q^k}\omega$. Reassembling the
-patches (partition of unity) yields the theorem for the general chain.
+The two evaluated terms are exactly the contributions of the two faces of $\partial Q^k$
+between which $x_j$ varies; the remaining faces lie in hyperplanes $x_i=\text{const}$
+($i\neq j$), on which the factor $dx_i$ of that term, and hence the term itself, vanishes.
+Summing $j$ and matching signs against Definition~\ref{d:boundary@c11} gives precisely
+$\int_{\partial Q^k}\omega$. Adding over the simplexes of $\Psi$ yields the theorem for the
+general chain.
 \end{proof}
 
 \begin{remark}
@@ -20580,15 +20610,16 @@ $P,Q\in C'$. With $\omega=P\,dx+Q\,dy$ (so $d\omega=(Q_x-P_y)\,dx\wedge dy$), St
   \begin{scope}
     \fill[band] plot[smooth cycle,tension=0.8]
       coordinates {(0,0)(1.6,-0.3)(2.6,0.6)(2.2,1.7)(0.9,2.0)(-0.4,1.1)};
-    \draw[line width=1pt] plot[smooth cycle,tension=0.8]
+    % boundary with orientation arrows placed on the curve (counterclockwise)
+    \draw[line width=1pt,postaction={decorate},decoration={markings,
+        mark=at position 0.12 with {\arrow{Stealth[length=2.4mm]}},
+        mark=at position 0.37 with {\arrow{Stealth[length=2.4mm]}},
+        mark=at position 0.62 with {\arrow{Stealth[length=2.4mm]}},
+        mark=at position 0.87 with {\arrow{Stealth[length=2.4mm]}}}]
+      plot[smooth cycle,tension=0.8]
       coordinates {(0,0)(1.6,-0.3)(2.6,0.6)(2.2,1.7)(0.9,2.0)(-0.4,1.1)};
   \end{scope}
   \node at (1.1,0.85) {$\Omega$};
-  % orientation arrows along the boundary (counterclockwise)
-  \draw[-{Stealth[length=2.4mm]},line width=1pt] (2.55,0.55)--(2.45,0.95);
-  \draw[-{Stealth[length=2.4mm]},line width=1pt] (0.6,2.02)--(0.2,1.95);
-  \draw[-{Stealth[length=2.4mm]},line width=1pt] (-0.2,0.55)--(0.0,0.15);
-  \draw[-{Stealth[length=2.4mm]},line width=1pt] (1.4,-0.32)--(1.9,-0.2);
   \node[font=\footnotesize] at (3.0,1.3) {$\partial\Omega$};
   \node[font=\footnotesize,align=center] at (1.1,-0.85)
     {boundary oriented so $\Omega$ stays on the left};
@@ -20674,12 +20705,12 @@ $\operatorname{curl}\operatorname{grad}=0$ and $\operatorname{div}\operatorname{
 
 \begin{pitfall}
 The identities $\operatorname{curl}\operatorname{grad}f=0$ and
-$\operatorname{div}\operatorname{curl}F=0$ are \emph{not} three separate miracles --- they are
+$\operatorname{div}\operatorname{curl}F=0$ are \emph{not} two separate miracles --- they are
 the one equation $d^2=0$ in degrees $0$ and $1$. Conversely, a curl-free field need not be a
 gradient, and a divergence-free field need not be a curl, \emph{unless the domain has no
-holes}: on $\R^3\setminus\set{0}$ the field of Exercises~22--23 is closed but not exact. Local
-exactness (\emph{Poincare's lemma}: on a convex set every closed form is exact,
-Exercises~24--27) always holds; global exactness depends on the topology.
+holes}: on $\R^3\setminus\set{0}$ the field of Exercises (Rudin 22, 23) is closed but not
+exact. Local exactness (\emph{Poincare's lemma}: on a convex set every closed form is exact,
+Exercises (Rudin 24, 27)) always holds; global exactness depends on the topology.
 \end{pitfall}
 
 \begin{wex}{Reading curl off the exterior derivative}
@@ -20703,8 +20734,9 @@ $Q_x=P_y=\dfrac{y^2-x^2}{(x^2+y^2)^2}$, so $d\eta=(Q_x-P_y)\,dx\wedge dy=0$: $\e
 But on the unit circle $\gamma(t)=(\cos t,\sin t)$, $\eta$ pulls back to $dt$, so
 $\oint_\gamma\eta=\int_0^{2\pi}dt=2\pi$. Were $\eta=df$ for a single-valued $f$, Stokes would
 force $\oint_\gamma\eta=f(\gamma(2\pi))-f(\gamma(0))=0$. The contradiction shows $\eta$ is not
-exact. \emph{Check.} $\eta$ \emph{is} locally $d(\arctan(y/x))$, but $\arctan(y/x)=\theta$
-jumps by $2\pi$ around the origin --- the multivaluedness is precisely the hole. \checkmark
+exact. \emph{Check.} $\eta$ \emph{is} locally $d\theta$ (e.g.\ $\theta=\arctan(y/x)$ for
+$x>0$), but the angle $\theta$ jumps by $2\pi$ around the origin --- the multivaluedness is
+precisely the hole. \checkmark
 \end{wex}
 
 \subsection*{Further worked examples}
@@ -20774,7 +20806,7 @@ surface spanning $\partial S$ we choose, because $\operatorname{curl}F$ is diver
   $\int_S\zeta=\iint_E\sin u\,du\,dv=A(S)$, the area.
   (c) For $C''$-functions $g,h_1,h_2,h_3$ on $[0,1]$ with $g>0$, let $\Phi(s,t)$ be the
   $2$-surface on $I^2$ given by $x=g(t)h_1(s)$, $y=g(t)h_2(s)$, $z=g(t)h_3(s)$; prove
-  $\int_{\partial\Phi}\zeta=0$ (its range lies in a cone with vertex $0$).
+  $\int_{\Phi}\zeta=0$ (its range lies in a cone with vertex $0$).
   (d) Let $E$ be a closed rectangle in $D$ with edges parallel to those of $D$, let
   $f\in\mathscr{C}''(D)$, $f>0$, and let $\Omega$ be the $2$-surface on $E$ defined by
   $\Omega(u,v)=f(u,v)\Sigma(u,v)$; prove $\int_\Omega\zeta=\int_S\zeta$ (the ``solid angle''
@@ -20794,7 +20826,7 @@ surface spanning $\partial S$ we choose, because $\operatorname{curl}F$ is diver
   (Note $\omega_2=\eta$, $\omega_3=\zeta$, and $E_1\subseteq E_2\subseteq\cdots\subseteq
   E_n=\R^n\setminus\set{0}$.)
   (a) Prove $d\omega_k=0$ in $E_k$.
-  (b) For $k=2,\dots,n$, prove $\omega_k$ is exact in $E_k\setminus E_{k-1}$ by showing
+  (b) For $k=2,\dots,n$, prove $\omega_k$ is exact in $E_{k-1}$ by showing
   $\omega_k=d(f_k\omega_{k-1})=(df_k)\wedge\omega_{k-1}$, where $f_k(x)=(-1)^k g_k(x_k/r_k)$
   and $g_k(t)=\int_{-1}^{t}(1-s^2)^{(k-3)/2}\,ds$.
   (c) Is $\omega_n$ exact in $E_n$?
@@ -20831,9 +20863,11 @@ surface spanning $\partial S$ we choose, because $\operatorname{curl}F$ is diver
   $\omega=x^3\,dy$, and compute both $\int_\Phi d\omega$ and $\int_{\partial\Phi}\omega$ to
   verify directly that they are equal.
 \item (Rudin 29.) Prove the existence of a function $\Delta$ with the properties needed in
-  the proof of Theorem~10.38 (the change-of-variables / surface-area lemma), and prove that
-  the resulting function $F$ is of class $C'$. (Both assertions are trivial if $E$ is an open
-  cell or open ball, since $\Delta$ can be taken constant; refer to Rudin Theorem~9.42.)
+  the proof of Rudin's Theorem~10.38 (on a convex open $E$, every $f\in\mathscr{C}'(E)$ with
+  $D_jf=0$ for $j>p$ has an $F\in\mathscr{C}'(E)$ with $D_pF=f$ and $D_jF=0$ for $j>p$), and
+  prove that the resulting function $F$ is of class $C'$. (Both assertions are trivial if $E$
+  is an open cell or open ball, since $\Delta$ can be taken constant; refer to Rudin
+  Theorem~9.42.)
 \item (Rudin 30.) If $N$ is the vector given by Rudin's equation (135) (the normal to a
   surface), prove the area/normal identity stated there, and verify Rudin's equation (137).
 \item (Rudin 31.) Let $E\subseteq\R^3$ be open, $g\in\mathscr{C}''(E)$,
