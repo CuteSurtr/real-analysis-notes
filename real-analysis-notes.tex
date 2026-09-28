@@ -22830,7 +22830,7 @@ disjoint pieces and adding the pieces' sizes recovers the whole. Countable addit
 the extension to infinitely many pieces --- is the property that makes the \emph{limit}
 theorems of integration work, and it is exactly what the Riemann theory lacks.
 
-\begin{proposition}[Elementary consequences of additivity, Rudin 11.3]\label{p:add-props@c13}
+\begin{proposition}[Elementary consequences of additivity, Rudin 11.2--11.3]\label{p:add-props@c13}
 If $\phi\ge0$ is countably additive on a family closed under the operations used, then for
 sets in the family:
 \textup{(a)} $\phi(\es)=0$;
@@ -22922,12 +22922,14 @@ dashed cuts make the union disjoint without changing it.}
 \begin{wex}{Volume is additive but not yet countably additive on $\mathscr E$}
 Show $m$ is finitely additive on $\mathscr E$, and exhibit a countable disjoint family of
 elementary sets whose union is \emph{not} elementary --- so countable additivity cannot
-even be \emph{stated} within $\mathscr E$.
+even be \emph{stated} within $\mathscr E$ for arbitrary disjoint families.
 \wrec Trigger: ``test whether a property survives passage to infinitely many pieces.''
-\wsol Finite additivity is Proposition~\ref{p:elem-ring@c13}. But
-$[0,1)=\bigcup_{n\ge1}[\,1-\tfrac1n,\,1-\tfrac1{n+1})$ is a countable disjoint union of
-intervals; each piece is elementary, yet a general countable union of intervals (say a
-``fat Cantor'' complement) need not be a \emph{finite} union, hence is outside $\mathscr E$.
+\wsol Finite additivity is Proposition~\ref{p:elem-ring@c13}. The pieces
+$J_n=[\,1-\tfrac1n,\,1-\tfrac1{n+1})$, $n\ge1$, are pairwise disjoint intervals with union
+$[0,1)$, which happens to be elementary; but the union of every other piece,
+$\bigcup_{n\ge1}J_{2n-1}=[0,\tfrac12)\cup[\tfrac23,\tfrac34)\cup[\tfrac45,\tfrac56)\cup\cdots$,
+has infinitely many connected components, so it is not a \emph{finite} union of intervals and
+lies outside $\mathscr E$ (as does the complement of a ``fat Cantor'' set).
 \emph{Check.} The lengths sum correctly, $\sum_n\bigl(\tfrac1n-\tfrac1{n+1}\bigr)=1=m([0,1))$;
 the obstruction is not the arithmetic but the family $\mathscr E$ being too small. This is
 exactly why we must \emph{enlarge} $\mathscr E$ to a $\sigma$-algebra. \checkmark
@@ -22967,15 +22969,17 @@ $\set{I_{n,j}}_{n,j}$ covers $\bigcup_n E_n$, so
   \le\sum_n\bigl(\mu^*(E_n)+\eps2^{-n}\bigr)=\sum_n\mu^*(E_n)+\eps.
 \]
 Let $\eps\to0$. (d) ``$\le$'': $I$ covers itself, so $\mu^*(I)\le m(I)$ (enlarge $I$ to an
-open interval of volume $\le m(I)+\eps$). ``$\ge$'': any countable open cover of the
-\emph{compact} closed interval $\bar I$ has a finite subcover (Heine--Borel), and finite
-additivity of $m$ on $\mathscr E$ gives $m(\bar I)\le\sum_{\text{finite}}m(I_n)\le\sum_n
-m(I_n)$; take the inf to get $m(I)\le\mu^*(I)$. So equality holds.
+open interval of volume $\le m(I)+\eps$). ``$\ge$'': let $\set{I_n}$ be a countable open
+cover of $I$ and $\eps>0$; shrink $I$ to a closed interval $F\subseteq I$ with
+$m(F)\ge m(I)-\eps$. The $I_n$ cover the \emph{compact} set $F$, so finitely many of them do
+(Heine--Borel), and finite additivity of $m$ on $\mathscr E$ gives
+$m(F)\le\sum_{\text{finite}}m(I_n)\le\sum_n m(I_n)$. Thus $m(I)-\eps\le\sum_n m(I_n)$; let
+$\eps\to0$ and take the inf to get $m(I)\le\mu^*(I)$. So equality holds.
 \end{proof}
 
 \begin{pitfall}
 Outer measure is only \emph{sub}additive, not additive: in general
-$\mu^*(A\cup B)<\mu^*(A)+\mu^*(B)$ can fail to be an equality even when $A\cap B=\es$. This
+$\mu^*(A\cup B)\le\mu^*(A)+\mu^*(B)$ can fail to be an equality even when $A\cap B=\es$. This
 defect is unavoidable for \emph{all} subsets of $\Rk$ (there exist non-measurable sets, by
 the Axiom of Choice). The fix --- restricting to a good sub-family on which $\mu^*$
 \emph{is} countably additive --- is the content of Section~\ref{sec:construction-ref@c13}.
@@ -22987,10 +22991,10 @@ the Axiom of Choice). The fix --- restricting to a good sub-family on which $\mu
   \draw[line width=1pt,fill=black!6]
     plot[smooth cycle,tension=0.8]
     coordinates {(1,1)(2.4,0.6)(3.6,1.4)(3.2,2.7)(1.8,3.0)(0.7,2.2)};
-  \node at (2.2,1.8) {$E$};
+  \node at (1.95,2.35) {$E$};
   % covering open intervals (rectangles)
-  \foreach \x/\y/\w/\h in {0.6/0.4/1.2/1.2, 1.6/0.4/1.4/1.3, 2.6/0.9/1.3/1.2,
-      1.2/1.6/1.5/1.6, 2.4/1.9/1.3/1.2, 0.5/1.6/1.0/1.0}{
+  \foreach \x/\y/\w/\h in {0.5/0.4/1.3/1.3, 1.6/0.4/1.4/1.3, 2.6/0.6/1.3/1.5,
+      1.2/1.6/1.5/1.6, 2.4/1.9/1.4/1.2, 0.5/1.5/1.0/1.4}{
     \draw[dashed,black!65] (\x,\y) rectangle (\x+\w,\y+\h);
   }
   \node[font=\footnotesize,align=left] at (6.4,1.8)
@@ -23046,14 +23050,14 @@ Let $\mu$ be Lebesgue measure on $\R$ and $A_n=[n,\infty)$. Test continuity from
 decreasing chain $A_1\supseteq A_2\supseteq\cdots$, and then exhibit the correct hypothesis
 that repairs it.
 \wrec Trigger: ``does $\mu(A_n)\to\mu(\bigcap A_n)$ for a shrinking chain?'' --- continuity
-from above (Proposition~\ref{p:add-props@c13}) requires some $\mu(A_N)<\infty$.
+from above (the Caution after Proposition~\ref{p:add-props@c13}) requires some $\mu(A_N)<\infty$.
 \wsol Each $A_n=[n,\infty)$ has $\mu(A_n)=\infty$, while $\bigcap_n A_n=\es$ has $\mu=0$. So
 $\mu(A_n)=\infty\not\to0=\mu(\bigcap A_n)$: continuity from above \emph{fails}. The repair:
 if some $\mu(A_N)<\infty$, apply continuity from below to the increasing sets
 $B_n=A_N\setminus A_n\nearrow A_N\setminus\bigcap A_k$ to recover
 $\mu(A_n)\to\mu(\bigcap A_k)$. Here no $A_N$ has finite measure, so the hypothesis is
-genuinely violated. \emph{Check.} Replace $A_n=[0,1/n)$; now $\mu(A_1)=1<\infty$,
-$\mu(A_n)=1/n\to0=\mu(\es)$ --- continuity from above holds exactly when the finiteness guard
+genuinely violated. \emph{Check.} Replace $A_n=(0,1/n)$; now $\mu(A_1)=1<\infty$,
+$\mu(A_n)=1/n\to0=\mu(\es)$ --- continuity from above holds whenever the finiteness guard
 is met. \checkmark
 \end{wex}
 
@@ -23077,7 +23081,7 @@ can beat covering $[0,1]$ by itself. \checkmark
 Show that outer \emph{additivity} $\mu^*(A\cup B)=\mu^*(A)+\mu^*(B)$ for disjoint $A,B$ would
 force the additivity $\mu^*$ provably lacks --- so do not assume it.
 \wrec Trigger: ``is this plausible-looking identity actually a theorem?'' --- recall the
-defect of $\mu^*$ (the pitfall after Theorem~\ref{t:outer-props@c13}).
+defect of $\mu^*$ (the Caution after Theorem~\ref{t:outer-props@c13}).
 \wsol Subadditivity always gives $\mu^*(A\cup B)\le\mu^*(A)+\mu^*(B)$. The reverse can fail:
 there exist disjoint sets (Vitali-type) with $\mu^*(A\cup B)<\mu^*(A)+\mu^*(B)$ strictly. A
 concrete \emph{near}-failure: take $A=\Q\cap[0,1]$, $B=[0,1]\setminus\Q$. These are disjoint
@@ -23095,7 +23099,7 @@ measurable; otherwise you have only ``$\le$''. \checkmark
     \draw[tick] (\x,0.08)--(\x,-0.08) node[below,font=\footnotesize]{$\lab$};
   }
   % the point x_n at integers, covered by shrinking intervals
-  \foreach \x/\w/\n in {1/0.5/1, 2/0.28/2, 3/0.16/3, 4/0.09/4}{
+  \foreach \x/\w/\n in {1/0.5/1, 2/0.25/2, 3/0.125/3, 4/0.0625/4}{
     \fill[band] (\x-\w,0.05) rectangle (\x+\w,0.55);
     \draw[dashed,black!60] (\x-\w,0.05) rectangle (\x+\w,0.55);
     \node[pt] at (\x,0.05) {};
@@ -23131,10 +23135,11 @@ Definition~\ref{d:outer@c13}).}
   cardinality alone (the Cantor set is uncountable yet null).
 \item (A non-example for additivity of $m^*$.) Explain why one cannot expect
   $m^*(A\cup B)=m^*(A)+m^*(B)$ for arbitrary disjoint $A,B$. (You need not construct a
-  Vitali set; argue why finite additivity on \emph{all} sets would clash with translation
-  invariance plus the value $m^*([0,1])=1$.)
+  Vitali set in detail; note that finite additivity on \emph{all} sets, together with
+  countable subadditivity, would make $m^*$ countably additive on all sets, and argue why that
+  would clash with translation invariance plus the value $m^*([0,1])=1$.)
 \item (Diagram: covering by intervals.) Draw the segment $[0,1]$ on a number line and, above
-  it, sketch a countable cover of $\Q\cap[0,1]$ by open intervals of total length $<\eps$.
+  it, sketch a countable cover of $\Q\cap[0,1]$ by open intervals of total length $\le\eps$.
   Mark the lengths $\eps/2,\eps/4,\eps/8,\dots$ and explain how the picture proves
   $m^*(\Q\cap[0,1])=0$.
 \item (Outer measure of an interval.) Prove $m^*([a,b])=b-a$ directly: subadditivity gives
@@ -23211,7 +23216,7 @@ $m(A_n\cup B_n)=m(A_n)+m(B_n)-m(A_n\cap B_n)\to\mu(E)+\mu(F)$.
 
 \subsection*{The main theorem: $\mathscr M$ is a $\sigma$-algebra and $\mu$ a measure}
 
-\begin{definition}[$\sigma$-ring, $\sigma$-algebra, Rudin 11.5/11.11]\label{d:sigma-alg@c13}
+\begin{definition}[$\sigma$-ring, $\sigma$-algebra, Rudin 11.1, 11.12]\label{d:sigma-alg@c13}
 A family $\mathscr R$ of subsets of a set $X$ is a \emph{ring} if it is closed under
 $A\cup B$ and $A\setminus B$; a \emph{$\sigma$-ring} if also closed under countable unions
 $\bigcup_{n=1}^\infty A_n$. A $\sigma$-ring containing $X$ itself (equivalently, closed
@@ -23224,7 +23229,7 @@ $\bigcap_n A_n=X\setminus\bigcup_n(X\setminus A_n)$.
 \begin{tikzpicture}[scale=0.95,every node/.style={font=\footnotesize}]
   % nested sigma-algebra closure diagram
   \node[draw,rounded corners,minimum width=2.2cm,minimum height=0.8cm] (E) at (0,0)
-    {$A,B\in\mathscr M$};
+    {$A,B,A_n\in\mathscr M$};
   \node[draw,rounded corners,minimum width=2.2cm,minimum height=0.8cm] (U) at (3.6,1.1)
     {$A\cup B$};
   \node[draw,rounded corners,minimum width=2.2cm,minimum height=0.8cm] (D) at (3.6,0)
@@ -23236,7 +23241,7 @@ $\bigcap_n A_n=X\setminus\bigcup_n(X\setminus A_n)$.
   \draw[-{Stealth[length=2mm]}] (E)--(U);
   \draw[-{Stealth[length=2mm]}] (E)--(D);
   \draw[-{Stealth[length=2mm]}] (E)--(CU);
-  \draw[-{Stealth[length=2mm]}] (CU)--(CI) node[midway,above,align=center]
+  \draw[-{Stealth[length=2mm]}] (CU)--(CI) node[midway,below right,align=center]
     {via\\complements};
   \draw[-{Stealth[length=2mm]}] (D)--(CI);
 \end{tikzpicture}
@@ -23244,7 +23249,7 @@ $\bigcap_n A_n=X\setminus\bigcup_n(X\setminus A_n)$.
 complement, countable union, countable intersection.}
 \end{center}
 
-\begin{theorem}[Construction of Lebesgue measure, Rudin 11.11]\label{t:lebesgue@c13}
+\begin{theorem}[Construction of Lebesgue measure, Rudin 11.10--11.11]\label{t:lebesgue@c13}
 The family $\mathscr M$ of $\mu$-measurable subsets of $\Rk$ is a $\sigma$-algebra, and
 $\mu$ (extended to $\mathscr M$ by $\mu(E)=\sup\set{\mu(F):F\in\mathscr M_F,\,F\subseteq E}$,
 allowing $+\infty$) is \emph{countably additive} on $\mathscr M$. Thus $(\Rk,\mathscr M,\mu)$
@@ -23261,8 +23266,10 @@ $E\cup F$, $E\cap F$, $E\setminus F$. So $\mathscr M_F$ is a ring.
 \mathscr M_F$ pairwise disjoint and $\mu^*(E)<\infty$. Disjoint finite additivity gives
 $\sum_{n\le N}\mu(E_n)=\mu\!\left(\bigcup_{n\le N}E_n\right)\le\mu^*(E)$ for every $N$, so
 $\sum_n\mu(E_n)\le\mu^*(E)<\infty$. Conversely subadditivity gives
-$\mu^*(E)\le\sum_n\mu(E_n)$. Hence $E\in\mathscr M_F$ and
-$\mu(E)=\sum_n\mu(E_n)$.
+$\mu^*(E)\le\sum_n\mu(E_n)$. Moreover
+$d\bigl(E,\bigcup_{n\le N}E_n\bigr)\le\sum_{n>N}\mu(E_n)\to0$, so (approximating each finite
+union by an elementary set and using the triangle inequality for $d$) $E\in\mathscr M_F$ and
+$\mu(E)=\mu^*(E)=\sum_n\mu(E_n)$.
 
 \emph{Passing to $\mathscr M$.} A general measurable $E=\bigcup_n F_n$ ($F_n\in\mathscr M_F$)
 is rewritten, by disjointifying, as a disjoint union of $\mathscr M_F$-sets; closure under
@@ -23340,10 +23347,12 @@ Measurability is the price of admission to the integral.
 \subsection*{Abstract measure spaces}
 
 The construction never really used the geometry of $\Rk$ --- only an outer measure and a
-ring with a finitely additive set function. Stripping the geometry away gives the abstract
+ring with a countably additive set function (compactness is what made $m$ countably additive
+on $\mathscr E$; finite additivity alone is not enough, as the Rudin exercise at the end of
+the previous section shows). Stripping the geometry away gives the abstract
 framework that the rest of the chapter actually needs.
 
-\begin{definition}[Measure space, Rudin 11.11]\label{d:measure-space@c13}
+\begin{definition}[Measure space, Rudin 11.12]\label{d:measure-space@c13}
 A \emph{measurable space} is a pair $(X,\mathscr M)$ with $\mathscr M$ a $\sigma$-algebra of
 subsets of $X$; members of $\mathscr M$ are \emph{measurable sets}. A \emph{measure} on it is
 a countably additive set function $\mu:\mathscr M\to[0,+\infty]$ with $\mu(\es)=0$. The
@@ -23426,7 +23435,7 @@ machinery rests on; the elementary volume $m$ on $\mathscr E$ was finitely addit
 \end{wex}
 
 \begin{exers}{Exercises (Rudin, Ch.11).}
-\item Suppose $\{n_k\}$ is an increasing sequence of positive integers and $E$ is the set
+\item Suppose $\{n_k\}$ is a strictly increasing sequence of positive integers and $E$ is the set
   of all $x\in(-\pi,\pi)$ at which $\{\sin n_k x\}$ converges. Prove that $m(E)=0$.
   (Hint: for every $A\subseteq E$,
   \[\int_A\sin n_k x\,dx\to0,\qquad\int_A(\sin n_k x)^2\,dx=\int_A\tfrac12(1-\cos2n_k x)\,dx
@@ -23455,8 +23464,9 @@ machinery rests on; the elementary volume $m$ on $\mathscr E$ was finitely addit
   translates $V\oplus q$ ($q\in\Q\cap[0,1)$, addition mod $1$). Show that measurability of
   $V$ would force $1=\sum_q m(V)$, impossible whether $m(V)=0$ or $m(V)>0$.
 \item (Diagram: the dyadic sweep-out.) Draw the first three stages of writing an open subset
-  of $(0,1)$ as a countable disjoint union of open intervals, and explain how the picture
-  underlies the construction of $m$ on open sets.
+  of $(0,1)$ as a countable disjoint union of half-open dyadic intervals
+  $[k2^{-j},(k+1)2^{-j})$, and explain how the picture underlies the construction of $m$ on
+  open sets.
 \item (Cantor set has measure zero.) Using the standard middle-thirds construction, compute
   $m$ of the set removed at stage $n$, sum the series, and conclude $m(C)=0$ while $C$ is
   uncountable. Include a number-line diagram of stages $0,1,2$.
@@ -23473,7 +23483,7 @@ possible.
 
 \subsection*{Definition and the basic criterion}
 
-\begin{definition}[Measurable function, Rudin 11.12]\label{d:meas-fn@c13}
+\begin{definition}[Measurable function, Rudin 11.13]\label{d:meas-fn@c13}
 Let $f:X\to\Rext$ (extended-real valued). Then $f$ is \emph{measurable} if for every
 $a\in\R$ the set
 \[
@@ -23489,7 +23499,7 @@ of half-lines $(a,\infty]$ be \emph{measurable}. This is a far weaker requiremen
 mentions topology of the domain --- which is exactly why the class is closed under the
 pointwise limits that destroy continuity. One threshold $a$ at a time is all we ever check.
 
-\begin{theorem}[Equivalent criteria, Rudin 11.13]\label{t:meas-equiv@c13}
+\begin{theorem}[Equivalent criteria, Rudin 11.15]\label{t:meas-equiv@c13}
 For $f:X\to\Rext$ the following are equivalent:
 \textup{(a)} $\set{f>a}\in\mathscr M$ for all $a$;
 \textup{(b)} $\set{f\ge a}\in\mathscr M$ for all $a$;
@@ -23526,7 +23536,7 @@ bridge between measurable sets and measurable functions. \checkmark
 
 \subsection*{Closure under limiting operations}
 
-\begin{theorem}[Sup, inf, limsup, liminf of measurable functions, Rudin 11.14--11.15]
+\begin{theorem}[Sup, inf, limsup, liminf of measurable functions, Rudin 11.17]
 \label{t:sup-inf-meas@c13}
 Let $f_1,f_2,\dots$ be measurable $X\to\Rext$. Then
 \[
@@ -23563,7 +23573,7 @@ measurable functions \emph{are}. That single closure property is why the Lebesgu
 interacts cleanly with limits while the Riemann integral does not.
 \end{pitfall}
 
-\begin{theorem}[Algebraic closure: sums, products, $\abs f$, $f^\pm$, Rudin 11.16--11.17]
+\begin{theorem}[Algebraic closure: sums, products, $\abs f$, $f^\pm$, Rudin 11.16--11.18]
 \label{t:alg-meas@c13}
 If $f,g:X\to\R$ are measurable and $c\in\R$, then $cf$, $f+g$, $fg$, $\max(f,g)$,
 $\min(f,g)$, $\abs f$ are measurable, as are the \emph{positive} and \emph{negative parts}
@@ -23608,7 +23618,7 @@ certify it lands in $\mathscr M$ before integrating.
 
 \subsection*{Simple functions: the finite-range approximants}
 
-\begin{definition}[Simple function, Rudin 11.17]\label{d:simple@c13}
+\begin{definition}[Simple function, Rudin 11.19]\label{d:simple@c13}
 A measurable $s:X\to\R$ is \emph{simple} if its range is a finite set $\set{c_1,\dots,c_n}$.
 Writing $E_i=\set{x:s(x)=c_i}$ (disjoint, measurable, covering $X$), the \emph{standard
 representation} is
@@ -23674,20 +23684,22 @@ $s_n(x)=n\to\infty=f(x)$. If $f\le M$ then for $n>M$ the bound $f-s_n<2^{-n}$ ho
 \begin{center}
 \begin{tikzpicture}[scale=1.0]
   \begin{axis}[width=11cm,height=5.6cm,axis lines=middle,xlabel=$x$,ylabel=$y$,
-      xtick=\empty,ytick=\empty,xmin=0,xmax=4.2,ymin=0,ymax=2.6,
+      xtick=\empty,ytick={0.25,0.5,...,1.75},yticklabels={},xmin=0,xmax=4.2,ymin=0,ymax=2.6,
       enlargelimits=false,clip=false]
     \def\f{(1.8*(1-exp(-1.1*x)))}
     % staircase s_n rising to f from below
     \addplot[curve,domain=0:4,samples=120,black]{1.8*(1-exp(-1.1*x))};
-    % staircase approximation (left-continuous steps under the curve)
-    \draw[band,draw=black!55] (axis cs:0,0) rectangle (axis cs:0.45,{1.8*(1-exp(-1.1*0))});
-    \foreach \a/\b in {0.45/0.95,0.95/1.55,1.55/2.3,2.3/3.2,3.2/4.0}{
+    % s_2 from the proof: value k/4 on {k/4 <= f < (k+1)/4} = [x_k, x_{k+1}),
+    % x_k = f^{-1}(k/4) = -ln(1-k/7.2)/1.1 (range sliced at the levels k/4; s_2 = 0 on [0, x_1))
+    \foreach \a/\b/\h in {0.136/0.296/0.25,0.296/0.490/0.5,0.490/0.737/0.75,
+        0.737/1.078/1,1.078/1.629/1.25,1.629/3.258/1.5,3.258/4.0/1.75}{
       \edef\temp{\noexpand\fill[band,draw=black!55]
-        (axis cs:\a,0) rectangle (axis cs:\b,{1.8*(1-exp(-1.1*\a))});}
+        (axis cs:\a,0) rectangle (axis cs:\b,\h);}
       \temp
     }
     \node[font=\footnotesize,black] at (axis cs:3.0,2.3) {$y=f(x)$};
-    \node[font=\footnotesize,align=left] at (axis cs:2.1,0.55) {staircase $s_n\le f$};
+    \node[font=\footnotesize,align=center] at (axis cs:2.44,0.75)
+      {staircase $s_n\le f$\\(here $n=2$)};
   \end{axis}
 \end{tikzpicture}
 \captionof{figure}{Approximating a nonnegative measurable $f$ from below by simple functions:
@@ -23701,7 +23713,7 @@ Theorem~\ref{t:simple-approx@c13} is the engine of the whole integration theory:
 the increasing limit) of integrals of simple functions, and it lets us \emph{prove} the
 convergence theorems by reducing to the simple case. The dyadic slicing here partitions the
 \emph{range} of $f$, not the domain --- the conceptual hallmark of Lebesgue's method, made
-precise in Section~\ref{sec:conv-ref@c13}.
+precise in the next section.
 \end{remark}
 
 \subsection*{Further worked examples}
@@ -23763,14 +23775,15 @@ sets are exactly the obstruction, and they exist only by the Axiom of Choice. \c
 \begin{tikzpicture}[scale=1.0]
   \begin{axis}[width=11cm,height=5cm,axis lines=middle,xlabel=$x$,ylabel=$f(x)$,
       xtick=\empty,ytick={1.4},yticklabels={$a$},xmin=-0.2,xmax=5.3,ymin=-0.2,ymax=2.8,
+      xlabel style={at={(axis cs:5.3,0)},anchor=west},
       enlargelimits=false,clip=false]
     \addplot[curve,domain=0:5.2,samples=160,black]{0.4+1.6*sin(deg(0.9*x))*sin(deg(0.9*x))};
     \draw[dashed,black!60] (axis cs:0,1.4)--(axis cs:5.2,1.4);
     % shade the x-axis intervals where f>a
-    \fill[band] (axis cs:0.9,0) rectangle (axis cs:2.6,0.12);
-    \fill[band] (axis cs:4.1,0) rectangle (axis cs:5.2,0.12);
-    \node[font=\footnotesize] at (axis cs:1.75,-0.18) {$\{f>a\}$};
-    \node[font=\footnotesize] at (axis cs:4.6,-0.18) {$\{f>a\}$};
+    \fill[band] (axis cs:1.013,0) rectangle (axis cs:2.478,0.12);
+    \fill[band] (axis cs:4.504,0) rectangle (axis cs:5.2,0.12);
+    \node[font=\footnotesize] at (axis cs:1.745,-0.18) {$\{f>a\}$};
+    \node[font=\footnotesize] at (axis cs:4.85,-0.18) {$\{f>a\}$};
   \end{axis}
 \end{tikzpicture}
 \captionof{figure}{Measurability tests the \emph{superlevel set} $\set{f>a}$ (shaded on the
@@ -23799,9 +23812,9 @@ $x$-axis) for every height $a$: $f$ is measurable iff each such set lies in $\ma
 \item (Almost-everywhere equality.) If $f$ is measurable and $g=f$ a.e. (with respect to a
   complete measure), prove $g$ is measurable. Why does completeness matter here?
 \item (Non-example: a non-measurable function.) Let $V\subseteq[0,1)$ be a Vitali set.
-  Show $\chi_V$ is not measurable, even though $\abs{\chi_V}\equiv$ a measurable function
-  pointwise bounded by $1$. What does this say about ``$\abs f$ measurable $\Rightarrow f$
-  measurable''?
+  Show $\chi_V$ is not measurable, and that neither is $f=2\chi_V-1$ on $[0,1)$ (equal to $1$
+  on $V$ and $-1$ off $V$), even though $\abs f\equiv1$ is measurable. What does this say about
+  ``$\abs f$ measurable $\Rightarrow f$ measurable''?
 \item (Diagram: approximating a function from below.) For $f(x)=x^2$ on $[0,1]$, draw the
   simple function $s_n=\sum_k \tfrac{k}{2^n}\chi_{\{k/2^n\le f<(k+1)/2^n\}}$ for $n=2$ as a
   step graph beneath the parabola, and indicate the level sets on the $x$-axis.
@@ -23850,8 +23863,15 @@ domain has $f$-value near each height, and sum height $\times$ measure.
       \edef\tempd{\noexpand\draw[dashed,black!55] (axis cs:0,\y)--(axis cs:3.3,\y);}
       \tempd
     }
+    % one band (y_{k-1},y_k]=(1.6,2.0] and its level set, an interval of the x-axis
+    \fill[black!22] (axis cs:0,1.6) rectangle (axis cs:3.3,2.0);
     \addplot[curve,domain=0:3.3,samples=120]{0.9+1.1*sin(deg(0.9*x))};
-    \node[font=\footnotesize] at (axis cs:2.7,0.6) {$\set{y_{k-1}<f\le y_k}$};
+    \draw[dotted,black!70] (axis cs:0.766,1.6)--(axis cs:0.766,0)
+      (axis cs:2.724,1.6)--(axis cs:2.724,0);
+    \draw[line width=2pt] (axis cs:0.766,0)--(axis cs:2.724,0);
+    \node[font=\footnotesize,anchor=west] at (axis cs:3.3,1.6) {$y_{k-1}$};
+    \node[font=\footnotesize,anchor=west] at (axis cs:3.3,2.0) {$y_k$};
+    \node[font=\footnotesize,below] at (axis cs:1.745,0) {$\set{y_{k-1}<f\le y_k}$};
   \end{axis}
 \end{tikzpicture}
 \captionof{figure}{The canonical comparison. \emph{Left:} Riemann sums vertical strips
@@ -23863,7 +23883,7 @@ domains.}
 
 \subsection*{Stage 1: the integral of a simple function}
 
-\begin{definition}[Integral of a nonnegative simple function, Rudin 11.18]\label{d:int-simple@c13}
+\begin{definition}[Integral of a nonnegative simple function, Rudin 11.21]\label{d:int-simple@c13}
 Let $s=\sum_{i=1}^n c_i\,\chi_{E_i}\ge0$ be simple in standard form (the $E_i$ disjoint
 measurable, $c_i\ge0$), and let $E\in\mathscr M$. Define
 \[
@@ -23878,7 +23898,7 @@ that block contributes height $c_i$ times measure $\mu(E_i\cap E)$. One checks i
 independent of the representation (refine two representations to a common one), additive in
 $s$, and monotone.
 
-\begin{proposition}[$\int s$ as a measure; linearity, Rudin 11.18--11.19]\label{p:simple-meas@c13}
+\begin{proposition}[$\int s$ as a measure; linearity, Rudin 11.24, 11.29]\label{p:simple-meas@c13}
 For a fixed nonnegative simple $s$, the map $E\mapsto\varphi(E)=\int_E s\,d\mu$ is a
 \emph{measure} on $\mathscr M$. For nonnegative simple $s,t$ and constants $\alpha,\beta\ge0$,
 \[
@@ -23897,7 +23917,7 @@ $\int(t-s)\,d\mu\ge0$ since $t-s\ge0$ is simple.
 
 \subsection*{Stage 2: nonnegative measurable functions}
 
-\begin{definition}[Integral of a nonnegative measurable function, Rudin 11.20]\label{d:int-nonneg@c13}
+\begin{definition}[Integral of a nonnegative measurable function, Rudin 11.21]\label{d:int-nonneg@c13}
 For measurable $f:X\to[0,+\infty]$ and $E\in\mathscr M$,
 \[
   \int_E f\,d\mu=\sup\Bigl\{\int_E s\,d\mu\ :\ s\text{ simple},\ 0\le s\le f\Bigr\}
@@ -23908,7 +23928,7 @@ Theorem~\ref{t:simple-approx@c13} there is an increasing sequence $s_n\nearrow f
 the Monotone Convergence Theorem) $\int_E f\,d\mu=\lim_n\int_E s_n\,d\mu$.
 \end{definition}
 
-\begin{proposition}[Elementary properties for $f,g\ge0$, Rudin 11.21--11.22]\label{p:nonneg-props@c13}
+\begin{proposition}[Elementary properties for $f,g\ge0$, Rudin 11.23]\label{p:nonneg-props@c13}
 For measurable $f,g\ge0$, $E,A,B\in\mathscr M$, $c\ge0$:
 \textup{(a)} $0\le f\le g\imp\int_E f\le\int_E g$ \textup{(monotone in the integrand)};
 \textup{(b)} $A\subseteq B\imp\int_A f\le\int_B f$ \textup{(monotone in the set)};
@@ -23940,7 +23960,7 @@ functions Lebesgue and Riemann agree by construction. \checkmark
 
 \subsection*{Stage 3: general (signed and complex) functions}
 
-\begin{definition}[The integral and the space $L(\mu)$, Rudin 11.23]\label{d:integrable@c13}
+\begin{definition}[The integral and the space $L(\mu)$, Rudin 11.22]\label{d:integrable@c13}
 A measurable $f:X\to\Rext$ is \emph{Lebesgue integrable on $E$}, written $f\in L(\mu)$ on
 $E$ (Rudin: $f\in\mathscr L(\mu)$), if
 \[
@@ -23964,7 +23984,7 @@ The two integration theories genuinely differ on such functions --- a point made
 the next section.
 \end{pitfall}
 
-\begin{theorem}[Linearity, monotonicity, triangle inequality, Rudin 11.23]\label{t:int-linear@c13}
+\begin{theorem}[Linearity, monotonicity, triangle inequality, Rudin 11.23, 11.26, 11.29]\label{t:int-linear@c13}
 For $f,g\in L(\mu)$ on $E$ and $\alpha,\beta\in\R$ \textup{(}or $\C$\textup{)}:
 \textup{(a)} $\alpha f+\beta g\in L$ and $\int_E(\alpha f+\beta g)=\alpha\int_E
 f+\beta\int_E g$;
@@ -24006,14 +24026,14 @@ $\int_0^1 f\,d\mu=0$, although $f$ is \emph{not} Riemann integrable.
 \wrec Trigger: a ``Lebesgue succeeds where Riemann fails'' showcase --- compute via the
 measure of the level set.
 \wsol $f=\chi_E$ with $E=\Q\cap[0,1]$, which is measurable with $\mu(E)=0$ (countable, by
-Section~1). Hence $\int_0^1 f\,d\mu=\mu(E)=0$. But the Dirichlet function $f$ has
+Section~13.1). Hence $\int_0^1 f\,d\mu=\mu(E)=0$. But the Dirichlet function $f$ has
 $U(f,P)=1$, $L(f,P)=0$ for every partition (density), so its Riemann upper and lower
 integrals are $1\ne0$: not Riemann integrable. \emph{Check.} Lebesgue assigns the
 ``correct'' value $0$ because the rationals are negligible; this is the prototypical gain of
 the theory. \checkmark
 \end{wex}
 
-\begin{theorem}[The integral as a measure; absolute continuity, Rudin 11.23]\label{t:int-as-meas@c13}
+\begin{theorem}[The integral as a measure; absolute continuity, Rudin 11.24]\label{t:int-as-meas@c13}
 If $f\ge0$ is measurable, then $\varphi(E)=\int_E f\,d\mu$ is a measure on $\mathscr M$; it
 is countably additive in $E$. Moreover $\varphi$ is \emph{absolutely continuous} with
 respect to $\mu$: $\mu(E)=0\imp\varphi(E)=0$. For $f\in L(\mu)$ the (signed) set function
@@ -24045,12 +24065,14 @@ On $([0,1],\text{Lebesgue})$ compute $\int_0^1 x\,d\mu$ directly from
 Definition~\ref{d:int-nonneg@c13}, via an explicit increasing sequence of simple functions.
 \wrec Trigger: ``evaluate $\int f$ for $f\ge0$ from the definition'' --- build $s_n\nearrow f$
 and take $\lim\int s_n$.
-\wsol Partition $[0,1]$ into $n$ equal pieces and set
-$s_n=\sum_{k=1}^{n}\frac{k-1}{n}\,\chi_{[\frac{k-1}{n},\frac{k}{n})}$, the left-endpoint
-staircase below $f(x)=x$. Then $0\le s_n\le x$ and $s_n\nearrow x$. Its integral is
+\wsol Partition $[0,1]$ into $2^n$ equal pieces and set
+$s_n=\sum_{k=1}^{2^n}\frac{k-1}{2^n}\,\chi_{[\frac{k-1}{2^n},\frac{k}{2^n})}+\chi_{\set1}$
+(that is, $s_n(x)=\floor{2^nx}/2^n$), the left-endpoint staircase below $f(x)=x$. Then
+$0\le s_n\le x$ and $s_n\nearrow x$: halving every piece can only raise the staircase, and
+$x-s_n(x)<2^{-n}$. Since $\mu\set1=0$, its integral is
 \[
-  \int_0^1 s_n\,d\mu=\sum_{k=1}^n\frac{k-1}{n}\cdot\frac1n=\frac1{n^2}\sum_{k=0}^{n-1}k
-  =\frac1{n^2}\cdot\frac{(n-1)n}{2}=\frac{n-1}{2n}\ \longrightarrow\ \frac12.
+  \int_0^1 s_n\,d\mu=\sum_{k=1}^{2^n}\frac{k-1}{2^n}\cdot\frac1{2^n}=\frac1{4^n}\sum_{k=0}^{2^n-1}k
+  =\frac1{4^n}\cdot\frac{(2^n-1)2^n}{2}=\frac{2^n-1}{2^{n+1}}\ \longrightarrow\ \frac12.
 \]
 So $\int_0^1 x\,d\mu=\sup_n\int s_n=\tfrac12$. \emph{Check.} Equals the Riemann value
 $\int_0^1 x\,dx=\tfrac12$, as Theorem~\ref{t:riemann-lebesgue@c13} guarantees for this continuous
@@ -24061,7 +24083,7 @@ integrand. \checkmark
 On $X=\N$ with counting measure $\mu$, let $f(n)=2^{-n}$. Compute $\int_X f\,d\mu$ and confirm
 $f\in L(\mu)$.
 \wrec Trigger: ``integral against counting measure'' --- it is literally the sum $\sum f(n)$.
-\wsol Each $f\ge0$, and $f=\sum_{n}2^{-n}\chi_{\set n}$ is a pointwise-increasing limit of the
+\wsol Each $f(n)\ge0$, and $f=\sum_{n}2^{-n}\chi_{\set n}$ is a pointwise-increasing limit of the
 simple functions $s_N=\sum_{n\le N}2^{-n}\chi_{\set n}$ with
 $\int s_N\,d\mu=\sum_{n\le N}2^{-n}\mu(\set n)=\sum_{n\le N}2^{-n}$. Hence
 $\int_X f\,d\mu=\sum_{n=1}^\infty 2^{-n}=1<\infty$, so $f\in L(\mu)$. \emph{Check.}
@@ -24073,9 +24095,8 @@ counting measure \emph{is} the convergent geometric series. \checkmark
 Show $f(x)=1/x$ on $(0,1]$ has $\int_{(0,1]}f\,d\mu=+\infty$, so $f\notin L$.
 \wrec Trigger: ``test integrability of a function with a non-integrable singularity'' ---
 bound below by simple functions whose integrals blow up.
-\wsol $f\ge0$ is measurable (continuous on $(0,1]$). For the lower bound use
-$s_n=\sum_{k=1}^{n}\frac1{?}$; more simply, $f(x)\ge\frac1{1/k}=k$ on
-$(\frac1{k+1},\frac1k]$, so the simple function $t_n=\sum_{k=1}^{n}k\,\chi_{(1/(k+1),1/k]}$
+\wsol $f\ge0$ is measurable (continuous on $(0,1]$). For the lower bound note that
+$f(x)\ge\frac1{1/k}=k$ on $(\frac1{k+1},\frac1k]$, so the simple function $t_n=\sum_{k=1}^{n}k\,\chi_{(1/(k+1),1/k]}$
 satisfies $0\le t_n\le f$ and
 \[
   \int t_n\,d\mu=\sum_{k=1}^n k\Bigl(\tfrac1k-\tfrac1{k+1}\Bigr)
@@ -24095,13 +24116,13 @@ this singularity is non-integrable. \checkmark
 \item If $f\in\mathscr{L}(\mu)$ on $E$ and $g$ is bounded and measurable on $E$, then
   $fg\in\mathscr{L}(\mu)$ on $E$.
 \item Find a necessary and sufficient condition that $f\in\mathscr{R}(\alpha)$ on $[a,b]$.
-  (Hint: consider Example 11.6(b) and Theorem 11.33.)
+  (Hint: consider Rudin's Example 11.6(b) and Theorem 11.33.)
 \end{exers}
 
 \begin{exers}{Additional exercises.}
 \item (Integral of a simple function is well defined.) If a nonnegative simple function has
-  two representations $s=\sum_i a_i\chi_{A_i}=\sum_j b_j\chi_{B_j}$, prove
-  $\sum_i a_i\,m(A_i)=\sum_j b_j\,m(B_j)$.
+  two representations $s=\sum_i a_i\chi_{A_i}=\sum_j b_j\chi_{B_j}$ with $a_i,b_j\ge0$ and
+  all $A_i,B_j$ measurable, prove $\sum_i a_i\,m(A_i)=\sum_j b_j\,m(B_j)$.
 \item (Linearity and monotonicity for simple functions.) For nonnegative simple $s,t$ and
   $c\ge0$, prove $\int(s+t)=\int s+\int t$, $\int cs=c\int s$, and $s\le t\Rightarrow\int
   s\le\int t$.
@@ -24131,10 +24152,10 @@ this singularity is non-integrable. \checkmark
 
 
 \section{Convergence Theorems and Comparison with the Riemann Integral}\label{sec:conv-ref@c13}
-Here is the payoff. The Riemann integral interchanges with a limit only under uniform
-convergence; the Lebesgue integral does so under far weaker, more natural hypotheses ---
-monotone increase (MCT), no hypothesis at all but only an inequality (Fatou), or a single
-integrable dominating function (DCT). These three theorems are the reason the Lebesgue
+Here is the payoff. The Riemann integral's basic interchange theorem needs uniform
+convergence; the Lebesgue integral interchanges with a limit under far weaker, more natural
+hypotheses --- monotone increase (MCT), nonnegativity alone at the price of only an
+inequality (Fatou), or a single integrable dominating function (DCT). These three theorems are the reason the Lebesgue
 theory exists. We close by proving that wherever the Riemann integral works, the Lebesgue
 integral agrees, and we state Lebesgue's exact criterion for Riemann integrability.
 
@@ -24179,9 +24200,9 @@ $s\le f$ to get $\alpha\ge\int_X f$. Therefore $\alpha=\int_X f$.
     \addplot[domain=0:4,samples=120,black!75,line width=0.7pt]{0.7*2.0*(1-exp(-1.2*x))};
     \addplot[domain=0:4,samples=120,black!75,line width=0.7pt]{0.88*2.0*(1-exp(-1.2*x))};
     \node[font=\footnotesize] at (axis cs:3.4,2.15) {$f=\lim f_n$};
-    \node[font=\footnotesize] at (axis cs:3.5,0.95) {$f_1$};
-    \node[font=\footnotesize] at (axis cs:3.5,1.35) {$f_2$};
-    \node[font=\footnotesize] at (axis cs:3.5,1.7) {$f_3$};
+    \node[font=\footnotesize,anchor=west] at (axis cs:4,0.89) {$f_1$};
+    \node[font=\footnotesize,anchor=west] at (axis cs:4,1.39) {$f_2$};
+    \node[font=\footnotesize,anchor=west] at (axis cs:4,1.75) {$f_3$};
   \end{axis}
 \end{tikzpicture}
 \captionof{figure}{A monotone increasing sequence $f_1\le f_2\le\cdots\nearrow f$. MCT says the
@@ -24265,8 +24286,8 @@ integrable dominator.
 AM--GM, so $\abs{f_n}\le g\equiv\tfrac12\in L[0,1]$. DCT gives
 $\lim_n\int_0^1 f_n=\int_0^1 0=0$. \emph{Contrast:} $h_n=n\chi_{(0,1/n)}\to0$ pointwise too,
 but $\int_0^1 h_n=n\cdot\frac1n=1\not\to0$; here \emph{no} integrable $g$ dominates all
-$h_n$ (one would need $g\ge n$ near $0$ for every $n$, i.e.\ $g=\infty$ near $0$, not
-integrable). \emph{Check.} The failure is precisely the missing hypothesis of DCT, and
+$h_n$ (one would need $g\ge n$ on $(0,\frac1n)$ for every $n$, hence $g(x)\ge\frac1x-1$ on
+$(0,1)$, which is not integrable). \emph{Check.} The failure is precisely the missing hypothesis of DCT, and
 Fatou still holds: $0=\int\liminf h_n\le\liminf\int h_n=1$. \checkmark
 \end{wex}
 
@@ -24277,7 +24298,7 @@ Fatou still holds: $0=\int\liminf h_n\le\liminf\int h_n=1$. \checkmark
 \item \textbf{A series of nonnegative terms?} Use term-by-term integration
   (Corollary~\ref{c:series@c13}).
 \item \textbf{Only a one-sided bound wanted, or no control on $\int f_n$?} Fatou gives
-  $\int\liminf\le\liminf\int$ --- always true, free of charge.
+  $\int\liminf\le\liminf\int$ for $f_n\ge0$ --- always true, free of charge.
 \item \textbf{Pointwise convergence plus a single integrable dominator
   $\abs{f_n}\le g\in L$?} Use DCT --- the everyday workhorse; produces convergence of the
   integrals \emph{and} $L^1$-convergence $\int\abs{f_n-f}\to0$.
@@ -24341,8 +24362,8 @@ dense set, but only (iii) is discontinuous on a set of positive measure. \checkm
 
 \begin{pitfall}
 ``Continuous a.e.'' (Lebesgue's criterion for Riemann) is \emph{not} the same as ``equal
-a.e.\ to a continuous function.'' Thomae's function is continuous a.e.\ (at all irrationals)
-yet equals no continuous function a.e. Conversely $\chi_\Q$ equals the continuous function
+a.e.\ to a continuous function.'' The step $\chi_{[1/2,1]}$ on $[0,1]$ is continuous a.e.\
+(everywhere except at $\tfrac12$) yet equals no continuous function a.e. Conversely $\chi_\Q$ equals the continuous function
 $0$ a.e.\ but is continuous \emph{nowhere}. Riemann integrability is governed by the size of
 the actual discontinuity set, not by a.e.-equivalence.
 \end{pitfall}
@@ -24351,9 +24372,9 @@ the actual discontinuity set, not by a.e.-equivalence.
 The improper Riemann integral genuinely exceeds the Lebesgue integral on
 conditionally-convergent examples like $\int_0^\infty\frac{\sin x}{x}\dx=\frac\pi2$, which is
 \emph{not} a Lebesgue integral (the positive and negative parts each have infinite integral,
-recall Definition~\ref{d:integrable@c13}). On a finite measure with absolute integrability,
-however, Lebesgue contains Riemann strictly and assigns the same values --- the Lebesgue
-theory is the proper completion of the Riemann theory.
+recall Definition~\ref{d:integrable@c13}). On a bounded interval, however, and for
+absolutely convergent improper integrals, Lebesgue contains Riemann strictly and assigns the
+same values --- the Lebesgue theory is the proper completion of the Riemann theory.
 \end{remark}
 
 \subsection*{Further worked examples}
@@ -24385,8 +24406,9 @@ $\int_0^\infty g=\big[\arctan x\big]_0^\infty=\frac\pi2<\infty$, so $g\in L$. By
   \lim_n\int_0^\infty\frac{e^{-x/n}}{1+x^2}\,dx=\int_0^\infty\frac1{1+x^2}\,dx=\frac\pi2.
 \]
 \emph{Check.} The dominator did not depend on $n$ and was integrable --- precisely DCT's
-hypothesis --- and the answer $\pi/2$ is finite and positive, as a decreasing-then-saturating
-family of integrals should give. \checkmark
+hypothesis --- and the answer $\pi/2$ is finite and positive, as it must be: the integrand
+increases with $n$, so the integrals increase, and they are bounded by
+$\int_0^\infty g=\frac\pi2$. \checkmark
 \end{wex}
 
 \begin{wex}{A non-example: pointwise convergence alone does not move the limit inside}
@@ -24397,8 +24419,9 @@ $\int f_n\not\to\int 0$, and say which hypothesis of DCT fails.
 eventually; and $f_n(0)=0$. Hence $f_n\to0$ pointwise. But
 $\int_0^1 f_n\,d\mu=n\cdot\mu(0,1/n)=n\cdot\frac1n=1$ for all $n$, so $\int f_n\to1\ne0=\int
 \lim f_n$. The missing hypothesis is domination: any $g\ge\abs{f_n}$ for all $n$ must satisfy
-$g\ge n$ on $(0,1/n)$, forcing $\int_0^1 g\ge\sup_n 1=\infty$ near $0$, so no integrable
-dominator exists. \emph{Check.} Fatou still holds and is strict here,
+$g\ge n$ on $(0,1/n)$, in particular on $(\frac1{n+1},\frac1n)$, forcing
+$\int_0^1 g\ge\sum_{n\ge1}n\bigl(\frac1n-\frac1{n+1}\bigr)=\sum_{n\ge1}\frac1{n+1}=\infty$, so
+no integrable dominator exists. \emph{Check.} Fatou still holds and is strict here,
 $0=\int\liminf f_n\le\liminf\int f_n=1$ --- the inequality is the only thing that survives
 without a dominator. \checkmark
 \end{wex}
@@ -24406,13 +24429,13 @@ without a dominator. \checkmark
 \begin{center}
 \begin{tikzpicture}[scale=1.0]
   \begin{axis}[width=11cm,height=5cm,axis lines=middle,xlabel=$x$,ylabel=$f_n(x)$,
-      xtick={0,1},ytick={1,2,4},xmin=-0.1,xmax=1.25,ymin=-0.2,ymax=4.6,
+      xtick={0,1},ytick={1,2,4},xmin=-0.1,xmax=1.25,ymin=-0.2,ymax=5.1,
       enlargelimits=false,clip=false]
     % spikes n*chi_(0,1/n): taller and thinner, area 1 each
     \addplot[curve,black] coordinates {(0,1)(1,1)(1,0)};
     \addplot[curve,black!75] coordinates {(0,2)(0.5,2)(0.5,0)};
     \addplot[curve,black!55] coordinates {(0,4)(0.25,4)(0.25,0)};
-    \node[font=\footnotesize] at (axis cs:0.85,1.18) {$n=1$};
+    \node[font=\footnotesize] at (axis cs:0.85,1.3) {$n=1$};
     \node[font=\footnotesize] at (axis cs:0.62,2.18) {$n=2$};
     \node[font=\footnotesize] at (axis cs:0.37,4.0) {$n=4$};
   \end{axis}
@@ -24423,20 +24446,20 @@ not apply and the limit and integral cannot be swapped.}
 \end{center}
 
 \begin{exers}{Exercises (Rudin, Ch.11).}
-\item Put $g(x)=0$ on $(0,\tfrac12)$ and $g(x)=1$ on $(\tfrac12,1)$, and set
+\item Put $g(x)=0$ on $(0,\tfrac12]$ and $g(x)=1$ on $(\tfrac12,1)$, and set
   \[f_{2k}(x)=g(x),\qquad f_{2k+1}(x)=g(1-x)\qquad(0<x<1).\]
   Show that $\liminf_{n\to\infty}f_n(x)=0$ for $0<x<1$, but $\int_0^1 f_n(x)\,dx=\tfrac12$.
-  (Thus the inequality in Fatou's theorem can be strict; compare with Theorem 11.32's
-  hypotheses.)
+  (Thus the inequality in Fatou's theorem can be strict; compare with the hypotheses of
+  Rudin's Theorem 11.32.)
 \item Let $f_n(x)=n^{-1}$ for $\abs{x}\le n$ and $f_n(x)=0$ for $\abs{x}>n$. Then
   $f_n(x)\to0$ uniformly on $\R^1$, but $\int_{-\infty}^{\infty}f_n\,dx=2$ for every $n$.
   (Thus uniform convergence does not imply dominated convergence in the sense of
-  Theorem 11.32; however, on sets of finite measure, uniformly convergent sequences of
+  Rudin's Theorem 11.32; however, on sets of finite measure, uniformly convergent sequences of
   bounded functions do satisfy that theorem.)
-\item If $f\ge0$ on $[a,b]$ and $F(x)=\int_a^x f(t)\,dt$, prove that $F'(x)=f(x)$ almost
-  everywhere on $[a,b]$.
-\item Prove that the function $F$ defined as the indefinite integral
-  $F(x)=\int_a^x f\,dt$ is continuous on $[a,b]$.
+\item If $f$ is Riemann integrable on $[a,b]$ and $F(x)=\int_a^x f(t)\,dt$, prove that
+  $F'(x)=f(x)$ almost everywhere on $[a,b]$.
+\item For $f\in\mathscr{L}$ on $[a,b]$, prove that the function $F$ defined as the indefinite
+  integral $F(x)=\int_a^x f\,dt$ is continuous on $[a,b]$.
 \item Consider the functions $f_n(x)=\sin nx$ ($n=1,2,3,\dots$, $-\pi<x<\pi$) as points of
   $\mathscr{L}^2$. Prove that the set of these points is closed and bounded, but not
   compact.
@@ -24484,7 +24507,7 @@ space, the natural home of Fourier analysis.
 
 \subsection*{Complex integrable functions}
 
-\begin{definition}[Complex integration, Rudin 11.34]\label{d:complex-int@c13}
+\begin{definition}[Complex integration, Rudin p.~325]\label{d:complex-int@c13}
 A measurable $f:X\to\C$, $f=u+iv$, is \emph{integrable} ($f\in L(\mu)$) if
 $\int_X\abs f\,d\mu<\infty$, where $\abs f=\sqrt{u^2+v^2}$. Then $u,v\in L$ and
 \[
@@ -24494,12 +24517,12 @@ The space $L(\mu)=L^1(\mu)$ of integrable functions is a complex vector space, a
 $\C$-linear on it.
 \end{definition}
 
-\begin{proposition}[Properties of complex $L^1$, Rudin 11.34--11.35]\label{p:complex-props@c13}
+\begin{proposition}[Properties of complex $L^1$, Rudin p.~325]\label{p:complex-props@c13}
 For $f,g\in L^1(\mu)$:
 \textup{(a)} $\int(\alpha f+\beta g)=\alpha\int f+\beta\int g$ for $\alpha,\beta\in\C$;
 \textup{(b)} $\abs{\int_X f\,d\mu}\le\int_X\abs f\,d\mu$, with equality iff $f=ch$ a.e.\ for
 a constant $c$ and $h\ge0$ \textup{(}$f$ has a.e.-constant argument\textup{)};
-\textup{(c)} \textup{(}completeness in the mean\textup{)} if $\int\abs{f_n-f}\,d\mu\to0$ and
+\textup{(c)} \textup{(}uniqueness of limits in the mean\textup{)} if $\int\abs{f_n-f}\,d\mu\to0$ and
 $\int\abs{f_n-g}\,d\mu\to0$ then $f=g$ a.e.
 \end{proposition}
 
@@ -24513,7 +24536,7 @@ $f=g$ a.e.\ (a nonnegative function with zero integral vanishes a.e.).
 
 \subsection*{The space $L^2$ and its inner product}
 
-\begin{definition}[$L^2(\mu)$ and $L^p(\mu)$, Rudin 11.35--11.38]\label{d:L2@c13}
+\begin{definition}[$L^2(\mu)$ and $L^p(\mu)$, Rudin 11.34, 11.37]\label{d:L2@c13}
 For $1\le p<\infty$, $L^p(\mu)$ is the set of measurable $f:X\to\C$ with
 \[
   \norm f_p=\Bigl(\int_X\abs f^p\,d\mu\Bigr)^{1/p}<\infty,
@@ -24526,7 +24549,7 @@ where functions equal a.e.\ are identified. For $p=2$ define the \emph{inner pro
 Two functions are \emph{orthogonal}, $f\perp g$, if $\langle f,g\rangle=0$.
 \end{definition}
 
-\begin{theorem}[Cauchy--Schwarz and the triangle inequality, Rudin 11.35--11.38]\label{t:cs@c13}
+\begin{theorem}[Cauchy--Schwarz and the triangle inequality, Rudin 11.35--11.37]\label{t:cs@c13}
 For $f,g\in L^2(\mu)$, $fg\in L^1(\mu)$ and
 \[
   \abs{\langle f,g\rangle}=\Bigl|\int_X f\bar g\,d\mu\Bigr|
@@ -24579,7 +24602,8 @@ just as in finite-dimensional Euclidean space.}
 A sequence $(f_n)\subseteq L^2(\mu)$ \emph{converges in the mean} (in $L^2$) to $f$ if
 $\norm{f_n-f}_2\to0$, i.e.\ $\int\abs{f_n-f}^2\,d\mu\to0$. It is \emph{Cauchy in the mean}
 if $\norm{f_n-f_m}_2\to0$ as $n,m\to\infty$. (Mean convergence is convergence in the
-$\norm\cdot_2$ metric; it is weaker than uniform and incomparable with pointwise.)
+$\norm\cdot_2$ metric; it is weaker than uniform convergence when $\mu(X)<\infty$, and
+incomparable with pointwise convergence.)
 \end{definition}
 
 \begin{theorem}[Riesz--Fischer: $L^2(\mu)$ is complete, Rudin 11.42]\label{t:riesz-fischer@c13}
@@ -24609,14 +24633,14 @@ $f_n(x)\not\to0$ for any $x$). Only a \emph{subsequence} converges a.e., as the 
 
 \subsection*{Orthonormal sets and Parseval}
 
-\begin{definition}[Orthonormal sets and Fourier coefficients, Rudin 11.39--11.43]\label{d:onb@c13}
+\begin{definition}[Orthonormal sets and Fourier coefficients, Rudin 11.39, 11.44]\label{d:onb@c13}
 A family $\set{\phi_n}\subseteq L^2(\mu)$ is \emph{orthonormal} if
 $\langle\phi_m,\phi_n\rangle=\delta_{mn}$. The \emph{Fourier coefficients} of
 $f\in L^2(\mu)$ are $c_n=\langle f,\phi_n\rangle=\int f\,\overline{\phi_n}\,d\mu$. The set is
 \emph{complete} (a Hilbert basis) if the only $f$ orthogonal to every $\phi_n$ is $f=0$.
 \end{definition}
 
-\begin{theorem}[Bessel, Parseval, and best approximation, Rudin 11.43--11.45]\label{t:parseval@c13}
+\begin{theorem}[Bessel, Parseval, and best approximation, Rudin 8.11--8.12, 11.43--11.45]\label{t:parseval@c13}
 Let $\set{\phi_n}$ be orthonormal in $L^2(\mu)$ and $c_n=\langle f,\phi_n\rangle$. Then:
 \textup{(a)} \textup{(Best approximation)} among all $\sum_{n\le N}a_n\phi_n$, the choice
 $a_n=c_n$ minimizes $\norm{f-\sum a_n\phi_n}_2$;
@@ -24728,19 +24752,20 @@ pointwise convergence are genuinely incomparable. \checkmark
 \item Suppose (a) $\abs{f(x,y)}\le1$ if $0\le x\le1$, $0\le y\le1$; (b) for fixed $x$,
   $f(x,y)$ is a continuous function of $y$; (c) for fixed $y$, $f(x,y)$ is a continuous
   function of $x$. Put $g(x)=\int_0^1 f(x,y)\,dy$ for $0\le x\le1$. Is $g$ continuous?
-\item Suppose $f\in\mathscr{L}^2(\mu)$, $g\in\mathscr{L}^2(\mu)$. Prove that
-  \[\abs[\Big]{\int f\bar g\,d\mu}^2=\int\abs{f}^2\,d\mu\int\abs{g}^2\,d\mu\]
+\item Suppose $f\in\mathscr{L}^2(\mu)$, $g\in\mathscr{L}^2(\mu)$, and $f$ is not $0$ almost
+  everywhere. Prove that
+  \[\Bigl|\int f\bar g\,d\mu\Bigr|^2=\int\abs{f}^2\,d\mu\int\abs{g}^2\,d\mu\]
   if and only if there is a constant $c$ such that $g(x)=cf(x)$ almost everywhere.
-  (This is the equality case of the Schwarz inequality; compare Theorem 11.35.)
+  (This is the equality case of the Schwarz inequality; compare Rudin's Theorem 11.35.)
 \end{exers}
 
 \begin{exers}{Additional exercises.}
 \item (Real and imaginary parts.) For complex $f=u+iv$, prove $f\in\mathscr{L}(\mu)$ iff
-  both $u,v\in\mathscr{L}(\mu)$, and that $\abs[\big]{\int f\,d\mu}\le\int\abs f\,d\mu$.
+  both $u,v\in\mathscr{L}(\mu)$, and that $\bigl|\int f\,d\mu\bigr|\le\int\abs f\,d\mu$.
   (Hint for the inequality: rotate by $\overline{\alpha}$ where $\alpha=\int f/\abs{\int
   f}$.)
 \item (Schwarz inequality.) Prove for $f,g\in\mathscr{L}^2(\mu)$ that $fg\in
-  \mathscr{L}(\mu)$ and $\abs[\big]{\int f\bar g\,d\mu}\le\norm{f}_2\norm{g}_2$.
+  \mathscr{L}(\mu)$ and $\bigl|\int f\bar g\,d\mu\bigr|\le\norm{f}_2\norm{g}_2$.
 \item (Minkowski / triangle inequality.) Deduce $\norm{f+g}_2\le\norm{f}_2+\norm{g}_2$ from
   the Schwarz inequality, and verify $\norm{\cdot}_2$ is a norm on $\mathscr{L}^2$ modulo
   a.e.-equality.
