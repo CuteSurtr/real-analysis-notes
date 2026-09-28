@@ -16944,7 +16944,7 @@ is compact).
     \fill[band] (o)--(a1)--(a12)--(a2)--cycle;
     \draw[curve] (o)--(a1)--(a12)--(a2)--cycle;
     \draw[->,line width=0.8pt] (o)--(a1); \node[below right,font=\footnotesize] at (a1){$Ae_1$};
-    \draw[->,line width=0.8pt] (o)--(a2); \node[above left,font=\footnotesize] at (a2){$Ae_2$};
+    \draw[->,line width=0.8pt] (o)--(a2); \node[above,font=\footnotesize] at (a2){$Ae_2$};
     \node[font=\footnotesize] at (1.0,-0.6){parallelogram, area $=\abs{\det A}$};
   \end{scope}
 \end{tikzpicture}
@@ -16996,8 +16996,8 @@ given matrix.
   Hilbert--Schmidt bound; quick and often enough for ``$\norm A<\infty$''-style arguments.
 \item \textbf{Special structure.} If $A$ is diagonal, $\norm A=\max_i\abs{d_i}$. If $A$ is
   an orthogonal map (columns orthonormal), $\abs{Ax}=\abs x$ for all $x$, so $\norm A=1$.
-\item \textbf{Exact value.} $\norm A=\sqrt{\lambda_{\max}}$ where $\lambda_{\max}$ is the
-  largest eigenvalue of $A^{\mathsf T}A$ (the largest \emph{singular value} of $A$). For
+\item \textbf{Exact value.} $\norm A=\sqrt{\lambda_{\max}}$ (the largest \emph{singular
+  value} of $A$), where $\lambda_{\max}$ is the largest eigenvalue of $A^{\mathsf T}A$. For
   symmetric $A$ this is $\max_i\abs{\lambda_i}$.
 \item \textbf{Lower bound.} Plug in any unit vector $u$: $\norm A\ge\abs{Au}$.
 \end{enumerate}
@@ -17163,7 +17163,7 @@ $\abs{\det A}=2$ equals the product of singular values $\sqrt{(3+\sqrt5)(3-\sqrt
     \draw[curve] (0,0)--(1,0)--(1,1)--(0,1)--cycle;
     \node[pt] at (1,0){}; \node[below right,font=\footnotesize] at (1,0){$e_1$};
     \node[pt] at (0,1){}; \node[above left,font=\footnotesize] at (0,1){$e_2$};
-    \node[font=\footnotesize] at (0.5,-0.55){unit square, area $1$};
+    \node[font=\footnotesize] at (0.5,-0.72){unit square, area $1$};
   \end{scope}
   \node at (2.5,0.6) {\large $\xrightarrow{\;A\;}$};
   \begin{scope}[shift={(3.9,0)}]
@@ -17177,11 +17177,11 @@ $\abs{\det A}=2$ equals the product of singular values $\sqrt{(3+\sqrt5)(3-\sqrt
     \fill[band] (o)--(c1)--(c12)--(c2)--cycle;
     \draw[curve] (o)--(c1)--(c12)--(c2)--cycle;
     \draw[->,line width=0.8pt] (o)--(c1); \node[below right,font=\footnotesize] at (c1){$Ae_1=(2,0)$};
-    \draw[->,line width=0.8pt] (o)--(c2); \node[above left,font=\footnotesize] at (c2){$Ae_2=(1,1)$};
-    \node[font=\footnotesize] at (1.6,-0.55){parallelogram, area $\abs{\det A}=2$};
+    \draw[->,line width=0.8pt] (o)--(c2); \node[above,font=\footnotesize] at (c2){$Ae_2=(1,1)$};
+    \node[font=\footnotesize] at (1.6,-0.72){parallelogram, area $\abs{\det A}=2$};
   \end{scope}
 \end{tikzpicture}
-\captionof{figure}{The shear $A=\left[\begin{smallmatrix}2&1\\0&1\end{smallmatrix}\right]$ sends
+\captionof{figure}{The map $A=\left[\begin{smallmatrix}2&1\\0&1\end{smallmatrix}\right]$ sends
 the unit square to the parallelogram on $Ae_1,Ae_2$; area is multiplied by
 $\abs{\det A}=2$, while the longest unit image has length $\norm A=\sqrt{3+\sqrt5}$.}
 \end{center}
@@ -17255,32 +17255,37 @@ than any linear function of $\abs h$. The increment $f(x+h)-f(x)$ is approximate
 plane (for $k=1$, $n=2$ literally a plane).
 
 \begin{center}
-\begin{tikzpicture}[scale=1.0]
-  % a surface patch z=f(x,y) with a tangent plane at a point
-  % draw a curved patch (quadrilateral with bowed edges) and a flat tangent quad
-  \begin{scope}[xscale=1,yscale=0.55]
-    % tangent plane (parallelogram)
-    \fill[band] (-1.8,-1.0)--(1.8,-1.6)--(2.4,1.4)--(-1.2,2.0)--cycle;
-    \draw[curve] (-1.8,-1.0)--(1.8,-1.6)--(2.4,1.4)--(-1.2,2.0)--cycle;
-    % the surface: a bowed grid above, drawn lightly
-    \draw[help lines]
-      plot[smooth,domain=-1.6:1.6,samples=12] (\x,{0.25*\x*\x-0.2});
-    \foreach \s in {-1.2,-0.4,0.4,1.2}{
-      \draw[help lines] plot[smooth,domain=-1.4:1.6,samples=10]
-        (\x,{0.18*\x*\x + 0.7*\s + 0.1*\s*\x});
-    }
-    % the point of tangency
-    \node[pt] at (0.3,0.55){};
-    \node[above,font=\footnotesize] at (0.3,0.7){$(a,f(a))$};
-  \end{scope}
-  \node[font=\footnotesize,align=center] at (0.3,-1.9)
-    {tangent plane $z=f(a)+f'(a)(x-a)$ touches $z=f(x)$ to first order};
+\tdplotsetmaincoords{55}{120}
+\begin{tikzpicture}[tdplot_main_coords,scale=1.45,
+  declare function={F(\x,\y)=1.1+0.25*\x+0.3*\y+0.3*\x*\x+0.25*\y*\y-0.1*\x*\y;
+                    P(\x,\y)=1.1+0.25*\x+0.3*\y;}]
+  % a surface z=F(x,y) (mesh of coordinate curves) and its tangent plane z=P(x,y) at a=(0,0);
+  % F-P is a positive definite quadratic form, so the surface lies above the plane and
+  % touches it only at (a,f(a))
+  \filldraw[fill=black!10,draw=black,line width=0.7pt]
+    (-1.1,-1.5,{P(-1.1,-1.5)})--(1.1,-1.5,{P(1.1,-1.5)})--(1.1,1.5,{P(1.1,1.5)})
+    --(-1.1,1.5,{P(-1.1,1.5)})--cycle;
+  \foreach \c in {-1.2,-0.8,...,1.21}{
+    \draw[black!55,line width=0.5pt] plot[smooth,domain=-1.6:1.6,samples=25] (\c,\x,{F(\c,\x)});
+  }
+  \foreach \c in {-1.6,-1.2,...,1.61}{
+    \draw[black!55,line width=0.5pt] plot[smooth,domain=-1.2:1.2,samples=25] (\x,\c,{F(\x,\c)});
+  }
+  % the point of tangency
+  \node[pt] at (0,0,{F(0,0)}){};
+  \node[below,font=\footnotesize] at (0,0,{F(0,0)}){$(a,f(a))$};
+  % the vertical gap between plane and surface above a nearby point
+  \draw[densely dashed,line width=0.7pt] (0.9,1.2,{P(0.9,1.2)})--(0.9,1.2,{F(0.9,1.2)});
+  \node[right,font=\footnotesize] at (0.9,1.2,{0.5*P(0.9,1.2)+0.5*F(0.9,1.2)}){gap};
+  \node[anchor=north,font=\footnotesize] at (1.1,-1.5,{P(1.1,-1.5)})
+    {tangent plane $z=f(a)+f'(a)(x-a)$};
+  \node[anchor=west,font=\footnotesize] at (-1.2,1.6,{F(-1.2,1.6)}){graph of $f$};
 \end{tikzpicture}
 \captionof{figure}{The graph $z=f(x,y)$ and its tangent plane at $(a,f(a))$. Differentiability
 means the gap between surface and plane is $o(\abs{x-a})$.}
 \end{center}
 
-\begin{theorem}[Rudin 9.11: uniqueness of the derivative]\label{t:deruniq@c10}
+\begin{theorem}[Rudin 9.12: uniqueness of the derivative]\label{t:deruniq@c10}
 If $f:E\to\Rk$ is differentiable at $x$, the linear map $A$ in
 Definition~\ref{d:totalder@c10} is \emph{unique}.
 \end{theorem}
@@ -17320,7 +17325,7 @@ Let $f:\R^2\to\R^2$, $f(x,y)=(x^2-y^2,\,2xy)$. Show $f$ is differentiable everyw
 find $f'(x,y)$.
 \wrec ``Find the total derivative''; guess the linear part from first-order expansion and
 verify the $o(\abs h)$ remainder.
-\wsol With $h=(s,t)$, expand $f(x+s,y+t)=\bigl((x+s)^2-(y+t)^2,\,2(x+s)(y+t)\bigr)$. The
+\wsol With $p=(x,y)$ and $h=(s,t)$, expand $f(x+s,y+t)=\bigl((x+s)^2-(y+t)^2,\,2(x+s)(y+t)\bigr)$. The
 first component is $x^2-y^2+(2x\,s-2y\,t)+(s^2-t^2)$; the second is
 $2xy+(2y\,s+2x\,t)+(2st)$. So $f(p+h)-f(p)=Ah+r(h)$ with
 \[
@@ -17433,7 +17438,7 @@ definition and identify $f'(1,2)$.
 \wrec ``Verify differentiability from the limit'' --- guess the linear part from the
 first-order terms, then bound the remainder.
 \wsol With $p=(1,2)$ and $h=(s,t)$, $f(1+s,2+t)=(1+s)^2+(1+s)(2+t)
-=3+(2s+s^2)+(2+t+2s+st)-2=\,$collect: $f(p)=1+2=3$, and
+=(1+2s+s^2)+(2+2s+t+st)$. Since $f(p)=1+2=3$,
 $f(p+h)-f(p)=(2s+s^2)+(2s+t+st)=\underbrace{(4s+t)}_{Ah}+\underbrace{(s^2+st)}_{r(h)}$.
 So the candidate is the row $A=[\,4\ \ 1\,]$, i.e.\ $f'(1,2)=[4\ 1]$ (matching
 $\nabla f=(2x+y,\,x)$ at $(1,2)$). For the remainder, $\abs{r(h)}=\abs{s^2+st}\le
@@ -17480,34 +17485,38 @@ $r(h)=h_1^2+h_1h_2+h_2^2$ being $o(\abs h)$. \checkmark
 \end{wex}
 
 \begin{center}
-\begin{tikzpicture}[scale=1.0]
-  % surface z=f(x,y) bowed grid with its tangent plane at the marked point
-  \begin{scope}[xscale=1.1,yscale=0.6]
-    % tangent plane (flat parallelogram) under the patch
-    \fill[band] (-1.9,-0.9)--(1.9,-1.5)--(2.5,1.3)--(-1.3,1.9)--cycle;
-    \draw[curve] (-1.9,-0.9)--(1.9,-1.5)--(2.5,1.3)--(-1.3,1.9)--cycle;
-    % the bowed surface: a family of upward parabolic sections
-    \draw[help lines] plot[smooth,domain=-1.7:1.7,samples=14] (\x,{0.32*\x*\x-0.35});
-    \foreach \s in {-1.1,-0.4,0.3,1.0}{
-      \draw[help lines] plot[smooth,domain=-1.5:1.7,samples=12]
-        (\x,{0.24*\x*\x + 0.72*\s + 0.12*\s*\x});
-    }
-    % point of tangency
-    \node[pt] at (0.4,0.5){};
-    \node[above,font=\footnotesize] at (0.4,0.66){$(p,f(p))$};
-    % the affine increment arrow
-    \draw[-{Stealth[length=1.8mm]},line width=0.7pt] (0.4,0.5)--(1.5,0.32);
-    \node[right,font=\footnotesize] at (1.5,0.30){$f'(p)h$};
-  \end{scope}
-  \node[font=\footnotesize,align=center] at (0.4,-1.7)
-    {$z=f(p)+f'(p)(x-p)$ touches $z=f(x)$ to first order at $p=(1,2)$};
+\tdplotsetmaincoords{60}{145}
+\begin{tikzpicture}[tdplot_main_coords,scale=1.35,
+  % local coordinates h=(u,v)=(x-1,y-2) about p=(1,2); heights z-7 drawn at 1/4 scale
+  declare function={Z(\u,\v)=(4*\u+5*\v+\u*\u+\u*\v+\v*\v)/4;
+                    L(\u,\v)=(4*\u+5*\v)/4;}]
+  % tangent plane z=4x+5y-7, i.e. z-7=4u+5v
+  \filldraw[fill=black!10,draw=black,line width=0.7pt]
+    (-0.9,-0.9,{L(-0.9,-0.9)})--(0.9,-0.9,{L(0.9,-0.9)})--(0.9,0.9,{L(0.9,0.9)})
+    --(-0.9,0.9,{L(-0.9,0.9)})--cycle;
+  % graph of f: f(p+h)-7=4u+5v+(u^2+uv+v^2), a mesh of coordinate curves
+  \foreach \c in {-0.9,-0.6,...,0.91}{
+    \draw[black!55,line width=0.5pt] plot[smooth,domain=-0.9:0.9,samples=20] (\c,\x,{Z(\c,\x)});
+    \draw[black!55,line width=0.5pt] plot[smooth,domain=-0.9:0.9,samples=20] (\x,\c,{Z(\x,\c)});
+  }
+  % point of tangency
+  \node[pt] at (0,0,0){};
+  \node[lblnode,below=2pt] at (0,0,0){$(p,f(p))$};
+  % linear increment along the plane for h=(0.6,0.6), then the gap r(h) up to the surface
+  \draw[-{Stealth[length=1.8mm]},line width=0.8pt] (0,0,0)--(0.6,0.6,{L(0.6,0.6)});
+  \node[lblnode,left=2pt] at (0.3,0.3,{L(0.3,0.3)}){$(h,f'(p)h)$};
+  \draw[densely dashed,line width=0.7pt] (0.6,0.6,{L(0.6,0.6)})--(0.6,0.6,{Z(0.6,0.6)});
+  \node[lblnode,right=2pt] at (0.6,0.6,{0.5*L(0.6,0.6)+0.5*Z(0.6,0.6)}){$r(h)$};
+  \node[anchor=north,font=\footnotesize] at (-0.9,-0.9,{L(-0.9,-0.9)})
+    {tangent plane $z=4x+5y-7$};
+  \node[anchor=south,font=\footnotesize] at (0.9,0.9,{Z(0.9,0.9)}){graph of $f$};
 \end{tikzpicture}
 \captionof{figure}{The graph of $f(x,y)=x^2+xy+y^2$ and its tangent plane $z=4x+5y-7$ at
-$(1,2,7)$. Differentiability means the surface--plane gap is $o(\abs{x-p})$; near $p$ the
-linear increment $f'(p)h$ predicts $f$ to first order.}
+$(1,2,7)$ (vertical scale compressed). Differentiability means the surface--plane gap $r(h)$
+is $o(\abs{h})$; near $p$ the linear increment $f'(p)h$ predicts $f$ to first order.}
 \end{center}
 
-\begin{wex}{A length-preserving curve has velocity orthogonal to position}
+\begin{wex}{A curve on a sphere has velocity orthogonal to position}
 Let $f:\R\to\R^3$ be differentiable with $\abs{f(t)}\equiv c$ constant (the curve lies on a
 sphere). Show $f'(t)\cdot f(t)=0$ for all $t$, and verify on $f(t)=(\cos t,\sin t,0)$.
 \wrec ``Differentiate a constant scalar quantity'': $\abs{f}^2=f\cdot f$ is constant, so its
@@ -17588,8 +17597,8 @@ is the \emph{Jacobian (determinant)}, written $\dfrac{\partial(f_1,\dots,f_n)}
 
 \begin{proposition}[Rudin 9.17: partials are entries of $f'$]\label{p:jacobian@c10}
 If $f$ is differentiable at $x$, then every partial $D_jf_i(x)$ exists and equals the
-$(i,j)$ entry of the matrix of $f'(x)$; i.e.\ $f'(x)e_j=\bigl(D_1f_1\dots\bigr)$ has $i$-th
-coordinate $D_jf_i(x)$. Concretely $f'(x)e_j=\sum_i (D_jf_i)(x)\,e_i$.
+$(i,j)$ entry of the matrix of $f'(x)$; i.e.\ $f'(x)e_j=\bigl(D_jf_1(x),\dots,D_jf_k(x)\bigr)$
+has $i$-th coordinate $D_jf_i(x)$. Concretely $f'(x)e_j=\sum_i (D_jf_i)(x)\,e_i$.
 \end{proposition}
 
 \begin{proof}
@@ -17626,23 +17635,25 @@ value $\tfrac12$ on the diagonal. \checkmark
   % contour-style picture: rays from origin along which f is constant
   \draw[->,line width=0.6pt] (-2.3,0)--(2.3,0) node[right]{$x$};
   \draw[->,line width=0.6pt] (0,-2.0)--(0,2.0) node[above]{$y$};
-  % rays where f=xy/(x^2+y^2) is constant: along y=mx it's m/(1+m^2)
+  % lines y=mx where f=xy/(x^2+y^2) is constant: along y=mx it's m/(1+m^2)
   \foreach \m/\lab in {1/{$\tfrac12$}, 0.5/{$\tfrac25$}, 2/{$\tfrac25$}, -1/{$-\tfrac12$}}{
-    \draw[densely dashed] (-2.1,{-2.1*\m})--(2.1,{2.1*\m});
+    \pgfmathsetmacro{\ang}{atan(\m)}
+    \draw[densely dashed] (\ang:-1.85)--(\ang:1.85);
+    \node at (\ang:2.2){\lab};
   }
   \node[pt] at (0,0){};
-  \node[font=\footnotesize,fill=white,inner sep=1pt] at (1.4,1.55){$f=\tfrac12$ on $y=x$};
   \node[font=\footnotesize,fill=white,inner sep=1pt] at (1.6,-0.25){$f=0$ on axes};
-  \node[font=\footnotesize,align=center] at (0,-2.4)
-    {$f$ is constant on each ray through $0$, with different values --- no limit at $0$};
 \end{tikzpicture}
+\captionof{figure}{The function $f(x,y)=xy/(x^2+y^2)$ is constant on each line through the
+origin, the origin itself excepted; its value is written at the end of the line ($f=0$ on the
+axes). Different lines carry different values, so $f$ has no limit at $0$.}
 \end{center}
 
 \subsection*{Continuously differentiable maps ($C^1$)}
 
 The fix is to demand the partials be \emph{continuous}. This single hypothesis upgrades
-``partials exist'' to ``totally differentiable'', and is satisfied by every map written with
-elementary formulas on its natural domain.
+``partials exist'' to ``totally differentiable'', and is satisfied by maps written with
+elementary formulas away from exceptional points such as zeros of a denominator.
 
 \begin{definition}\label{d:C1@c10}
 A map $f:E\to\Rk$ ($E\subseteq\Rn$ open) is \emph{continuously differentiable}, written
@@ -17723,8 +17734,9 @@ $\abs{\nabla f(x)}$, and $\nabla f(x)$ is orthogonal to the level set $\set{f=f(
 $(D_uf)(x)=\lim_{t\to0}\dfrac{f(x+tu)-f(x)}{t}=f'(x)u$ by taking $h=tu$ in the definition
 (remainder $o(t)$). For $f$ real, $f'(x)u=\nabla f(x)\cdot u$. Cauchy--Schwarz gives
 $\abs{\nabla f\cdot u}\le\abs{\nabla f}\,\abs u=\abs{\nabla f}$, with equality iff $u\parallel
-\nabla f$. If $u$ is tangent to the level set, $f$ is constant along it so $D_uf=0$, i.e.\
-$\nabla f\perp u$.
+\nabla f$. If $u$ is tangent to the level set, i.e.\ $u=\gamma'(0)$ for a differentiable curve
+$\gamma$ in the level set with $\gamma(0)=x$, then $f\circ\gamma$ is constant, so by the chain rule
+$0=(f\circ\gamma)'(0)=f'(x)u=\nabla f(x)\cdot u$, i.e.\ $\nabla f\perp u$.
 \end{proof}
 
 \begin{center}
@@ -17736,8 +17748,10 @@ $\nabla f\perp u$.
   }
   \draw[->,line width=0.6pt] (-2.2,0)--(2.2,0) node[right]{$x$};
   \draw[->,line width=0.6pt] (0,-1.6)--(0,1.6) node[above]{$y$};
-  % gradient arrows (point outward, normal to ellipses) at sample points
-  \foreach \px/\py in {1.43/0, 1.0/0.65, 0/0.92, -1.0/0.65, -1.43/0, -1.0/-0.65, 0/-0.92, 1.0/-0.65}{
+  % gradient arrows (point outward, normal to ellipses) at points of the middle ellipse
+  \foreach \t in {25,65,115,155,205,245,295,335}{
+    \pgfmathsetmacro{\px}{1.43*cos(\t)}
+    \pgfmathsetmacro{\py}{1.012*sin(\t)}
     \pgfmathsetmacro{\gx}{2*\px}
     \pgfmathsetmacro{\gy}{4*\py}
     \pgfmathsetmacro{\nrm}{sqrt(\gx*\gx+\gy*\gy)}
@@ -17745,9 +17759,9 @@ $\nabla f\perp u$.
     \pgfmathsetmacro{\sy}{\py + 0.42*\gy/\nrm}
     \draw[-{Stealth[length=1.8mm]},line width=0.8pt] (\px,\py)--(\sx,\sy);
   }
-  \node[font=\footnotesize,align=center] at (0,-1.95)
-    {level curves of $f$ with $\nabla f$ (arrows): gradient $\perp$ level set, points uphill};
 \end{tikzpicture}
+\captionof{figure}{Level curves of $f(x,y)=x^2+2y^2$ with the gradient $\nabla f$ (arrows) at
+points of the middle one: the gradient is perpendicular to the level set and points uphill.}
 \end{center}
 
 \begin{wex}{Gradient, steepest ascent, and a tangent plane}
@@ -17837,15 +17851,12 @@ $x=\cos t$, $y=\sin t$, so
 and the chain rule gives
 \[
   \frac{d}{dt}f(\gamma(t))=(2\cos t-\sin t)(-\sin t)+(-\cos t+2\sin t)(\cos t)
-  =\cos^2t-\sin^2t=\cos 2t,
+  =\sin^2t-\cos^2t=-\cos 2t,
 \]
-after expanding ($-2\sin t\cos t+\sin^2t-\cos^2t+2\sin t\cos t=\sin^2t-\cos^2t$, then sign).
+since the cross terms $-2\sin t\cos t$ and $+2\sin t\cos t$ cancel.
 \emph{Check (direct):} $f(\cos t,\sin t)=\cos^2t-\cos t\sin t+\sin^2t=1-\tfrac12\sin 2t$, so
-$\dfrac{d}{dt}f(\gamma(t))=-\tfrac12\cdot2\cos 2t=-\cos 2t$. The two computations differ only
-by the sign bookkeeping above; redoing the dot product carefully,
-$(2\cos t-\sin t)(-\sin t)=-2\sin t\cos t+\sin^2t$ and $(-\cos t+2\sin t)(\cos t)=
--\cos^2t+2\sin t\cos t$, summing to $\sin^2t-\cos^2t=-\cos 2t$ --- matching the direct
-derivative exactly. \checkmark
+$\dfrac{d}{dt}f(\gamma(t))=-\tfrac12\cdot2\cos 2t=-\cos 2t$, matching the chain-rule
+computation exactly. \checkmark
 \end{wex}
 
 \begin{exers}{Exercises (Rudin, Ch.9).}
@@ -17879,8 +17890,9 @@ derivative exactly. \checkmark
   differentiable for every $t\in\R^1$, and if $\gamma\in C'$ then $g\in C'$. (d) In spite of
   this, prove that $f$ is not differentiable at $(0,0)$. \emph{Hint.} The formula
   $(D_uf)(0,0)=\nabla f(0,0)\cdot u$ fails.
-\item Define $f(0,0)=0$ and, for $(x,y)\neq(0,0)$, let $f(x,y)=(y-x^2)(y-2x^2)/\,$(or the
-  analogous quotient given in the text). (a) Prove $f$ is continuous on $\R^2$. (b) For
+\item Define $f(0,0)=0$ and, for $(x,y)\neq(0,0)$, let $f(x,y)=x^2+y^2-2x^2y-\dfrac{4x^6y^2}
+  {(x^4+y^2)^2}$. (a) Prove that $4x^4y^2\le(x^4+y^2)^2$ for all $(x,y)\in\R^2$, and conclude
+  that $f$ is continuous on $\R^2$. (b) For
   $0\le\theta<2\pi$ and $-\infty<t<\infty$ set $g_\theta(t)=f(t\cos\theta,t\sin\theta)$;
   show $g_\theta(0)=0$, $g_\theta'(0)=0$, $g_\theta''(0)=2$, so each $g_\theta$ has a strict
   local minimum at $t=0$ --- i.e.\ the restriction of $f$ to every line through the origin
@@ -17937,7 +17949,8 @@ $c<1$. Apply $\varphi$ to two points and their images are strictly closer; apply
 they are closer still, by the same ratio. This geometric decay is what makes the iteration
 $x_{n+1}=\varphi(x_n)$ a Cauchy sequence and forces all starting points to funnel into one
 common limit. The strictness $c<1$ (not merely $c\le1$, nor ``$<$ distance pointwise'') is
-the whole engine; an isometry like a rotation has $c=1$ and need not have a fixed point.
+the whole engine; an isometry like a rotation of a circle has $c=1$ and need not have a fixed
+point.
 
 \begin{theorem}[Rudin 9.23: Contraction Principle]\label{t:banach@c10}
 If $X$ is a \emph{nonempty complete} metric space and $\varphi:X\to X$ is a contraction with
@@ -17969,28 +17982,29 @@ Since $c<1$, $d(x^*,y^*)=0$, i.e.\ $x^*=y^*$.
 
 \begin{center}
 \begin{tikzpicture}[scale=1.0]
-  % cobweb / spiral toward a fixed point in the plane
-  \draw[->,line width=0.6pt] (-0.4,0)--(3.6,0) node[right]{};
-  \draw[->,line width=0.6pt] (0,-0.4)--(0,3.4) node[above]{};
-  \node[pt] at (2.0,2.0){}; \node[right,font=\footnotesize] at (2.05,2.05){$x^*$};
-  % iterates spiraling inward toward (2,2)
-  \coordinate (p0) at (0.3,3.0);
-  \coordinate (p1) at (3.0,0.9);
-  \coordinate (p2) at (1.1,2.55);
-  \coordinate (p3) at (2.55,1.45);
-  \coordinate (p4) at (1.65,2.25);
-  \coordinate (p5) at (2.25,1.78);
-  \foreach \p/\n in {p0/0,p1/1,p2/2,p3/3,p4/4,p5/5}{\node[pt] at (\p){};}
-  \node[above left,font=\footnotesize] at (p0){$x_0$};
-  \node[below,font=\footnotesize] at (p1){$x_1$};
+  % iterates of a plane contraction spiralling in to its fixed point x^*=(2,2):
+  % x_{n+1}=x^*+0.72 R(x_n-x^*), R = rotation by -60 degrees (so c=0.72)
+  \draw[->,line width=0.6pt] (-0.4,0)--(3.6,0);
+  \draw[->,line width=0.6pt] (0,-0.4)--(0,3.6);
+  \node[pt] at (2.0,2.0){}; \node[above,font=\footnotesize] at (2.0,2.03){$x^*$};
+  \coordinate (p0) at (0.45,3.00);
+  \coordinate (p1) at (2.07,3.33);
+  \coordinate (p2) at (2.85,2.44);
+  \coordinate (p3) at (2.58,1.63);
+  \coordinate (p4) at (1.98,1.50);
+  \coordinate (p5) at (1.68,1.84);
+  \foreach \p in {p0,p1,p2,p3,p4,p5}{\node[pt] at (\p){};}
+  \node[below,font=\footnotesize] at (p0){$x_0$};
+  \node[above,font=\footnotesize] at (p1){$x_1$};
+  \node[right,font=\footnotesize] at (p2){$x_2$};
   \draw[-{Stealth[length=1.6mm]},densely dashed] (p0)--(p1);
   \draw[-{Stealth[length=1.6mm]},densely dashed] (p1)--(p2);
   \draw[-{Stealth[length=1.6mm]},densely dashed] (p2)--(p3);
   \draw[-{Stealth[length=1.6mm]},densely dashed] (p3)--(p4);
   \draw[-{Stealth[length=1.6mm]},densely dashed] (p4)--(p5);
-  \node[font=\footnotesize,align=center] at (1.8,-0.75)
-    {$x_{n+1}=\varphi(x_n)$: each step shrinks the distance to $x^*$ by a factor $\le c<1$};
 \end{tikzpicture}
+\captionof{figure}{Iterates $x_{n+1}=\varphi(x_n)$ of a contraction spiralling in to its fixed
+point $x^*$: each step shrinks the distance to $x^*$ by a factor $\le c<1$.}
 \end{center}
 
 \begin{pitfall}
@@ -18083,12 +18097,13 @@ $g\in C^1(V)$.
 \end{proof}
 
 \begin{remark}
-\textbf{The lower bound used in Step 4.} From $\varphi_y(x)=x+A\inv(y-f(x))$ and the
-$\tfrac12$-Lipschitz bound $(\dagger)$ on $\varphi_y(x)-x=A\inv(y-f(x))$ one gets, for
-$x_1,x_2\in U$,
+\textbf{The lower bound used in Step 4.} From
+$\varphi_y(x_1)-\varphi_y(x_2)=(x_1-x_2)-A\inv\bigl(f(x_1)-f(x_2)\bigr)$ and the
+$\tfrac12$-Lipschitz bound $(\dagger)$ one gets, for $x_1,x_2\in U$,
 \[
   \abs{x_1-x_2}-\abs{A\inv\!\bigl(f(x_1)-f(x_2)\bigr)}
-  \le\abs{(\varphi_y(x_1)-x_1)-(\varphi_y(x_2)-x_2)+ (x_1-x_2)}\le\cdots\le\tfrac12\abs{x_1-x_2},
+  \le\abs{(x_1-x_2)-A\inv\bigl(f(x_1)-f(x_2)\bigr)}=\abs{\varphi_y(x_1)-\varphi_y(x_2)}
+  \le\tfrac12\abs{x_1-x_2},
 \]
 which rearranges to $\abs{A\inv(f(x_1)-f(x_2))}\ge\tfrac12\abs{x_1-x_2}$, hence
 $\abs{f(x_1)-f(x_2)}\ge\tfrac{1}{2\norm{A\inv}}\abs{x_1-x_2}=\lambda\abs{x_1-x_2}$. This is
@@ -18166,15 +18181,15 @@ contraction must. \checkmark
 \begin{tikzpicture}[scale=2.6]
   % cobweb diagram for x = cos x on [0,1]
   \draw[->,line width=0.6pt] (-0.05,0)--(1.15,0) node[right,font=\footnotesize]{$x$};
-  \draw[->,line width=0.6pt] (0,-0.05)--(0,1.15) node[above,font=\footnotesize]{};
+  \draw[->,line width=0.6pt] (0,-0.05)--(0,1.15) node[above,font=\footnotesize]{$y$};
   % the line y=x
   \draw[curve] (0,0)--(1.05,1.05) node[above left,font=\footnotesize]{$y=x$};
   % the curve y=cos x on [0,1]
   \draw[curve] plot[smooth,domain=0:1.05,samples=40] (\x,{cos(deg(\x))});
-  \node[font=\footnotesize] at (0.95,{cos(deg(0.95))+0.07}) {$y=\cos x$};
+  \node[right,font=\footnotesize] at (1.05,{cos(deg(1.05))}) {$y=\cos x$};
   % fixed point near 0.739
   \node[pt] at (0.739,0.739){};
-  \node[above right,font=\footnotesize] at (0.739,0.739){$x^*$};
+  \node[right,font=\footnotesize,yshift=1pt] at (0.739,0.739){$x^*$};
   % cobweb path from x0=0: vertical to curve, horizontal to line, repeat
   % (x,cos x) and (cos x, cos x)
   \draw[densely dashed,-{Stealth[length=1.4mm]}] (0,0)--(0,1);          % up to (0,cos0=1)
@@ -18183,7 +18198,7 @@ contraction must. \checkmark
   \draw[densely dashed,-{Stealth[length=1.4mm]}] (1,{cos(deg(1))})--({cos(deg(1))},{cos(deg(1))});
   \draw[densely dashed,-{Stealth[length=1.4mm]}]
     ({cos(deg(1))},{cos(deg(1))})--({cos(deg(1))},{cos(deg(cos(deg(1))))});
-  \node[below,font=\footnotesize] at (0,0){$x_0$};
+  \node[below left,font=\footnotesize] at (0,0){$x_0$};
 \end{tikzpicture}
 \captionof{figure}{Cobweb for $x_{n+1}=\cos x_n$: bounce vertically to $y=\cos x$, horizontally
 to $y=x$, and spiral into the unique fixed point $x^*\approx0.739$.}
@@ -18208,7 +18223,7 @@ $\left[\begin{smallmatrix}2&-1\\-1&1\end{smallmatrix}\right]$, matching $[f'(2,1
 \checkmark
 \end{wex}
 
-\begin{wex}{A contraction in the plane: spiralling to the fixed point}
+\begin{wex}{A contraction in the plane: converging to the fixed point}
 Let $\varphi:\R^2\to\R^2$, $\varphi(x,y)=\bigl(\tfrac12 y+1,\,\tfrac12 x+1\bigr)$. Show
 $\varphi$ is a contraction in the Euclidean metric, locate its fixed point, and run two
 iterates from $x_0=(0,0)$, comparing with the error estimate.
@@ -18247,22 +18262,20 @@ straight along the diagonal at exactly rate $c=\tfrac12$. \checkmark
   \draw[-{Stealth[length=1.6mm]},densely dashed] (q0)--(q1);
   \draw[-{Stealth[length=1.6mm]},densely dashed] (q1)--(q2);
   \draw[-{Stealth[length=1.6mm]},densely dashed] (q2)--(q3);
-  % an off-diagonal start zig-zagging in: (0,2.4)->(2.2,1.0)->(1.5,2.1)->(2.05,1.75)
+  % an off-diagonal start zig-zagging in: (0.2,2.4)->(2.2,1.1)->(1.55,2.1)->(2.05,1.775)
   \coordinate (r0) at (0.2,2.4);
   \coordinate (r1) at (2.2,1.1);
   \coordinate (r2) at (1.55,2.1);
   \coordinate (r3) at (2.05,1.78);
   \foreach \p in {r0,r1,r2,r3}{\node[opt] at (\p){};}
-  \node[left,font=\footnotesize] at (r0){$\tilde x_0$};
+  \node[above,font=\footnotesize] at (r0){$\tilde x_0$};
   \draw[-{Stealth[length=1.4mm]},densely dotted] (r0)--(r1);
   \draw[-{Stealth[length=1.4mm]},densely dotted] (r1)--(r2);
   \draw[-{Stealth[length=1.4mm]},densely dotted] (r2)--(r3);
-  \node[font=\footnotesize,align=center] at (1.35,-0.7)
-    {$x_{n+1}=\varphi(x_n)$: every start converges to $x^*$, the gap shrinking by $c=\tfrac12$ each step};
 \end{tikzpicture}
 \captionof{figure}{Iterating the contraction $\varphi(x,y)=(\tfrac12 y+1,\tfrac12 x+1)$. The
 diagonal start (solid) marches straight in; an off-diagonal start (open) zig-zags, but both
-funnel into the unique fixed point $x^*=(2,2)$.}
+funnel into the unique fixed point $x^*=(2,2)$, the distance to $x^*$ halving at every step.}
 \end{center}
 
 \begin{wex}{IFT for a $2\times2$ map: a polar-type change of variables}
@@ -18391,7 +18404,7 @@ whose determinant is $\det F_y(x,y)$ (block-triangular). At $(a,b)$ this is $\de
 \neq0$, so $\Phi'(a,b)$ is invertible.
 
 \emph{Step 2: invert $\Phi$ locally.} By the Inverse Function Theorem~\ref{t:ift@c10}, there are
-open sets $U\ni(a,b)$ and $\Phi(a,b)=(a,0)$'s neighborhood $V$ such that $\Phi:U\to V$ is a
+open sets $U\ni(a,b)$ and $V\ni\Phi(a,b)=(a,0)$ such that $\Phi:U\to V$ is a
 $C^1$ diffeomorphism with $C^1$ inverse $\Psi:V\to U$. Because $\Phi$ fixes the first
 coordinate, so does $\Psi$: write $\Psi(x,z)=\bigl(x,\,\psi(x,z)\bigr)$ for a $C^1$ map
 $\psi:V\to\R^m$. (Indeed $\Phi(\Psi(x,z))=(x,z)$ forces the first block of $\Psi$ to be $x$.)
@@ -18432,7 +18445,7 @@ $g'(a)=-[F_y(a,b)]\inv F_x(a,b)$.
   \draw[densely dotted] (2.0,0)--(ab); \node[below,font=\footnotesize] at (2.0,0){$a$};
   \draw[densely dotted] (0,{1.2+0.9*sin(120)*0.6+0.36})--(ab);
   % a small window W on the x axis
-  \draw[brc] (1.3,-0.25)--(2.7,-0.25) node[midway,below=3pt,font=\footnotesize]{$W$};
+  \draw[brc] (1.3,-0.55)--(2.7,-0.55) node[midway,below=3pt,font=\footnotesize]{$W$};
   \node[font=\footnotesize,align=center] at (3.4,2.85)
     {curve $F(x,y)=0$;\\ near $(a,b)$ it is the graph $y=g(x)$};
 \end{tikzpicture}
@@ -18477,7 +18490,7 @@ $0+3g'-2-0=0\Rightarrow g'=\tfrac23$. \checkmark
 \end{wex}
 
 \begin{wex}{A system: solve three equations for three of four unknowns}
-Consider the linear system (Rudin Ex.\ 19)
+Consider the system (Rudin Ex.\ 19)
 \[
   3x+y-z+u^2=0,\quad x-y+2z+u=0,\quad 2x+2y-3z+2u=0 .
 \]
@@ -18498,7 +18511,8 @@ $(x,y,z)$ take columns $x,y,z$:
 $\det\!\left[\begin{smallmatrix}3&1&-1\\1&-1&2\\2&2&-3\end{smallmatrix}\right]
 =3(3-4)-1(-3-4)+(-1)(2+2)=-3+7-4=0$, singular --- the IMFT gives no conclusion, and one
 checks the three rows are dependent in $x,y,z$ (the third equation is a combination of the
-first two restricted to those columns), so $x,y,z$ are \emph{not} determined by $u$.
+first two restricted to those columns). Indeed $F_1-F_2-F_3=u^2-3u$ involves $u$ alone, so for
+small $u\neq0$ there is no solution at all: $x,y,z$ are \emph{not} determined by $u$.
 \emph{Check.} The nonzero $-12$ certifies solvability for $\set{x,y,u}$; the zero
 determinant flags the genuine obstruction for $\set{x,y,z}$. \checkmark
 \end{wex}
@@ -18515,12 +18529,12 @@ $F_z=2z$, which at $(2,1,2)$ equals $4\neq0$; the IMFT gives a unique $C^1$ func
 $z=g(x,y)$ near $(2,1)$ with $g(2,1)=2$. The other partials are $F_x=2x$, $F_y=2y$. By the
 formula $g'=-F_z\inv[F_x\ F_y]$,
 \[
-  g_x=-\frac{F_x}{F_z}=-\frac{2x}{2z}=-\frac xz=-\frac24=-\tfrac12,\qquad
-  g_y=-\frac{F_y}{F_z}=-\frac yz=-\frac14.
+  g_x=-\frac{F_x}{F_z}=-\frac{2x}{2z}=-\frac xz=-\frac22=-1,\qquad
+  g_y=-\frac{F_y}{F_z}=-\frac yz=-\frac12.
 \]
 \emph{Check.} Explicitly $g(x,y)=\sqrt{9-x^2-y^2}$ (upper hemisphere, $z>0$); then
-$g_x=\dfrac{-x}{\sqrt{9-x^2-y^2}}=\dfrac{-x}{z}$, giving $-\tfrac12$ at $(2,1)$, and similarly
-$g_y=-\tfrac14$, matching. \checkmark
+$g_x=\dfrac{-x}{\sqrt{9-x^2-y^2}}=\dfrac{-x}{z}$, giving $-1$ at $(2,1)$, and similarly
+$g_y=-\tfrac12$, matching. \checkmark
 \end{wex}
 
 \begin{wex}{Two equations, solve for two variables}
@@ -18610,12 +18624,12 @@ $\tfrac{4/5}{3/5}=\tfrac43$, the negative reciprocal). \checkmark
   % window W on x-axis around 3/5
   \draw[brc] (0.3,-0.18)--(0.9,-0.18) node[midway,below=3pt,font=\footnotesize]{$W$};
   \draw[densely dotted] (0.6,0)--(P);
-  \node[font=\footnotesize,align=center] at (1.05,1.25)
-    {$F=0$ is a circle;\\ near $(\tfrac35,\tfrac45)$ it is the graph $y=g(x)$};
+  \node[font=\footnotesize,align=left,anchor=west] at (1.3,1.3)
+    {$F=0$ is a circle;\\ near $(\tfrac35,\tfrac45)$ it is\\ the graph $y=g(x)$};
 \end{tikzpicture}
 \captionof{figure}{Where $F_y=2y\neq0$ the level set $x^2+y^2=1$ is locally the graph of a $C^1$
-branch $y=g(x)=\sqrt{1-x^2}$; its slope is $g'=-F_x/F_y=-x/y$. At the two points $(\pm1,0)$,
-where $F_y=0$, the branch breaks (vertical tangent).}
+branch $y=g(x)$ (here $g(x)=\sqrt{1-x^2}$); its slope is $g'=-F_x/F_y=-x/y$. At the two points
+$(\pm1,0)$, where $F_y=0$, the branch breaks (vertical tangent).}
 \end{center}
 
 \begin{exers}{Exercises (Rudin, Ch.9).}
@@ -18662,7 +18676,7 @@ where $F_y=0$, the branch breaks (vertical tangent).}
 \item (Diagram.) Sketch the folium-like curve $F(x,y)=x^3+y^3-3xy=0$ near the origin. Mark
   the point $(0,0)$ where $F_x=F_y=0$ (both blocks singular) and indicate the self-crossing;
   contrast with a nearby point where the curve \emph{is} locally a graph $y=g(x)$.
-\item (IMFT from IFT, abstract.) Deduce the Implicit Function Theorem statement
+\item (The derivative formula.) Deduce the Implicit Function Theorem statement
   $g'(a)=-[F_y]\inv F_x$ purely by differentiating $F(x,g(x))\equiv0$, assuming only that a
   $C^1$ solution $g$ exists. Identify exactly where invertibility of $F_y$ is used.
 \end{exers}
@@ -18805,31 +18819,23 @@ there gives $D_{21}f(a,b)=D_{12}f(a,b)$.
 \end{proof}
 
 \begin{center}
-\begin{tikzpicture}[scale=1.0]
-  % saddle surface z = x^2 - y^2 sketched as crossed parabolas, projected
-  \begin{scope}[xscale=1.0,yscale=0.55]
-    % grid of the saddle: families of parabolas
-    \foreach \s in {-1.2,-0.6,0,0.6,1.2}{
-      % x-parabolas opening up (z = x^2 - const)
-      \draw[help lines] plot[smooth,domain=-1.3:1.3,samples=18]
-        (\x,{ (\x*\x - \s*\s) + 0.0 });
-    }
-    \foreach \t in {-1.2,-0.6,0,0.6,1.2}{
-      % y-parabolas opening down
-      \draw[help lines] plot[smooth,domain=-1.3:1.3,samples=18]
-        ({\t + 0.0},{ (\t*\t - \x*\x) });
-    }
-    % highlight the two principal sections through the saddle point
-    \draw[curve] plot[smooth,domain=-1.3:1.3,samples=20] (\x,{\x*\x});
-    \draw[curve] plot[smooth,domain=-1.3:1.3,samples=20] (\x,{-\x*\x});
-    \node[pt] at (0,0){};
-    \node[below right,font=\footnotesize] at (0.05,-0.05){saddle pt};
-  \end{scope}
-  \node[font=\footnotesize,align=center] at (0,-1.65)
-    {$z=x^2-y^2$: up one way, down the other; $D_{12}=D_{21}=0$ here};
+\begin{tikzpicture}
+  \begin{axis}[width=7cm,view={-55}{30},hide axis,clip=false,
+    colormap={bw}{gray(0cm)=(0.72); gray(1cm)=(0.97)}]
+    % the saddle surface z = x^2 - y^2 over the square [-1,1]^2
+    \addplot3[surf,shader=faceted,faceted color=black!50,line width=0.2pt,
+      samples=17,domain=-1:1,y domain=-1:1] {x^2-y^2};
+    % its two principal sections through the saddle point (0,0,0)
+    \addplot3[black,line width=1pt,samples=25,samples y=0,domain=-1:1] (x,0,{x^2});
+    \addplot3[black,line width=1pt,samples=25,samples y=0,domain=-1:1] (0,x,{-x^2});
+    \node[pt] at (axis cs:0,0,0){};
+    \node[right,font=\footnotesize] at (axis cs:1,0,1){$z=x^2$};
+    \node[right,font=\footnotesize] at (axis cs:0,-1,-1){$z=-y^2$};
+  \end{axis}
 \end{tikzpicture}
-\captionof{figure}{A saddle surface. For $f=x^2-y^2$, $D_1f=2x$, $D_2f=-2y$, so $D_{12}f=
-D_{21}f=0$ --- the mixed partials agree, as Clairaut's theorem promises for $C^2$ maps.}
+\captionof{figure}{A saddle surface $z=x^2-y^2$: up along the $x$-axis, down along the
+$y$-axis. For $f=x^2-y^2$, $D_1f=2x$, $D_2f=-2y$, so $D_{12}f=D_{21}f=0$ --- the mixed
+partials agree, as Clairaut's theorem promises for $C^2$ maps.}
 \end{center}
 
 \begin{pitfall}
@@ -18908,21 +18914,28 @@ saddle, consistent with the Hessian. \checkmark
 
 \begin{center}
 \begin{tikzpicture}[scale=1.0]
-  % two small level-curve pictures: a local minimum (closed loops) and a saddle
+  % two small level-curve pictures: a local minimum (closed loops) and a saddle, drawn to
+  % second order in local coordinates u=x-x_0, v=y: near (1,0), f+2 = 3u^2+v^2 (ellipses
+  % with axis ratio sqrt3); near (-1,0), f-2 = v^2-3u^2 (hyperbolas, asymptotes v=+-sqrt3 u)
   \begin{scope}
-    \foreach \c in {0.4,0.8,1.2}{ \draw[help lines] (0,0) ellipse ({\c} and {\c*0.8}); }
+    \foreach \r in {0.2,0.4,0.6}{ \draw[help lines] (0,0) ellipse ({\r} and {1.732*\r}); }
     \node[pt] at (0,0){};
-    \node[font=\footnotesize,align=center] at (0,-1.5){min at $(1,0)$:\\ nested closed curves};
+    \node[font=\footnotesize,align=center] at (0,-1.55){min at $(1,0)$:\\ nested closed curves};
   \end{scope}
   \begin{scope}[shift={(4.2,0)}]
-    \foreach \c in {0.35,0.7,1.05}{
-      \draw[help lines] plot[smooth,domain=-1.25:1.25,samples=30] (\x,{ \c/(\x+1.6)-0.2 });
-      \draw[help lines] plot[smooth,domain=-1.25:1.25,samples=30] (\x,{ -\c/(\x+1.6)+0.2 });
-    }
-    \draw[densely dashed] (-1.3,-1.04)--(1.3,1.04);
-    \draw[densely dashed] (-1.3,1.04)--(1.3,-1.04);
+    \begin{scope}
+      \clip (-0.95,-1.1) rectangle (0.95,1.1);
+      \foreach \c in {0.15,0.6}{
+        \draw[help lines] plot[smooth,domain=-0.95:0.95,samples=31] (\x,{sqrt(\c+3*\x*\x)});
+        \draw[help lines] plot[smooth,domain=-0.95:0.95,samples=31] (\x,{-sqrt(\c+3*\x*\x)});
+        \draw[help lines] plot[smooth,domain=-1.1:1.1,samples=31] ({sqrt((\c+\x*\x)/3)},\x);
+        \draw[help lines] plot[smooth,domain=-1.1:1.1,samples=31] ({-sqrt((\c+\x*\x)/3)},\x);
+      }
+      \draw[densely dashed] (-0.635,-1.1)--(0.635,1.1);
+      \draw[densely dashed] (-0.635,1.1)--(0.635,-1.1);
+    \end{scope}
     \node[pt] at (0,0){};
-    \node[font=\footnotesize,align=center] at (0,-1.5){saddle at $(-1,0)$:\\ crossing level curves};
+    \node[font=\footnotesize,align=center] at (0,-1.55){saddle at $(-1,0)$:\\ crossing level curves};
   \end{scope}
 \end{tikzpicture}
 \captionof{figure}{Level curves near the two critical points of $f=x^3-3x+y^2$. A positive
@@ -18938,10 +18951,10 @@ theorem to $h(t)=f(p(t))$ yields (Rudin Ex.\ 30) the multivariable expansion
   (D_{i_1\cdots i_k}f)(a)\,x_{i_1}\cdots x_{i_k}+r(x),\qquad
   \frac{\abs{r(x)}}{\abs x^{\,m-1}}\to0 .
 \]
-Symmetry of higher partials (Exercise 29) lets one collect repeated derivatives into the
+Symmetry of higher partials (Rudin Ex.\ 29) lets one collect repeated derivatives into the
 multi-index form $\sum_{\abs s\le m-1}\frac{1}{s!}(D^s f)(a)\,x^s$. The degree-$2$ piece, the
 Hessian quadratic form $\tfrac12\sum_{i,j}D_{ij}f(a)\,x_ix_j$, governs the local
-max/min/saddle classification at a critical point (Exercise 31): positive definite Hessian
+max/min/saddle classification at a critical point (Rudin Ex.\ 31): positive definite Hessian
 gives a strict local minimum, negative definite a maximum, indefinite a saddle.
 \end{remark}
 
@@ -18974,8 +18987,9 @@ So $D_{12}f(0,0)=1\neq-1=D_{21}f(0,0)$: the mixed partials \emph{disagree}. Clai
 violated --- its hypothesis fails, since $D_{12}f$ and $D_{21}f$ are discontinuous at the
 origin (their values there depend on the order of differentiation). \emph{Check.} On the
 axes we found $D_1f(0,y)=-y$ and $D_2f(x,0)=x$; the slope of the first in $y$ is $-1$ and of
-the second in $x$ is $+1$, the two numbers above --- symmetry would force these equal, and
-their inequality is exactly the discontinuity Clairaut forbids. \checkmark
+the second in $x$ is $+1$, the two numbers above --- Clairaut's theorem would force these equal
+if $D_{12}f,D_{21}f$ were continuous at the origin, so their inequality confirms the
+discontinuity. \checkmark
 \end{wex}
 
 \begin{wex}{Rank Theorem: a constant-rank map that is neither immersion nor submersion}
@@ -19003,7 +19017,7 @@ rank-$2$ map of $\R^3$ must have. \checkmark
   $f_1(x,y)=\dfrac{x^2-y^2}{x^2+y^2}$, $f_2(x,y)=\dfrac{xy}{x^2+y^2}$. Compute the rank of
   $f'(x,y)$, and find the range of $f$.
 \item Suppose $A\in L(\Rn,\R^m)$; let $r$ be the rank of $A$. (a) Define $S$ as in the proof
-  of Theorem 9.32. Show that $SA$ is a projection in $\Rn$ whose null space is
+  of Rudin 9.32. Show that $SA$ is a projection in $\Rn$ whose null space is
   $\mathscr N(A)$ and whose range is $\mathscr R(S)$. \emph{Hint.} $SASA=SA$. (b) Use (a) to
   show that $\dim\mathscr N(A)+\dim\mathscr R(A)=n$.
 \item Show that the existence (and even the continuity) of $D_{12}f$ does not imply the
@@ -19020,7 +19034,7 @@ rank-$2$ map of $\R^3$ must have. \checkmark
   (D_2\varphi)(x,0)\,\dd x=0$ (differentiation under the integral sign can fail).
 \item Let $E$ be open in $\Rn$; the classes $C'(E)$ and $C''(E)$ are defined in the text. By
   induction, $C^{(k)}(E)$ means: $D_1f,\dots,D_nf$ belong to $C^{(k-1)}(E)$. Assume $f\in
-  C^{(k)}(E)$ and show (by repeated application of Theorem 9.41) that the $k$-th order
+  C^{(k)}(E)$ and show (by repeated application of Theorem~\ref{t:clairaut@c10}) that the $k$-th order
   derivative $D_{i_1i_2\cdots i_k}f=D_{i_1}D_{i_2}\cdots D_{i_k}f$ is unchanged if the
   subscripts $i_1,\dots,i_k$ are permuted. For instance, $D_{123}f=D_{321}f$ for every $f\in
   C^{(4)}$ when $n\ge3$.
@@ -19029,9 +19043,9 @@ rank-$2$ map of $\R^3$ must have. \checkmark
   $1\le k\le m$, show by repeated use of the chain rule that
   $h^{(k)}(t)=\sum (D_{i_1\cdots i_k}f)(p(t))\,x_{i_1}\cdots x_{i_k}$, summed over all
   ordered $k$-tuples $(i_1,\dots,i_k)$ with each $i_j\in\set{1,\dots,n}$. (b) By Taylor's
-  theorem (5.15) applied to $h$, deduce Taylor's theorem in $n$ variables:
+  theorem (Theorem~\ref{t:taylor@c6}) applied to $h$, deduce Taylor's theorem in $n$ variables:
   $f(a+x)=\sum_{k=0}^{m-1}\frac{1}{k!}\sum (D_{i_1\cdots i_k}f)(a)\,x_{i_1}\cdots x_{i_k}
-  +r(x)$, where $r(x)/\abs x^{\,m-1}\to0$ as $x\to0$. (c) Using Exercise 29 (symmetry),
+  +r(x)$, where $r(x)/\abs x^{\,m-1}\to0$ as $x\to0$. (c) Using Exercise 6 (symmetry),
   show the Taylor polynomial can be rewritten as a sum over nonnegative integer $n$-tuples
   $(s_1,\dots,s_n)$ with $s_1+\dots+s_n\le m-1$, collecting repeated derivatives.
 \item Suppose $f\in C^{(3)}$ in a neighborhood of $a\in\R^2$, the gradient of $f$ is $0$ at
