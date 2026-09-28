@@ -26369,15 +26369,16 @@ $1/z$) has no global primitive. \checkmark
 \chapter{Cauchy's Theorem and Its Applications}
 
 \section{Goursat's Theorem}
-The first chapter built the local theory of holomorphic functions; this chapter harvests its
+The previous chapter built the local theory of holomorphic functions; this chapter harvests its
 global consequences. The hinge is a single equality: \emph{the integral of a holomorphic
 function around a closed contour is zero}. Everything else --- the integral formulas, the
 power-series representation, Liouville's theorem, the fundamental theorem of algebra ---
 falls out of it. The entry point, deliberately stripped of all hypotheses on the derivative,
 is Goursat's theorem.
 
-Recall from Chapter~1 that if $f$ has a \emph{primitive} $F$ (an $F$ with $F'=f$) in an open
-set $\Omega$, then $\ci_\gamma f(z)\dz=0$ for every closed curve $\gamma$ in $\Omega$, by the
+Recall from Chapter~14 (Corollary~\ref{c:closed@c14}) that if a continuous $f$ has a
+\emph{primitive} $F$ (an $F$ with $F'=f$) in an open set $\Omega$, then
+$\ci_\gamma f(z)\dz=0$ for every closed curve $\gamma$ in $\Omega$, by the
 fundamental theorem of calculus along $\gamma$. The strategy of the whole chapter is to run
 this implication \emph{backwards}: if we can verify $\ci_\gamma f=0$ for enough curves, a
 primitive must exist, and from a primitive flows everything.
@@ -26393,8 +26394,9 @@ whenever $f$ is holomorphic in $\Omega$.
 
 The remarkable feature is the hypothesis: $f$ is merely \emph{complex differentiable} on
 $\Omega$, with no assumed continuity of $f'$. (Add that assumption and the theorem is an
-easy corollary of Green's theorem plus the Cauchy--Riemann equations --- see the scraped
-Exercise~5.) Goursat's argument squeezes the conclusion out of differentiability alone.
+easy corollary of Green's theorem plus the Cauchy--Riemann equations --- see Stein's
+Exercise~5 at the end of this section.) Goursat's argument squeezes the conclusion out of
+differentiability alone.
 
 \begin{proof}
 Call the original triangle $T^{(0)}$, fixed with positive (counterclockwise) orientation, and
@@ -26416,13 +26418,14 @@ $T^{(0)}\supseteq T^{(1)}\supseteq\cdots$ with
   \Bigl|\int_{T^{(0)}}f\dz\Bigr|\le 4^n\Bigl|\int_{T^{(n)}}f\dz\Bigr|,\qquad
   d^{(n)}=2^{-n}d^{(0)},\quad p^{(n)}=2^{-n}p^{(0)},
 \]
-and diameters $\to 0$. By the nested-compact-sets principle (Chapter~1) there is a unique
-point $z_0\in\bigcap_n T^{(n)}$. Since $f$ is holomorphic \emph{at} $z_0$ we may write
+and diameters $\to 0$. By the nested-compact-sets principle (Proposition~\ref{p:nested@c14})
+there is a unique point $z_0\in\bigcap_n T^{(n)}$. Since $f$ is holomorphic \emph{at} $z_0$ we
+may write
 \[
   f(z)=f(z_0)+f'(z_0)(z-z_0)+\psi(z)(z-z_0),\qquad \psi(z)\to0\ \text{ as }z\to z_0 .
 \]
 The constant $f(z_0)$ and the linear term $f'(z_0)(z-z_0)$ have primitives, so their integrals
-over the \emph{closed} curve $T^{(n)}$ vanish (Chapter~1, Corollary~3.3). Hence
+over the \emph{closed} curve $T^{(n)}$ vanish (Corollary~\ref{c:closed@c14}). Hence
 \[
   \int_{T^{(n)}}f\dz=\int_{T^{(n)}}\psi(z)(z-z_0)\dz .
 \]
@@ -26448,7 +26451,7 @@ The left side is a fixed number, so it is $0$.
   \node[font=\footnotesize] at (0.45,0.18){$T_1^{(1)}$};
   \node[font=\footnotesize] at (1.45,0.18){$T_2^{(1)}$};
   \node[font=\footnotesize] at (0.78,1.0){$T_3^{(1)}$};
-  \node[font=\footnotesize] at (0.78,0.55){$T_4^{(1)}$};
+  \node[font=\footnotesize] at (0.9,0.53){$T_4^{(1)}$};
 \end{tikzpicture}
 \captionof{figure}{Bisection of $T^{(0)}$ into four similar sub-triangles
 $T_1^{(1)},\dots,T_4^{(1)}$ by joining the side-midpoints. The three interior segments are each
@@ -26500,10 +26503,10 @@ oriented. Compute $\int_T f\dz$.
 closed triangle is $0$. We can also confirm via a primitive.
 \wsol By Goursat, $\int_T f\dz=0$. \emph{Check via primitive:} $F(z)=\tfrac13 z^3-\tfrac32
 z^2+z$ has $F'=f$, and a closed contour returns to its start, so
-$\int_T f=F(\text{start})-F(\text{start})=0$. \checkmark Both routes agree.
+$\int_T f=F(\text{start})-F(\text{start})=0$. \checkmark\ Both routes agree.
 \end{wex}
 
-\begin{wex}{A NON-example: the hypothesis "interior in $\Omega$" is essential}
+\begin{wex}{A NON-example: the hypothesis ``interior in $\Omega$'' is essential}
 Let $f(z)=1/z$, holomorphic on $\Omega=\C\setminus\set0$. Let $T$ be the triangle with
 vertices $1,\,-\tfrac12+i,\,-\tfrac12-i$, which encloses the origin. Does Goursat give
 $\int_T f=0$?
@@ -26542,7 +26545,8 @@ inequality would give $\abs{\int_{T^{(0)}}f}\le\sum_{j=1}^4\abs{\int_{T_j^{(1)}}
 sub-triangle achieves at least $\tfrac14$ of the modulus, and the factor $4=4^{1}$ is forced
 at each of the $n$ stages, producing the crucial $4^n$ in
 $\abs{\int_{T^{(0)}}f}\le4^n\abs{\int_{T^{(n)}}f}$. Any smaller fixed factor $c<4$ would fail
-when all four sub-integrals are equal (e.g.\ $f$ with the symmetry of an equilateral $T^{(0)}$).
+when all four sub-integrals are equal (e.g.\ for the non-holomorphic $f(z)=\conj z$, whose
+integral around any triangle is $2i$ times its area, as in the next example).
 \emph{Check.} Four equal terms each of modulus $\tfrac14 M$ sum to $M$, so $c=4$ is met with
 equality --- the bound is tight, not wasteful.
 \end{wex}
@@ -26550,7 +26554,7 @@ equality --- the bound is tight, not wasteful.
 \begin{wex}{A NON-example: $\conj z$ defeats Goursat's conclusion}
 Let $f(z)=\conj z$ and let $T$ be the triangle $0\to1\to i\to0$. Compute $\int_T f\dz$ and
 explain why this does not contradict Goursat.
-\wrec Trigger: a tempting "integral around a triangle is $0$" expectation. First test whether
+\wrec Trigger: a tempting ``integral around a triangle is $0$'' expectation. First test whether
 $f$ is holomorphic --- $\conj z$ satisfies the Cauchy--Riemann equations nowhere.
 \wsol Parametrize the three edges. Edge $0\to1$: $z=t$, $\conj z=t$, $\dz=\dd t$, contributes
 $\int_0^1 t\,\dd t=\tfrac12$. Edge $1\to i$: $z=1+t(i-1)$, $\conj z=1+t(-i-1)$,
@@ -26591,7 +26595,8 @@ $f(z)=\conj z$ but the proof's scaling estimate $\bigl|\int_{T^{(0)}}f\bigr|\le 
 of each sub-triangle's edges with arrows, and mark which interior edges cancel in the sum
 $\int_{T^{(0)}}f=\sum_j\int_{T_j^{(1)}}f$.
 \item Suppose $f$ is holomorphic on $\C$ except at finitely many points $p_1,\dots,p_m$, none
-inside a given triangle $T$. Prove $\int_T f=0$, and explain how this reduces to Goursat.
+of them on or inside a given triangle $T$. Prove $\int_T f=0$, and explain how this reduces to
+Goursat.
 \end{exers}
 
 
@@ -26637,7 +26642,9 @@ $h\to0$. Dividing by $h$ gives $\lim_{h\to0}\frac{F(z+h)-F(z)}{h}=f(z)$, i.e.\ $
   \coordinate (O) at (0,0);
   \coordinate (zt) at (1.05,0);
   \coordinate (z) at (1.05,0.95);
-  \draw[contour] (O)--(zt)--(z);
+  \draw[contour,decoration={markings,reset marks,
+      mark=at position 0.28 with {\arrow{Stealth[length=2.4mm]}},
+      mark=at position 0.78 with {\arrow{Stealth[length=2.4mm]}}}] (O)--(zt)--(z);
   \node[pt] at (O) {}; \node[font=\footnotesize,below left] at (O){$0$};
   \node[pt] at (z) {}; \node[font=\footnotesize,above right] at (z){$z$};
   \node[font=\footnotesize,below] at (zt){$\tilde z$};
@@ -26654,7 +26661,7 @@ in that disc.
 
 \begin{proof}
 By Theorem~\ref{t:prim-disc@c15}, $f$ has a primitive $F$ on the disc. For a closed curve,
-$\int_\gamma f=\int_\gamma F'=F(\text{end})-F(\text{start})=0$ (Chapter~1, Corollary~3.3).
+$\int_\gamma f=\int_\gamma F'=F(\text{end})-F(\text{start})=0$ (Corollary~\ref{c:closed@c14}).
 \end{proof}
 
 \begin{corollary}\label{c:cauchy-circle@c15}
@@ -26710,13 +26717,14 @@ path follows from the rectangle form of Goursat.
     arc[start angle=\ab, end angle={360-\ab}, radius=\Rg]   % big circle, CCW (positive)
     -- (\xs,-\dd)                                           % in along bottom of corridor
     arc[start angle={-\as}, end angle={-360+\as}, radius=\rs];% small circle, CW (negative)
-  \node[lblnode] at (-1.0,1.0){$\Gamma$};
+  \node[lblnode] at (-1.22,1.22){$\Gamma$};
   \node[pt] at (0,0) {};
   \node[lblnode,below left=1pt] at (0,0){$z_0$};
   \node[lblnode] at (-0.75,-0.55){$\Gamma_{\mathrm{int}}$};
 \end{tikzpicture}
 \captionof{figure}{The keyhole contour $\Gamma$: a large and a small circle about $z_0$,
-joined by a thin corridor; $z_0$ sits in the interior $\Gamma_{\mathrm{int}}$. (Schematic.)}
+joined by a thin corridor; $z_0$ lies in the hole, outside the interior $\Gamma_{\mathrm{int}}$.
+(Schematic.)}
 \end{center}
 
 \begin{center}
@@ -26766,10 +26774,11 @@ so the second value is $\approx 46.4\,i$, manifestly nonzero --- the enclosed po
 \end{wex}
 
 \begin{pitfall}
-"Holomorphic on the contour" is not enough --- you need holomorphic on the contour
-\emph{and its entire interior}. A single interior singularity (even a removable-looking one)
-can change the integral from $0$ to $2\pi i\,(\text{residue})$. Always locate every singularity
-relative to the filled region before invoking Cauchy's theorem.
+``Holomorphic on the contour'' is not enough --- you need holomorphic on the contour
+\emph{and its entire interior}. A single interior singularity (even one that merely looks
+removable, such as that of $\sin z/z^2$ at $0$) can change the integral from $0$ to
+$2\pi i\,(\text{residue})$; only a genuinely removable singularity is harmless. Always locate
+every singularity relative to the filled region before invoking Cauchy's theorem.
 \end{pitfall}
 
 \subsection*{Further worked examples}
@@ -26778,7 +26787,7 @@ relative to the filled region before invoking Cauchy's theorem.
 Let $f$ be holomorphic on the annulus $\set{\tfrac12<\abs z<3}$. Show that
 $\int_{\abs z=1}f\dz=\int_{\abs z=2}f\dz$.
 \wrec Trigger: two concentric circles in a region where $f$ is holomorphic between them. The
-region between them contains no singularity, so a "washer" toy contour applies.
+region between them contains no singularity, so a ``washer'' toy contour applies.
 \wsol Cut the annulus between the two circles by two thin radial corridors (at angles $0$ and
 $\pi$, say), forming two toy contours, each a half-washer bounded by an outer arc of $\abs z=2$
 (positive), an inner arc of $\abs z=1$ (negative), and two radial segments. Each half-washer's
@@ -26798,8 +26807,8 @@ computation of \S15.3 --- equal, as predicted. The common value is independent o
   \draw[contour] (-1,0) arc(180:0:1);
   \draw[line width=0.9pt] (1,0)--(2,0);
   \draw[line width=0.9pt] (-2,0)--(-1,0);
-  \node[lblnode] at (1.7,1.45){$\abs z=2$};
-  \node[lblnode] at (0.0,1.2){$\abs z=1$};
+  \node[lblnode] at (2.15,1.65){$\abs z=2$};
+  \node[lblnode] at (0.0,0.5){$\abs z=1$};
   \node[lblnode] at (1.5,-0.28){corridor};
 \end{tikzpicture}
 \captionof{figure}{Upper half-washer: outer arc positive, inner arc negative, two radial
@@ -26858,8 +26867,8 @@ $\int_\gamma\frac{\dz}{z^2+4}=0$ by locating the singularities relative to $\gam
 \item Prove the toy-contour Cauchy theorem for a parallelogram by exhibiting the explicit
 horizontal/vertical primitive construction, in parallel with the disc case.
 \item (Diagram) Sketch the keyhole contour $\Gamma$ with its corridor of width $\delta$, the
-large circle, and the small circle about an interior point $z_0$; indicate the orientation by
-arrows and label $\Gamma_{\mathrm{int}}$.
+large circle, and the small circle about a point $z_0$ inside the large circle; indicate the
+orientation by arrows and label $\Gamma_{\mathrm{int}}$.
 \item Suppose $f$ is holomorphic on an open set containing the closed annulus $\set{1\le\abs z
 \le2}$. Using two circles and a corridor, show $\int_{\abs z=2}f-\int_{\abs z=1}f=0$ (both
 positively oriented), i.e.\ the integral is independent of radius in the annulus.
@@ -26897,7 +26906,7 @@ $f(z)=e^{-\pi z^2}$ (entire). Integrate over the rectangle $\gamma_R$ with verti
 $-R,R,R+i\xi,-R+i\xi$ (positive orientation). By Cauchy, $\int_{\gamma_R}f=0$. The bottom edge
 gives $\int_{-R}^R e^{-\pi x^2}\dx\to1$. The right edge is
 $I(R)=\int_0^\xi e^{-\pi(R+iy)^2}i\,\dd y$, and $\abs{e^{-\pi(R^2-y^2+2iRy)}}=e^{-\pi(R^2-y^2)}$,
-so $\abs{I(R)}\le C e^{-\pi R^2}\to0$; the left edge vanishes identically. The top edge,
+so $\abs{I(R)}\le C e^{-\pi R^2}\to0$; the left edge tends to $0$ in the same way. The top edge,
 traversed right-to-left, is
 \[
   \int_{R}^{-R}e^{-\pi(x+i\xi)^2}\dx=-e^{\pi\xi^2}\int_{-R}^{R}e^{-\pi x^2}e^{-2\pi i x\xi}\dx .
@@ -26920,7 +26929,8 @@ self-dual.
   \node[font=\footnotesize,above left] at (-2.6,1.1){$-R+i\xi$};
 \end{tikzpicture}
 \captionof{figure}{The shifted rectangle $\gamma_R$ for the Gaussian: the real edge carries
-the integral, the top edge reproduces it scaled by $e^{\pi\xi^2}$, the sides die. (Schematic.)}
+$\int e^{-\pi x^2}\dx$, the top edge carries the Fourier integral scaled by $-e^{\pi\xi^2}$, the
+sides die. (Schematic.)}
 \end{center}
 
 \begin{wex}{An indented semicircle: $\int_0^\infty\frac{1-\cos x}{x^2}\dx=\frac\pi2$
@@ -26950,18 +26960,19 @@ consistent with a quick numerical quadrature.
 \begin{tikzpicture}[scale=1.0]
   \draw[cxaxis] (-3.2,0)--(3.4,0) node[right]{$\Re$};
   \draw[cxaxis] (0,-0.4)--(0,2.0) node[above]{$\Im$};
-  \draw[contour] (0.5,0) arc(0:180:0.5);
+  \draw[contour] (-0.5,0) arc(180:0:0.5);
   \draw[line width=1pt] (-2.8,0)--(-0.5,0);
   \draw[line width=1pt] (0.5,0)--(2.8,0);
   \draw[contour] (2.8,0) arc(0:180:2.8);
   \node[font=\footnotesize,below] at (2.8,0){$R$};
   \node[font=\footnotesize,below] at (-2.8,0){$-R$};
   \node[font=\footnotesize,below right] at (0.5,0){$\eps$};
-  \node[font=\footnotesize] at (1.9,1.9){$\gamma_R^+$};
-  \node[font=\footnotesize] at (0,0.75){$\gamma_\eps^+$};
+  \node[font=\footnotesize] at (2.45,2.15){$\gamma_R^+$};
+  \node[font=\footnotesize] at (-0.66,0.62){$\gamma_\eps^+$};
 \end{tikzpicture}
 \captionof{figure}{The indented semicircle: the small arc $\gamma_\eps^+$ around $0$
-contributes $-\pi$ times the residue-like coefficient $-i$; the big arc vanishes. (Schematic.)}
+contributes $-\pi i$ times the residue-like coefficient $-i$, i.e.\ $-\pi$; the big arc
+vanishes. (Schematic.)}
 \end{center}
 
 \begin{wex}{A sector contour: $\int_0^\infty e^{-ax}\cos bx\,\dx$ (Stein, Exercise 3)}
@@ -26977,9 +26988,10 @@ Thus
   \int_0^\infty e^{-ax}\cos bx\,\dx=\Re\frac1{a-ib}=\frac{a}{a^2+b^2},\qquad
   \int_0^\infty e^{-ax}\sin bx\,\dx=\Im\frac1{a-ib}=\frac{b}{a^2+b^2}.
 \]
-(Equivalently, integrate $e^{-Az}$ over a sector of angle $\omega=\arg A$ and let the arc
-vanish.) \emph{Check.} At $b=0$ the first integral is $\int_0^\infty e^{-ax}\dx=1/a$, matching
-$a/a^2$; the second is $0$, matching $0/(a^2)$. \checkmark
+(Equivalently, integrate $e^{-Az}$ over a sector of angle $\omega=-\arg A$, on whose slanted
+edge $Az$ is real and positive, and let the arc vanish.) \emph{Check.} At $b=0$ the first
+integral is $\int_0^\infty e^{-ax}\dx=1/a$, matching $a/a^2$; the second is $0$, matching
+$0/(a^2)$. \checkmark
 \end{wex}
 
 \begin{wex}{Contour-free sanity: $\int_C z^n\dz$ on the unit circle}
@@ -27017,7 +27029,7 @@ singularity); the value $\tfrac\pi2\approx1.5708$ agrees with standard quadratur
 \begin{tikzpicture}[scale=1.0]
   \draw[cxaxis] (-3.2,0)--(3.4,0) node[right]{$\Re$};
   \draw[cxaxis] (0,-0.4)--(0,2.0) node[above]{$\Im$};
-  \draw[contour] (0.5,0) arc(0:180:0.5);
+  \draw[contour] (-0.5,0) arc(180:0:0.5);
   \draw[line width=1pt] (-2.8,0)--(-0.5,0);
   \draw[line width=1pt] (0.5,0)--(2.8,0);
   \draw[contour] (2.8,0) arc(0:180:2.8);
@@ -27025,8 +27037,8 @@ singularity); the value $\tfrac\pi2\approx1.5708$ agrees with standard quadratur
   \node[font=\footnotesize,below] at (2.8,0){$R$};
   \node[font=\footnotesize,below] at (-2.8,0){$-R$};
   \node[font=\footnotesize,below right] at (0.5,0){$\eps$};
-  \node[font=\footnotesize] at (2.0,2.0){$\gamma_R^+$};
-  \node[font=\footnotesize] at (-0.05,0.78){$\gamma_\eps^+$};
+  \node[font=\footnotesize] at (2.45,2.15){$\gamma_R^+$};
+  \node[font=\footnotesize] at (-0.66,0.62){$\gamma_\eps^+$};
 \end{tikzpicture}
 \captionof{figure}{Indented semicircle for $\int\frac{\sin x}{x}$: the pole of $e^{iz}/z$ at
 $0$ sits on the boundary, so the small arc contributes a \emph{half} turn $-i\pi$. (Schematic.)}
@@ -27038,7 +27050,7 @@ For $0<a<1$ evaluate $\int_0^\infty\frac{x^{a-1}}{1+x}\dx$ with a keyhole around
 real axis.
 \wrec Trigger: a power $x^{a-1}$ forces a branch cut; a keyhole hugging $[0,\infty)$ isolates
 the lone pole at $z=-1$, and the two lips of the cut differ by a phase $e^{2\pi i(a-1)}$.
-\wsol Take $f(z)=z^{a-1}/(1+z)$ with the branch $z^{a-1}=e^{(a-1)\Log z}$, $0<\arg z<2\pi$.
+\wsol Take $f(z)=z^{a-1}/(1+z)$ with the branch $z^{a-1}=e^{(a-1)\log z}$, $0<\arg z<2\pi$.
 The keyhole $\Gamma$ runs out along the top lip ($\arg z=0^+$), around the big circle $\abs z=R$,
 back along the bottom lip ($\arg z=2\pi^-$), and around the small circle $\abs z=\eps$. Only
 $z=-1=e^{i\pi}$ lies inside, with $\Res_{z=-1}f=(-1)^{a-1}=e^{(a-1)i\pi}=-e^{ia\pi}$. The big
@@ -27067,8 +27079,8 @@ $\int_0^\infty\tfrac{\dx}{\sqrt x(1+x)}=\pi$ (substitute $x=t^2$). \checkmark
     -- (\xs,-\dd)                                           % bottom lip (arg = 2pi-)
     arc[start angle={-\as}, end angle={-360+\as}, radius=\rs];% small circle, CW
   \node[pole] at (-0.95,0) {};
-  \node[lblnode,above left=0pt] at (-0.95,0){$-1$};
-  \node[lblnode] at (-1.05,1.05){$\abs z=R$};
+  \node[lblnode,above left=2pt] at (-0.95,0){$-1$};
+  \node[lblnode] at (-1.5,1.4){$\abs z=R$};
   \node[lblnode,right=1pt] at (\xb,\dd){top lip};
   \node[lblnode,right=1pt] at (\xb,-\dd){bottom lip};
 \end{tikzpicture}
@@ -27084,7 +27096,7 @@ $0\le\Im z\le2\pi$.
 =e^z$. A tall rectangle of height $2\pi$ relates the top edge to the bottom by a constant phase
 and encloses the single pole where $e^z=-1$.
 \wsol Let $f(z)=e^{az}/(1+e^z)$. On the rectangle with corners $\pm R,\ \pm R+2\pi i$, the
-vertical sides are $O(e^{(a-1)R})$ and $O(e^{aR}e^{-R})\to0$ since $0<a<1$. The top edge
+vertical sides are $O(e^{(a-1)R})$ and $O(e^{-aR})$, both $\to0$ since $0<a<1$. The top edge
 $z=x+2\pi i$ gives integrand $e^{a(x+2\pi i)}/(1+e^x)=e^{2\pi ia}f(x)$, traversed right-to-left,
 contributing $-e^{2\pi ia}I$ where $I$ is the bottom edge $\int_{-\infty}^\infty f(x)\dx$.
 Inside, $e^z=-1$ at $z=i\pi$; there $\Res_{z=i\pi}f=\dfrac{e^{a z}}{(1+e^z)'}\Big|_{z=i\pi}
@@ -27131,20 +27143,21 @@ semicircle and showing the arc vanishes; confirm the value is $\pi$.
 \item Use the rectangle-shift technique to evaluate $\int_{-\infty}^\infty e^{-x^2}\cos(2bx)\dx$
 for real $b$, obtaining $\sqrt\pi\,e^{-b^2}$.
 \item Evaluate $\int_0^\infty\frac{\cos x}{x^2+1}\dx$ by integrating $e^{iz}/(z^2+1)$ over an
-upper semicircle and using $\int_{\abs z=\cdots}$; obtain $\frac{\pi}{2e}$.
+upper semicircle and using a small circle $\abs{z-i}=\eps$ about the enclosed pole $z=i$; obtain
+$\frac{\pi}{2e}$.
 \item By integrating $e^{-z^2}$ over the sector of angle $\pi/4$, re-derive the Fresnel integrals
-(scraped Exercise~1), filling in the arc estimate in detail.
-\item (Non-example) A student "evaluates" $\int_{-\infty}^\infty\frac{x}{x^2+1}\dx$ by closing in
-the upper half-plane and claims the answer is $\pi i$ times a residue. Explain why the original
-real integral does not converge (only its principal value is $0$), so the contour method needs
-care here.
+(Stein's Exercise~1 above), filling in the arc estimate in detail.
+\item (Non-example) A student ``evaluates'' $\int_{-\infty}^\infty\frac{x}{x^2+1}\dx$ by closing
+in the upper half-plane and claims the answer is $2\pi i$ times the residue at $z=i$, namely
+$\pi i$. Explain why the original real integral does not converge (only its principal value
+is $0$), so the contour method needs care here.
 \item Evaluate $\int_0^{2\pi}\frac{\dtheta}{2+\cos\theta}$ by the substitution $z=e^{i\theta}$,
 turning it into a contour integral over $\abs z=1$; obtain $\frac{2\pi}{\sqrt3}$.
 \item (Diagram) Draw the indented-semicircle contour used for $\int_0^\infty\frac{\sin x}{x}\dx$,
 labeling the large arc $\gamma_R^+$, the small arc $\gamma_\eps^+$, and the two real segments,
 with orientations.
 \item Show that shifting the contour for $\int_{-\infty}^\infty e^{-\pi x^2}e^{-2\pi i x\xi}\dx$
-to the line $\Im z=\xi$ converts it into $e^{-\pi\xi^2}\int_{-\infty}^\infty e^{-\pi t^2}\dt$,
+to the line $\Im z=-\xi$ converts it into $e^{-\pi\xi^2}\int_{-\infty}^\infty e^{-\pi t^2}\dt$,
 recovering the self-duality of the Gaussian without computing side integrals separately.
 \end{exers}
 
@@ -27200,7 +27213,7 @@ Therefore $0=\int_C F\,d\zeta-2\pi i\,f(z)$, which is the formula.
     arc[start angle={-\as}, end angle={-360+\as}, radius=\rs];
   \node[pt] at (0,0) {};
   \node[lblnode,below left=1pt] at (0,0){$z$};
-  \node[lblnode] at (-1.05,1.05){$C$};
+  \node[lblnode] at (-1.27,1.27){$C$};
   \node[lblnode,left=1pt] at (-\rs,0){$C_\eps$};
   \node[lblnode] at (-0.85,-0.75){$\Gamma_{\delta,\eps}$};
 \end{tikzpicture}
@@ -27227,14 +27240,14 @@ for all $z$ in the interior of $C$.
 Induct on $n$; $n=0$ is Theorem~\ref{t:cif@c15}. Assuming the formula for $f^{(n-1)}$, form the
 difference quotient and use the algebraic identity $A^n-B^n=(A-B)(A^{n-1}+\cdots+B^{n-1})$ with
 $A=1/(\zeta-z-h)$, $B=1/(\zeta-z)$. As $h\to0$ (and $z,z+h$ stay a fixed distance from $C$) the
-bracket converges to $n/(\zeta-z)^{n-1}$, giving
+bracket converges to $n/(\zeta-z)^{n-1}$ while $(A-B)/h=AB\to1/(\zeta-z)^2$, giving
 $\frac{(n-1)!}{2\pi i}\int_C\frac{n\,f(\zeta)}{(\zeta-z)^{n+1}}\,d\zeta
 =\frac{n!}{2\pi i}\int_C\frac{f(\zeta)}{(\zeta-z)^{n+1}}\,d\zeta$, completing the induction.
 \end{proof}
 
 \begin{corollary}[Cauchy inequalities]\label{c:cauchyineq@c15}
 If $f$ is holomorphic in an open set containing the closure of the disc $D$ of center $z_0$ and
-radius $R$, then $\abs{f^{(n)}(z_0)}\le\dfrac{n!\,\norm{f}_C}{R^n}$, where
+radius $R$, then $\abs{f^{(n)}(z_0)}\le\dfrac{n!\,\norm{f}_C}{R^n}$, where $C=\partial D$ and
 $\norm{f}_C=\sup_{z\in C}\abs{f(z)}$.
 \end{corollary}
 
@@ -27248,7 +27261,8 @@ $\abs{f^{(n)}(z_0)}=\bigl|\frac{n!}{2\pi i}\int_0^{2\pi}\frac{f(z_0+Re^{i\theta}
 \begin{theorem}[Power-series expansion of holomorphic functions]\label{t:powerseries@c15}
 If $f$ is holomorphic in $\Omega$ and $D$ is a disc centered at $z_0$ with
 $\closure D\subset\Omega$, then $f(z)=\sum_{n=0}^\infty a_n(z-z_0)^n$ for all $z\in D$, with
-$a_n=f^{(n)}(z_0)/n!=\frac1{2\pi i}\int_C\frac{f(\zeta)}{(\zeta-z_0)^{n+1}}\,d\zeta$.
+$a_n=f^{(n)}(z_0)/n!=\frac1{2\pi i}\int_C\frac{f(\zeta)}{(\zeta-z_0)^{n+1}}\,d\zeta$, where
+$C=\partial D$.
 \end{theorem}
 
 \begin{proof}
@@ -27308,7 +27322,7 @@ $\abs{f'(z_0)}\le B/R$. Let $R\to\infty$ to get $f'(z_0)=0$. As $\C$ is connecte
 \end{proof}
 
 \begin{corollary}[Fundamental theorem of algebra]\label{c:fta@c15}
-Every non-constant polynomial $P(z)=a_nz^n+\cdots+a_0$ with complex coefficients has a root in
+Every non-constant polynomial $P(z)=a_nz^n+\cdots+a_0$ ($a_n\neq0$) with complex coefficients has a root in
 $\C$; in fact exactly $n$ roots $w_1,\dots,w_n$ (with multiplicity), and
 $P(z)=a_n(z-w_1)\cdots(z-w_n)$.
 \end{corollary}
@@ -27334,7 +27348,7 @@ Let $z_0\in\Omega$ be the limit point, $f(w_k)=0$, $w_k\to z_0$. Expand $f(z)=\s
 (z-z_0)^n$ in a disc $D\ni z_0$. If $f\not\equiv0$ on $D$, let $m$ be least with $a_m\neq0$;
 then $f(z)=a_m(z-z_0)^m(1+g(z-z_0))$ with $g\to0$ at $z_0$. For $w_k$ near $z_0$,
 $a_m(w_k-z_0)^m(1+g)\neq0$, contradicting $f(w_k)=0$. So $f\equiv0$ on $D$. The set $U$ where
-$f$ vanishes on a neighborhood is open (just shown), nonempty ($z_0\in U$), and closed in
+$f$ vanishes on a neighborhood is open (by definition), nonempty ($z_0\in U$, just shown), and closed in
 $\Omega$ (limits of zeros are zeros, then the disc argument applies). By connectedness $U=\Omega$.
 \end{proof}
 
@@ -27349,7 +27363,7 @@ any two such agree on $U$, hence everywhere on $\Omega$ by the identity theorem.
 records that $F$ need not exist, but is determined when it does.}
 \end{center}
 
-\begin{method}{Computing $\int_C\frac{g(\zeta)}{(\zeta-z)^{k}}\,d\zeta$ by the integral formulas}
+\begin{method}{Computing $\int_C\frac{f(\zeta)}{(\zeta-z)^{k}}\,d\zeta$ by the integral formulas}
 \emph{Recognition trigger.} A contour integral whose integrand is (holomorphic)$/$(linear
 factor to a power), with the singularity inside the contour.
 \begin{enumerate}
@@ -27380,7 +27394,7 @@ $1/z$ term integrates to $2\pi i\cdot(-\tfrac12)=-\pi i$, matching.
 \end{wex}
 
 \begin{wex}{The mean-value property of holomorphic functions}
-Show that for $f$ holomorphic on $\closure D$, $f(z_0)=\frac1{2\pi}\int_0^{2\pi}
+Show that for $f$ holomorphic on the closed disc $\overline D_R(z_0)$, $f(z_0)=\frac1{2\pi}\int_0^{2\pi}
 f(z_0+Re^{i\theta})\dtheta$, the average of $f$ over the boundary circle.
 \wrec Trigger: average of boundary values. Apply the Cauchy formula at the center and
 parametrize.
@@ -27398,8 +27412,8 @@ $2\pi i\cdot1$.
 \wsol The point $z=3$ is \emph{outside} the unit circle, so $\frac1{\zeta-3}$ is holomorphic on
 the closed unit disc; by Cauchy's theorem $\int_{\abs z=1}\frac{1}{z-3}\dz=0$. The integral
 formula is \emph{not} invoked because there is no interior singularity. \emph{Check.} The
-primitive $\Log(z-3)$ exists on a neighborhood of the closed disc (the cut avoids it), so the
-closed-loop integral vanishes.
+primitive $\Log(3-z)$ exists on a neighborhood of the closed disc (its cut $[3,\infty)$ avoids
+it), so the closed-loop integral vanishes.
 \end{wex}
 
 \begin{wex}{Reading off Taylor coefficients by integration}
@@ -27452,7 +27466,7 @@ precisely when $f$ is linear, $f(z)=a_0+a_1z$. (Hint: $2f'(0)=\frac1{2\pi i}\int
 \item (Ex.~8) If $f$ is holomorphic on the strip $-1<y<1$, $x\in\R$ with $\abs{f(z)}\le
 A(1+\abs z)^\eta$ ($\eta$ a fixed real), show that for each integer $n\ge0$ there is $A_n\ge0$
 with $\abs{f^{(n)}(x)}\le A_n(1+\abs x)^\eta$ for all $x\in\R$. (Hint: Cauchy inequalities.)
-\item (Ex.~9) Let $\Omega$ be a bounded open subset of $\C$ and $\varphi:\Omega\to\Omega$
+\item (Ex.~9) Let $\Omega$ be a bounded connected open subset of $\C$ and $\varphi:\Omega\to\Omega$
 holomorphic. Prove that if there is a point $z_0\in\Omega$ with $\varphi(z_0)=z_0$ and
 $\varphi'(z_0)=1$, then $\varphi$ is linear. (Hint: reduce to $z_0=0$; write $\varphi(z)=z+a_n
 z^n+O(z^{n+1})$ and show $\varphi_k=\varphi\circ\cdots\circ\varphi$ satisfies $\varphi_k(z)=
@@ -27462,7 +27476,7 @@ z+ka_n z^n+O(z^{n+1})$; apply the Cauchy inequalities and let $k\to\infty$.)
 $f(z)=\frac1{2\pi}\int_0^{2\pi}f(Re^{i\varphi})\,\Re\!\Bigl(\frac{Re^{i\varphi}+z}
 {Re^{i\varphi}-z}\Bigr)\,d\varphi$.
 (b) Show that $\Re\!\Bigl(\frac{Re^{i\gamma}+r}{Re^{i\gamma}-r}\Bigr)=
-\frac{R^2-r^2}{R^2-2Rr\cos\gamma+r^2}$. (Hint: with $w=R^2/\conj z$, the integral of
+\frac{R^2-r^2}{R^2-2Rr\cos\gamma+r^2}$. (Hint for (a): with $w=R^2/\conj z$, the integral of
 $f(\zeta)/(\zeta-w)$ around $\abs\zeta=R$ is zero; combine with the Cauchy integral formula.)
 \item (Ex.~12) Let $u$ be real-valued, twice continuously differentiable, and harmonic
 ($\Delta u=0$) on the unit disc $\Disc$.
@@ -27495,7 +27509,7 @@ differentiable function lurks in the background.)
 number of divisors of $n$ (radius of convergence $1$). Verify $\sum_{n=1}^\infty d(n)z^n=
 \sum_{n=1}^\infty\frac{z^n}{1-z^n}$. Show that for $z=r$, $0<r<1$, $\abs{F(r)}\ge c\,\frac1{1-r}
 \log\frac1{1-r}$ as $r\to1$; and for $z=re^{i\theta}$ with $\theta=2\pi p/q$,
-$\abs{F(re^{i\theta})}\ge c_{p/q}\,\frac1{1-r}\log\frac1{1-r}$. Conclude $F$ cannot be continued
+$\abs{F(re^{i\theta})}\ge c_{p/q}\,\frac1{1-r}\log\frac1{1-r}$ as $r\to1$. Conclude $F$ cannot be continued
 past the unit disc.
 \end{exers}
 
@@ -27516,7 +27530,7 @@ accumulation point of zeros lies relative to the domain of holomorphy.
 \item Prove the fundamental theorem of algebra for the special quintic $P(z)=z^5+z+1$ by the
 Liouville argument outline, and (separately) verify it has a real root in $(-1,0)$.
 \item Use the mean-value property to show that a holomorphic $f$ on $\closure\Disc$ with
-$f(0)=2$ and $\abs{f}\le2$ on $\abs z=1$ must satisfy $\abs{f(0)}=2$ forcing $f\equiv2$ (a
+$f(0)=2$ and $\abs{f}\le2$ on $\abs z=1$ must be identically $2$ (a
 maximum-modulus flavored conclusion via the average).
 \item (Diagram) Draw the keyhole $\Gamma_{\delta,\eps}$ used to prove the Cauchy integral
 formula: large circle $C$ positively oriented, small circle $C_\eps$ about the interior point
@@ -27570,23 +27584,26 @@ subset of $\Omega$ (and likewise for every order $k$).
 \end{theorem}
 
 \begin{proof}
-It suffices to prove, for $F$ holomorphic on $\Omega$ and $\Omega_\delta=\set{z\st D_\delta(z)
-\subset\Omega}$, the estimate $\sup_{\Omega_\delta}\abs{F'}\le\frac1\delta\sup_\Omega\abs F$;
+It suffices to prove, for $F$ holomorphic on $\Omega$ and $\Omega_\delta=\set{z\st
+\closure{D_\delta(z)}\subset\Omega}$, the estimate $\sup_{\Omega_\delta}\abs{F'}\le\frac1\delta\sup_\Omega\abs F$;
 then apply it to $F=f_n-f$. For $z\in\Omega_\delta$, the closed disc $\closure{D_\delta(z)}
 \subset\Omega$, and the derivative formula gives
 $F'(z)=\frac1{2\pi i}\int_{C_\delta(z)}\frac{F(\zeta)}{(\zeta-z)^2}\,d\zeta$, so
 $\abs{F'(z)}\le\frac1{2\pi}\cdot\frac{\sup_\Omega\abs F}{\delta^2}\cdot2\pi\delta=\frac1\delta
-\sup_\Omega\abs F$. As $\sup_\Omega\abs{f_n-f}\to0$ on the compactly-contained sets, the
-estimate forces $f_n'\to f'$ uniformly on $\Omega_\delta$.
+\sup_\Omega\abs F$. Since $f_n\to f$ uniformly only on compacta, localize: given a compact
+$K\subset\Omega$, pick $\delta>0$ with $\set{z\st\dist(z,K)\le2\delta}\subset\Omega$ (a compact
+set) and use the estimate with $\Omega$ replaced by $\Omega'=\set{z\st\dist(z,K)<2\delta}$; then
+$K\subset\Omega'_\delta$ and $\sup_K\abs{f_n'-f'}\le\frac1\delta\sup_{\Omega'}\abs{f_n-f}\to0$.
 \end{proof}
 
 \begin{center}
 \begin{tikzpicture}[scale=1.0]
   \draw[rounded corners=10pt,black!55] (-2.6,-1.6) rectangle (2.6,1.6);
   \node[font=\footnotesize] at (2.1,1.3){$\Omega$};
-  \draw[fill=black!8,rounded corners=8pt,black!40] (-1.9,-1.0) rectangle (1.9,1.0);
+  \draw[draw=black!40,fill=black!8] (-2.0,-1.0) rectangle (2.0,1.0);
   \node[font=\footnotesize] at (1.45,0.75){$\Omega_\delta$};
   \node[pt] at (0,0){};
+  \node[font=\footnotesize,below=1pt] at (0,0){$z$};
   \draw[black!60] (0,0) circle (0.6);
   \draw[<->,>=stealth,black!70] (0,0)--(0.6,0) node[midway,above,font=\footnotesize]{$\delta$};
 \end{tikzpicture}
@@ -27672,8 +27689,8 @@ means $\conj{f(x)}=f(x)$, so $F$ matches $f$ continuously across $I$. By the sym
 \end{tikzcd}
 \captionof{figure}{Schwarz reflection as a composition: on $\Omega^-$ the extension is
 $F=\conj{(\cdot)}\circ f\circ\conj{(\cdot)}$, i.e.\ conjugate the input into $\Omega^+$, apply
-$f$, then conjugate the output. The square commutes ($\conj{f(\conj z)}=F(z)$), which is exactly
-why $F$ is holomorphic.}
+$f$, then conjugate the output. The square commutes ($\conj{f(\conj z)}=F(z)$); the two
+conjugations cancel, which is why $F$ is holomorphic on $\Omega^-$.}
 \end{center}
 
 \subsection*{Runge's approximation theorem}
@@ -27687,10 +27704,10 @@ is connected, the approximation can be taken by polynomials.
 \noindent The proof rests on two steps. First, a grid lemma writes $f$ on $K$ as a finite sum of
 Cauchy-type integrals over segments $\gamma_n\subset\Omega\setminus K$ (the outer edges of a
 fine square grid covering $K$); each such integral is a uniform limit of Riemann sums, which are
-rational functions with poles on the $\gamma_n$. Second, when $K^c$ is connected, one "pushes
-poles to infinity": a pole at $z_0$ is moved along a path in $K^c$ to a far point $z_1$ via the
+rational functions with poles on the $\gamma_n$. Second, when $K^c$ is connected, one ``pushes
+poles to infinity'': a pole at $z_0$ is moved along a path in $K^c$ to a far point $z_1$ via the
 geometric series $\frac1{z-w}=\sum_n\frac{(w-w')^n}{(z-w')^{n+1}}$ (valid for $\abs{w-w'}$ small
-relative to $\dist(K,\cdot)$), and finally $\frac1{z-z_1}=-\sum_{n\ge1}z^n/z_1^{n+1}$ is a
+relative to $\dist(w',K)$), and finally $\frac1{z-z_1}=-\sum_{n\ge0}z^n/z_1^{n+1}$ is a
 uniform polynomial limit on $K$. Hence rational approximants become polynomial.
 
 \begin{center}
@@ -27707,9 +27724,9 @@ uniform polynomial limit on $K$. Hence rational approximants become polynomial.
   \node[lblnode] at (3.5,2.55){$K$};
   \node[font=\footnotesize] at (3.5,-0.55){squares meeting $K$; outer edges $=\bigcup\gamma_n$};
 \end{tikzpicture}
-\captionof{figure}{Runge's grid: the union of unit squares meeting $K$ (shaded); the bold
-boundary, running along grid lines, is the family of segments $\gamma_n\subset K^c$ in the
-integral representation. (Schematic.)}
+\captionof{figure}{Runge's grid: the compact set $K$ (shaded) and the unit squares meeting it;
+the bold boundary of their union, running along grid lines, is the family of segments
+$\gamma_n\subset K^c$ in the integral representation. (Schematic.)}
 \end{center}
 
 \begin{wex}{Morera certifies a limit is holomorphic}
@@ -27764,12 +27781,12 @@ half-plane bound into a genuine modulus bound, then apply Liouville
 \wsol Say $u\le M$. Consider $g(z)=e^{f(z)}$, entire as a composition of entire functions. Then
 $\abs{g(z)}=e^{\Re f(z)}=e^{u(z)}\le e^{M}$, so $g$ is a bounded entire function. By Liouville,
 $g$ is constant, hence $g'=f'e^{f}\equiv0$; since $e^f$ never vanishes, $f'\equiv0$, so $f$ is
-constant on the connected set $\C$. \emph{Check.} The trick is exactly the one behind "an entire
-function omitting a half-plane of values is constant"; e.g.\ $f=z$ has $\Re f=x$ unbounded above,
+constant on the connected set $\C$. \emph{Check.} The trick is exactly the one behind ``an entire
+function omitting a half-plane of values is constant''; e.g.\ $f=z$ has $\Re f=x$ unbounded above,
 so the hypothesis correctly excludes it, and no non-constant entire $f$ can have $\Re f$ capped.
 \end{wex}
 
-\begin{wex}{Reflecting a function with a real-axis symmetry to compute coefficients}
+\begin{wex}{Reflecting a function with a real-axis symmetry to apply Liouville}
 Let $f$ be holomorphic on $\Omega^+=\set{\Im z>0}$, continuous up to $\R$, real on $\R$, with
 $f(z)\to0$ as $\abs z\to\infty$ in $\closure{\Omega^+}$. Show the reflected $F$ is entire and
 deduce $F\equiv0$.
@@ -27781,10 +27798,10 @@ $\Omega^-$ is holomorphic on all of $\C$, hence entire. The hypothesis $f\to0$ a
 the closed upper half-plane gives, by reflection, $F\to0$ at $\infty$ in the closed lower
 half-plane too; so $\abs F\to0$ as $\abs z\to\infty$, making $F$ a bounded entire function with
 limit $0$. By Liouville $F$ is constant, and the constant must be $0$. Hence $f\equiv0$ on
-$\Omega^+$. \emph{Check.} The conclusion is the complex "rigidity" phenomenon --- a holomorphic
+$\Omega^+$. \emph{Check.} The conclusion is the complex ``rigidity'' phenomenon --- a holomorphic
 half-plane function that is real on the axis and decays is forced to vanish; e.g.\ $1/(z+i)$
-is real on $\R$? No: $\Im\tfrac1{x+i}=-\tfrac1{x^2+1}\neq0$, so it is correctly excluded
-from the hypothesis.
+is holomorphic on $\closure{\Omega^+}$ and decays, but it is not real on $\R$
+($\Im\tfrac1{x+i}=-\tfrac1{x^2+1}\neq0$), so it is correctly excluded from the hypothesis.
 \end{wex}
 
 \begin{exers}{Exercises (Stein, Ch.2).}
@@ -27808,9 +27825,10 @@ holomorphic.
 translates and dilates of $\Gamma$. Show that if $f$ is continuous on $\C$ and $\int_\gamma
 f(z)\dz=0$ for all $\gamma\in\mathcal F$, then $f$ is holomorphic. In particular Morera holds
 with equilateral triangles only. (Hint: first assume $f$ twice real-differentiable and expand
-$f(z)=f(z_0)+a(z-z_0)+b\conj{(z-z_0)}+O(\abs{z-z_0}^2)$; integrating over small circles gives
-$\partial f/\partial\conj z=b=0$. In general mollify: with $\varphi_\eps(z)=\eps^{-2}
-\varphi(\eps^{-1}z)$, $\int\varphi=1$, set $f_\eps=f\ast\varphi_\eps$; then $f_\eps$ is smooth,
+$f(z)=f(z_0)+a(z-z_0)+b\conj{(z-z_0)}+O(\abs{z-z_0}^2)$; integrating over the small curves
+$z_0+\eps\Gamma$ (circles in (a)) gives $\partial f/\partial\conj z=b=0$. In general mollify: with
+$\varphi$ smooth, supported in $\Disc$, $\int\varphi=1$, and $\varphi_\eps(z)=\eps^{-2}
+\varphi(\eps^{-1}z)$, set $f_\eps=f\ast\varphi_\eps$; then $f_\eps$ is smooth,
 satisfies the same vanishing condition, and $f_\eps\to f$ uniformly on compacta.)
 \item (Pr.~4) Prove the converse to Runge's theorem: if $K$ is compact and $K^c$ is \emph{not}
 connected, then there is a function $f$ holomorphic in a neighborhood of $K$ that cannot be
@@ -27838,23 +27856,24 @@ horizontal line $\set{\Im z=0}$, then $f$ is holomorphic everywhere. (This is a 
 argument.)
 \item Show that $f(z)=\sum_{n=1}^\infty\frac{1}{n^2-z^2}$ is holomorphic on
 $\C\setminus\set{\pm1,\pm2,\dots}$ by verifying uniform convergence on compacta avoiding the
-integers.
+nonzero integers.
 \item Prove that if $f_n\to f$ uniformly on compacta with each $f_n$ holomorphic and
 non-vanishing, then $f'_n\to f'$ uniformly on compacta, citing Theorem~\ref{t:derivconv@c15}.
 \item Apply the Schwarz reflection principle to extend a function holomorphic on the upper
 half-disc, real on the diameter, across the real axis; carry it out explicitly for $f(z)=z+z^3$.
 \item (Non-example) Explain why $f(z)=\sum_{n=0}^\infty z^{2^n}$, holomorphic on $\Disc$, is
-\emph{not} a uniform limit on $\closure\Disc$ of polynomials that would extend it past the unit
-circle. Which theorem of this section fails to apply, and why?
+\emph{not} a uniform limit on $\closure\Disc$ of polynomials. Which theorem of this section fails
+to apply, and why?
 \item Use the parameter-integral theorem to prove that $\Gamma$-like functions $f(z)=\int_0^1
 s^{z-1}\,ds=1/z$ (for $\Re z>0$) are holomorphic, and identify the analytic continuation.
+(Hint: joint continuity fails at $s=0$; apply the theorem on $[\eps,1]$ and let $\eps\to0$.)
 \item Show that Runge's theorem gives polynomial approximation of $f(z)=e^z$ uniformly on the
 compact set $K=[0,1]\subset\C$ (note $K^c$ is connected); contrast with $K=\set{\abs z=1}$.
 \item (Diagram) Sketch a region $\Omega$ symmetric across the real axis, marking $\Omega^+$,
 $\Omega^-$, $I=\Omega\cap\R$, and a conjugate pair $z,\conj z$; indicate how the reflection
 $F(z)=\conj{f(\conj z)}$ glues across $I$.
 \item Prove that the uniform limit on compacta of a sequence of injective holomorphic functions
-is either injective or constant (a Hurwitz-type statement); use Theorem~\ref{t:unifholo@c15} and the
+on a region $\Omega$ is either injective or constant (a Hurwitz-type statement); use Theorem~\ref{t:unifholo@c15} and the
 identity theorem as tools, sketching the argument.
 \end{exers}
 
