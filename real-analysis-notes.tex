@@ -11066,7 +11066,7 @@ Because $f$ is bounded, on each subinterval $I_i$ the numbers
 \[
   m_i=\inf_{x\in I_i}f(x),\qquad M_i=\sup_{x\in I_i}f(x)
 \]
-are finite. They are the smallest and largest heights of any rectangle over $I_i$ whose
+are finite. They are the largest and smallest heights of any rectangle over $I_i$ whose
 top stays at or below (resp.\ above) the graph.
 
 \begin{definition}[Darboux/Rudin sums, Rudin 6.1]\label{d:darboux-sums@c7}
@@ -11090,15 +11090,15 @@ the sup/inf running over all partitions $P$ of $[a,b]$.
       xtick=\empty,ytick=\empty,xmin=0,xmax=3.2,ymin=0,ymax=2.6,
       enlargelimits=false,clip=false]
     \def\g{(0.35*x*x-0.9*x+1.9)}
-    % on each subinterval the function (a parabola, decreasing then increasing) has its
-    % inf either at an endpoint or interior; for simplicity use left/right minima
+    % on each subinterval the function (a parabola, decreasing then increasing, vertex at
+    % x=9/7) has its inf at an endpoint, except on [0.75,1.5], where it is the vertex value
     \fill[band,draw=black!55] (axis cs:0,0) rectangle (axis cs:0.75,{0.35*0.75*0.75-0.9*0.75+1.9});
-    \fill[band,draw=black!55] (axis cs:0.75,0) rectangle (axis cs:1.5,{0.35*1.5*1.5-0.9*1.5+1.9});
+    \fill[band,draw=black!55] (axis cs:0.75,0) rectangle (axis cs:1.5,{1.9-0.81/1.4});
     \fill[band,draw=black!55] (axis cs:1.5,0) rectangle (axis cs:2.25,{0.35*1.5*1.5-0.9*1.5+1.9});
     \fill[band,draw=black!55] (axis cs:2.25,0) rectangle (axis cs:3,{0.35*2.25*2.25-0.9*2.25+1.9});
     \addplot[curve,domain=0:3,samples=60]{0.35*x*x-0.9*x+1.9};
   \end{axis}
-  \begin{axis}[name=up,at={(low.right of east)},anchor=left of west,
+  \begin{axis}[name=up,at={(low.right of east)},anchor=left of west,xshift=4mm,
       width=6.7cm,height=4.7cm,axis lines=middle,
       title={\footnotesize upper sum $U(f,P)$},
       xtick=\empty,ytick=\empty,xmin=0,xmax=3.2,ymin=0,ymax=2.6,
@@ -11149,20 +11149,23 @@ because $m_i\le M_i$.
 
 \begin{center}
 \begin{tikzpicture}[scale=1.0]
-  \begin{axis}[width=10cm,height=5.2cm,axis lines=middle,xtick=\empty,ytick=\empty,
-      xmin=0,xmax=4.2,ymin=0,ymax=2.4,enlargelimits=false,clip=false,
-      xlabel={\footnotesize add the dashed cut: gap $U-L$ shrinks from grey to dark grey}]
-    \def\h{(0.3*x*x-1.2*x+2.0)}
-    % coarse upper-lower gap on [1,3] one interval, then refined at x=2
+  \begin{axis}[width=10cm,height=5.2cm,axis lines=middle,ytick=\empty,
+      xtick={2,3,4},xticklabels={\strut$x_{i-1}$,\strut$x^*$,\strut$x_i$},
+      xmin=0,xmax=4.4,ymin=0,ymax=2.4,enlargelimits=false,clip=false]
+    % f(x)=0.3x^2-1.2x+2 increases on [x_{i-1},x_i]=[2,4]: f(2)=0.8, f(3)=1.1, f(4)=2.0
+    % old gap on [2,4] (light): m_i=f(2)=0.8, M_i=f(4)=2.0
+    \fill[black!10] (axis cs:2,0.8) rectangle (axis cs:4,2.0);
+    \draw (axis cs:2,0.8) rectangle (axis cs:4,2.0);
+    % new gaps after inserting x^*=3 (dark): [2,3]x[0.8,1.1] and [3,4]x[1.1,2.0]
+    \fill[black!35,draw=black] (axis cs:2,0.8) rectangle (axis cs:3,1.1);
+    \fill[black!35,draw=black] (axis cs:3,1.1) rectangle (axis cs:4,2.0);
+    \draw[dashed] (axis cs:3,0)--(axis cs:3,2.15);
+    \node[above] at (axis cs:3,2.15){\footnotesize new point};
     \addplot[curve,domain=0:4,samples=70]{0.3*x*x-1.2*x+2.0};
-    % coarse rectangle gap (light): on [1,3], M=f(1)=1.1? compute: f(1)=0.3-1.2+2=1.1; f(3)=2.7-3.6+2=1.1; min at x=2: 1.2-2.4+2=0.8
-    \fill[black!10] (axis cs:1,0.8) rectangle (axis cs:3,1.1);
-    \draw (axis cs:1,0.8) rectangle (axis cs:3,1.1);
-    % refined at x=2 (dark): left M=f(1)=1.1 m=f(2)=0.8 ; right M=f(3)=1.1 m=f(2)=0.8 -> still same here, instead shift
-    \draw[dashed] (axis cs:2,0)--(axis cs:2,1.25);
-    \node[above] at (axis cs:2,1.25){\footnotesize new point};
   \end{axis}
-\end{tikzpicture}
+\end{tikzpicture}\captionof{figure}{Refinement shrinks the gap: on $[x_{i-1},x_i]$ the old gap
+$(M_i-m_i)\,\Delta x_i$ is the whole light grey box; after inserting $x^*$ only the two dark
+grey boxes remain.}
 \end{center}
 
 \begin{proposition}[Lower integral $\le$ upper integral, Rudin 6.5]\label{p:low-le-up@c7}
@@ -11365,15 +11368,15 @@ $U-L=2.5$ is large because $P$ is coarse. \checkmark
 the upper rectangles giving $U=\tfrac{33}{8}$. The true area $\tfrac83$ is trapped between.}
 \end{center}
 
-\begin{wex}{Mesh small but $n$ large is not the point}
+\begin{wex}{Large $n$ does not force a small mesh}
 Exhibit a partition of $[0,1]$ with $1000$ points yet mesh $\tfrac12$, illustrating the
 pitfall that many points do not force a small mesh.
 \wrec Trigger: a conceptual check on Definition~\ref{d:partition@c7}; the mesh is the
 \emph{widest} piece, not the count.
-\wsol Put $999$ points crammed into $[0,\tfrac12]$ (say $x_i=\tfrac{i}{2000}$ for
-$i=0,\dots,999$, so each piece there has width $\tfrac1{2000}$) and then jump straight to
-$x=1$. The last subinterval $[\tfrac{999}{2000},1]$ has width $1-\tfrac{999}{2000}=
-\tfrac{1001}{2000}>\tfrac12$, so $\norm P>\tfrac12$ despite $1000$ partition points.
+\wsol Put $999$ points crammed into $[0,\tfrac12]$ (say $x_i=\tfrac{i}{1996}$ for
+$i=0,\dots,998$, so $x_{998}=\tfrac12$ and each piece there has width $\tfrac1{1996}$) and
+then jump straight to $x_{999}=1$. The last subinterval $[\tfrac12,1]$ has width $\tfrac12$,
+more than any other piece, so $\norm P=\tfrac12$ despite $1000$ partition points.
 \emph{Check.} Convergence in Definition~\ref{d:riemann@c7} is controlled by $\norm P\to0$, and
 this $P$ does not help at all on $[\tfrac12,1]$ where one fat rectangle remains. \checkmark
 \end{wex}
@@ -11437,7 +11440,8 @@ this $P$ does not help at all on $[\tfrac12,1]$ where one fat rectangle remains.
   (a) $P_1=(-1,0,1,2)$; (b) $P_2=(-1,-1/2,0,1/2,1,3/2,2)$.
 \item Prove that if $f(x)=c$ on $[a,b]$, then its Darboux integral equals $c(b-a)$.
 \item Let $f,g$ be bounded on $I=[a,b]$ with $f(x)\le g(x)$ for all $x$. Show
-  $L(f)\le L(g)$ and $U(f)\le U(g)$.
+  $L(f)\le L(g)$ and $U(f)\le U(g)$. (In these exercises $L(f)=\underline{\int_a^b}f$ and
+  $U(f)=\overline{\int_a^b}f$ are the lower and upper integrals, as in B\&S.)
 \item Let $f$ be bounded on $[a,b]$ and $k>0$. Show $L(kf)=kL(f)$ and $U(kf)=kU(f)$.
 \item Let $f,g,h$ be bounded on $I=[a,b]$ with $f\le g\le h$. Show that if $f,h$ are Darboux
   integrable and $\int_a^b f=\int_a^b h$, then $g$ is Darboux integrable with
@@ -11456,7 +11460,8 @@ this $P$ does not help at all on $[\tfrac12,1]$ where one fat rectangle remains.
 \item Let $f(x)=x^2$ for $0\le x\le1$. For $P_n=(0,1/n,2/n,\dots,(n-1)/n,1)$ calculate
   $L(f,P_n)$ and $U(f,P_n)$ and show $L(f)=U(f)=\tfrac13$. (Use $\sum_{k=1}^m k^2=
   \tfrac16 m(m+1)(2m+1)$.)
-\item Let $P_\eps$ be the partition from the Integrability Criterion. Show that if $P$ is any
+\item Let $P_\eps$ be the partition from Riemann's criterion
+  (Theorem~\ref{t:riemann-crit@c7}). Show that if $P$ is any
   refinement of $P_\eps$, then $U(f,P)-L(f,P)<\eps$.
 \item Write out the proofs that $f$ on $[a,b]$ is Darboux integrable if it is either
   (a) continuous, or (b) monotone.
@@ -11550,10 +11555,18 @@ $f\in\mathcal R[a,b]$.
     \fill[black!8] (axis cs:3,1.65) rectangle (axis cs:4,2.1);
     \draw         (axis cs:3,1.65) rectangle (axis cs:4,2.1);
     \addplot[curve,domain=0:4,samples=2]{0.45*x+0.3};
-    % slide gaps into a single column on the right
-    \draw[densely dashed] (axis cs:4.05,{0.45*0+0.3})--(axis cs:4.2,{0.45*0+0.3});
-    \draw[densely dashed] (axis cs:4.05,{0.45*4+0.3})--(axis cs:4.2,{0.45*4+0.3});
-    \node[right,font=\footnotesize] at (axis cs:4.2,1.15){$f(b)-f(a)$};
+    % slide the four gaps into a single column of width ||P||=1 on the right
+    \draw[densely dashed] (axis cs:1,0.3)--(axis cs:4.8,0.3);
+    \draw[densely dashed] (axis cs:4,2.1)--(axis cs:4.8,2.1);
+    \fill[black!8] (axis cs:4.8,0.3) rectangle (axis cs:5.8,2.1);
+    \draw (axis cs:4.8,0.3) rectangle (axis cs:5.8,2.1);
+    \draw (axis cs:4.8,0.75)--(axis cs:5.8,0.75);
+    \draw (axis cs:4.8,1.2)--(axis cs:5.8,1.2);
+    \draw (axis cs:4.8,1.65)--(axis cs:5.8,1.65);
+    \draw[brc] (axis cs:5.9,2.1)--(axis cs:5.9,0.3)
+      node[midway,right=4pt,font=\footnotesize]{$f(b)-f(a)$};
+    \draw[brc] (axis cs:4.8,2.18)--(axis cs:5.8,2.18)
+      node[midway,above=4pt,font=\footnotesize]{$\norm{P}$};
   \end{axis}
 \end{tikzpicture}\captionof{figure}{For increasing $f$ the gap boxes have total height $f(b)-f(a)$ and common
 width $\norm{P}$; the gap is $\norm{P}\,(f(b)-f(a))$.}
@@ -11561,7 +11574,7 @@ width $\norm{P}$; the gap is $\norm{P}\,(f(b)-f(a))$.}
 
 \subsection*{Finitely many discontinuities}
 
-\begin{theorem}[Repair of finitely many bad points, Rudin 6.10 / B\&S 7.2.9]\label{t:finite-disc@c7}
+\begin{theorem}[Repair of finitely many bad points, Rudin 6.10 / B\&S Exercise 7.2.15]\label{t:finite-disc@c7}
 Let $f$ be bounded on $[a,b]$ and continuous except at finitely many points. Then
 $f\in\mathcal R[a,b]$.
 \end{theorem}
@@ -11579,11 +11592,13 @@ into one $P$,
 By the gap criterion $f\in\mathcal R[a,b]$.
 \end{proof}
 
-\begin{corollary}[Squeeze / continuous-a.e.\ remark]\label{c:lebesgue@c7}
+\begin{corollary}[Continuous-a.e.\ remark]\label{c:lebesgue@c7}
 A bounded $f$ is Riemann integrable on $[a,b]$ if and only if its set of discontinuities
-has \emph{measure zero} (can be covered by intervals of arbitrarily small total length).
+has \emph{measure zero} (can be covered by countably many intervals of arbitrarily small
+total length).
 This is \emph{Lebesgue's criterion}; Theorems~\ref{t:cont-int@c7}--\ref{t:finite-disc@c7} are
-the easy directions. (We state it; the full proof waits for Lebesgue theory.)
+easy special cases of the ``if'' direction. (We state it; the full proof waits for Lebesgue
+theory.)
 \end{corollary}
 
 \begin{theorem}[Composition / Squeeze, Rudin 6.11; B\&S 7.2.3]\label{t:squeeze@c7}
@@ -11597,12 +11612,12 @@ $\int(h_\eps-g_\eps)<\eps$, then $f\in\mathcal R$.
 Let $K=\sup_{[m,M]}\abs\varphi$ and $\eps>0$. By uniform continuity of $\varphi$ pick
 $\delta\le\eps$ with $\abs{s-t}<\delta\imp\abs{\varphi(s)-\varphi(t)}<\eps$. Choose $P$ with
 $U(f,P)-L(f,P)<\delta^2$. Split the indices: $A$ where $M_i-m_i<\delta$ (there
-$\varphi$-oscillation $<\eps$) and $B$ where $M_i-m_i\ge\delta$. On $B$,
+$\varphi$-oscillation $\le\eps$) and $B$ where $M_i-m_i\ge\delta$. On $B$,
 $\delta\sum_{B}\Delta x_i\le\sum_B(M_i-m_i)\Delta x_i<\delta^2$, so
 $\sum_B\Delta x_i<\delta$. Thus the $\varphi\circ f$ gap is
-$\le\eps(b-a)+2K\delta<\eps(b-a+2K)$, which $\to0$ with $\eps$. Apply the gap criterion.
-The Squeeze form follows since $L(g_\eps)\le\underline\int f\le\overline\int f\le U(h_\eps)$
-and $U(h_\eps)-L(g_\eps)\le\int(h_\eps-g_\eps)+\text{(gaps)}<\eps$.
+$\le\eps(b-a)+2K\delta\le\eps(b-a+2K)$, which $\to0$ with $\eps$. Apply the gap criterion.
+The Squeeze form follows since $\int g_\eps\le\underline\int f\le\overline\int f\le\int h_\eps$,
+so $\overline\int f-\underline\int f\le\int(h_\eps-g_\eps)<\eps$.
 \end{proof}
 
 \begin{wex}{$1/x$-type discontinuity tamed (B\&S 7.2.12)}
@@ -11627,8 +11642,8 @@ the integral --- single-point values are invisible. \checkmark
 \end{wex}
 
 \begin{wex}{Thomae's function: integrable despite dense discontinuities}
-Let $f(x)=1/q$ if $x=p/q$ in lowest terms ($q>0$), $f(x)=0$ if $x$ irrational, $f(0)=0$, on
-$[0,1]$. Show $\int_0^1 f=0$.
+Let $f(x)=1/q$ if $x=p/q$ in lowest terms ($q>0$), $f(x)=0$ if $x$ irrational, on $[0,1]$
+(so $f(0)=1$, as $0=0/1$). Show $\int_0^1 f=0$.
 \wrec Trigger: discontinuous at every rational (dense!), yet only ``a little'' at each.
 $L(f,P)=0$ always; we squeeze the upper sum.
 \wsol Since irrationals are dense, $m_i=0$ on every subinterval, so $L(f,P)=0$ and
@@ -11655,9 +11670,9 @@ discontinuous outer function. \checkmark
 \end{wex}
 
 \begin{pitfall}
-``Riemann integrable $\imp$ continuous'' is false (step and Thomae functions). ``Countably
-many discontinuities $\imp$ integrable'' is also false in general --- the Dirichlet
-function is discontinuous at \emph{every} point (uncountably many). The correct dividing
+``Riemann integrable $\imp$ continuous'' is false (step and Thomae functions). ``Bounded
+$\imp$ integrable'' is also false --- the Dirichlet function is bounded but
+discontinuous at \emph{every} point (uncountably many). The correct dividing
 line is Lebesgue's: the discontinuity set must have measure zero.
 \end{pitfall}
 
@@ -11688,8 +11703,8 @@ in $[0,1]$, and so are their complements (e.g.\ all irrationals are non-terminat
 every subinterval $I_i$ contains a point with $f=1$ and a point with $f=0$, giving $M_i=1$,
 $m_i=0$ for every partition. Then $U(f,P)-L(f,P)=\sum 1\cdot\Delta x_i=1$ for all $P$, never
 $<\eps$ for $\eps<1$. So $f\notin\mathcal R[0,1]$. \emph{Check.} This is the Dirichlet
-mechanism (Section~1 worked example) in disguise --- the discontinuity set is all of $[0,1]$,
-which does \emph{not} have measure zero. \checkmark
+mechanism (the Dirichlet worked example of Section~7.1) in disguise --- the discontinuity
+set is all of $[0,1]$, which does \emph{not} have measure zero. \checkmark
 \end{wex}
 
 \begin{wex}{Composition: $\sqrt{\,\cdot\,}$ of an integrable function}
@@ -11715,7 +11730,7 @@ below the rectangle of area $4\cdot2=8$ and $\tfrac{16}{3}\approx5.33<8$, plausi
   $h$ is not Riemann integrable.
 \item Let $H(x)=k$ for $x=1/k$ ($k\in\N$) and $H(x)=0$ elsewhere on $[0,1]$. Use Exercise 1
   (or the gap argument) to show $H$ is not Riemann integrable.
-\item If $a(x)=x$ and $v(x)=x$ and $a(x)\le f(x)\le v(x)$ for all $x\in[0,1]$, does it
+\item If $a(x)=-x$ and $v(x)=x$ and $a(x)\le f(x)\le v(x)$ for all $x\in[0,1]$, does it
   follow from the Squeeze Theorem that $f\in\mathcal R[0,1]$?
 \item If $J$ is any subinterval of $[a,b]$ and $w_J(x)=1$ for $x\in J$, $w_J(x)=0$
   elsewhere, we call $w_J$ an elementary step function. Show every step function is a linear
@@ -11754,7 +11769,7 @@ below the rectangle of area $4\cdot2=8$ and $\tfrac{16}{3}\approx5.33<8$, plausi
 \end{exers}
 
 \begin{exers}{Additional exercises.}
-\item Prove $f(x)=\floor{1/x}$ for $x\in(0,1]$, $f(0)=0$, is integrable on $[0,1]$ despite
+\item Prove $f(x)=1/\floor{1/x}$ for $x\in(0,1]$, $f(0)=0$, is integrable on $[0,1]$ despite
   having infinitely many jumps. (Hint: monotone on $(0,1]$; bound the contribution near $0$.)
 \item Show that if $f,g\in\mathcal R[a,b]$ then $\max(f,g)$ and $\min(f,g)$ are in
   $\mathcal R[a,b]$. (Hint: $\max(f,g)=\tfrac12(f+g+\abs{f-g})$.)
@@ -11806,7 +11821,7 @@ $\dot P$; passing to the limit preserves $\le$.
 
 \subsection*{Additivity over intervals}
 
-\begin{theorem}[Splitting the interval, Rudin 6.12(c) / B\&S 7.2.10]\label{t:additive@c7}
+\begin{theorem}[Splitting the interval, Rudin 6.12(c) / B\&S 7.2.9]\label{t:additive@c7}
 Let $a<c<b$. Then $f\in\mathcal R[a,b]$ iff $f\in\mathcal R[a,c]$ and
 $f\in\mathcal R[c,b]$, and then
 \[
@@ -11822,19 +11837,19 @@ $P''$ on $[c,b]$),
 \[
   U(f,P)=U(f,P')+U(f,P''),\qquad L(f,P)=L(f,P')+L(f,P''),
 \]
-so the gap on $[a,b]$ is the sum of the gaps on the two pieces. Hence the big gap is
-$<\eps$ for some $P$ iff each piece's gap can be made $<\eps/2$. Passing the additive
+so the gap on $[a,b]$ is the sum of the gaps on the two pieces. Hence the big gap can be
+made arbitrarily small iff both pieces' gaps can. Passing the additive
 identity $U=U'+U''$ to the inf (over partitions containing $c$) gives the value formula.
 \end{proof}
 
 \begin{center}
 \begin{tikzpicture}
   \begin{axis}[width=9cm,height=4.3cm,axis lines=middle,xtick={1,2.4,4},
-      xticklabels={$a$,$c$,$b$},ytick=\empty,xmin=0.4,xmax=4.6,ymin=0,ymax=2.4,
+      xticklabels={\strut$a$,\strut$c$,\strut$b$},ytick=\empty,xmin=0.4,xmax=4.6,ymin=0,ymax=2.4,
       enlargelimits=false,clip=false]
-    \addplot[curve,domain=1:4,samples=60]{0.3*sin(deg(2*x))+1.3};
     \addplot[draw=none,fill=black!8,domain=1:2.4,samples=40]{0.3*sin(deg(2*x))+1.3}\closedcycle;
     \addplot[draw=none,fill=black!16,domain=2.4:4,samples=40]{0.3*sin(deg(2*x))+1.3}\closedcycle;
+    \addplot[curve,domain=1:4,samples=60]{0.3*sin(deg(2*x))+1.3};
     \node at (axis cs:1.7,0.55){\footnotesize$\int_a^c$};
     \node at (axis cs:3.2,0.55){\footnotesize$\int_c^b$};
   \end{axis}
@@ -11847,9 +11862,9 @@ $[c,b]$.}
 \begin{theorem}[Triangle inequality for integrals, Rudin 6.13(b) / B\&S 7.1.5(c)]\label{t:abs-int@c7}
 If $f\in\mathcal R[a,b]$ then $\abs f\in\mathcal R[a,b]$ and
 \[
-  \abs[\Big]{\int_a^b f}\le\int_a^b\abs f .
+  \Bigl|\int_a^b f\Bigr|\le\int_a^b\abs f .
 \]
-If also $\abs f\le M$, then $\abs[\big]{\int_a^b f}\le M(b-a)$.
+If also $\abs f\le M$, then $\bigl|\int_a^b f\bigr|\le M(b-a)$.
 \end{theorem}
 \begin{proof}
 $\abs f=\varphi\circ f$ with $\varphi(t)=\abs t$ continuous, so $\abs f\in\mathcal R$ by
@@ -11874,7 +11889,7 @@ $fg\in\mathcal R$ by linearity.
 \begin{theorem}[Cauchy--Schwarz for integrals, B\&S 7.3.21]\label{t:cs@c7}
 For $f,g\in\mathcal R[a,b]$,
 \[
-  \abs[\Big]{\int_a^b fg}\le\Bigl(\int_a^b f^2\Bigr)^{1/2}\Bigl(\int_a^b g^2\Bigr)^{1/2}.
+  \Bigl|\int_a^b fg\Bigr|\le\Bigl(\int_a^b f^2\Bigr)^{1/2}\Bigl(\int_a^b g^2\Bigr)^{1/2}.
 \]
 \end{theorem}
 \begin{proof}
@@ -11895,7 +11910,8 @@ tagged partitions with $\norm{\dot P_n}\to0$ we have $S(f,\dot P_n)\to L$.
 $\norm{\dot P_n}<\delta_\eps$. ($\Leftarrow$) Contrapositive: if $f\notin\mathcal R$, then
 for some $\eps_0$ and every $n$ there are tagged partitions $\dot P_n,\dot Q_n$ of mesh
 $<1/n$ with $\abs{S(f,\dot P_n)-S(f,\dot Q_n)}\ge\eps_0$; these cannot both converge to a
-common limit. (This is B\&S Exercise 7.2.1.)
+common limit. (This is B\&S Exercise 7.2.1.) So $f\in\mathcal R$, and then
+$S(f,\dot P_n)\to\int_a^b f$ by ($\Rightarrow$), whence $\int_a^b f=L$.
 \end{proof}
 
 \begin{wex}{A limit of sums via the integral}
@@ -11913,9 +11929,9 @@ $\pi/4\approx0.785$. \checkmark
 If $f$ is continuous, $f\ge0$ on $[a,b]$, and $\int_a^b f=0$, show $f\equiv0$.
 \wrec Trigger: ``zero integral of a nonnegative continuous function.'' Use a strict
 positivity bump.
-\wsol Suppose $f(c)>0$ for some $c$. By continuity there is a subinterval $[c-\eta,c+\eta]
-\subseteq[a,b]$ on which $f\ge f(c)/2>0$. Splitting the integral and using
-nonnegativity elsewhere,
+\wsol Suppose $f(c)>0$ for some $c$ (by continuity we may take $a<c<b$). By continuity
+there is a subinterval $[c-\eta,c+\eta]\subseteq[a,b]$ on which $f\ge f(c)/2>0$. Splitting
+the integral and using nonnegativity elsewhere,
 $\int_a^b f\ge\int_{c-\eta}^{c+\eta}f\ge\frac{f(c)}{2}\cdot2\eta>0$, contradicting
 $\int_a^b f=0$. Hence $f\equiv0$. \emph{Caution:} continuity is essential --- a function
 that is $0$ except at one point also has integral $0$ but is not $\equiv0$ (B\&S 7.2.9).
@@ -11960,7 +11976,7 @@ $\tfrac12\le\frac{1}{1+x^4}\le 1$. Integrating these constants over $[0,1]$,
 \[
   \tfrac12=\int_0^1\tfrac12\dx\le\int_0^1\frac{dx}{1+x^4}\le\int_0^1 1\dx=1 .
 \]
-\emph{Check.} The true value is about $0.866$, comfortably inside $[\tfrac12,1]$. The lower
+\emph{Check.} The true value is about $0.867$, comfortably inside $[\tfrac12,1]$. The lower
 bound is loose because $1+x^4$ is near $1$ over most of $[0,1]$, so the integrand stays
 close to its upper bound. \checkmark
 \end{wex}
@@ -11977,7 +11993,7 @@ $x\equiv\lambda$ constant, which fails; the strict inequality $\tfrac14<\tfrac13
 exactly that $x$ is not constant. \checkmark
 \end{wex}
 
-\begin{wex}{NON-example: monotonicity needs the inequality everywhere}
+\begin{wex}{NON-example: monotonicity does not need the inequality everywhere}
 Suppose $f(x)\le g(x)$ holds for all $x\in[0,1]$ \emph{except} at $x=\tfrac12$, where
 $f(\tfrac12)=10>g(\tfrac12)=0$. Does $\int_0^1 f\le\int_0^1 g$ still follow, and is the
 hypothesis of Theorem~\ref{t:linear@c7} really violated?
@@ -11995,7 +12011,8 @@ hypotheses can be weakened to ``almost everywhere'' for the integral's order pro
 \begin{exers}{Additional exercises.}
 \item Prove $\abs{\int_a^b f}\le\int_a^b\abs f$ and characterize equality (for continuous
   $f$): equality holds iff $f$ does not change sign on $[a,b]$.
-\item Show that if $f\in\mathcal R[a,b]$, $m\le f\le M$, and $\varphi$ is convex on $[m,M]$,
+\item Show that if $f\in\mathcal R[a,b]$, $m\le f\le M$, and $\varphi$ is convex and
+  continuous on $[m,M]$,
   then $\varphi(\frac{1}{b-a}\int_a^b f)\le\frac{1}{b-a}\int_a^b\varphi\circ f$ (Jensen's
   inequality for integrals).
 \item Prove that for $f,g\in\mathcal R[a,b]$, $\int_a^b\abs{fg}\le(\int_a^b f^2)^{1/2}
@@ -12032,7 +12049,9 @@ $x\in[a,b]$ (except possibly a finite set, where $F$ is still continuous). Then
 \end{theorem}
 \begin{proof}
 Let $\eps>0$ and (by the gap criterion) pick a partition $P=\set{x_0,\dots,x_n}$ with
-$U(f,P)-L(f,P)<\eps$. On each $[x_{i-1},x_i]$ the Mean Value Theorem for $F$ gives a point
+$U(f,P)-L(f,P)<\eps$ that contains the finitely many exceptional points (adding points
+only shrinks the gap), so $F$ is differentiable inside each $[x_{i-1},x_i]$. On each
+$[x_{i-1},x_i]$ the Mean Value Theorem for $F$ then gives a point
 $t_i\in(x_{i-1},x_i)$ with
 \[
   F(x_i)-F(x_{i-1})=F'(t_i)\,\Delta x_i=f(t_i)\,\Delta x_i .
@@ -12090,19 +12109,20 @@ $F'(c)=f(c)$.
       xtick={1,3},xticklabels={$a$,$x$},ytick=\empty,
       xmin=0.4,xmax=4.4,ymin=0,ymax=1.9,enlargelimits=false,clip=false,
       ylabel={\footnotesize$f$}]
-    \addplot[curve,domain=1:4,samples=60]{0.5+0.5*sin(deg(1.1*x))+0.4};
     \addplot[draw=none,fill=black!10,domain=1:3,samples=40]
       {0.5+0.5*sin(deg(1.1*x))+0.4}\closedcycle;
+    \addplot[curve,domain=1:4,samples=60]{0.5+0.5*sin(deg(1.1*x))+0.4};
     \node at (axis cs:2,0.45){\footnotesize$F(x)=\int_a^x f$};
   \end{axis}
   \begin{axis}[name=bot,at={(top.below south west)},anchor=above north west,yshift=-0.2cm,
       width=8.5cm,height=3.6cm,axis lines=middle,
       xtick={1,3},xticklabels={$a$,$x$},ytick=\empty,
-      xmin=0.4,xmax=4.4,ymin=0,ymax=2.8,enlargelimits=false,clip=false,
+      xmin=0.4,xmax=4.4,ymin=0,ymax=3.3,enlargelimits=false,clip=false,
       ylabel={\footnotesize$F$}]
     % F is increasing where f>0; slope of F at x equals f(x)
-    \addplot[curve,domain=1:4,samples=60]{(x-1)*0.9+0.3*(1-cos(deg(1.1*x))+cos(deg(1.1)))};
-    \draw[densely dashed] (axis cs:3,0)--(axis cs:3,2.1);
+    % F(x)=int_1^x (0.9+0.5 sin(1.1t)) dt, so F(a)=0 and F'=f exactly
+    \addplot[curve,domain=1:4,samples=60]{0.9*(x-1)+(0.5/1.1)*(cos(deg(1.1))-cos(deg(1.1*x)))};
+    \draw[densely dashed] (axis cs:3,0)--(axis cs:3,2.455);
     \node[right,font=\footnotesize] at (axis cs:3,1.5){slope $=f(x)$};
   \end{axis}
 \end{tikzpicture}\captionof{figure}{Top: $F(x)$ is the shaded area up to $x$. Bottom: the area function $F$; its
@@ -12189,22 +12209,20 @@ near $t=1$ at $\sqrt2\approx1.41$, so an area $\approx0.4$ is plausible. \checkm
 \end{wex}
 
 \begin{wex}{No such function (B\&S 7.3.14)}
-Show there is no continuously differentiable $f$ on $[0,2]$ with $f(0)=1$, $f(2)=4$, and
+Show there is no continuously differentiable $f$ on $[0,2]$ with $f(0)=-1$, $f(2)=4$, and
 $f'(x)\le2$ everywhere.
 \wrec Trigger: a constraint on $f'$ that contradicts the net change via FTC.
 \wsol By FTC~I, $f(2)-f(0)=\int_0^2 f'$. If $f'\le2$, monotonicity gives
-$\int_0^2 f'\le2\cdot2=4$, so $f(2)-f(0)\le4$. But $f(2)-f(0)=4-1=3\le4$ --- that is
-\emph{not} a contradiction. Re-read: the requirement is $f'(x)\le2$, average slope is
-$3/2\le2$, so such $f$ \emph{does} exist (e.g.\ $f(x)=1+\tfrac32 x$). The genuine
-impossibility (the intended exercise) is $f(0)=1$, $f(2)=4$, $f'\le1$: then
-$\int_0^2 f'\le2<3=f(2)-f(0)$, impossible. \emph{Lesson.} FTC turns a pointwise derivative
-bound into a bound on net change; check the arithmetic of the average slope. \checkmark
+$\int_0^2 f'\le2\cdot2=4$, so $f(2)-f(0)\le4$. But $f(2)-f(0)=4-(-1)=5>4$, a
+contradiction; so no such $f$ exists. \emph{Lesson.} FTC turns a pointwise derivative
+bound into a bound on net change; check the arithmetic of the average slope (here
+$5/2>2$). \checkmark
 \end{wex}
 
 \begin{pitfall}
 FTC~II gives $F'(c)=f(c)$ \emph{only at points of continuity} of $f$. If $f$ has a jump at
 $c$, then $F$ has a corner there and $F'(c)$ may not exist (one-sided derivatives equal the
-one-sided values of $f$). And FTC~I needs $f$ \emph{integrable}: a derivative $F'$ need not
+one-sided limits of $f$). And FTC~I needs $f$ \emph{integrable}: a derivative $F'$ need not
 be Riemann integrable (there exist differentiable $F$ with bounded, non-integrable $F'$),
 in which case $\int_a^b F'$ is not even defined though $F(b)-F(a)$ is.
 \end{pitfall}
@@ -12286,7 +12304,7 @@ right of the midpoint $1.5$ because $x^2$ is convex (more area piles up near the
   continuous, evaluate $F'$ where it exists, and use this to evaluate $\int_a^b\floor{x}\dx$
   for $0\le a<b$.
 \item Let $f\in\mathcal R[a,b]$ and $F(x)=\int_a^x f$. (a) Evaluate $G(x)=\int_c^x f$ in
-  terms of $F$. (b) Evaluate $H(x)=\int_x^b f$ in terms of $F$. (c) Evaluate
+  terms of $F$, where $c\in[a,b]$. (b) Evaluate $H(x)=\int_x^b f$ in terms of $F$. (c) Evaluate
   $S(x)=\int_x^{\sin x}f$ in terms of $F$.
 \item Let $f$ be continuous on $[a,b]$ and $v:[c,d]\to\R$ differentiable with
   $v([c,d])\subseteq[a,b]$. If $G(x)=\int_a^{v(x)}f$, show $G'(x)=f(v(x))v'(x)$ for all
@@ -12307,7 +12325,7 @@ right of the midpoint $1.5$ because $x^2$ is convex (more area piles up near the
 \item Prove the Substitution Theorem: with $F(u)=\int_{w(a)}^u f(x)\dx$ and $H(t)=F(w(t))$,
   show $H'(t)=f(w(t))w'(t)$ and hence $\int_{w(a)}^{w(b)}f=\int_a^b f(w(t))w'(t)\dt$.
 \item Use the Substitution Theorem to evaluate (a) $\int_0^1 t^2(1+t^3)^{1/2}\dt$;
-  (b) $\int_0^2 t(1+t^2)^{1/2}\dt$ (and verify $=4/3$ on a suitable interval);
+  (b) $\int_0^2 t^2(1+t^3)^{-1/2}\dt=4/3$;
   (c) $\int_1^4\frac{\sqrt{1+\sqrt t}}{\sqrt t}\dt$; (d)
   $\int_1^4\frac{\cos\sqrt t}{\sqrt t}\dt=2(\sin2-\sin1)$.
 \item Explain why the Substitution Theorem cannot be applied to evaluate, with the indicated
@@ -12337,7 +12355,7 @@ right of the midpoint $1.5$ because $x^2$ is convex (more area piles up near the
 \item Show FTC~II's conclusion $F'(c)=f(c)$ can fail at a jump of $f$: take $f$ the step
   function $0$ on $[0,1)$, $1$ on $[1,2]$, compute $F(x)=\int_0^x f$, and examine $F'(1)$.
 \item Let $f$ be continuous on $[0,\infty)$ with $\lim_{x\to\infty}f(x)=L$. Show
-  $\frac1x\int_0^x f\to L$ as $x\to\infty$ (Cesaro mean of an integral).
+  $\frac1x\int_0^x f\to L$ as $x\to\infty$ (Ces\`aro mean of an integral).
 \item (Diagram.) Plot $f(x)=\cos x$ and its area function $F(x)=\int_0^x\cos=\sin x$ on
   $[0,2\pi]$ in stacked panels; mark where $F$ has horizontal tangents and verify these are
   the zeros of $f$.
@@ -12387,7 +12405,7 @@ flat, the integrand is ignored. The ordinary integral uses the trivial ruler $\a
 which weights every unit of length equally. Replacing length by $\Delta\alpha_i$ lets one
 integrator describe mass distributions, probability, and discrete sums all at once.
 
-Every theorem of \S1--\S3 generalizes verbatim, because $\Delta\alpha_i\ge0$ plays the role
+The Darboux machinery of \S1--\S3 generalizes verbatim, because $\Delta\alpha_i\ge0$ plays the role
 of $\Delta x_i$: refinement still shrinks the gap, lower $\le$ upper, and the gap criterion
 holds.
 
@@ -12402,8 +12420,11 @@ and it is \emph{also} linear in $\alpha$: for increasing $\alpha_1,\alpha_2$ and
 \]
 \end{theorem}
 \begin{proof}
-The criterion and the $f$-properties are the proofs of \S1--\S3 with $\Delta x_i$ replaced
-by $\Delta\alpha_i\ge0$ throughout (nonnegativity is all that was used). Linearity in
+The criterion and the $f$-properties follow as in \S1--\S3 with $\Delta x_i$ replaced
+by $\Delta\alpha_i\ge0$ throughout (nonnegativity is all that was used), arguing with upper
+and lower sums rather than tagged sums; e.g.\ linearity comes from
+$U(f+g,P,\alpha)\le U(f,P,\alpha)+U(g,P,\alpha)$ and
+$L(f+g,P,\alpha)\ge L(f,P,\alpha)+L(g,P,\alpha)$. Linearity in
 $\alpha$ is immediate from $\Delta(\alpha_1+\alpha_2)_i=\Delta\alpha_{1,i}+\Delta
 \alpha_{2,i}$ at the level of sums, passed to the sup/inf.
 \end{proof}
@@ -12419,7 +12440,7 @@ $\norm P<\delta$, $M_i-m_i\le\eta$, so
 $U-L\le\eta\sum\Delta\alpha_i=\eta(\alpha(b)-\alpha(a))<\eps$. (Monotone $f$, continuous
 $\alpha$.) Choose $P$ so that each $\Delta\alpha_i=(\alpha(b)-\alpha(a))/n$ (possible since
 $\alpha$ is continuous, by IVT); telescoping the $f$-heights gives
-$U-L=\frac{\alpha(b)-\alpha(a)}{n}(f(b)-f(a))\to0$.
+$U-L=\frac{\alpha(b)-\alpha(a)}{n}\abs{f(b)-f(a)}\to0$.
 \end{proof}
 
 \subsection*{Reduction to a Riemann integral}
@@ -12456,9 +12477,9 @@ $[a,b]$ and continuous at $s$, then $f\in\mathcal R(\alpha)$ and
 \]
 \end{theorem}
 \begin{proof}
-$\Delta\alpha_i=0$ on every subinterval except the one containing $s$ as an interior or
-endpoint, where $\Delta\alpha=1$. So $U(f,P,\alpha)=M_k$ and $L(f,P,\alpha)=m_k$ for the
-subinterval $I_k\ni s$. As $\norm P\to0$ and $f$ is continuous at $s$, both $M_k,m_k\to
+$\Delta\alpha_i=0$ on every subinterval except the one $I_k=[x_{k-1},x_k]$ with
+$x_{k-1}\le s<x_k$, where $\Delta\alpha_k=1$. So $U(f,P,\alpha)=M_k$ and
+$L(f,P,\alpha)=m_k$ for this subinterval $I_k\ni s$. As $\norm P\to0$ and $f$ is continuous at $s$, both $M_k,m_k\to
 f(s)$, squeezing $\int f\,d\alpha=f(s)$.
 \end{proof}
 
@@ -12470,10 +12491,14 @@ $s_k\in[a,b]$ ($k=1,\dots,N$). If $f$ is continuous at each $s_k$, then
 \]
 \end{theorem}
 \begin{proof}
-Write $\alpha=\sum_k c_k\,I(x-s_k)$ (plus a constant, which contributes nothing). By
-linearity in $\alpha$ (Theorem~\ref{t:rs-basic@c7}) and the single-jump formula
-(Theorem~\ref{t:rs-jump@c7}), $\int f\,d\alpha=\sum_k c_k\int f\,dI(\cdot-s_k)=\sum_k c_k
-f(s_k)$.
+Write $\alpha=\alpha(a)+\sum_k\alpha_k$, where $\alpha_k$ carries the jump at $s_k$: it is
+increasing, constant on each side of $s_k$, and rises by $c_k$ there (for instance
+$\alpha_k=c_k\,I(x-s_k)$ if $a<s_k<b$ and $\alpha$ is left-continuous at $s_k$); the constant
+$\alpha(a)$ contributes nothing. By linearity in $\alpha$ (Theorem~\ref{t:rs-basic@c7}) it
+suffices to show $\int f\,d\alpha_k=c_kf(s_k)$, and the argument of
+Theorem~\ref{t:rs-jump@c7} gives this: the increments of $\alpha_k$ vanish except on the (at
+most two) subintervals touching $s_k$, where they add up to $c_k$, and there
+$M_i,m_i\to f(s_k)$ as $\norm P\to0$.
 \end{proof}
 
 \begin{center}
@@ -12481,10 +12506,11 @@ f(s_k)$.
   \begin{axis}[width=10cm,height=5cm,axis lines=middle,
       xlabel=$x$,ylabel={$\alpha$},
       xtick={1,2,3},xticklabels={$s_1$,$s_2$,$s_3$},
-      ytick={0.5,1.3,2.2},yticklabels={$c_1$,$+c_2$,$+c_3$},
+      ytick={0.5,1.3,2.2},yticklabels={$c_1$,$c_1+c_2$,$c_1+c_2+c_3$},
       xmin=0,xmax=4.2,ymin=0,ymax=2.7,enlargelimits=false,clip=false]
-    % staircase integrator
-    \addplot[curve] coordinates {(0,0)(1,0)(1,0.5)(2,0.5)(2,1.3)(3,1.3)(3,2.2)(4,2.2)};
+    % staircase integrator (horizontal steps solid; the jumps are the dashed segments below)
+    \draw[curve] (axis cs:0,0)--(axis cs:1,0) (axis cs:1,0.5)--(axis cs:2,0.5)
+      (axis cs:2,1.3)--(axis cs:3,1.3) (axis cs:3,2.2)--(axis cs:4,2.2);
     \addplot[only marks,mark=*,mark size=1.4pt] coordinates {(1,0.5)(2,1.3)(3,2.2)};
     \addplot[only marks,mark=o,mark size=1.4pt] coordinates {(1,0)(2,0.5)(3,1.3)};
     \draw[densely dashed] (axis cs:1,0)--(axis cs:1,0.5);
@@ -12499,15 +12525,16 @@ weighted sum.}
 \end{center}
 
 \begin{remark}[Series as Stieltjes integrals]
-With $a=0$, $\alpha(x)=\sum_{n\le x}c_n$ a jump of $c_n=a_n\ge0$ at each integer $n$, and
-$f$ continuous, $\int_0^N f\,d\alpha=\sum_{n=1}^N a_n f(n)$. Series and integrals are one
+With $a=0$, $\alpha(x)=\sum_{1\le n\le x}a_n$ (a jump of $a_n\ge0$ at each integer
+$n\ge1$), and $f$ continuous, $\int_0^N f\,d\alpha=\sum_{n=1}^N a_n f(n)$. Series and integrals are one
 theory; the integrator records ``how much weight'' sits at each point.
 \end{remark}
 
 \subsection*{Stieltjes integration by parts and change of variable}
 
 \begin{theorem}[Stieltjes integration by parts, Rudin 6.22 form]\label{t:rs-parts@c7}
-If $f\in\mathcal R(\alpha)$ on $[a,b]$ then $\alpha\in\mathcal R(f)$ and
+Let $f$ and $\alpha$ be increasing on $[a,b]$ (so either can serve as the integrator). If
+$f\in\mathcal R(\alpha)$ then $\alpha\in\mathcal R(f)$ and
 \[
   \int_a^b f\,d\alpha+\int_a^b\alpha\,df=f(b)\alpha(b)-f(a)\alpha(a).
 \]
@@ -12548,7 +12575,7 @@ Let $\alpha$ jump by $1$ at $x=1$ and by $2$ at $x=3$, constant elsewhere. Compu
 $\int_0^4 x^2\,d\alpha$.
 \wrec Trigger: step integrator; the integral is a weighted sum of $f$ at the jumps.
 \wsol By Theorem~\ref{t:rs-step@c7}, $\int_0^4 x^2\,d\alpha=1\cdot f(1)+2\cdot f(3)
-=1\cdot1+2\cdot9=19$. \emph{Check.} This is exactly the expectation
+=1\cdot1+2\cdot9=19$. \emph{Check.} This is exactly the weighted sum
 $\sum c_k f(s_k)$ --- the integral never ``sees'' $f$ between the jumps. \checkmark
 \end{wex}
 
@@ -12557,7 +12584,7 @@ Let $\alpha(x)=x+I(x-1)$ on $[0,2]$ (slope $1$ everywhere plus a unit jump at $1
 $\int_0^2 f\,d\alpha$ for continuous $f$.
 \wrec Trigger: $\alpha$ splits as continuous part $+$ step part; use linearity in $\alpha$.
 \wsol $\int_0^2 f\,d\alpha=\int_0^2 f\,dx+\int_0^2 f\,dI(x-1)=\int_0^2 f(x)\dx+f(1)$.
-\emph{Check.} For $f\equiv1$ this is $2+1=3=\alpha(2^+)-\alpha(0)=(2+1)-0$, matching the
+\emph{Check.} For $f\equiv1$ this is $2+1=3=\alpha(2)-\alpha(0)=(2+1)-0$, matching the
 total increase of $\alpha$. \checkmark
 \end{wex}
 
@@ -12566,7 +12593,7 @@ The integrator must be increasing (or of bounded variation) for the theory to be
 non-monotone $\alpha$ can make $\Delta\alpha_i<0$ and break the sup/inf squeeze. Also, in
 Theorem~\ref{t:rs-jump@c7} continuity of $f$ \emph{at the jump} is required: if $f$ and
 $\alpha$ are both discontinuous at the same point, $\int f\,d\alpha$ may not exist (Rudin
-6.14). Jumps of $f$ and of $\alpha$ must not coincide.
+Exercise 6.3). Jumps of $f$ and of $\alpha$ should not coincide.
 \end{pitfall}
 
 \subsection*{Further worked examples}
@@ -12610,8 +12637,8 @@ Let $\alpha(x)=I(x)$ (unit jump at $0$) and $f(x)=I(x)$ as well, on $[-1,1]$. Sh
 $\int_{-1}^1 f\,d\alpha$ does not exist.
 \wrec Trigger: the pitfall that $f$ and $\alpha$ may not jump at the same point
 (Theorem~\ref{t:rs-jump@c7} needs $f$ continuous \emph{at} the jump of $\alpha$).
-\wsol For any partition, $\Delta\alpha_i=1$ only on the subinterval $I_k$ that contains $0$,
-and $0$ otherwise. On that $I_k=[x_{k-1},x_k]$ we have $f=0$ for $x\le0$ and $f=1$ for $x>0$,
+\wsol For any partition, $\Delta\alpha_i=1$ only on the subinterval $I_k$ with
+$x_{k-1}\le0<x_k$, and $0$ otherwise. On that $I_k=[x_{k-1},x_k]$ we have $f=0$ for $x\le0$ and $f=1$ for $x>0$,
 so $m_k=0$ and $M_k=1$ no matter how fine $P$ is (the jump of $f$ sits exactly at the jump
 of $\alpha$). Hence $L(f,P,\alpha)=0$ and $U(f,P,\alpha)=1$ for \emph{every} $P$, giving a
 permanent gap of $1$. So $\underline\int f\,d\alpha=0\ne1=\overline\int f\,d\alpha$ and the
@@ -12640,7 +12667,7 @@ exactly what rules this out. \checkmark
 \item Let $P$ be the Cantor set (Rudin \S2.44). Let $f$ be a bounded real function on
   $[0,1]$ that is continuous at every point outside $P$. Prove $f\in\mathcal R$ on $[0,1]$.
   (Hint: $P$ is covered by finitely many segments of arbitrarily small total length;
-  proceed as in Theorem 6.10.)
+  proceed as in Theorem~\ref{t:finite-disc@c7}, i.e.\ Rudin 6.10.)
 \item Suppose $f$ is a real function on $(0,1]$ and $f\in\mathcal R$ on $[c,1]$ for every
   $c>0$. Define $\int_0^1 f=\lim_{c\to0}\int_c^1 f$ when this finite limit exists. (a) If
   $f\in\mathcal R$ on $[0,1]$, show this agrees with the usual integral. (b) Construct $f$
@@ -12659,7 +12686,7 @@ exactly what rules this out. \checkmark
   $f,g\in\mathcal R(\alpha)$, $f,g\ge0$, and $\int_a^b f^p\,d\alpha=\int_a^b g^q\,d\alpha=1$,
   then $\int_a^b fg\,d\alpha\le1$. (c) For complex $f,g\in\mathcal R(\alpha)$,
   $\abs{\int fg\,d\alpha}\le(\int\abs f^p\,d\alpha)^{1/p}(\int\abs g^q\,d\alpha)^{1/q}$
-  (Holder's inequality; $p=q=2$ is Schwarz). (d) Show Holder's inequality also holds for
+  (H\"older's inequality; $p=q=2$ is Schwarz). (d) Show H\"older's inequality also holds for
   the improper integrals of Exercises 7 and 8.
 \item Let $\alpha$ be a fixed increasing function on $[a,b]$. For $u\in\mathcal R(\alpha)$
   define $\norm{u}_2=(\int_a^b\abs u^2\,d\alpha)^{1/2}$. Suppose $f,g,h\in\mathcal R(\alpha)$
@@ -12671,7 +12698,8 @@ exactly what rules this out. \checkmark
 \item Define $f(x)=\int_x^{x+1}\sin(t^2)\dt$. (a) Prove $\abs{f(x)}<1/x$ for $x>0$. (Hint:
   put $t^2=u$ and integrate by parts to show $f(x)=\frac{\cos(x^2)}{2x}
   -\frac{\cos((x+1)^2)}{2(x+1)}-\int_{x^2}^{(x+1)^2}\frac{\cos u}{4u^{3/2}}\,du$; bound
-  $\cos u$ by $1$.) (b) Prove $2xf(x)=\cos(x^2)-\cos((x+1)^2)+r(x)$ with $\abs{r(x)}<c/x$.
+  $\cos u$ by $1$.) (b) Prove $2xf(x)=\cos(x^2)-\cos((x+1)^2)+r(x)$ with $\abs{r(x)}<c/x$ for some
+  constant $c$.
   (c) Find the upper and lower limits of $xf(x)$ as $x\to\infty$. (d) Does
   $\int_0^\infty\sin(t^2)\dt$ converge?
 \item Deal similarly with $f(x)=\int_x^{x+1}\sin(e^t)\dt$. Show $e^x\abs{f(x)}<2$ and that
@@ -12710,7 +12738,7 @@ exactly what rules this out. \checkmark
   compute both $\int_0^2 f\,d\alpha$ and $\int_0^2\alpha\,df$ and check the sum equals
   $f(2)\alpha(2)-f(0)\alpha(0)$.
 \item (Non-example.) Let $f=\alpha=I(x)$ (both with a jump at $0$) on $[-1,1]$. Show
-  $\int_{-1}^1 f\,d\alpha$ does not exist, illustrating that $f$ and $\alpha$ must not be
+  $\int_{-1}^1 f\,d\alpha$ does not exist, illustrating that $f$ and $\alpha$ should not be
   discontinuous at the same point.
 \item Express $\sum_{n=1}^N a_n g(n)$ as a Riemann--Stieltjes integral $\int_0^N g\,d\alpha$
   for a suitable step integrator $\alpha$, and use this to give a Stieltjes proof of Abel
@@ -12749,13 +12777,13 @@ $\Rk$ is needed):
 If $\mathbf f\in\mathcal R(\alpha)$ on $[a,b]$ then $\norm{\mathbf f}\in\mathcal R(\alpha)$
 and
 \[
-  \norm[\Big]{\int_a^b\mathbf f\,d\alpha}\le\int_a^b\norm{\mathbf f}\,d\alpha,
+  \norm{\int_a^b\mathbf f\,d\alpha}\le\int_a^b\norm{\mathbf f}\,d\alpha,
 \]
 where $\norm{\cdot}$ is the Euclidean norm.
 \end{theorem}
 \begin{proof}
-Put $\mathbf y=\int_a^b\mathbf f\,d\alpha=(y_1,\dots,y_k)$. Each $\abs{f_j}\le
-\norm{\mathbf f}$, so $\norm{\mathbf f}=(\sum f_j^2)^{1/2}\in\mathcal R(\alpha)$ as a
+Put $\mathbf y=\int_a^b\mathbf f\,d\alpha=(y_1,\dots,y_k)$. Each $f_j^2\in\mathcal R(\alpha)$,
+so $\norm{\mathbf f}=(\sum f_j^2)^{1/2}\in\mathcal R(\alpha)$ as a
 continuous function of integrable functions. If $\mathbf y=\mathbf 0$ the claim is trivial.
 Otherwise,
 \[
@@ -12783,8 +12811,8 @@ The \emph{length} of $\gamma$ is $\Lambda(\gamma)=\sup_P\Lambda(P,\gamma)$. The 
 
 Each term is a chord; $\Lambda(P,\gamma)$ is the length of the inscribed polygon. Refining
 $P$ can only \emph{increase} $\Lambda(P,\gamma)$ (triangle inequality: a straight chord is
-no longer than the broken path through an inserted point), so the sup is a genuine limit as
-$\norm P\to0$.
+no longer than the broken path through an inserted point), so, $\gamma$ being uniformly
+continuous, the sup is a genuine limit as $\norm P\to0$.
 
 \begin{center}
 \begin{tikzpicture}[scale=1.1]
@@ -12818,7 +12846,7 @@ $\Lambda(\gamma)\le\int_a^b\norm{\gamma'}$. For the reverse, fix $\eps>0$; unifo
 continuity of $\gamma'$ gives $\delta$ with $\norm{\gamma'(s)-\gamma'(t)}<\eps$ when
 $\abs{s-t}<\delta$. For $\norm P<\delta$ and $t\in I_i$,
 \[
-  \norm{\gamma'(t)}\Delta x_i\le\norm[\Big]{\int_{I_i}\gamma'}+ \int_{I_i}\norm{\gamma'(t)-
+  \norm{\gamma'(t)}\Delta x_i\le\norm{\int_{I_i}\gamma'}+ \int_{I_i}\norm{\gamma'(t)-
   \gamma'(s)}\,ds\le\norm{\gamma(x_i)-\gamma(x_{i-1})}+\eps\,\Delta x_i .
 \]
 Summing, $\int_a^b\norm{\gamma'}\le\Lambda(P,\gamma)+\eps(b-a)\le\Lambda(\gamma)+\eps(b-a)$.
@@ -12838,11 +12866,11 @@ Find the length of $\gamma(t)=(\cos t,\sin t)$, $t\in[0,2\pi]$.
 \wrec Trigger: smooth curve; apply $\Lambda=\int\norm{\gamma'}$.
 \wsol $\gamma'(t)=(-\sin t,\cos t)$, $\norm{\gamma'(t)}=\sqrt{\sin^2t+\cos^2t}=1$. Hence
 $\Lambda=\int_0^{2\pi}1\dt=2\pi$. \emph{Check.} The unit circle has circumference $2\pi$, as
-expected. (Rudin 6.18: the curve $\gamma_1=e^{2\pi it}$ traversed once has length $2\pi$;
-traversed twice, $4\pi$ --- length counts multiplicity.) \checkmark
+expected. (Rudin Exercise 6.18: the curve $\gamma_1(t)=e^{it}$ traversed once has length
+$2\pi$; traversed twice, $4\pi$ --- length counts multiplicity.) \checkmark
 \end{wex}
 
-\begin{wex}{NON-rectifiable curve (Rudin 6.18 spirit)}
+\begin{wex}{NON-rectifiable curve (Rudin Exercise 6.18 spirit)}
 Show $\gamma(t)=(t,\,t\sin(\pi/t))$ for $t\in(0,1]$, $\gamma(0)=(0,0)$, has infinite length.
 \wrec Trigger: a curve continuous but oscillating with non-summable vertical swings.
 \wsol Take the partition points $t_m=2/(2m+1)$ where $\sin(\pi/t_m)=\pm1$. Between
@@ -12854,9 +12882,9 @@ finite length; $\gamma'$ must be (essentially) integrable. \checkmark
 \end{wex}
 
 \begin{pitfall}
-Length depends on the curve (the map $\gamma$), not merely its image. Rudin 6.18 gives
-three maps with the \emph{same} range (the unit circle) but lengths $2\pi$, $4\pi$, and
-$\infty$. Reparametrizing by a monotone $\varphi$ (Rudin 6.19, B\&S analogue) preserves
+Length depends on the curve (the map $\gamma$), not merely its image. Rudin Exercise 6.18
+gives three maps with the \emph{same} range (the unit circle) but lengths $2\pi$, $4\pi$, and
+$\infty$. Reparametrizing by a monotone $\varphi$ (Rudin Exercise 6.19, B\&S analogue) preserves
 length; reparametrizing so as to retrace or oscillate does not. ``Arc length of a set'' is
 ambiguous; specify the parametrization.
 \end{pitfall}
@@ -12888,9 +12916,9 @@ Theorem~\ref{t:vec-norm@c7}.
 $\int_0^{2\pi}\mathbf f\dt=(0,0)$ and its norm is $0$. But $\norm{\mathbf f(t)}=
 \sqrt{\cos^2t+\sin^2t}=1$, so $\int_0^{2\pi}\norm{\mathbf f}\dt=2\pi$. The inequality reads
 $0\le2\pi$ --- here \emph{strict}. \emph{Lesson.} The integral of a vector can have small
-norm even when the integrand never shrinks, because the directions cancel; a componentwise
-``triangle inequality'' would be false, which is why Theorem~\ref{t:vec-norm@c7} needs the
-Cauchy--Schwarz argument. \checkmark
+norm even when the integrand never shrinks, because the directions cancel; the norm couples
+the components, so the inequality cannot be obtained one component at a time, which is why
+Theorem~\ref{t:vec-norm@c7} needs the Cauchy--Schwarz argument. \checkmark
 \end{wex}
 
 \begin{wex}{Length is reparametrization-invariant}
@@ -12917,7 +12945,7 @@ $u=1$ but never backtracks, so total distance is preserved. \checkmark
   }
   \draw[densely dashed] (Q0)--(Q30)--(Q60)--(Q90);
   \node[font=\footnotesize] at (1.9,1.9){$\gamma$};
-  \node[font=\footnotesize,anchor=west] at (0.1,0.55){inscribed chords};
+  \node[font=\footnotesize,anchor=east] at (1.6,0.55){inscribed chords};
 \end{tikzpicture}\captionof{figure}{Inscribed chords of a quarter circle (radius $2$): summing the chord lengths
 $\norm{\gamma(x_i)-\gamma(x_{i-1})}$ and refining converges up to the arc length
 $\int\norm{\gamma'}=2\cdot\tfrac\pi2=\pi$.}
@@ -12940,7 +12968,7 @@ $\int\norm{\gamma'}=2\cdot\tfrac\pi2=\pi$.}
 \item (Diagram.) Draw a smooth arc with an inscribed polygon on a $5$-point partition;
   shade one chord and label its length $\norm{\gamma(x_i)-\gamma(x_{i-1})}$, and indicate
   how refining increases the polygon length toward $\Lambda(\gamma)$.
-\item Show that the three curves $\gamma_1(t)=e^{it}$, $\gamma_2(t)=e^{2it}$ on $[0,2\pi]$
+\item Show that the two curves $\gamma_1(t)=e^{it}$, $\gamma_2(t)=e^{2it}$ on $[0,2\pi]$
   have the same range (the unit circle) but lengths $2\pi$ and $4\pi$; conclude length is a
   property of the parametrization, not the image.
 \end{exers}
@@ -12965,7 +12993,7 @@ The \emph{midpoint}, \emph{trapezoidal}, and \emph{Simpson} approximations are
 \[
   S_n=\frac h3\bigl(f_0+4f_1+2f_2+4f_3+\cdots+2f_{n-2}+4f_{n-1}+f_n\bigr)\quad(n\text{ even}).
 \]
-$T_n$ averages the left- and right-endpoint sums; $S_n=\tfrac13 T_n+\tfrac23 M_n$ is a
+$T_n$ averages the left- and right-endpoint sums; $S_{2n}=\tfrac13 T_n+\tfrac23 M_n$ is a
 weighted blend (B\&S 7.5.10).
 \end{definition}
 
@@ -12974,7 +13002,6 @@ weighted blend (B\&S 7.5.10).
   \begin{axis}[width=10cm,height=5cm,axis lines=middle,xlabel=$x$,ylabel=$y$,
       xtick={0.6,1.6,2.6,3.6},xticklabels={$x_0$,$x_1$,$x_2$,$x_3$},
       ytick=\empty,xmin=0,xmax=4.2,ymin=0,ymax=2.6,enlargelimits=false,clip=false]
-    \addplot[curve,domain=0.6:3.6,samples=60]{0.25*x*x-0.9*x+1.9};
     % trapezoids: f at nodes 0.6,1.6,2.6,3.6 = 1.45,1.10,1.25,1.90
     \fill[band] (axis cs:0.6,0)--(axis cs:0.6,1.45)--(axis cs:1.6,1.10)--(axis cs:1.6,0)--cycle;
     \fill[band] (axis cs:1.6,0)--(axis cs:1.6,1.10)--(axis cs:2.6,1.25)--(axis cs:2.6,0)--cycle;
@@ -12984,6 +13011,9 @@ weighted blend (B\&S 7.5.10).
     \draw (axis cs:1.6,0)--(axis cs:1.6,1.10);
     \draw (axis cs:2.6,0)--(axis cs:2.6,1.25);
     \draw (axis cs:3.6,0)--(axis cs:3.6,1.90);
+    % the graph of f, drawn last so the shaded trapezoids do not hide it (f is convex, so it
+    % runs below the chords, inside the trapezoids)
+    \addplot[curve,domain=0.6:3.6,samples=60]{0.25*x*x-0.9*x+1.9};
     \node[above,font=\footnotesize] at (axis cs:2.1,2.1){chords approximate $f$};
   \end{axis}
 \end{tikzpicture}\captionof{figure}{Trapezoidal rule: $f$ is replaced on each piece by the chord through its
@@ -12995,7 +13025,7 @@ endpoints; the area is a sum of trapezoids.}
 \begin{theorem}[Trapezoid error, B\&S 7.5.3]\label{t:traperr@c7}
 If $f''$ is continuous on $[a,b]$ and $\abs{f''}\le B_2$, then
 \[
-  \abs[\Big]{T_n-\int_a^b f}\le\frac{(b-a)^3}{12n^2}\,B_2=\frac{(b-a)h^2}{12}\,B_2 .
+  \abs{T_n-\int_a^b f}\le\frac{(b-a)^3}{12n^2}\,B_2=\frac{(b-a)h^2}{12}\,B_2 .
 \]
 \end{theorem}
 \begin{proof}[Idea]
@@ -13006,10 +13036,10 @@ $\abs{\int_{x_{j-1}}^{x_j}e}\le\frac{B_2}{12}h^3$. Summing over the $n$ subinter
 using $nh=b-a$ produces the bound.
 \end{proof}
 
-\begin{theorem}[Simpson error, B\&S 7.5.something / standard]\label{t:simperr@c7}
+\begin{theorem}[Simpson error, cf.\ B\&S \S7.5]\label{t:simperr@c7}
 If $f^{(4)}$ is continuous on $[a,b]$ and $\abs{f^{(4)}}\le B_4$, then (for even $n$)
 \[
-  \abs[\Big]{S_n-\int_a^b f}\le\frac{(b-a)^5}{180n^4}\,B_4=\frac{(b-a)h^4}{180}\,B_4 .
+  \abs{S_n-\int_a^b f}\le\frac{(b-a)^5}{180n^4}\,B_4=\frac{(b-a)h^4}{180}\,B_4 .
 \]
 In particular, Simpson's rule is \emph{exact} for every polynomial of degree $\le3$
 (B\&S 7.5.7), since then $f^{(4)}\equiv0$.
@@ -13056,8 +13086,9 @@ Estimate $\ln2$ with $S_4$ and bound the error.
 $S_4=\frac{1/4}{3}\bigl(1+4(0.8)+2(0.6667)+4(0.5714)+0.5\bigr)\approx0.6933$. Now
 $f^{(4)}(x)=24/x^5$, $\max_{[1,2]}\abs{f^{(4)}}=24$ (at $x=1$), so
 $\abs{S_4-\ln2}\le\frac{(1)^5}{180\cdot256}\cdot24=\frac{24}{46080}\approx0.00052$.
-\emph{Check.} $\abs{0.6933-0.6931}\approx0.0002<0.00052$. Simpson is $\sim20\times$ more
-accurate than trapezoid here for the same data. \checkmark
+\emph{Check.} $\abs{S_4-\ln2}\approx0.69325-0.69315\approx0.0001<0.00052$. Simpson is
+$\sim36\times$ more accurate than trapezoid here for the same data
+($0.00388/0.000107\approx36$). \checkmark
 \end{wex}
 
 \begin{wex}{Simpson is exact on cubics (B\&S 7.5.7)}
@@ -13082,7 +13113,7 @@ does not guarantee a smaller actual error on a particular $f$ --- it bounds the 
 \begin{center}
 \begin{tikzpicture}
   \begin{axis}[width=10cm,height=5cm,axis lines=middle,xlabel=$x$,ylabel=$y$,
-      xtick={0,1,2},xticklabels={$x_0$,$x_1$,$x_2$},ytick=\empty,
+      xtick={0,1,2},xticklabels={$x_0$,$x_1$,$x_2$},ytick=\empty,hide obscured x ticks=false,
       xmin=-0.2,xmax=2.4,ymin=0,ymax=2.6,enlargelimits=false,clip=false]
     \def\fa{(0.4*x*x-0.7*x+1.6)}
     % shade region under interpolating parabola = simpson estimate
@@ -13133,10 +13164,11 @@ trapezoid bound requires
   \quad\Longrightarrow\quad
   n^2\ge\frac{e}{12\cdot10^{-4}}\approx 2265,\ \ n\ge 47.6 .
 \]
-So $n=48$ suffices. \emph{Check.} The true error of $T_{48}$ is far smaller than $10^{-4}$
-because the bound uses the worst-case $B_2=e$ attained only at $x=1$; the guarantee is
+So $n=48$ suffices. \emph{Check.} The true error of $T_{48}$ is about $6.2\times10^{-5}$,
+below $10^{-4}$ and below the bound $e/(12\cdot48^2)\approx9.8\times10^{-5}$, because the bound
+uses the worst-case $B_2=e$ attained only at $x=1$; the guarantee is
 conservative but safe. By contrast Simpson would need only
-$n\ge(e/(180\cdot10^{-4}))^{1/4}\approx3.6$, i.e.\ $n=4$ --- dramatically fewer. \checkmark
+$n\ge(e/(180\cdot10^{-4}))^{1/4}\approx3.5$, i.e.\ $n=4$ --- dramatically fewer. \checkmark
 \end{wex}
 
 \begin{wex}{NON-example: Simpson is not exact on a quartic}
@@ -13158,7 +13190,7 @@ constant and the estimate tight. \checkmark
   Show $0.6866\le\ln2\le0.6958$ and $0.0013<\frac{1}{768}\le T_4-\ln2\le\frac{1}{96}
   <0.0105$.
 \item Use the Simpson approximation with $n=4$ to evaluate $\ln2=\int_1^2(1/x)\dx$. Show
-  $0.6927\le\ln2\le0.6933$ and $0.000016<\frac{1}{5}\cdot\frac{1}{1920}\le S_4-\ln2\le
+  $0.6927\le\ln2\le0.6933$ and $0.000016<\frac{1}{2^5}\cdot\frac{1}{1920}\le S_4-\ln2\le
   \frac{1}{1920}<0.000521$.
 \item Let $f(x)=(1+x^2)^{-1}$ on $[0,1]$. Show $f''(x)=2(3x^2-1)(1+x^2)^{-3}$ and
   $\abs{f''(x)}\le2$ on $[0,1]$. Use the trapezoidal approximation with $n=4$ to evaluate
@@ -13196,7 +13228,8 @@ constant and the estimate tight. \checkmark
 
 \begin{exers}{Additional exercises.}
 \item Use the midpoint rule $M_4$ to estimate $\int_0^1 e^{-x^2}\dx$ and compare with the
-  trapezoid estimate $T_4$. Which bracket the true value if the integrand is concave?
+  trapezoid estimate $T_4$. Do they bracket the true value, as they must when the integrand is
+  concave?
 \item Show $T_{2n}=\tfrac12(M_n+T_n)$ and $S_{2n}=\tfrac23 M_n+\tfrac13 T_n$ directly from
   the definitions.
 \item For $\int_0^1 x^4\dx$, compute $S_2$ and the exact value; verify the error is nonzero
